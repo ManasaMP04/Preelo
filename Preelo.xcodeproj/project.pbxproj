@@ -8,12 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		621C2C181E750D95008BD57F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621C2C171E750D95008BD57F /* AppDelegate.swift */; };
-		621C2C1A1E750D95008BD57F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621C2C191E750D95008BD57F /* ViewController.swift */; };
-		621C2C1D1E750D95008BD57F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 621C2C1B1E750D95008BD57F /* Main.storyboard */; };
 		621C2C1F1E750D95008BD57F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 621C2C1E1E750D95008BD57F /* Assets.xcassets */; };
 		621C2C221E750D95008BD57F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 621C2C201E750D95008BD57F /* LaunchScreen.storyboard */; };
 		621C2C2D1E750D95008BD57F /* PreeloTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621C2C2C1E750D95008BD57F /* PreeloTests.swift */; };
 		621C2C381E750D95008BD57F /* PreeloUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621C2C371E750D95008BD57F /* PreeloUITests.swift */; };
+		622A8FB71E9D3A1200B34B56 /* AddPatientVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FA31E9D3A1200B34B56 /* AddPatientVC.swift */; };
+		622A8FB81E9D3A1200B34B56 /* AddPatientVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622A8FA41E9D3A1200B34B56 /* AddPatientVC.xib */; };
+		622A8FB91E9D3A1200B34B56 /* AutoLayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FA51E9D3A1200B34B56 /* AutoLayoutHelper.swift */; };
+		622A8FBA1E9D3A1200B34B56 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FA61E9D3A1200B34B56 /* CustomNavigationBar.swift */; };
+		622A8FBB1E9D3A1200B34B56 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FA71E9D3A1200B34B56 /* Extensions.swift */; };
+		622A8FBC1E9D3A1200B34B56 /* FloatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FA81E9D3A1200B34B56 /* FloatingTextField.swift */; };
+		622A8FBD1E9D3A1200B34B56 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FA91E9D3A1200B34B56 /* ForgotPasswordVC.swift */; };
+		622A8FBE1E9D3A1200B34B56 /* LoginDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FAA1E9D3A1200B34B56 /* LoginDetailVC.swift */; };
+		622A8FBF1E9D3A1200B34B56 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FAB1E9D3A1200B34B56 /* LoginVC.swift */; };
+		622A8FC01E9D3A1200B34B56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 622A8FAC1E9D3A1200B34B56 /* Main.storyboard */; };
+		622A8FC11E9D3A1200B34B56 /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FAD1E9D3A1200B34B56 /* MessageVC.swift */; };
+		622A8FC21E9D3A1200B34B56 /* ParentDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FAE1E9D3A1200B34B56 /* ParentDetailVC.swift */; };
+		622A8FC31E9D3A1200B34B56 /* PatientDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FAF1E9D3A1200B34B56 /* PatientDetailVC.swift */; };
+		622A8FC41E9D3A1200B34B56 /* PatientListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB01E9D3A1200B34B56 /* PatientListVC.swift */; };
+		622A8FC51E9D3A1200B34B56 /* PatientListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622A8FB11E9D3A1200B34B56 /* PatientListVC.xib */; };
+		622A8FC61E9D3A1200B34B56 /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB21E9D3A1200B34B56 /* PlistManager.swift */; };
+		622A8FC71E9D3A1200B34B56 /* PreeloTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB31E9D3A1200B34B56 /* PreeloTextField.swift */; };
+		622A8FC81E9D3A1200B34B56 /* ReminderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB41E9D3A1200B34B56 /* ReminderVC.swift */; };
+		622A8FC91E9D3A1200B34B56 /* StaticContentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB51E9D3A1200B34B56 /* StaticContentFile.swift */; };
+		622A8FCA1E9D3A1200B34B56 /* TextValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB61E9D3A1200B34B56 /* TextValidator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,8 +54,6 @@
 /* Begin PBXFileReference section */
 		621C2C141E750D95008BD57F /* Preelo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Preelo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		621C2C171E750D95008BD57F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		621C2C191E750D95008BD57F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		621C2C1C1E750D95008BD57F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		621C2C1E1E750D95008BD57F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		621C2C211E750D95008BD57F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		621C2C231E750D95008BD57F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,6 +63,26 @@
 		621C2C331E750D95008BD57F /* PreeloUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PreeloUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		621C2C371E750D95008BD57F /* PreeloUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreeloUITests.swift; sourceTree = "<group>"; };
 		621C2C391E750D95008BD57F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		622A8FA31E9D3A1200B34B56 /* AddPatientVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPatientVC.swift; sourceTree = "<group>"; };
+		622A8FA41E9D3A1200B34B56 /* AddPatientVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPatientVC.xib; sourceTree = "<group>"; };
+		622A8FA51E9D3A1200B34B56 /* AutoLayoutHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoLayoutHelper.swift; sourceTree = "<group>"; };
+		622A8FA61E9D3A1200B34B56 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
+		622A8FA71E9D3A1200B34B56 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		622A8FA81E9D3A1200B34B56 /* FloatingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingTextField.swift; sourceTree = "<group>"; };
+		622A8FA91E9D3A1200B34B56 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
+		622A8FAA1E9D3A1200B34B56 /* LoginDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginDetailVC.swift; sourceTree = "<group>"; };
+		622A8FAB1E9D3A1200B34B56 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		622A8FAC1E9D3A1200B34B56 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		622A8FAD1E9D3A1200B34B56 /* MessageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
+		622A8FAE1E9D3A1200B34B56 /* ParentDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentDetailVC.swift; sourceTree = "<group>"; };
+		622A8FAF1E9D3A1200B34B56 /* PatientDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientDetailVC.swift; sourceTree = "<group>"; };
+		622A8FB01E9D3A1200B34B56 /* PatientListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientListVC.swift; sourceTree = "<group>"; };
+		622A8FB11E9D3A1200B34B56 /* PatientListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PatientListVC.xib; sourceTree = "<group>"; };
+		622A8FB21E9D3A1200B34B56 /* PlistManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
+		622A8FB31E9D3A1200B34B56 /* PreeloTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreeloTextField.swift; sourceTree = "<group>"; };
+		622A8FB41E9D3A1200B34B56 /* ReminderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderVC.swift; sourceTree = "<group>"; };
+		622A8FB51E9D3A1200B34B56 /* StaticContentFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticContentFile.swift; sourceTree = "<group>"; };
+		622A8FB61E9D3A1200B34B56 /* TextValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextValidator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +134,26 @@
 			isa = PBXGroup;
 			children = (
 				621C2C171E750D95008BD57F /* AppDelegate.swift */,
-				621C2C191E750D95008BD57F /* ViewController.swift */,
-				621C2C1B1E750D95008BD57F /* Main.storyboard */,
+				622A8FA31E9D3A1200B34B56 /* AddPatientVC.swift */,
+				622A8FA41E9D3A1200B34B56 /* AddPatientVC.xib */,
+				622A8FA51E9D3A1200B34B56 /* AutoLayoutHelper.swift */,
+				622A8FA61E9D3A1200B34B56 /* CustomNavigationBar.swift */,
+				622A8FA71E9D3A1200B34B56 /* Extensions.swift */,
+				622A8FA81E9D3A1200B34B56 /* FloatingTextField.swift */,
+				622A8FA91E9D3A1200B34B56 /* ForgotPasswordVC.swift */,
+				622A8FAA1E9D3A1200B34B56 /* LoginDetailVC.swift */,
+				622A8FAB1E9D3A1200B34B56 /* LoginVC.swift */,
+				622A8FAC1E9D3A1200B34B56 /* Main.storyboard */,
+				622A8FAD1E9D3A1200B34B56 /* MessageVC.swift */,
+				622A8FAE1E9D3A1200B34B56 /* ParentDetailVC.swift */,
+				622A8FAF1E9D3A1200B34B56 /* PatientDetailVC.swift */,
+				622A8FB01E9D3A1200B34B56 /* PatientListVC.swift */,
+				622A8FB11E9D3A1200B34B56 /* PatientListVC.xib */,
+				622A8FB21E9D3A1200B34B56 /* PlistManager.swift */,
+				622A8FB31E9D3A1200B34B56 /* PreeloTextField.swift */,
+				622A8FB41E9D3A1200B34B56 /* ReminderVC.swift */,
+				622A8FB51E9D3A1200B34B56 /* StaticContentFile.swift */,
+				622A8FB61E9D3A1200B34B56 /* TextValidator.swift */,
 				621C2C1E1E750D95008BD57F /* Assets.xcassets */,
 				621C2C201E750D95008BD57F /* LaunchScreen.storyboard */,
 				621C2C231E750D95008BD57F /* Info.plist */,
@@ -233,8 +287,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				621C2C221E750D95008BD57F /* LaunchScreen.storyboard in Resources */,
+				622A8FB81E9D3A1200B34B56 /* AddPatientVC.xib in Resources */,
 				621C2C1F1E750D95008BD57F /* Assets.xcassets in Resources */,
-				621C2C1D1E750D95008BD57F /* Main.storyboard in Resources */,
+				622A8FC01E9D3A1200B34B56 /* Main.storyboard in Resources */,
+				622A8FC51E9D3A1200B34B56 /* PatientListVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +315,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				621C2C1A1E750D95008BD57F /* ViewController.swift in Sources */,
+				622A8FBB1E9D3A1200B34B56 /* Extensions.swift in Sources */,
+				622A8FBD1E9D3A1200B34B56 /* ForgotPasswordVC.swift in Sources */,
+				622A8FBC1E9D3A1200B34B56 /* FloatingTextField.swift in Sources */,
+				622A8FC91E9D3A1200B34B56 /* StaticContentFile.swift in Sources */,
+				622A8FBE1E9D3A1200B34B56 /* LoginDetailVC.swift in Sources */,
+				622A8FBA1E9D3A1200B34B56 /* CustomNavigationBar.swift in Sources */,
+				622A8FC41E9D3A1200B34B56 /* PatientListVC.swift in Sources */,
+				622A8FBF1E9D3A1200B34B56 /* LoginVC.swift in Sources */,
+				622A8FC11E9D3A1200B34B56 /* MessageVC.swift in Sources */,
+				622A8FC61E9D3A1200B34B56 /* PlistManager.swift in Sources */,
+				622A8FB91E9D3A1200B34B56 /* AutoLayoutHelper.swift in Sources */,
+				622A8FC81E9D3A1200B34B56 /* ReminderVC.swift in Sources */,
+				622A8FC21E9D3A1200B34B56 /* ParentDetailVC.swift in Sources */,
+				622A8FC31E9D3A1200B34B56 /* PatientDetailVC.swift in Sources */,
+				622A8FB71E9D3A1200B34B56 /* AddPatientVC.swift in Sources */,
+				622A8FCA1E9D3A1200B34B56 /* TextValidator.swift in Sources */,
+				622A8FC71E9D3A1200B34B56 /* PreeloTextField.swift in Sources */,
 				621C2C181E750D95008BD57F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,14 +368,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		621C2C1B1E750D95008BD57F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				621C2C1C1E750D95008BD57F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		621C2C201E750D95008BD57F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -505,6 +569,7 @@
 				621C2C3E1E750D95008BD57F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		621C2C3F1E750D95008BD57F /* Build configuration list for PBXNativeTarget "PreeloTests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +578,7 @@
 				621C2C411E750D95008BD57F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		621C2C421E750D95008BD57F /* Build configuration list for PBXNativeTarget "PreeloUITests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +587,7 @@
 				621C2C441E750D95008BD57F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

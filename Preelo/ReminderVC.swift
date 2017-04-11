@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ReminderVC.swift
 //  Preelo
 //
 //  Created by Manasa MP on 12/03/17.
@@ -8,18 +8,18 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ReminderVC: UIViewController {
 
+    @IBOutlet fileprivate weak var customNavigationBar  : CustomNavigationBar!
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        customNavigationBar.setTitle("Schedule", backButtonImageName: "Back")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+       
     }
-
-
+    
 }
-
