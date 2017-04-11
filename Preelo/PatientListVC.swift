@@ -10,14 +10,13 @@ import UIKit
 
 class PatientListVC: UIViewController {
     
-     @IBOutlet fileprivate weak var customNavigationBar  : CustomNavigationBar!
-    @IBOutlet fileprivate weak var tableView              : UITableView!
+    @IBOutlet fileprivate weak var customNavigationBar  : CustomNavigationBar!
+    @IBOutlet fileprivate weak var tableView            : UITableView!
     
-    fileprivate var patients = [Int]()
+    fileprivate var patients = [[String: String]]()
     
-    init (patients: [Int]) {
+    init () {
         
-        self.patients = patients
         super.init(nibName: "PatientListVC", bundle: nil)
     }
     
@@ -28,12 +27,14 @@ class PatientListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
     }
+    
     @IBAction func addPatient(_ sender: Any) {
         
     }

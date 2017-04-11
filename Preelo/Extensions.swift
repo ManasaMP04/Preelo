@@ -30,6 +30,24 @@ extension UIView {
     }
 }
 
+//MARK:- UINavigationController
+
+extension UINavigationController {
+    
+    func viewControllerWithClass(_ aClass: AnyClass) -> UIViewController? {
+        
+        for vc in self.viewControllers {
+            
+            if vc.isMember(of: aClass) {
+                
+                return vc
+            }
+        }
+        
+        return nil
+    }
+}
+
 extension UIColor {
     
     static func colorWithHex (_ hex : Int, alpha: CGFloat=1.0) -> UIColor {

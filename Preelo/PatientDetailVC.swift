@@ -25,6 +25,11 @@ class PatientDetailVC: UIViewController {
         
     }
     
+    func showParentDetailView(_ dict: [[String: String]]) {
+    
+        addPatientVC.showParentDetailView(dict)
+    }
+    
     fileprivate func callApi() {
         
         if patients.count == 0 {
@@ -34,7 +39,7 @@ class PatientDetailVC: UIViewController {
             addSubViewToView(addPatientVC.view)
         } else {
             
-            patientListVC = PatientListVC(patients: patients)
+            patientListVC = PatientListVC()
             addSubViewToView(patientListVC.view)
         }
     }
@@ -54,17 +59,14 @@ class PatientDetailVC: UIViewController {
 
 extension PatientDetailVC: AddPatientVCDelegate {
     
-    func pushParentDetailVCFromVC(_ addGuestVC: AddPatientVC) {
+    func pushParentDetailVCFromVC(_ addGuestVC: AddPatientVC, parentInfo: [[String: String]], index: Int) {
     
-        performSegue(withIdentifier: "addParentDetail", sender: nil)
+        let parentDetail = ParentDetailVC(parentInfo, index: index)
+        
+        navigationController?.pushViewController(parentDetail, animated: true)
     }
-}
-
-//MARK:- ParentDetailVCDelegate
-
-extension PatientDetailVC: ParentDetailVCDelegate {
     
-    func showParentDetailFromVC(_ parentDetailVC: ParentDetailVC) {
+    func tappedDoneButtonFromVC(_ addGuestVC: AddPatientVC) {
     
     }
 }

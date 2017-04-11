@@ -8,11 +8,6 @@
 
 import UIKit
 
-protocol ParentDetailVCDelegate: class {
-    
-    func showParentDetailFromVC(_ parentDetailVC: ParentDetailVC)
-}
-
 class ParentDetailVC: UIViewController {
     
     @IBOutlet fileprivate weak var relationButton       : UIButton!
@@ -27,8 +22,20 @@ class ParentDetailVC: UIViewController {
     @IBOutlet fileprivate weak var relationship         : UILabel!
     
     fileprivate let pickerData = ["Father", "Mother"]
+    fileprivate var parentList = [[String: String]]()
+    fileprivate var selectedIndex = -1
     
-    weak var delegate: ParentDetailVCDelegate?
+    init (_ parentList: [[String: String]], index: Int) {
+        
+        self.parentList = parentList
+        self.selectedIndex = index
+        
+        super.init(nibName: "ParentDetailVC", bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,29 +47,59 @@ class ParentDetailVC: UIViewController {
         super.didReceiveMemoryWarning()
         
     }
+    
     @IBAction func selectRelationButtonTapped(_ sender: Any) {
         
         pickerViewHeight.constant = 100
     }
     
+    fileprivate func showDefaultValue() {
+        
+        let dict = parentList[selectedIndex]
+        
+        if let fName = dict["ParentFName"], let lname = dict["ParentLName"],
+            let phone = dict["ParentPhoneNo"], let email = dict["Email"] {
+            
+            firstName.text   = fName
+            lastName.text    = lname
+            phoneNumber.text = phone
+            self.email.text  = email
+        }
+    }
+    
     @IBAction func doneButtonTapped(_ sender: Any) {
         
-        if firstName.text != "" && lastName.text != "" && phoneNumber.isValid() && email.isValid() {
+        if firstName.text != "" && lastName.text != "" && phoneNumber.text?.characters.count == 10 && email.text != "" {
             
-            let plistManager = PlistManager()
-            var dict = [String: Any]()
+            var dict = [String: String]()
             dict["ParentFName"]   = firstName.text
             dict["ParentLName"]   = lastName.text
             dict["ParentPhoneNo"] = phoneNumber.text
             dict["Email"]         = email.text
             
-            plistManager.setObject(dict, forKey: "parentDetail", inFile: .parentInfo)
+            if let patientDetailVC = navigationController?.viewControllerWithClass(PatientDetailVC.self) as? PatientDetailVC {
+                
+                if selectedIndex >= 0 {
+                    
+                    parentList.remove(at: selectedIndex)
+                    parentList.insert(dict, at: selectedIndex)
+                } else  {
+                    
+                    parentList.append(dict)
+                }
+                
+                patientDetailVC.showParentDetailView(parentList)
+                _ = navigationController?.popToViewController(patientDetailVC, animated: true)
+            }
+        } else if firstName.text == "" || lastName.text == "" || phoneNumber.text == "" || email.text == "" {
             
-            delegate?.showParentDetailFromVC(self)
-            _ = navigationController?.popViewController(animated: true)
-        } else {
-        
             view.showToast(message: "Please enter the required fields")
+        } else if !phoneNumber.isValid() {
+            
+            view.showToast(message: "Phone number is invalid")
+        } else if !email.isValid() {
+            
+            view.showToast(message: "Email Id is invalid")
         }
     }
     
@@ -80,6 +117,12 @@ class ParentDetailVC: UIViewController {
         lastName.isCompleteBoarder = true
         phoneNumber.isCompleteBoarder = true
         email.isCompleteBoarder = true
+        self.navigationController?.navigationBar.isHidden = true
+        
+        if selectedIndex >= 0 {
+        
+            showDefaultValue()
+        }
     }
 }
 

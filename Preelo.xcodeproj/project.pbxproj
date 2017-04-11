@@ -32,6 +32,11 @@
 		622A8FC81E9D3A1200B34B56 /* ReminderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB41E9D3A1200B34B56 /* ReminderVC.swift */; };
 		622A8FC91E9D3A1200B34B56 /* StaticContentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB51E9D3A1200B34B56 /* StaticContentFile.swift */; };
 		622A8FCA1E9D3A1200B34B56 /* TextValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB61E9D3A1200B34B56 /* TextValidator.swift */; };
+		622A8FCD1E9D500C00B34B56 /* ParentDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FCB1E9D500C00B34B56 /* ParentDetailCell.swift */; };
+		622A8FCE1E9D500C00B34B56 /* ParentDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622A8FCC1E9D500C00B34B56 /* ParentDetailCell.xib */; };
+		622A8FD41E9D632000B34B56 /* ParentDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622A8FD31E9D632000B34B56 /* ParentDetailVC.xib */; };
+		622A8FD71E9D6B3800B34B56 /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FD51E9D6B3800B34B56 /* AlertVC.swift */; };
+		622A8FD81E9D6B3800B34B56 /* AlertVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622A8FD61E9D6B3800B34B56 /* AlertVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +88,11 @@
 		622A8FB41E9D3A1200B34B56 /* ReminderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderVC.swift; sourceTree = "<group>"; };
 		622A8FB51E9D3A1200B34B56 /* StaticContentFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticContentFile.swift; sourceTree = "<group>"; };
 		622A8FB61E9D3A1200B34B56 /* TextValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextValidator.swift; sourceTree = "<group>"; };
+		622A8FCB1E9D500C00B34B56 /* ParentDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentDetailCell.swift; sourceTree = "<group>"; };
+		622A8FCC1E9D500C00B34B56 /* ParentDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParentDetailCell.xib; sourceTree = "<group>"; };
+		622A8FD31E9D632000B34B56 /* ParentDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParentDetailVC.xib; sourceTree = "<group>"; };
+		622A8FD51E9D6B3800B34B56 /* AlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
+		622A8FD61E9D6B3800B34B56 /* AlertVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,26 +144,13 @@
 			isa = PBXGroup;
 			children = (
 				621C2C171E750D95008BD57F /* AppDelegate.swift */,
-				622A8FA31E9D3A1200B34B56 /* AddPatientVC.swift */,
-				622A8FA41E9D3A1200B34B56 /* AddPatientVC.xib */,
-				622A8FA51E9D3A1200B34B56 /* AutoLayoutHelper.swift */,
-				622A8FA61E9D3A1200B34B56 /* CustomNavigationBar.swift */,
-				622A8FA71E9D3A1200B34B56 /* Extensions.swift */,
-				622A8FA81E9D3A1200B34B56 /* FloatingTextField.swift */,
-				622A8FA91E9D3A1200B34B56 /* ForgotPasswordVC.swift */,
-				622A8FAA1E9D3A1200B34B56 /* LoginDetailVC.swift */,
-				622A8FAB1E9D3A1200B34B56 /* LoginVC.swift */,
-				622A8FAC1E9D3A1200B34B56 /* Main.storyboard */,
+				622A8FCF1E9D540400B34B56 /* Extension */,
+				622A8FD11E9D546300B34B56 /* logIn */,
+				622A8FD01E9D542B00B34B56 /* PatientVC */,
+				622A8FD21E9D547E00B34B56 /* parentVC */,
 				622A8FAD1E9D3A1200B34B56 /* MessageVC.swift */,
-				622A8FAE1E9D3A1200B34B56 /* ParentDetailVC.swift */,
-				622A8FAF1E9D3A1200B34B56 /* PatientDetailVC.swift */,
-				622A8FB01E9D3A1200B34B56 /* PatientListVC.swift */,
-				622A8FB11E9D3A1200B34B56 /* PatientListVC.xib */,
-				622A8FB21E9D3A1200B34B56 /* PlistManager.swift */,
-				622A8FB31E9D3A1200B34B56 /* PreeloTextField.swift */,
 				622A8FB41E9D3A1200B34B56 /* ReminderVC.swift */,
-				622A8FB51E9D3A1200B34B56 /* StaticContentFile.swift */,
-				622A8FB61E9D3A1200B34B56 /* TextValidator.swift */,
+				622A8FAC1E9D3A1200B34B56 /* Main.storyboard */,
 				621C2C1E1E750D95008BD57F /* Assets.xcassets */,
 				621C2C201E750D95008BD57F /* LaunchScreen.storyboard */,
 				621C2C231E750D95008BD57F /* Info.plist */,
@@ -177,6 +174,56 @@
 				621C2C391E750D95008BD57F /* Info.plist */,
 			);
 			path = PreeloUITests;
+			sourceTree = "<group>";
+		};
+		622A8FCF1E9D540400B34B56 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				622A8FB21E9D3A1200B34B56 /* PlistManager.swift */,
+				622A8FA61E9D3A1200B34B56 /* CustomNavigationBar.swift */,
+				622A8FA51E9D3A1200B34B56 /* AutoLayoutHelper.swift */,
+				622A8FA71E9D3A1200B34B56 /* Extensions.swift */,
+				622A8FA81E9D3A1200B34B56 /* FloatingTextField.swift */,
+				622A8FB61E9D3A1200B34B56 /* TextValidator.swift */,
+				622A8FB51E9D3A1200B34B56 /* StaticContentFile.swift */,
+				622A8FB31E9D3A1200B34B56 /* PreeloTextField.swift */,
+				622A8FD51E9D6B3800B34B56 /* AlertVC.swift */,
+				622A8FD61E9D6B3800B34B56 /* AlertVC.xib */,
+			);
+			name = Extension;
+			sourceTree = "<group>";
+		};
+		622A8FD01E9D542B00B34B56 /* PatientVC */ = {
+			isa = PBXGroup;
+			children = (
+				622A8FAF1E9D3A1200B34B56 /* PatientDetailVC.swift */,
+				622A8FA31E9D3A1200B34B56 /* AddPatientVC.swift */,
+				622A8FA41E9D3A1200B34B56 /* AddPatientVC.xib */,
+				622A8FCB1E9D500C00B34B56 /* ParentDetailCell.swift */,
+				622A8FCC1E9D500C00B34B56 /* ParentDetailCell.xib */,
+				622A8FB01E9D3A1200B34B56 /* PatientListVC.swift */,
+				622A8FB11E9D3A1200B34B56 /* PatientListVC.xib */,
+			);
+			name = PatientVC;
+			sourceTree = "<group>";
+		};
+		622A8FD11E9D546300B34B56 /* logIn */ = {
+			isa = PBXGroup;
+			children = (
+				622A8FAB1E9D3A1200B34B56 /* LoginVC.swift */,
+				622A8FAA1E9D3A1200B34B56 /* LoginDetailVC.swift */,
+				622A8FA91E9D3A1200B34B56 /* ForgotPasswordVC.swift */,
+			);
+			name = logIn;
+			sourceTree = "<group>";
+		};
+		622A8FD21E9D547E00B34B56 /* parentVC */ = {
+			isa = PBXGroup;
+			children = (
+				622A8FAE1E9D3A1200B34B56 /* ParentDetailVC.swift */,
+				622A8FD31E9D632000B34B56 /* ParentDetailVC.xib */,
+			);
+			name = parentVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,9 +333,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				622A8FD41E9D632000B34B56 /* ParentDetailVC.xib in Resources */,
+				622A8FCE1E9D500C00B34B56 /* ParentDetailCell.xib in Resources */,
 				621C2C221E750D95008BD57F /* LaunchScreen.storyboard in Resources */,
 				622A8FB81E9D3A1200B34B56 /* AddPatientVC.xib in Resources */,
 				621C2C1F1E750D95008BD57F /* Assets.xcassets in Resources */,
+				622A8FD81E9D6B3800B34B56 /* AlertVC.xib in Resources */,
 				622A8FC01E9D3A1200B34B56 /* Main.storyboard in Resources */,
 				622A8FC51E9D3A1200B34B56 /* PatientListVC.xib in Resources */,
 			);
@@ -324,9 +374,11 @@
 				622A8FC41E9D3A1200B34B56 /* PatientListVC.swift in Sources */,
 				622A8FBF1E9D3A1200B34B56 /* LoginVC.swift in Sources */,
 				622A8FC11E9D3A1200B34B56 /* MessageVC.swift in Sources */,
+				622A8FCD1E9D500C00B34B56 /* ParentDetailCell.swift in Sources */,
 				622A8FC61E9D3A1200B34B56 /* PlistManager.swift in Sources */,
 				622A8FB91E9D3A1200B34B56 /* AutoLayoutHelper.swift in Sources */,
 				622A8FC81E9D3A1200B34B56 /* ReminderVC.swift in Sources */,
+				622A8FD71E9D6B3800B34B56 /* AlertVC.swift in Sources */,
 				622A8FC21E9D3A1200B34B56 /* ParentDetailVC.swift in Sources */,
 				622A8FC31E9D3A1200B34B56 /* PatientDetailVC.swift in Sources */,
 				622A8FB71E9D3A1200B34B56 /* AddPatientVC.swift in Sources */,

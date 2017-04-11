@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -19,6 +19,7 @@
                 <outlet property="parentInfoViewHeight" destination="H4C-CA-5Rc" id="OE2-Sr-gUl"/>
                 <outlet property="parentInformationView" destination="p7P-Bs-yzI" id="JAX-AV-uRf"/>
                 <outlet property="tableview" destination="a5o-8G-56d" id="WBF-PZ-ugF"/>
+                <outlet property="tableviewHeight" destination="aOg-bI-oXO" id="274-8u-vIX"/>
                 <outlet property="view" destination="nuI-4f-fDy" id="umV-LX-v4c"/>
             </connections>
         </placeholder>
@@ -74,12 +75,16 @@
                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p7P-Bs-yzI">
                                     <rect key="frame" x="0.0" y="275" width="375" height="0.0"/>
                                     <subviews>
-                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a5o-8G-56d">
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a5o-8G-56d">
                                             <rect key="frame" x="0.0" y="81" width="375" height="200"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="200" id="aOg-bI-oXO"/>
                                             </constraints>
+                                            <connections>
+                                                <outlet property="dataSource" destination="-1" id="qe5-bm-mol"/>
+                                                <outlet property="delegate" destination="-1" id="xmg-IT-KH1"/>
+                                            </connections>
                                         </tableView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buM-FQ-aP7">
                                             <rect key="frame" x="50" y="305" width="275" height="55"/>
