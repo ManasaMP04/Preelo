@@ -1,0 +1,53 @@
+//
+//  SlideOutVC.swift
+//  Preelo
+//
+//  Created by Manasa MP on 14/04/17.
+//  Copyright © 2017 Manasa MP. All rights reserved.
+//
+
+import UIKit
+
+class SlideOutVC: UIViewController {
+
+    @IBOutlet fileprivate weak var slideButton      : UIButton!
+    @IBOutlet fileprivate weak var profileSetting   : UIButton!
+    @IBOutlet fileprivate weak var settings         : UIButton!
+    @IBOutlet fileprivate weak var logOut           : UIButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        logOut.layer.cornerRadius  = logOut.frame.size.width / 11
+        logOut.titleLabel?.font    = StaticContentFile.buttonFont
+        
+        if let image = UIImage(named: "Splash-BG") {
+            
+            view.backgroundColor = UIColor.init(patternImage: image)
+        }
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
+    }
+    
+    @IBAction func slideOutButtonTapped(_ sender: Any) {
+    
+        _ = navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func profileButtonTapped(_ sender: Any) {
+    
+    }
+    
+    @IBAction func settingsButtonTapped(_ sender: Any) {
+    
+    
+    }
+    
+    @IBAction func logoutButtonTapped(_ sender: Any) {
+    
+         _ = navigationController?.popToRootViewController(animated: true)
+    }
+}

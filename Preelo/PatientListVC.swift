@@ -62,7 +62,7 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        return patients.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -70,12 +70,12 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ParentDetailCell.cellId, for: indexPath) as! ParentDetailCell
         cell.delegate = self
         
-//        let dict = patients[indexPath.row]
-//        
-//        if let parentName = dict["ParentFName"] {
-//            
-//            cell.showParentName(parentName, showImage: false)
-//        }
+        let dict = patients[indexPath.row]
+        
+        if let parentName = dict["ParentFName"] {
+            
+            cell.showParentName(parentName, showImage: false)
+        }
         
         return cell
     }

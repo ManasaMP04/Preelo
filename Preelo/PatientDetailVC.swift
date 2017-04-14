@@ -14,10 +14,13 @@ class PatientDetailVC: UIViewController {
     fileprivate var addPatientVC  : AddPatientVC!
     fileprivate var patientListVC : PatientListVC!
     
+    var isDoctorLogIn: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         callApi()
+        
     }
     
     override func didReceiveMemoryWarning() {

@@ -8,10 +8,17 @@
 
 import UIKit
 
+protocol CustomNavigationBarDelegate: class {
+    
+    func tappedBackButtonFromVC(_ customView: CustomNavigationBar)
+}
+
 class CustomNavigationBar: UIView {
     
     fileprivate var backButton  : UIButton!
     fileprivate var titleLabel  : UILabel!
+    
+    weak var delegate : CustomNavigationBarDelegate?
     
     init() {
         
@@ -41,6 +48,11 @@ class CustomNavigationBar: UIView {
         backButton.isHidden = !showBackButton
     }
     
+    @objc fileprivate func backButtonTapped(_ sender: Any) {
+    
+        delegate?.tappedBackButtonFromVC(self)
+    }
+    
     fileprivate func setup() {
         
         self.backgroundColor = UIColor.colorWithHex(0x3CCACC)
@@ -55,6 +67,7 @@ class CustomNavigationBar: UIView {
         AutoLayoutHelper.addVerticalAlignConstraintToView(titleLabel, withCenterOffset: 0)
         
         backButton = UIButton()
+        backButton.addTarget(self, action: #selector(backButtonTapped(_ :)), for: .touchUpInside)
         backButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backButton)
         

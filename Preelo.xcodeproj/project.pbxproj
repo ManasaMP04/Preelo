@@ -38,6 +38,15 @@
 		622A8FD41E9D632000B34B56 /* ParentDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622A8FD31E9D632000B34B56 /* ParentDetailVC.xib */; };
 		622A8FD71E9D6B3800B34B56 /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FD51E9D6B3800B34B56 /* AlertVC.swift */; };
 		622A8FD81E9D6B3800B34B56 /* AlertVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622A8FD61E9D6B3800B34B56 /* AlertVC.xib */; };
+		623D5EDD1EA0BAA200389481 /* SlideOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */; };
+		623D5EE01EA0C52000389481 /* DisplayPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623D5EDF1EA0C52000389481 /* DisplayPhotoVC.swift */; };
+		623D5EE21EA0C81500389481 /* DisplayPhotoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 623D5EE11EA0C81500389481 /* DisplayPhotoVC.xib */; };
+		62E3AB7D1EA101410061802F /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E3AB7B1EA101410061802F /* ChatCell.swift */; };
+		62E3AB7E1EA101410061802F /* ChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB7C1EA101410061802F /* ChatCell.xib */; };
+		62E3AB821EA107530061802F /* DisclaimerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E3AB801EA107530061802F /* DisclaimerVC.swift */; };
+		62E3AB831EA107530061802F /* DisclaimerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB811EA107530061802F /* DisclaimerVC.xib */; };
+		62E3AB861EA10C140061802F /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E3AB841EA10C140061802F /* ChatVC.swift */; };
+		62E3AB871EA10C140061802F /* ChatVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB851EA10C140061802F /* ChatVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +103,15 @@
 		622A8FD31E9D632000B34B56 /* ParentDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParentDetailVC.xib; sourceTree = "<group>"; };
 		622A8FD51E9D6B3800B34B56 /* AlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
 		622A8FD61E9D6B3800B34B56 /* AlertVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertVC.xib; sourceTree = "<group>"; };
+		623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideOutVC.swift; sourceTree = "<group>"; };
+		623D5EDF1EA0C52000389481 /* DisplayPhotoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayPhotoVC.swift; sourceTree = "<group>"; };
+		623D5EE11EA0C81500389481 /* DisplayPhotoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisplayPhotoVC.xib; sourceTree = "<group>"; };
+		62E3AB7B1EA101410061802F /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		62E3AB7C1EA101410061802F /* ChatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatCell.xib; sourceTree = "<group>"; };
+		62E3AB801EA107530061802F /* DisclaimerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclaimerVC.swift; sourceTree = "<group>"; };
+		62E3AB811EA107530061802F /* DisclaimerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisclaimerVC.xib; sourceTree = "<group>"; };
+		62E3AB841EA10C140061802F /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
+		62E3AB851EA10C140061802F /* ChatVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatVC.xib; sourceTree = "<group>"; };
 		841BFB6489E27734BA4F917F /* Pods-Preelo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preelo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Preelo/Pods-Preelo.release.xcconfig"; sourceTree = "<group>"; };
 		A609B1C2189643CD7DF9756B /* Pods_Preelo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Preelo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B609595407FF0E67B98510E1 /* Pods-Preelo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preelo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Preelo/Pods-Preelo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -155,8 +173,9 @@
 				622A8FD11E9D546300B34B56 /* logIn */,
 				622A8FD01E9D542B00B34B56 /* PatientVC */,
 				622A8FD21E9D547E00B34B56 /* parentVC */,
-				622A8FAD1E9D3A1200B34B56 /* MessageVC.swift */,
+				623D5EDE1EA0C4D000389481 /* MessageVC */,
 				622A8FB41E9D3A1200B34B56 /* ReminderVC.swift */,
+				62E3AB7F1EA106CF0061802F /* ChatVC */,
 				622A8FAC1E9D3A1200B34B56 /* Main.storyboard */,
 				621C2C1E1E750D95008BD57F /* Assets.xcassets */,
 				621C2C201E750D95008BD57F /* LaunchScreen.storyboard */,
@@ -231,6 +250,30 @@
 				622A8FD31E9D632000B34B56 /* ParentDetailVC.xib */,
 			);
 			name = parentVC;
+			sourceTree = "<group>";
+		};
+		623D5EDE1EA0C4D000389481 /* MessageVC */ = {
+			isa = PBXGroup;
+			children = (
+				622A8FAD1E9D3A1200B34B56 /* MessageVC.swift */,
+				62E3AB7B1EA101410061802F /* ChatCell.swift */,
+				62E3AB7C1EA101410061802F /* ChatCell.xib */,
+				623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */,
+			);
+			name = MessageVC;
+			sourceTree = "<group>";
+		};
+		62E3AB7F1EA106CF0061802F /* ChatVC */ = {
+			isa = PBXGroup;
+			children = (
+				62E3AB801EA107530061802F /* DisclaimerVC.swift */,
+				62E3AB811EA107530061802F /* DisclaimerVC.xib */,
+				62E3AB841EA10C140061802F /* ChatVC.swift */,
+				62E3AB851EA10C140061802F /* ChatVC.xib */,
+				623D5EDF1EA0C52000389481 /* DisplayPhotoVC.swift */,
+				623D5EE11EA0C81500389481 /* DisplayPhotoVC.xib */,
+			);
+			name = ChatVC;
 			sourceTree = "<group>";
 		};
 		9A70AC1F04C3E9FF45C91C49 /* Frameworks */ = {
@@ -364,8 +407,12 @@
 				622A8FCE1E9D500C00B34B56 /* ParentDetailCell.xib in Resources */,
 				621C2C221E750D95008BD57F /* LaunchScreen.storyboard in Resources */,
 				622A8FB81E9D3A1200B34B56 /* AddPatientVC.xib in Resources */,
+				62E3AB871EA10C140061802F /* ChatVC.xib in Resources */,
 				621C2C1F1E750D95008BD57F /* Assets.xcassets in Resources */,
+				623D5EE21EA0C81500389481 /* DisplayPhotoVC.xib in Resources */,
 				622A8FD81E9D6B3800B34B56 /* AlertVC.xib in Resources */,
+				62E3AB7E1EA101410061802F /* ChatCell.xib in Resources */,
+				62E3AB831EA107530061802F /* DisclaimerVC.xib in Resources */,
 				622A8FC01E9D3A1200B34B56 /* Main.storyboard in Resources */,
 				622A8FC51E9D3A1200B34B56 /* PatientListVC.xib in Resources */,
 			);
@@ -442,18 +489,23 @@
 			files = (
 				622A8FBB1E9D3A1200B34B56 /* Extensions.swift in Sources */,
 				622A8FBD1E9D3A1200B34B56 /* ForgotPasswordVC.swift in Sources */,
+				623D5EE01EA0C52000389481 /* DisplayPhotoVC.swift in Sources */,
 				622A8FBC1E9D3A1200B34B56 /* FloatingTextField.swift in Sources */,
 				622A8FC91E9D3A1200B34B56 /* StaticContentFile.swift in Sources */,
 				622A8FBE1E9D3A1200B34B56 /* LoginDetailVC.swift in Sources */,
 				622A8FBA1E9D3A1200B34B56 /* CustomNavigationBar.swift in Sources */,
 				622A8FC41E9D3A1200B34B56 /* PatientListVC.swift in Sources */,
 				622A8FBF1E9D3A1200B34B56 /* LoginVC.swift in Sources */,
+				62E3AB861EA10C140061802F /* ChatVC.swift in Sources */,
+				62E3AB7D1EA101410061802F /* ChatCell.swift in Sources */,
 				622A8FC11E9D3A1200B34B56 /* MessageVC.swift in Sources */,
+				62E3AB821EA107530061802F /* DisclaimerVC.swift in Sources */,
 				622A8FCD1E9D500C00B34B56 /* ParentDetailCell.swift in Sources */,
 				622A8FC61E9D3A1200B34B56 /* PlistManager.swift in Sources */,
 				622A8FB91E9D3A1200B34B56 /* AutoLayoutHelper.swift in Sources */,
 				622A8FC81E9D3A1200B34B56 /* ReminderVC.swift in Sources */,
 				622A8FD71E9D6B3800B34B56 /* AlertVC.swift in Sources */,
+				623D5EDD1EA0BAA200389481 /* SlideOutVC.swift in Sources */,
 				622A8FC21E9D3A1200B34B56 /* ParentDetailVC.swift in Sources */,
 				622A8FC31E9D3A1200B34B56 /* PatientDetailVC.swift in Sources */,
 				622A8FB71E9D3A1200B34B56 /* AddPatientVC.swift in Sources */,
