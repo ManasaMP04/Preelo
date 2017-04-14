@@ -100,7 +100,7 @@ extension AddPatientVC: UITableViewDelegate, UITableViewDataSource {
         
         if let parentName = dict["ParentFName"] {
             
-            cell.showParentName(parentName)
+            cell.showParentName(parentName, showImage: true)
         }
         
         return cell

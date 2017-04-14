@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1FFF0610CDC78805412E316B /* Pods_Preelo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A609B1C2189643CD7DF9756B /* Pods_Preelo.framework */; };
 		621C2C181E750D95008BD57F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621C2C171E750D95008BD57F /* AppDelegate.swift */; };
 		621C2C1F1E750D95008BD57F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 621C2C1E1E750D95008BD57F /* Assets.xcassets */; };
 		621C2C221E750D95008BD57F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 621C2C201E750D95008BD57F /* LaunchScreen.storyboard */; };
@@ -93,6 +94,9 @@
 		622A8FD31E9D632000B34B56 /* ParentDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParentDetailVC.xib; sourceTree = "<group>"; };
 		622A8FD51E9D6B3800B34B56 /* AlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
 		622A8FD61E9D6B3800B34B56 /* AlertVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertVC.xib; sourceTree = "<group>"; };
+		841BFB6489E27734BA4F917F /* Pods-Preelo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preelo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Preelo/Pods-Preelo.release.xcconfig"; sourceTree = "<group>"; };
+		A609B1C2189643CD7DF9756B /* Pods_Preelo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Preelo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B609595407FF0E67B98510E1 /* Pods-Preelo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preelo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Preelo/Pods-Preelo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FFF0610CDC78805412E316B /* Pods_Preelo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +132,8 @@
 				621C2C2B1E750D95008BD57F /* PreeloTests */,
 				621C2C361E750D95008BD57F /* PreeloUITests */,
 				621C2C151E750D95008BD57F /* Products */,
+				EF5407DDEDA9C8D08039ABC7 /* Pods */,
+				9A70AC1F04C3E9FF45C91C49 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -226,6 +233,23 @@
 			name = parentVC;
 			sourceTree = "<group>";
 		};
+		9A70AC1F04C3E9FF45C91C49 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A609B1C2189643CD7DF9756B /* Pods_Preelo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EF5407DDEDA9C8D08039ABC7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B609595407FF0E67B98510E1 /* Pods-Preelo.debug.xcconfig */,
+				841BFB6489E27734BA4F917F /* Pods-Preelo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -233,9 +257,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 621C2C3C1E750D95008BD57F /* Build configuration list for PBXNativeTarget "Preelo" */;
 			buildPhases = (
+				DB521A83D61CCF7EAFAB6FCE /* [CP] Check Pods Manifest.lock */,
 				621C2C101E750D95008BD57F /* Sources */,
 				621C2C111E750D95008BD57F /* Frameworks */,
 				621C2C121E750D95008BD57F /* Resources */,
+				A72C5C02C2031ECEF897767C /* [CP] Embed Pods Frameworks */,
+				E6600FC8789D199AEBA98F0A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -359,6 +386,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A72C5C02C2031ECEF897767C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Preelo/Pods-Preelo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DB521A83D61CCF7EAFAB6FCE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E6600FC8789D199AEBA98F0A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Preelo/Pods-Preelo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		621C2C101E750D95008BD57F /* Sources */ = {
@@ -526,6 +601,7 @@
 		};
 		621C2C3D1E750D95008BD57F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B609595407FF0E67B98510E1 /* Pods-Preelo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Preelo/Info.plist;
@@ -538,6 +614,7 @@
 		};
 		621C2C3E1E750D95008BD57F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 841BFB6489E27734BA4F917F /* Pods-Preelo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Preelo/Info.plist;

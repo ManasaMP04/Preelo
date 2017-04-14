@@ -15,8 +15,10 @@ protocol ParentDetailCellDelegate: class {
 
 class ParentDetailCell: UITableViewCell {
 
-    @IBOutlet fileprivate weak var parentName   : UILabel!
-    @IBOutlet fileprivate weak var editButton   : UIButton!
+    @IBOutlet fileprivate weak var parentName        : UILabel!
+    @IBOutlet fileprivate weak var editButton        : UIButton!
+    @IBOutlet fileprivate weak var imageViewWidth    : NSLayoutConstraint!
+    @IBOutlet fileprivate weak var imageViewTrailing : NSLayoutConstraint!
     
     weak var delegate: ParentDetailCellDelegate?
     
@@ -33,9 +35,19 @@ class ParentDetailCell: UITableViewCell {
 
     }
     
-    func showParentName(_ name: String) {
+    func showParentName(_ name: String, showImage: Bool) {
     
         parentName.text = name
+        
+        if !showImage {
+        
+            imageViewWidth.constant = 0
+            imageViewTrailing.constant = 0
+        } else {
+        
+            imageViewWidth.constant = 28
+            imageViewTrailing.constant = 10
+        }
     }
     
     @IBAction func editButtonTapped(_ sender: Any) {

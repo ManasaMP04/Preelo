@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,14 +19,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Man-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="wfQ-OD-CbL">
-                        <rect key="frame" x="18" y="8" width="28" height="28"/>
+                        <rect key="frame" x="10" y="8" width="28" height="28"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="8Wh-YL-gtR"/>
                             <constraint firstAttribute="width" constant="28" id="d8M-7G-dk0"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBY-GP-FNy">
-                        <rect key="frame" x="56" y="11" width="42" height="21"/>
+                        <rect key="frame" x="48" y="11" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -48,7 +47,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="iRw-PW-mMI" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="MhC-Ys-WDR"/>
-                    <constraint firstItem="wfQ-OD-CbL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="VrP-0b-MxA"/>
+                    <constraint firstItem="wfQ-OD-CbL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="VrP-0b-MxA"/>
                     <constraint firstItem="CBY-GP-FNy" firstAttribute="centerY" secondItem="wfQ-OD-CbL" secondAttribute="centerY" id="atj-40-JxN"/>
                     <constraint firstItem="wfQ-OD-CbL" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cOD-5V-Zwf"/>
                     <constraint firstAttribute="trailing" secondItem="iRw-PW-mMI" secondAttribute="trailing" id="mkf-7C-hSg"/>
@@ -57,6 +56,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="editButton" destination="iRw-PW-mMI" id="dHx-ef-wZf"/>
+                <outlet property="imageViewTrailing" destination="VrP-0b-MxA" id="sFZ-hn-75b"/>
+                <outlet property="imageViewWidth" destination="d8M-7G-dk0" id="HKM-i4-Zze"/>
                 <outlet property="parentName" destination="CBY-GP-FNy" id="YbY-IA-uCb"/>
             </connections>
         </tableViewCell>
