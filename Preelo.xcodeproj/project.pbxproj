@@ -47,6 +47,13 @@
 		62E3AB831EA107530061802F /* DisclaimerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB811EA107530061802F /* DisclaimerVC.xib */; };
 		62E3AB861EA10C140061802F /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E3AB841EA10C140061802F /* ChatVC.swift */; };
 		62E3AB871EA10C140061802F /* ChatVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB851EA10C140061802F /* ChatVC.xib */; };
+		62E3AB961EA114340061802F /* Ubuntu-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB891EA112C40061802F /* Ubuntu-B.ttf */; };
+		62E3AB971EA114340061802F /* Ubuntu-C.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB8B1EA112C40061802F /* Ubuntu-C.ttf */; };
+		62E3AB981EA114340061802F /* Ubuntu-L.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB8C1EA112C40061802F /* Ubuntu-L.ttf */; };
+		62E3AB991EA114340061802F /* Ubuntu-M.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB8E1EA112C40061802F /* Ubuntu-M.ttf */; };
+		62E3AB9A1EA114340061802F /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB901EA112C40061802F /* Ubuntu-R.ttf */; };
+		62E3AB9B1EA114340061802F /* UbuntuMono-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB921EA112C40061802F /* UbuntuMono-B.ttf */; };
+		62E3AB9C1EA114340061802F /* UbuntuMono-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB941EA112C40061802F /* UbuntuMono-R.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +119,13 @@
 		62E3AB811EA107530061802F /* DisclaimerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisclaimerVC.xib; sourceTree = "<group>"; };
 		62E3AB841EA10C140061802F /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		62E3AB851EA10C140061802F /* ChatVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatVC.xib; sourceTree = "<group>"; };
+		62E3AB891EA112C40061802F /* Ubuntu-B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-B.ttf"; sourceTree = "<group>"; };
+		62E3AB8B1EA112C40061802F /* Ubuntu-C.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-C.ttf"; sourceTree = "<group>"; };
+		62E3AB8C1EA112C40061802F /* Ubuntu-L.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-L.ttf"; sourceTree = "<group>"; };
+		62E3AB8E1EA112C40061802F /* Ubuntu-M.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-M.ttf"; sourceTree = "<group>"; };
+		62E3AB901EA112C40061802F /* Ubuntu-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-R.ttf"; sourceTree = "<group>"; };
+		62E3AB921EA112C40061802F /* UbuntuMono-B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UbuntuMono-B.ttf"; sourceTree = "<group>"; };
+		62E3AB941EA112C40061802F /* UbuntuMono-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UbuntuMono-R.ttf"; sourceTree = "<group>"; };
 		841BFB6489E27734BA4F917F /* Pods-Preelo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preelo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Preelo/Pods-Preelo.release.xcconfig"; sourceTree = "<group>"; };
 		A609B1C2189643CD7DF9756B /* Pods_Preelo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Preelo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B609595407FF0E67B98510E1 /* Pods-Preelo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preelo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Preelo/Pods-Preelo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -215,6 +229,7 @@
 				622A8FB31E9D3A1200B34B56 /* PreeloTextField.swift */,
 				622A8FD51E9D6B3800B34B56 /* AlertVC.swift */,
 				622A8FD61E9D6B3800B34B56 /* AlertVC.xib */,
+				62E3AB881EA112A60061802F /* CustomFont */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -274,6 +289,20 @@
 				623D5EE11EA0C81500389481 /* DisplayPhotoVC.xib */,
 			);
 			name = ChatVC;
+			sourceTree = "<group>";
+		};
+		62E3AB881EA112A60061802F /* CustomFont */ = {
+			isa = PBXGroup;
+			children = (
+				62E3AB891EA112C40061802F /* Ubuntu-B.ttf */,
+				62E3AB8B1EA112C40061802F /* Ubuntu-C.ttf */,
+				62E3AB8C1EA112C40061802F /* Ubuntu-L.ttf */,
+				62E3AB8E1EA112C40061802F /* Ubuntu-M.ttf */,
+				62E3AB901EA112C40061802F /* Ubuntu-R.ttf */,
+				62E3AB921EA112C40061802F /* UbuntuMono-B.ttf */,
+				62E3AB941EA112C40061802F /* UbuntuMono-R.ttf */,
+			);
+			name = CustomFont;
 			sourceTree = "<group>";
 		};
 		9A70AC1F04C3E9FF45C91C49 /* Frameworks */ = {
@@ -403,6 +432,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62E3AB961EA114340061802F /* Ubuntu-B.ttf in Resources */,
+				62E3AB971EA114340061802F /* Ubuntu-C.ttf in Resources */,
+				62E3AB981EA114340061802F /* Ubuntu-L.ttf in Resources */,
+				62E3AB991EA114340061802F /* Ubuntu-M.ttf in Resources */,
+				62E3AB9A1EA114340061802F /* Ubuntu-R.ttf in Resources */,
+				62E3AB9B1EA114340061802F /* UbuntuMono-B.ttf in Resources */,
+				62E3AB9C1EA114340061802F /* UbuntuMono-R.ttf in Resources */,
 				622A8FD41E9D632000B34B56 /* ParentDetailVC.xib in Resources */,
 				622A8FCE1E9D500C00B34B56 /* ParentDetailCell.xib in Resources */,
 				621C2C221E750D95008BD57F /* LaunchScreen.storyboard in Resources */,

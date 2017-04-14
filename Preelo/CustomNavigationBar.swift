@@ -49,7 +49,7 @@ class CustomNavigationBar: UIView {
     }
     
     @objc fileprivate func backButtonTapped(_ sender: Any) {
-    
+        
         delegate?.tappedBackButtonFromVC(self)
     }
     
@@ -57,23 +57,23 @@ class CustomNavigationBar: UIView {
         
         self.backgroundColor = UIColor.colorWithHex(0x3CCACC)
         
-        titleLabel = UILabel()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(titleLabel)
-        titleLabel.textColor = UIColor.white
-        titleLabel.font = UIFont.systemFont(ofSize: 13)
-        
-        AutoLayoutHelper.addHorizontalAlignConstraintToView(titleLabel, withCenterOffset: 0)
-        AutoLayoutHelper.addVerticalAlignConstraintToView(titleLabel, withCenterOffset: 0)
-        
         backButton = UIButton()
         backButton.addTarget(self, action: #selector(backButtonTapped(_ :)), for: .touchUpInside)
         backButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backButton)
         
         AutoLayoutHelper.addLeadingSpaceConstraintToView(backButton, leadingSpace: 15)
-        AutoLayoutHelper.addTopSpaceConstraintToView(backButton, topSpace: 0)
+        AutoLayoutHelper.addTopSpaceConstraintToView(backButton, topSpace: 20)
         AutoLayoutHelper.addBottomSpaceConstraintToView(backButton, bottomSpace: 0)
         AutoLayoutHelper.addWidthConstraintToView(backButton, value: 45)
+        
+        titleLabel = UILabel()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(titleLabel)
+        titleLabel.textColor = UIColor.white
+        titleLabel.font = UIFont(name: "Ubuntu-Medium", size: 15)
+        
+        AutoLayoutHelper.addHorizontalAlignConstraintToView(titleLabel, withCenterOffset: 0)
+        AutoLayoutHelper.addVerticalSpaceConstraintBetweenViews(backButton, bottomView: titleLabel, verticalSpace: 0)
     }
 }

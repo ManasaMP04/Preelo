@@ -10,5 +10,5 @@ import UIKit
 
 struct StaticContentFile {
     
-    static let buttonFont = UIFont.systemFont(ofSize: 12)
+    static let buttonFont = UIFont(name: "Ubuntu-Bold", size: 15)!
 }

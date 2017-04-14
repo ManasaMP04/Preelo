@@ -24,6 +24,16 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Ubuntu-B.ttf</string>
+		<string>Ubuntu-C.ttf</string>
+		<string>Ubuntu-L.ttf</string>
+		<string>Ubuntu-M.ttf</string>
+		<string>Ubuntu-R.ttf</string>
+		<string>UbuntuMono-B.ttf</string>
+		<string>UbuntuMono-R.ttf</string>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
