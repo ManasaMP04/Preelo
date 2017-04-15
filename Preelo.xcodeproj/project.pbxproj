@@ -28,7 +28,6 @@
 		622A8FC31E9D3A1200B34B56 /* PatientDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FAF1E9D3A1200B34B56 /* PatientDetailVC.swift */; };
 		622A8FC41E9D3A1200B34B56 /* PatientListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB01E9D3A1200B34B56 /* PatientListVC.swift */; };
 		622A8FC51E9D3A1200B34B56 /* PatientListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622A8FB11E9D3A1200B34B56 /* PatientListVC.xib */; };
-		622A8FC61E9D3A1200B34B56 /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB21E9D3A1200B34B56 /* PlistManager.swift */; };
 		622A8FC71E9D3A1200B34B56 /* PreeloTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB31E9D3A1200B34B56 /* PreeloTextField.swift */; };
 		622A8FC81E9D3A1200B34B56 /* ReminderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB41E9D3A1200B34B56 /* ReminderVC.swift */; };
 		622A8FC91E9D3A1200B34B56 /* StaticContentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB51E9D3A1200B34B56 /* StaticContentFile.swift */; };
@@ -41,6 +40,15 @@
 		623D5EDD1EA0BAA200389481 /* SlideOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */; };
 		623D5EE01EA0C52000389481 /* DisplayPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623D5EDF1EA0C52000389481 /* DisplayPhotoVC.swift */; };
 		623D5EE21EA0C81500389481 /* DisplayPhotoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 623D5EE11EA0C81500389481 /* DisplayPhotoVC.xib */; };
+		629E4E891EA29C1600F280AD /* logIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E881EA29C1600F280AD /* logIn.swift */; };
+		629E4E8B1EA29C8800F280AD /* LogInDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E8A1EA29C8800F280AD /* LogInDetail.swift */; };
+		629E4E8D1EA29FD200F280AD /* PatientRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E8C1EA29FD200F280AD /* PatientRouter.swift */; };
+		629E4E8F1EA2A41C00F280AD /* ForgotPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E8E1EA2A41C00F280AD /* ForgotPassword.swift */; };
+		629E4E931EA2AABB00F280AD /* Patients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E921EA2AABB00F280AD /* Patients.swift */; };
+		629E4E951EA2AB7300F280AD /* PatientList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E941EA2AB7300F280AD /* PatientList.swift */; };
+		629E4E971EA2AB7F00F280AD /* familyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E961EA2AB7F00F280AD /* familyList.swift */; };
+		62ACD5051EA125D1000B0EDE /* NetworkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5041EA125D1000B0EDE /* NetworkURL.swift */; };
+		62ACD5081EA129BF000B0EDE /* LogInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5071EA129BF000B0EDE /* LogInRouter.swift */; };
 		62E3AB7D1EA101410061802F /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E3AB7B1EA101410061802F /* ChatCell.swift */; };
 		62E3AB7E1EA101410061802F /* ChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB7C1EA101410061802F /* ChatCell.xib */; };
 		62E3AB821EA107530061802F /* DisclaimerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E3AB801EA107530061802F /* DisclaimerVC.swift */; };
@@ -100,7 +108,6 @@
 		622A8FAF1E9D3A1200B34B56 /* PatientDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientDetailVC.swift; sourceTree = "<group>"; };
 		622A8FB01E9D3A1200B34B56 /* PatientListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientListVC.swift; sourceTree = "<group>"; };
 		622A8FB11E9D3A1200B34B56 /* PatientListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PatientListVC.xib; sourceTree = "<group>"; };
-		622A8FB21E9D3A1200B34B56 /* PlistManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
 		622A8FB31E9D3A1200B34B56 /* PreeloTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreeloTextField.swift; sourceTree = "<group>"; };
 		622A8FB41E9D3A1200B34B56 /* ReminderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderVC.swift; sourceTree = "<group>"; };
 		622A8FB51E9D3A1200B34B56 /* StaticContentFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticContentFile.swift; sourceTree = "<group>"; };
@@ -113,6 +120,15 @@
 		623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideOutVC.swift; sourceTree = "<group>"; };
 		623D5EDF1EA0C52000389481 /* DisplayPhotoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayPhotoVC.swift; sourceTree = "<group>"; };
 		623D5EE11EA0C81500389481 /* DisplayPhotoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisplayPhotoVC.xib; sourceTree = "<group>"; };
+		629E4E881EA29C1600F280AD /* logIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = logIn.swift; sourceTree = "<group>"; };
+		629E4E8A1EA29C8800F280AD /* LogInDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInDetail.swift; sourceTree = "<group>"; };
+		629E4E8C1EA29FD200F280AD /* PatientRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientRouter.swift; sourceTree = "<group>"; };
+		629E4E8E1EA2A41C00F280AD /* ForgotPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPassword.swift; sourceTree = "<group>"; };
+		629E4E921EA2AABB00F280AD /* Patients.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patients.swift; sourceTree = "<group>"; };
+		629E4E941EA2AB7300F280AD /* PatientList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientList.swift; sourceTree = "<group>"; };
+		629E4E961EA2AB7F00F280AD /* familyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = familyList.swift; sourceTree = "<group>"; };
+		62ACD5041EA125D1000B0EDE /* NetworkURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkURL.swift; sourceTree = "<group>"; };
+		62ACD5071EA129BF000B0EDE /* LogInRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInRouter.swift; sourceTree = "<group>"; };
 		62E3AB7B1EA101410061802F /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		62E3AB7C1EA101410061802F /* ChatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatCell.xib; sourceTree = "<group>"; };
 		62E3AB801EA107530061802F /* DisclaimerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclaimerVC.swift; sourceTree = "<group>"; };
@@ -184,12 +200,14 @@
 			children = (
 				621C2C171E750D95008BD57F /* AppDelegate.swift */,
 				622A8FCF1E9D540400B34B56 /* Extension */,
+				629E4E871EA29BF700F280AD /* Models */,
 				622A8FD11E9D546300B34B56 /* logIn */,
 				622A8FD01E9D542B00B34B56 /* PatientVC */,
 				622A8FD21E9D547E00B34B56 /* parentVC */,
 				623D5EDE1EA0C4D000389481 /* MessageVC */,
 				622A8FB41E9D3A1200B34B56 /* ReminderVC.swift */,
 				62E3AB7F1EA106CF0061802F /* ChatVC */,
+				62ACD5061EA1292A000B0EDE /* Network */,
 				622A8FAC1E9D3A1200B34B56 /* Main.storyboard */,
 				621C2C1E1E750D95008BD57F /* Assets.xcassets */,
 				621C2C201E750D95008BD57F /* LaunchScreen.storyboard */,
@@ -219,7 +237,6 @@
 		622A8FCF1E9D540400B34B56 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				622A8FB21E9D3A1200B34B56 /* PlistManager.swift */,
 				622A8FA61E9D3A1200B34B56 /* CustomNavigationBar.swift */,
 				622A8FA51E9D3A1200B34B56 /* AutoLayoutHelper.swift */,
 				622A8FA71E9D3A1200B34B56 /* Extensions.swift */,
@@ -276,6 +293,29 @@
 				623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */,
 			);
 			name = MessageVC;
+			sourceTree = "<group>";
+		};
+		629E4E871EA29BF700F280AD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				629E4E881EA29C1600F280AD /* logIn.swift */,
+				629E4E8A1EA29C8800F280AD /* LogInDetail.swift */,
+				629E4E8E1EA2A41C00F280AD /* ForgotPassword.swift */,
+				629E4E921EA2AABB00F280AD /* Patients.swift */,
+				629E4E941EA2AB7300F280AD /* PatientList.swift */,
+				629E4E961EA2AB7F00F280AD /* familyList.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		62ACD5061EA1292A000B0EDE /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				62ACD5041EA125D1000B0EDE /* NetworkURL.swift */,
+				62ACD5071EA129BF000B0EDE /* LogInRouter.swift */,
+				629E4E8C1EA29FD200F280AD /* PatientRouter.swift */,
+			);
+			name = Network;
 			sourceTree = "<group>";
 		};
 		62E3AB7F1EA106CF0061802F /* ChatVC */ = {
@@ -524,28 +564,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				622A8FBB1E9D3A1200B34B56 /* Extensions.swift in Sources */,
+				629E4E8B1EA29C8800F280AD /* LogInDetail.swift in Sources */,
 				622A8FBD1E9D3A1200B34B56 /* ForgotPasswordVC.swift in Sources */,
 				623D5EE01EA0C52000389481 /* DisplayPhotoVC.swift in Sources */,
 				622A8FBC1E9D3A1200B34B56 /* FloatingTextField.swift in Sources */,
+				629E4E971EA2AB7F00F280AD /* familyList.swift in Sources */,
 				622A8FC91E9D3A1200B34B56 /* StaticContentFile.swift in Sources */,
 				622A8FBE1E9D3A1200B34B56 /* LoginDetailVC.swift in Sources */,
 				622A8FBA1E9D3A1200B34B56 /* CustomNavigationBar.swift in Sources */,
 				622A8FC41E9D3A1200B34B56 /* PatientListVC.swift in Sources */,
+				629E4E931EA2AABB00F280AD /* Patients.swift in Sources */,
 				622A8FBF1E9D3A1200B34B56 /* LoginVC.swift in Sources */,
 				62E3AB861EA10C140061802F /* ChatVC.swift in Sources */,
 				62E3AB7D1EA101410061802F /* ChatCell.swift in Sources */,
 				622A8FC11E9D3A1200B34B56 /* MessageVC.swift in Sources */,
 				62E3AB821EA107530061802F /* DisclaimerVC.swift in Sources */,
 				622A8FCD1E9D500C00B34B56 /* ParentDetailCell.swift in Sources */,
-				622A8FC61E9D3A1200B34B56 /* PlistManager.swift in Sources */,
+				629E4E891EA29C1600F280AD /* logIn.swift in Sources */,
 				622A8FB91E9D3A1200B34B56 /* AutoLayoutHelper.swift in Sources */,
 				622A8FC81E9D3A1200B34B56 /* ReminderVC.swift in Sources */,
 				622A8FD71E9D6B3800B34B56 /* AlertVC.swift in Sources */,
+				629E4E8F1EA2A41C00F280AD /* ForgotPassword.swift in Sources */,
 				623D5EDD1EA0BAA200389481 /* SlideOutVC.swift in Sources */,
 				622A8FC21E9D3A1200B34B56 /* ParentDetailVC.swift in Sources */,
+				629E4E8D1EA29FD200F280AD /* PatientRouter.swift in Sources */,
 				622A8FC31E9D3A1200B34B56 /* PatientDetailVC.swift in Sources */,
 				622A8FB71E9D3A1200B34B56 /* AddPatientVC.swift in Sources */,
+				62ACD5051EA125D1000B0EDE /* NetworkURL.swift in Sources */,
 				622A8FCA1E9D3A1200B34B56 /* TextValidator.swift in Sources */,
+				62ACD5081EA129BF000B0EDE /* LogInRouter.swift in Sources */,
+				629E4E951EA2AB7300F280AD /* PatientList.swift in Sources */,
 				622A8FC71E9D3A1200B34B56 /* PreeloTextField.swift in Sources */,
 				621C2C181E750D95008BD57F /* AppDelegate.swift in Sources */,
 			);

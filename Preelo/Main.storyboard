@@ -359,7 +359,7 @@
                                 <rect key="frame" x="0.0" y="60" width="320" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHO-Nt-Vys">
-                                        <rect key="frame" x="0.0" y="0.0" width="125" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="60"/>
                                         <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="16"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="MESSAGES">
@@ -370,7 +370,8 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryb-yl-gBd">
-                                        <rect key="frame" x="125" y="0.0" width="195" height="60"/>
+                                        <rect key="frame" x="120" y="0.0" width="200" height="60"/>
+                                        <color key="backgroundColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="0.15140845070422534" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
                                         <state key="normal" title="AUTHORIZATION REQUESTS">
                                             <color key="titleColor" red="0.65490196079999996" green="0.66274509800000003" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -387,7 +388,7 @@
                                     <constraint firstAttribute="bottom" secondItem="ryb-yl-gBd" secondAttribute="bottom" id="Ccm-N7-sRr"/>
                                     <constraint firstItem="HHO-Nt-Vys" firstAttribute="leading" secondItem="7M5-WT-u8G" secondAttribute="leading" id="L6C-uh-bgX"/>
                                     <constraint firstAttribute="height" constant="60" id="hBY-G4-1yQ"/>
-                                    <constraint firstItem="ryb-yl-gBd" firstAttribute="width" secondItem="HHO-Nt-Vys" secondAttribute="width" constant="70" id="iOc-P7-7a2"/>
+                                    <constraint firstItem="ryb-yl-gBd" firstAttribute="width" secondItem="HHO-Nt-Vys" secondAttribute="width" constant="80" id="iOc-P7-7a2"/>
                                     <constraint firstAttribute="bottom" secondItem="HHO-Nt-Vys" secondAttribute="bottom" id="jH7-Ez-Dfw"/>
                                     <constraint firstAttribute="trailing" secondItem="ryb-yl-gBd" secondAttribute="trailing" id="pIE-1b-xfr"/>
                                     <constraint firstItem="ryb-yl-gBd" firstAttribute="top" secondItem="7M5-WT-u8G" secondAttribute="top" id="tAP-dX-82K"/>
@@ -474,7 +475,7 @@
             </objects>
             <point key="canvasLocation" x="2374" y="24"/>
         </scene>
-        <!--Patient DetailVC-->
+        <!--Item-->
         <scene sceneID="UYL-b7-9fR">
             <objects>
                 <viewController storyboardIdentifier="AddPatientVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iS0-gO-1Gg" customClass="PatientDetailVC" customModule="Preelo" customModuleProvider="target" sceneMemberID="viewController">
@@ -487,11 +488,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" image="Patient" selectedImage="Patient-Active" id="jCc-dw-zK0"/>
                     <navigationItem key="navigationItem" id="9cY-bN-3bt"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XBM-TU-hwK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3803" y="-31"/>
+            <point key="canvasLocation" x="3083" y="24"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="nPZ-3f-q9C">
@@ -505,7 +507,7 @@
                     <connections>
                         <segue destination="fAo-Np-iZa" kind="relationship" relationship="viewControllers" id="lOH-lN-E9w"/>
                         <segue destination="FbO-Ta-j5u" kind="relationship" relationship="viewControllers" id="snb-CP-ISY"/>
-                        <segue destination="ITV-yb-wjI" kind="relationship" relationship="viewControllers" id="SVS-W3-j7R"/>
+                        <segue destination="iS0-gO-1Gg" kind="relationship" relationship="viewControllers" id="8fZ-fn-mBq"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Omd-p5-Cvc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -629,25 +631,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FyG-Ht-io6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-39.200000000000003" y="-546.47676161919048"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="2dy-nV-5ee">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ITV-yb-wjI" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="Patient" selectedImage="Patient-Active" id="thO-UU-bKf"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pmn-z2-xaN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="iS0-gO-1Gg" kind="relationship" relationship="rootViewController" id="1Az-fm-5sR"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UV2-im-f7E" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3101.25" y="-31.25"/>
         </scene>
     </scenes>
     <resources>

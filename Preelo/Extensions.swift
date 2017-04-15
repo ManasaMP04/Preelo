@@ -61,3 +61,22 @@ extension UIColor {
         return UIColor(red: cmp.r, green: cmp.g, blue: cmp.b, alpha: alpha)
     }
 }
+
+extension UIActivityIndicatorView {
+
+    static func activityIndicatorToView(_ view: UIView) -> UIActivityIndicatorView {
+    
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityIndicator.backgroundColor = UIColor.lightGray
+        
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
+        
+        AutoLayoutHelper.addHorizontalAlignConstraintToView(activityIndicator, withCenterOffset: 0)
+        AutoLayoutHelper.addVerticalAlignConstraintToView(activityIndicator, withCenterOffset: 0)
+        AutoLayoutHelper.addWidthConstraintToView(activityIndicator, value: 60)
+        AutoLayoutHelper.addHeightConstraintToView(activityIndicator, value: 60)
+        
+        return activityIndicator
+    }
+}

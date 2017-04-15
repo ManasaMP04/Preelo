@@ -6,7 +6,9 @@
 //  Copyright © 2017 Manasa MP. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import AlamofireObjectMapper
+import Alamofire
 
 class LoginDetailVC: UIViewController {
     
@@ -15,6 +17,8 @@ class LoginDetailVC: UIViewController {
     @IBOutlet fileprivate weak var login            : UIButton!
     @IBOutlet fileprivate weak var profileImageView : UIImageView!
     @IBOutlet fileprivate weak var titleLabel       : UILabel!
+    
+    fileprivate var activityIndicator: UIActivityIndicatorView?
     
     var isDoctorLogIn: Bool = false
     
@@ -41,11 +45,15 @@ extension LoginDetailVC {
     
     @IBAction func loginButtonTapped(_ sender: Any) {
         
-        performSegue(withIdentifier: "loginSuccess", sender: nil)
+        //        performSegue(withIdentifier: "loginSuccess", sender: nil)
         
-        if userName.isValid() && password.isValid() {
+        if let email = userName.text, let password = password.text,
+            email.characters.count > 0, password.characters.count > 0 {
             
-            performSegue(withIdentifier: "loginSuccess", sender: nil)
+            isDoctorLogIn ? callLogiApi(email, password: password, urlRequest: LogInRouter.doc_post(email, password)) : callLogiApi(email, password: password, urlRequest: LogInRouter.post(email, password))
+        } else {
+            
+            view.showToast(message: "Please enter the required fields")
         }
     }
 }
@@ -76,14 +84,42 @@ extension LoginDetailVC {
         login.layer.cornerRadius  = login.frame.size.width / 11
         login.titleLabel?.font    = StaticContentFile.buttonFont
         
-        if isDoctorLogIn {
+        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         
+        if isDoctorLogIn {
+            
             titleLabel.text        = "Hello Doctor!"
             profileImageView.image = UIImage(named: "Doctor-with-shadow")
         } else {
-        
+            
             titleLabel.text        = "Hello Patient"
             profileImageView.image = UIImage(named: "Patient")
+        }
+    }
+    
+    
+    fileprivate func callLogiApi(_ email: String, password: String,  urlRequest: URLRequestConvertible){
+        
+        activityIndicator?.startAnimating()
+        
+        Alamofire.request(urlRequest)
+            .responseObject { (response: DataResponse<logIn>) in
+                
+                self.activityIndicator?.stopAnimating()
+                
+                if let result = response.result.value, result.status == "SUCCESS",
+                    let loginDetail = result.loginDetail {
+                    
+                    let defaults = UserDefaults.standard
+                    defaults.set(result.token, forKey: "token")
+                    self.isDoctorLogIn ? defaults.set(loginDetail.doctorid, forKey: "id") : defaults.set(loginDetail.id, forKey: "id")
+                    defaults.set(self.isDoctorLogIn, forKey: "isDoctorLogIn")
+                    self.performSegue(withIdentifier: "loginSuccess", sender: nil)
+                }
+                else {
+                    
+                    self.view.showToast(message: "Login failed")
+                }
         }
     }
 }

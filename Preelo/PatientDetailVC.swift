@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AlamofireObjectMapper
+import Alamofire
 
 class PatientDetailVC: UIViewController {
     
@@ -14,6 +16,7 @@ class PatientDetailVC: UIViewController {
     fileprivate var addPatientVC  : AddPatientVC!
     fileprivate var patientListVC : PatientListVC!
     
+    fileprivate var activityIndicator: UIActivityIndicatorView?
     var isDoctorLogIn: Bool = false
     
     override func viewDidLoad() {
@@ -35,16 +38,38 @@ class PatientDetailVC: UIViewController {
     
     fileprivate func callApi() {
         
-        if patients.count == 0 {
-            
-            addPatientVC = AddPatientVC(false)
-            addPatientVC.delegate = self
-            addSubViewToView(addPatientVC.view)
-        } else {
-            
-            patientListVC = PatientListVC()
-            addSubViewToView(patientListVC.view)
+        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+        
+        activityIndicator?.startAnimating()
+        
+        Alamofire.request(PatientRouter.get())
+            .responseObject(keyPath: "data") { (response: DataResponse<Patients>) in
+                
+                self.activityIndicator?.stopAnimating()
+                
+                if let result = response.result.value, result.patientList.count > 0 {
+                    
+                    self.addPatientVC = AddPatientVC(false)
+                    self.addPatientVC.delegate = self
+                    self.addSubViewToView(self.addPatientVC.view)
+                }
+                else {
+                    
+                    self.patientListVC = PatientListVC()
+                    self.addSubViewToView(self.patientListVC.view)
+                }
         }
+
+//        if patients.count == 0 {
+//            
+//            addPatientVC = AddPatientVC(false)
+//            addPatientVC.delegate = self
+//            addSubViewToView(addPatientVC.view)
+//        } else {
+//            
+//            patientListVC = PatientListVC()
+//            addSubViewToView(patientListVC.view)
+//        }
     }
     
     fileprivate func addSubViewToView(_ subView : UIView) {
