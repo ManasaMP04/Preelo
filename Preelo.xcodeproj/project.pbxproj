@@ -53,6 +53,7 @@
 		629E4E971EA2AB7F00F280AD /* familyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E961EA2AB7F00F280AD /* familyList.swift */; };
 		62ACD5051EA125D1000B0EDE /* NetworkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5041EA125D1000B0EDE /* NetworkURL.swift */; };
 		62ACD5081EA129BF000B0EDE /* LogInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5071EA129BF000B0EDE /* LogInRouter.swift */; };
+		62D432811EA3C08F005FA616 /* LogoutRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D432801EA3C08F005FA616 /* LogoutRouter.swift */; };
 		62E3AB7D1EA101410061802F /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E3AB7B1EA101410061802F /* ChatCell.swift */; };
 		62E3AB7E1EA101410061802F /* ChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB7C1EA101410061802F /* ChatCell.xib */; };
 		62E3AB821EA107530061802F /* DisclaimerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E3AB801EA107530061802F /* DisclaimerVC.swift */; };
@@ -137,6 +138,7 @@
 		629E4E961EA2AB7F00F280AD /* familyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = familyList.swift; sourceTree = "<group>"; };
 		62ACD5041EA125D1000B0EDE /* NetworkURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkURL.swift; sourceTree = "<group>"; };
 		62ACD5071EA129BF000B0EDE /* LogInRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInRouter.swift; sourceTree = "<group>"; };
+		62D432801EA3C08F005FA616 /* LogoutRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutRouter.swift; sourceTree = "<group>"; };
 		62E3AB7B1EA101410061802F /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		62E3AB7C1EA101410061802F /* ChatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatCell.xib; sourceTree = "<group>"; };
 		62E3AB801EA107530061802F /* DisclaimerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclaimerVC.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				62ACD5071EA129BF000B0EDE /* LogInRouter.swift */,
 				629E4E8C1EA29FD200F280AD /* PatientRouter.swift */,
 				626AB1441EA365FE001271D3 /* DoctorListRouter.swift */,
+				62D432801EA3C08F005FA616 /* LogoutRouter.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -607,6 +610,7 @@
 				622A8FC31E9D3A1200B34B56 /* PatientDetailVC.swift in Sources */,
 				622A8FB71E9D3A1200B34B56 /* AddPatientVC.swift in Sources */,
 				62ACD5051EA125D1000B0EDE /* NetworkURL.swift in Sources */,
+				62D432811EA3C08F005FA616 /* LogoutRouter.swift in Sources */,
 				622A8FCA1E9D3A1200B34B56 /* TextValidator.swift in Sources */,
 				62ACD5081EA129BF000B0EDE /* LogInRouter.swift in Sources */,
 				629E4E951EA2AB7300F280AD /* PatientList.swift in Sources */,

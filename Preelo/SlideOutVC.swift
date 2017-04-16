@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AlamofireObjectMapper
+import Alamofire
 
 class SlideOutVC: UIViewController {
 
@@ -48,6 +50,13 @@ class SlideOutVC: UIViewController {
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
     
-         _ = navigationController?.popToRootViewController(animated: true)
+        Alamofire.request(LogoutRouter.post())
+            .responseObject { (response: DataResponse<logOut>) in
+                
+                if let _ = response.result.value {
+                    
+                    StaticContentFile.removeAllKeys()
+                    _ = self.navigationController?.popToRootViewController(animated: true)
+                }}
     }
 }

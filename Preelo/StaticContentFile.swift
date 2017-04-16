@@ -41,4 +41,11 @@ class StaticContentFile: NSObject {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: email)
     }
+    
+    static func removeAllKeys() {
+    
+        defaults.removeObject(forKey: "isDoctorLogIn")
+        defaults.removeObject(forKey: "token")
+        defaults.removeObject(forKey: "id")
+    }
 }

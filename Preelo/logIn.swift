@@ -27,3 +27,19 @@ class logIn: Mappable {
         loginDetail         <- map["data"]
     }
 }
+
+class logOut: Mappable {
+    
+    var message         = ""
+    var status          = ""
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        
+        message             <- map["message"]
+        status              <- map["status"]
+    }
+}
