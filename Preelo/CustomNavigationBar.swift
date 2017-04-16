@@ -40,7 +40,7 @@ class CustomNavigationBar: UIView {
         setup()
     }
     
-    func setTitle(_ title: String, backButtonImageName name: String, showBackButton: Bool = true) {
+    func setTitle(_ title: String, backButtonImageName name: String = "Back", showBackButton: Bool = true) {
         
         titleLabel.text = title
         backButton.setImage(UIImage(named: name), for: .normal)
@@ -57,16 +57,6 @@ class CustomNavigationBar: UIView {
         
         self.backgroundColor = UIColor.colorWithHex(0x3CCACC)
         
-        backButton = UIButton()
-        backButton.addTarget(self, action: #selector(backButtonTapped(_ :)), for: .touchUpInside)
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(backButton)
-        
-        AutoLayoutHelper.addLeadingSpaceConstraintToView(backButton, leadingSpace: 15)
-        AutoLayoutHelper.addTopSpaceConstraintToView(backButton, topSpace: 20)
-        AutoLayoutHelper.addBottomSpaceConstraintToView(backButton, bottomSpace: 0)
-        AutoLayoutHelper.addWidthConstraintToView(backButton, value: 45)
-        
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleLabel)
@@ -74,6 +64,18 @@ class CustomNavigationBar: UIView {
         titleLabel.font = UIFont(name: "Ubuntu-Medium", size: 15)
         
         AutoLayoutHelper.addHorizontalAlignConstraintToView(titleLabel, withCenterOffset: 0)
-        AutoLayoutHelper.addVerticalSpaceConstraintBetweenViews(backButton, bottomView: titleLabel, verticalSpace: 0)
+       AutoLayoutHelper.addTopSpaceConstraintToView(titleLabel, topSpace: 25)
+        
+        backButton = UIButton()
+        backButton.addTarget(self, action: #selector(backButtonTapped(_ :)), for: .touchUpInside)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(backButton)
+        
+        AutoLayoutHelper.addLeadingSpaceConstraintToView(backButton, leadingSpace: 15)
+        AutoLayoutHelper.addVerticalAlignConstraintToView(backButton, withCenterOffset: 5)
+        AutoLayoutHelper.addHeightConstraintToView(backButton, value: 45)
+        AutoLayoutHelper.addWidthConstraintToView(backButton, value: 45)
+        
+       
     }
 }

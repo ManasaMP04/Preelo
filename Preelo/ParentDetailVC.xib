@@ -31,7 +31,7 @@
                 <outlet property="pickerView" destination="BMu-SK-oRR" id="wwI-0M-qgS"/>
                 <outlet property="pickerViewHeight" destination="1DD-Ft-JPW" id="Cei-KW-7n7"/>
                 <outlet property="relationButton" destination="S6E-gC-QXA" id="YjD-2I-udI"/>
-                <outlet property="relationship" destination="04w-rS-yMe" id="Cgh-oq-MYe"/>
+                <outlet property="relationship" destination="ohg-ix-LHS" id="RoR-dU-vKe"/>
                 <outlet property="view" destination="TAC-Ll-abf" id="aZs-Dr-6D0"/>
             </connections>
         </placeholder>

@@ -60,12 +60,15 @@ class PatientListVC: UIViewController {
     
     fileprivate func setup() {
         
+        customNavigationBar.setTitle("Patients")
+        customNavigationBar.delegate = self
+        
         tableView.register(UINib(nibName: "ParentDetailCell", bundle: nil), forCellReuseIdentifier: ParentDetailCell.cellId)
         
         if StaticContentFile.isDoctorLogIn() {
             
             addPatientButton.isHidden = false
-            tableviewBottomConstraint.constant = 110
+            tableviewBottomConstraint.constant = 140
         } else {
             
             addPatientButton.isHidden = true
@@ -91,9 +94,9 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
         if let data = list[indexPath.row] as? PatientList {
             
             cell.showParentName(data.firstname, showImage: false)
-        } else  if let data = list[indexPath.row] as? DoctorList  {
+        } else  if let _ = list[indexPath.row] as? DoctorList  {
             
-            cell.showParentName("", showImage: false)
+            cell.showParentName("", showImage: false, showEdit: false)
         }
         
         return cell
@@ -112,6 +115,14 @@ extension PatientListVC: ParentDetailCellDelegate {
     func parentDetailCell(_ cell: ParentDetailCell) {
         
         delegate?.editButtonTappedFromVC(self)
+    }
+}
+
+extension PatientListVC: CustomNavigationBarDelegate {
+    
+    func tappedBackButtonFromVC(_ customView: CustomNavigationBar) {
+        
+        _ = navigationController?.popViewController(animated: true)
     }
 }
 

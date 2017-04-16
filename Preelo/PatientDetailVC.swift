@@ -1,3 +1,4 @@
+
 //
 //  PatientDetailVC.swift
 //  Preelo
@@ -22,6 +23,8 @@ class PatientDetailVC: UIViewController {
     var doctorDetils  = [DoctorList]()
     var isAPIFetched  = false
     
+    fileprivate var newPatient : PatientList?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,9 +36,9 @@ class PatientDetailVC: UIViewController {
         
     }
     
-    func showParentDetailView(_ dict: [[String: String]]) {
+    func showParentDetailView(_ list: PatientList) {
         
-        addPatientVC.showParentDetailView(dict)
+        addPatientVC.showParentDetailView(list)
     }
 }
 
@@ -43,16 +46,20 @@ class PatientDetailVC: UIViewController {
 
 extension PatientDetailVC: AddPatientVCDelegate {
     
-    func pushParentDetailVCFromVC(_ addGuestVC: AddPatientVC, parentInfo: [[String: String]], index: Int) {
+    func pushParentDetailVCFromVC(_ addGuestVC: AddPatientVC, patientData: PatientList, index: Int) {
         
-        let parentDetail = ParentDetailVC(parentInfo, index: index)
+        let parentDetail = ParentDetailVC(patientData, index: index)
         
         navigationController?.pushViewController(parentDetail, animated: true)
     }
     
-    func tappedDoneButtonFromVC(_ addGuestVC: AddPatientVC) {
+    func tappedDoneButtonFromVC(_ addGuestVC: AddPatientVC, patientList: PatientList) {
+        
+        newPatient = patientList
         
         let alertVC = AlertVC()
+        
+        alertVC.setTitle("New Patient", description: attributeText(withText: patientList.firstname), notificationTitle: "Notification")
         alertVC.delegate = self
         navigationController?.pushViewController(alertVC, animated: true)
     }
@@ -64,11 +71,10 @@ extension PatientDetailVC: AlertVCDelegate {
     
     func tappedDoneButton(_ alertVC: AlertVC) {
         
-        _ = navigationController?.popToRootViewController(animated: true)
-        
-        if addPatientVC != nil {
+        _ = navigationController?.popViewController(animated: true)
+        if let patient = newPatient {
             
-            addPatientVC.view.removeFromSuperview()
+            callAPIToAddPatient(patient)
         }
     }
 }
@@ -79,9 +85,9 @@ extension PatientDetailVC: PatientListVCDelegate {
     
     func editButtonTappedFromVC(_ addGuestVC: PatientListVC) {
         
-        let addpatientVC = AddPatientVC(true)
-        addpatientVC.delegate = self
-        navigationController?.pushViewController(addpatientVC, animated: true)
+        addPatientVC = AddPatientVC(false)
+        addPatientVC.delegate = self
+        self.navigationController?.pushViewController(addPatientVC, animated: true)
     }
 }
 
@@ -90,6 +96,9 @@ extension PatientDetailVC: PatientListVCDelegate {
 extension PatientDetailVC {
     
     fileprivate func setup() {
+        
+        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationItem.hidesBackButton = true
         
         if StaticContentFile.isDoctorLogIn() {
             
@@ -110,12 +119,24 @@ extension PatientDetailVC {
     
     fileprivate func showPatientListOrAddPatientVC () {
         
+        _ = navigationController?.popToRootViewController(animated: true)
+        
         if let patients = patientDetail, patients.patientList.count > 0 {
+            
+            if addPatientVC != nil {
+                
+                addPatientVC.removeFromParentViewController()
+            }
             
             patientListVC = PatientListVC(patients.patientList)
             patientListVC.delegate = self
             addSubViewToView(patientListVC.view)
         } else {
+            
+            if patientListVC != nil {
+                
+                patientListVC.removeFromParentViewController()
+            }
             
             addPatientVC = AddPatientVC(false)
             addPatientVC.delegate = self
@@ -133,12 +154,36 @@ extension PatientDetailVC {
         AutoLayoutHelper.addTrailingSpaceConstraintToView(subView, trailingSpace: 0)
     }
     
+    fileprivate func attributeText(withText text: String) -> NSMutableAttributedString {
+        
+        let output      = NSMutableAttributedString(string: text)
+        let opt = NSMutableAttributedString(string: "Patient")
+        
+        let attr = [NSFontAttributeName: UIFont(name: "Ubuntu-Mediumd", size: 12)!, NSForegroundColorAttributeName:UIColor.colorWithHex(0x23B5B9)]
+        
+        let attr1 = [NSFontAttributeName: UIFont(name: "Ubuntu-Light", size: 26)!, NSForegroundColorAttributeName: UIColor.colorWithHex(0x23B5B9)]
+        
+        
+        opt.addAttributes(attr1, range: NSMakeRange(0, opt.length))
+        
+        output.addAttributes(attr, range: NSMakeRange(0, output.length))
+        
+        output.append(NSMutableAttributedString(string: "has been succesfully added to the patients list"))
+            
+        return output
+    }
+    
     fileprivate func callApi() {
+        
+        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+        activityIndicator?.startAnimating()
         
         if StaticContentFile.isDoctorLogIn() {
             
             Alamofire.request(PatientRouter.get())
-                .responseObject { (response: DataResponse<Patients>) in
+                .responseObject(keyPath: "data") { (response: DataResponse<Patients>) in
+                    
+                    self.activityIndicator?.stopAnimating()
                     
                     if let result = response.result.value {
                         
@@ -150,6 +195,8 @@ extension PatientDetailVC {
             Alamofire.request(DoctorListRouter.get())
                 .responseArray(keyPath: "data") { (response: DataResponse<[DoctorList]>) in
                     
+                    self.activityIndicator?.stopAnimating()
+                    
                     if let result = response.result.value {
                         
                         self.doctorDetils = result
@@ -158,5 +205,21 @@ extension PatientDetailVC {
                         self.patientListVC.delegate = self
                         self.addSubViewToView(self.patientListVC.view)
                     }}}
+    }
+    
+    fileprivate func callAPIToAddPatient(_ patient: PatientList) {
+        
+        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+        activityIndicator?.startAnimating()
+        
+        Alamofire.request(PatientRouter.post(patient))
+            .responseObject { (response: DataResponse<addPatient>) in
+                
+                self.activityIndicator?.stopAnimating()
+                if let _ = response.result.value {
+                    
+                    self.activityIndicator?.stopAnimating()
+                    self.callApi()
+                }}
     }
 }

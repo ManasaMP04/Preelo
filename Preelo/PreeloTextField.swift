@@ -212,12 +212,12 @@ class PreeloTextField: UITextField {
         
         if isCompleteBoarder {
             
-            let borderWidth: CGFloat    = 2.0
+            let borderWidth: CGFloat    = 0.5
             
             bottomBorder.frame = CGRect(x: 0, y: self.frame.size.height - borderWidth, width: self.frame.size.width, height: borderWidth);
         } else {
             
-            let borderWidth: CGFloat    = 2.0
+            let borderWidth: CGFloat    = 0.5
             let offset: CGFloat         = 10
             
             bottomBorder.frame = CGRect(x: offset, y: self.frame.size.height - borderWidth, width: self.frame.size.width - 2*offset, height: borderWidth);

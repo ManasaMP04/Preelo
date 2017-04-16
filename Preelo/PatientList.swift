@@ -12,7 +12,14 @@ class PatientList: Mappable {
     
     var firstname         = ""
     var lastname          = ""
-    var family            = [familyList]()
+    var family            = [FamilyList]()
+    
+    init(_ fName: String, lName: String, familyList: [FamilyList]) {
+    
+        firstname = fName
+        lastname  = lName
+        family    = familyList
+    }
     
     required init?(map: Map) {
         

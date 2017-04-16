@@ -14,6 +14,13 @@ class StaticContentFile: NSObject {
     
     static let buttonFont = UIFont(name: "Ubuntu-Bold", size: 15)!
     
+    static func setLayer(_ view: UIButton) {
+    
+        view.layer.borderColor = UIColor.colorWithHex(0x23B5B9).cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = view.frame.size.width / 11
+    }
+    
     static func isDoctorLogIn() -> Bool {
         
         return defaults.bool(forKey: "isDoctorLogIn")

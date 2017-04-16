@@ -28,6 +28,15 @@ extension UIView {
             toastLabel.removeFromSuperview()
         })
     }
+    
+    func addShadowWithColor(_ color: UIColor, offset: CGSize=CGSize(width: 1, height: 1), opacity: Float=0.20, radius: CGFloat=3) {
+        
+        self.layer.shadowColor      = color.cgColor
+        self.layer.shadowOffset     = offset
+        self.layer.shadowOpacity    = opacity
+        self.layer.shadowRadius     = radius
+        self.layer.masksToBounds    = false
+    }
 }
 
 //MARK:- UINavigationController

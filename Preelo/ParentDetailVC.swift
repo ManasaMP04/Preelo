@@ -21,13 +21,13 @@ class ParentDetailVC: UIViewController {
     @IBOutlet fileprivate weak var customNavigationBar  : CustomNavigationBar!
     @IBOutlet fileprivate weak var relationship         : UILabel!
     
-    fileprivate let pickerData = ["Father", "Mother"]
-    fileprivate var parentList = [[String: String]]()
+    fileprivate let pickerData    = ["Father", "Mother"]
+    fileprivate var patientList   : PatientList?
     fileprivate var selectedIndex = -1
     
-    init (_ parentList: [[String: String]], index: Int) {
+    init (_ patientList: PatientList, index: Int) {
         
-        self.parentList = parentList
+        self.patientList = patientList
         self.selectedIndex = index
         
         super.init(nibName: "ParentDetailVC", bundle: nil)
@@ -53,62 +53,58 @@ class ParentDetailVC: UIViewController {
         pickerViewHeight.constant = 100
     }
     
-    fileprivate func showDefaultValue() {
+    @IBAction func doneButtonTapped(_ sender: Any) {
         
-        let dict = parentList[selectedIndex]
-        
-        if let fName = dict["ParentFName"], let lname = dict["ParentLName"],
-            let phone = dict["ParentPhoneNo"], let email = dict["Email"] {
+        if let fname = firstName.text, fname.characters.count > 0,
+            let lname = lastName.text, lname.characters.count > 0,
+            let email = email.text, StaticContentFile.isValidEmail(email),
+            let phone = phoneNumber.text, phone.characters.count == 10, let relation = relationship.text {
             
-            firstName.text   = fName
-            lastName.text    = lname
-            phoneNumber.text = phone
-            self.email.text  = email
+            let family = FamilyList(fname, lName: lname, email: email, phone: phone, relation: relation)
+            
+            if let addPatientVC = navigationController?.viewControllerWithClass(AddPatientVC.self) as? AddPatientVC, let patient = patientList {
+                
+                addPatientVC.showParentDetailView(getList(patient, family: family))
+                _ = navigationController?.popToViewController(addPatientVC, animated: true)
+                
+            } else if let patientDetailVC = navigationController?.viewControllerWithClass(PatientDetailVC.self) as? PatientDetailVC, let patient = patientList {
+                
+                patientDetailVC.showParentDetailView(getList(patient, family: family))
+                _ = navigationController?.popToViewController(patientDetailVC, animated: true)
+            }
+        } else if let email = email.text, StaticContentFile.isValidEmail(email) {
+            
+            view.showToast(message: "Email Id is invalid")
+        } else if let text = phoneNumber.text, text.characters.count < 10 {
+            
+            view.showToast(message: "Phone number is invalid")
+        } else {
+            
+            view.showToast(message: "Please enter the required fields")
         }
     }
     
-    @IBAction func doneButtonTapped(_ sender: Any) {
+    fileprivate func getList(_ list: PatientList, family: FamilyList) -> PatientList {
         
-        if firstName.text != "" && lastName.text != "" && phoneNumber.text?.characters.count == 10 && email.text != "" {
+        if selectedIndex >= 0 {
             
-            var dict = [String: String]()
-            dict["ParentFName"]   = firstName.text
-            dict["ParentLName"]   = lastName.text
-            dict["ParentPhoneNo"] = phoneNumber.text
-            dict["Email"]         = email.text
+            list.family.remove(at: selectedIndex)
+            list.family.insert(family, at: selectedIndex)
+        } else  {
             
-            if let patientDetailVC = navigationController?.viewControllerWithClass(PatientDetailVC.self) as? PatientDetailVC {
-                
-                if selectedIndex >= 0 {
-                    
-                    parentList.remove(at: selectedIndex)
-                    parentList.insert(dict, at: selectedIndex)
-                } else  {
-                    
-                    parentList.append(dict)
-                }
-                
-                patientDetailVC.showParentDetailView(parentList)
-                _ = navigationController?.popToViewController(patientDetailVC, animated: true)
-            }
-        } else if firstName.text == "" || lastName.text == "" || phoneNumber.text == "" || email.text == "" {
-            
-            view.showToast(message: "Please enter the required fields")
-        } else if !phoneNumber.isValid() {
-            
-            view.showToast(message: "Phone number is invalid")
-        } else if !email.isValid() {
-            
-            view.showToast(message: "Email Id is invalid")
+            list.family.append(family)
         }
+        
+        return list
     }
     
     fileprivate func setup() {
-        
+
         relationButton.layer.cornerRadius  = 5
         relationButton.layer.borderWidth   = 1
         relationButton.layer.borderColor   = UIColor.black.cgColor
-        customNavigationBar.setTitle("New Patient", backButtonImageName: "Back")
+        customNavigationBar.setTitle("New Patient")
+        customNavigationBar.delegate = self
         doneButton.layer.cornerRadius  = doneButton.frame.size.width / 11
         doneButton.titleLabel?.font    = StaticContentFile.buttonFont
         pickerView.dataSource = self
@@ -119,9 +115,15 @@ class ParentDetailVC: UIViewController {
         email.isCompleteBoarder = true
         self.navigationController?.navigationBar.isHidden = true
         
-        if selectedIndex >= 0 {
-        
-            showDefaultValue()
+        if let list = patientList, selectedIndex >= 0, list.family.count >= selectedIndex {
+            
+            let familyData = list.family[selectedIndex]
+            
+            firstName.text   = familyData.firstname
+            lastName.text    = familyData.lastname
+            phoneNumber.text = ""
+            self.email.text  = ""
+            relationship.text = familyData.relationship
         }
     }
 }
@@ -152,5 +154,13 @@ extension ParentDetailVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         
         return 30
+    }
+}
+
+extension ParentDetailVC: CustomNavigationBarDelegate {
+    
+    func tappedBackButtonFromVC(_ customView: CustomNavigationBar) {
+        
+        _ = navigationController?.popViewController(animated: true)
     }
 }

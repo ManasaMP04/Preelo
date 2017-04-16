@@ -10,9 +10,9 @@ import UIKit
 
 protocol AddPatientVCDelegate: class {
     
-    func pushParentDetailVCFromVC(_ addGuestVC: AddPatientVC, parentInfo: [[String: String]], index: Int)
+    func pushParentDetailVCFromVC(_ addGuestVC: AddPatientVC, patientData: PatientList, index: Int)
     
-    func tappedDoneButtonFromVC(_ addGuestVC: AddPatientVC)
+    func tappedDoneButtonFromVC(_ addGuestVC: AddPatientVC, patientList: PatientList)
 }
 
 fileprivate let cellHeight = CGFloat(45)
@@ -31,7 +31,8 @@ class AddPatientVC: UIViewController {
     @IBOutlet fileprivate weak var doneButton           : UIButton!
     
     fileprivate var showBackButton = true
-    fileprivate var parentList = [[String: String]]()
+    
+    fileprivate var patientList: PatientList?
     
     weak var delegate: AddPatientVCDelegate?
     
@@ -58,9 +59,17 @@ class AddPatientVC: UIViewController {
     
     @IBAction func addPatientButtonTapped(_ sender: Any) {
         
-        if firstName.text != "" && lastName.text != "" {
+        if let fname = firstName.text, let lName = lastName.text,
+            fname.characters.count > 0, lName.characters.count > 0  {
             
-            delegate?.pushParentDetailVCFromVC(self, parentInfo: parentList, index: -1)
+            if let patient = patientList {
+                
+                delegate?.pushParentDetailVCFromVC(self, patientData: patient, index: -1)
+            } else {
+                
+                let list = PatientList(fname, lName: lName, familyList: [FamilyList]())
+                delegate?.pushParentDetailVCFromVC(self, patientData: list, index: -1)
+            }
         } else {
             
             view.showToast(message: "Please enter FirstName and LastName")
@@ -69,12 +78,15 @@ class AddPatientVC: UIViewController {
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         
-        delegate?.tappedDoneButtonFromVC(self)
+        if let list = patientList {
+            
+            delegate?.tappedDoneButtonFromVC(self, patientList: list)
+        }
     }
     
-    func showParentDetailView(_ dict: [[String: String]]) {
+    func showParentDetailView(_ list: PatientList) {
         
-        parentList = dict
+        patientList = list
         tableview.reloadData()
         
         tableviewHeight.constant = tableview.contentSize.height
@@ -88,7 +100,7 @@ extension AddPatientVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return parentList.count
+        return patientList?.family.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -96,11 +108,9 @@ extension AddPatientVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ParentDetailCell.cellId, for: indexPath) as! ParentDetailCell
         cell.delegate = self
         
-        let dict = parentList[indexPath.row]
-        
-        if let parentName = dict["ParentFName"] {
+        if let module = patientList?.family[indexPath.row] {
             
-            cell.showParentName(parentName, showImage: true)
+            cell.showParentName(module.firstname, showImage: true)
         }
         
         return cell
@@ -118,9 +128,9 @@ extension AddPatientVC: ParentDetailCellDelegate {
     
     func parentDetailCell(_ cell: ParentDetailCell) {
         
-        if let indexpath = tableview.indexPath(for: cell) {
+        if let indexpath = tableview.indexPath(for: cell), let list = patientList {
             
-            self.delegate?.pushParentDetailVCFromVC(self, parentInfo: parentList, index: indexpath.row)
+            self.delegate?.pushParentDetailVCFromVC(self, patientData: list, index: indexpath.row)
         }
     }
 }
@@ -133,11 +143,21 @@ extension AddPatientVC {
         
         tableview.register(UINib(nibName: "ParentDetailCell", bundle: nil), forCellReuseIdentifier: ParentDetailCell.cellId)
         
-        customNavigationBar.setTitle("New Patient", backButtonImageName: "Back", showBackButton: showBackButton)
-        addPatientButton.layer.cornerRadius  = addPatientButton.frame.size.width / 11
+        customNavigationBar.setTitle("New Patient")
+        customNavigationBar.delegate = self
+        
+        StaticContentFile.setLayer(addPatientButton)
         addPatientButton.titleLabel?.font    = StaticContentFile.buttonFont
         
         firstName.isCompleteBoarder = true
         lastName.isCompleteBoarder  = true
+    }
+}
+
+extension AddPatientVC: CustomNavigationBarDelegate {
+    
+    func tappedBackButtonFromVC(_ customView: CustomNavigationBar) {
+        
+        _ = navigationController?.popViewController(animated: true)
     }
 }

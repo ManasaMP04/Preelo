@@ -41,13 +41,14 @@ class TabBarVC: UITabBarController {
     
     fileprivate func callLogiApi(){
         
-        if !StaticContentFile.isDoctorLogIn() {
+        if StaticContentFile.isDoctorLogIn() {
             
             Alamofire.request(PatientRouter.get())
-                .responseObject { (response: DataResponse<Patients>) in
+                .responseObject(keyPath: "data") { (response: DataResponse<Patients>) in
                     
                     if let result = response.result.value,
-                        let patientDetail = self.viewControllers?[2] as? PatientDetailVC {
+                        let nav = self.viewControllers?[2] as? UINavigationController,
+                        let patientDetail = nav.viewControllers[0] as? PatientDetailVC {
                         
                         patientDetail.patientDetail = result
                         patientDetail.isAPIFetched = true
@@ -58,7 +59,8 @@ class TabBarVC: UITabBarController {
                 .responseArray(keyPath: "data") { (response: DataResponse<[DoctorList]>) in
                     
                     if let result = response.result.value,
-                        let patientDetail = self.viewControllers?[2] as? PatientDetailVC {
+                        let nav = self.viewControllers?[2] as? UINavigationController,
+                        let patientDetail = nav.viewControllers[0] as? PatientDetailVC {
                         
                         patientDetail.isAPIFetched = true
                         patientDetail.doctorDetils = result

@@ -12,7 +12,7 @@ import Alamofire
 enum PatientRouter:  URLRequestConvertible {
     
     case get()
-    case post(String, String)
+    case post(PatientList)
     
     public func asURLRequest() throws -> URLRequest {
         
@@ -49,6 +49,40 @@ enum PatientRouter:  URLRequestConvertible {
         let encoding                = URLEncoding.queryString
         var encodedRequest : URLRequest!
         
+        let params: [String: Any] = {
+            
+            var dict : [String: Any]
+            
+            switch self {
+                
+            case .post(let list):
+                
+                dict = ["firstname" : list.firstname,
+                        "lastname" : list.lastname,
+                        "token" : StaticContentFile.getToken()]
+                
+                var families = [[String: Any]]()
+                
+                for family in list.family {
+                    
+                    let familyDict = ["firstname" : family.firstname,
+                                      "lastname" : family.lastname,
+                                      "relationship": family.relationship,
+                                      "phonenumber": family.phone,
+                                      "email" : family.email]
+                    
+                    families.append(familyDict)
+                }
+                
+                dict["family"] = families
+                
+                
+            default: dict = [:]
+            }
+            
+            return dict
+        }()
+        
         switch self {
         case .get:
             
@@ -57,7 +91,7 @@ enum PatientRouter:  URLRequestConvertible {
         default:
             do {
                 
-                urlRequest.httpBody = try JSONSerialization.data(withJSONObject: [:], options: JSONSerialization.WritingOptions())
+                urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions())
                 urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
                 
                 encodedRequest          = try encoding.encode(urlRequest, with: nil)

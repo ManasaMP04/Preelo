@@ -14,7 +14,7 @@ protocol ParentDetailCellDelegate: class {
 }
 
 class ParentDetailCell: UITableViewCell {
-
+    
     @IBOutlet fileprivate weak var parentName        : UILabel!
     @IBOutlet fileprivate weak var editButton        : UIButton!
     @IBOutlet fileprivate weak var imageViewWidth    : NSLayoutConstraint!
@@ -27,31 +27,32 @@ class ParentDetailCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-         editButton.titleLabel?.font    = StaticContentFile.buttonFont
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
     }
     
-    func showParentName(_ name: String, showImage: Bool) {
-    
+    func showParentName(_ name: String, showImage: Bool, showEdit: Bool = true) {
+        
         parentName.text = name
         
         if !showImage {
-        
+            
             imageViewWidth.constant = 0
             imageViewTrailing.constant = 0
         } else {
-        
+            
             imageViewWidth.constant = 28
             imageViewTrailing.constant = 10
         }
+        
+        editButton.isHidden = !showEdit
     }
     
     @IBAction func editButtonTapped(_ sender: Any) {
-    
+        
         delegate?.parentDetailCell(self)
     }
 }

@@ -50,9 +50,11 @@
 		629E4E8F1EA2A41C00F280AD /* ForgotPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E8E1EA2A41C00F280AD /* ForgotPassword.swift */; };
 		629E4E931EA2AABB00F280AD /* Patients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E921EA2AABB00F280AD /* Patients.swift */; };
 		629E4E951EA2AB7300F280AD /* PatientList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E941EA2AB7300F280AD /* PatientList.swift */; };
-		629E4E971EA2AB7F00F280AD /* familyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E961EA2AB7F00F280AD /* familyList.swift */; };
+		629E4E971EA2AB7F00F280AD /* FamilyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E961EA2AB7F00F280AD /* FamilyList.swift */; };
 		62ACD5051EA125D1000B0EDE /* NetworkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5041EA125D1000B0EDE /* NetworkURL.swift */; };
 		62ACD5081EA129BF000B0EDE /* LogInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5071EA129BF000B0EDE /* LogInRouter.swift */; };
+		62D064941EA3EEB4007A503F /* addPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D064931EA3EEB4007A503F /* addPatient.swift */; };
+		62D064961EA3EF00007A503F /* addFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D064951EA3EF00007A503F /* addFamily.swift */; };
 		62D432811EA3C08F005FA616 /* LogoutRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D432801EA3C08F005FA616 /* LogoutRouter.swift */; };
 		62E3AB7D1EA101410061802F /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E3AB7B1EA101410061802F /* ChatCell.swift */; };
 		62E3AB7E1EA101410061802F /* ChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB7C1EA101410061802F /* ChatCell.xib */; };
@@ -135,9 +137,11 @@
 		629E4E8E1EA2A41C00F280AD /* ForgotPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPassword.swift; sourceTree = "<group>"; };
 		629E4E921EA2AABB00F280AD /* Patients.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patients.swift; sourceTree = "<group>"; };
 		629E4E941EA2AB7300F280AD /* PatientList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientList.swift; sourceTree = "<group>"; };
-		629E4E961EA2AB7F00F280AD /* familyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = familyList.swift; sourceTree = "<group>"; };
+		629E4E961EA2AB7F00F280AD /* FamilyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyList.swift; sourceTree = "<group>"; };
 		62ACD5041EA125D1000B0EDE /* NetworkURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkURL.swift; sourceTree = "<group>"; };
 		62ACD5071EA129BF000B0EDE /* LogInRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInRouter.swift; sourceTree = "<group>"; };
+		62D064931EA3EEB4007A503F /* addPatient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addPatient.swift; sourceTree = "<group>"; };
+		62D064951EA3EF00007A503F /* addFamily.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addFamily.swift; sourceTree = "<group>"; };
 		62D432801EA3C08F005FA616 /* LogoutRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutRouter.swift; sourceTree = "<group>"; };
 		62E3AB7B1EA101410061802F /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		62E3AB7C1EA101410061802F /* ChatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatCell.xib; sourceTree = "<group>"; };
@@ -314,9 +318,10 @@
 				629E4E8E1EA2A41C00F280AD /* ForgotPassword.swift */,
 				629E4E921EA2AABB00F280AD /* Patients.swift */,
 				629E4E941EA2AB7300F280AD /* PatientList.swift */,
-				629E4E961EA2AB7F00F280AD /* familyList.swift */,
+				629E4E961EA2AB7F00F280AD /* FamilyList.swift */,
 				626AB13E1EA36350001271D3 /* DoctorList.swift */,
 				626AB1421EA36461001271D3 /* ChildrenDetail.swift */,
+				62D064921EA3EE91007A503F /* AddPatient */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -331,6 +336,15 @@
 				62D432801EA3C08F005FA616 /* LogoutRouter.swift */,
 			);
 			name = Network;
+			sourceTree = "<group>";
+		};
+		62D064921EA3EE91007A503F /* AddPatient */ = {
+			isa = PBXGroup;
+			children = (
+				62D064931EA3EEB4007A503F /* addPatient.swift */,
+				62D064951EA3EF00007A503F /* addFamily.swift */,
+			);
+			name = AddPatient;
 			sourceTree = "<group>";
 		};
 		62E3AB7F1EA106CF0061802F /* ChatVC */ = {
@@ -581,10 +595,11 @@
 				622A8FBB1E9D3A1200B34B56 /* Extensions.swift in Sources */,
 				629E4E8B1EA29C8800F280AD /* LogInDetail.swift in Sources */,
 				626AB1431EA36461001271D3 /* ChildrenDetail.swift in Sources */,
+				62D064941EA3EEB4007A503F /* addPatient.swift in Sources */,
 				622A8FBD1E9D3A1200B34B56 /* ForgotPasswordVC.swift in Sources */,
 				623D5EE01EA0C52000389481 /* DisplayPhotoVC.swift in Sources */,
 				622A8FBC1E9D3A1200B34B56 /* FloatingTextField.swift in Sources */,
-				629E4E971EA2AB7F00F280AD /* familyList.swift in Sources */,
+				629E4E971EA2AB7F00F280AD /* FamilyList.swift in Sources */,
 				622A8FC91E9D3A1200B34B56 /* StaticContentFile.swift in Sources */,
 				622A8FBE1E9D3A1200B34B56 /* LoginDetailVC.swift in Sources */,
 				626AB1451EA365FE001271D3 /* DoctorListRouter.swift in Sources */,
@@ -606,6 +621,7 @@
 				629E4E8F1EA2A41C00F280AD /* ForgotPassword.swift in Sources */,
 				623D5EDD1EA0BAA200389481 /* SlideOutVC.swift in Sources */,
 				622A8FC21E9D3A1200B34B56 /* ParentDetailVC.swift in Sources */,
+				62D064961EA3EF00007A503F /* addFamily.swift in Sources */,
 				629E4E8D1EA29FD200F280AD /* PatientRouter.swift in Sources */,
 				622A8FC31E9D3A1200B34B56 /* PatientDetailVC.swift in Sources */,
 				622A8FB71E9D3A1200B34B56 /* AddPatientVC.swift in Sources */,
