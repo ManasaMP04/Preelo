@@ -70,7 +70,7 @@ class FloatingTextField: PreeloTextField {
         setup()
     }
     
-    required override init(frame:CGRect) {
+    required init(frame:CGRect) {
         super.init(frame:frame)
         setup()
     }

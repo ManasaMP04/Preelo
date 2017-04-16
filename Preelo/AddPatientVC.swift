@@ -133,11 +133,7 @@ extension AddPatientVC {
         
         tableview.register(UINib(nibName: "ParentDetailCell", bundle: nil), forCellReuseIdentifier: ParentDetailCell.cellId)
         
-        if showBackButton {
-            
-            customNavigationBar.setTitle("New Patient", backButtonImageName: "Back", showBackButton: showBackButton)
-        }
-        
+        customNavigationBar.setTitle("New Patient", backButtonImageName: "Back", showBackButton: showBackButton)
         addPatientButton.layer.cornerRadius  = addPatientButton.frame.size.width / 11
         addPatientButton.titleLabel?.font    = StaticContentFile.buttonFont
         

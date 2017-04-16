@@ -78,8 +78,10 @@ enum LogInRouter : URLRequestConvertible {
         var urlRequest = URLRequest(url: url)
         
         do {
-           
-             urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions())
+            
+            urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions())
+            
+            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         } catch {
             
         }

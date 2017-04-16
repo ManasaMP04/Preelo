@@ -34,7 +34,7 @@ enum PatientRouter:  URLRequestConvertible {
             
             switch self {
             case .get:
-                 relativePath = NetworkURL.patientList
+                relativePath = NetworkURL.patientList
                 
             default:
                 relativePath = NetworkURL.addPatient
@@ -46,22 +46,25 @@ enum PatientRouter:  URLRequestConvertible {
         }()
         
         var urlRequest = URLRequest(url: url)
+        let encoding                = URLEncoding.queryString
+        var encodedRequest : URLRequest!
         
         switch self {
         case .get:
-         
+            
+            let dict = ["token" : StaticContentFile.getToken()]
+            encodedRequest          = try encoding.encode(urlRequest, with: dict)
+        default:
             do {
                 
                 urlRequest.httpBody = try JSONSerialization.data(withJSONObject: [:], options: JSONSerialization.WritingOptions())
+                urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+                
+                encodedRequest          = try encoding.encode(urlRequest, with: nil)
             } catch {
                 
             }
-            
-            default: break
         }
-        
-        let encoding                = URLEncoding.queryString
-        var encodedRequest          = try encoding.encode(urlRequest, with: nil)
         
         encodedRequest.httpMethod       = method.rawValue
         encodedRequest.timeoutInterval  = 30

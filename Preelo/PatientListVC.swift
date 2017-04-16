@@ -18,15 +18,18 @@ fileprivate let cellHeight = CGFloat(45)
 
 class PatientListVC: UIViewController {
     
-    @IBOutlet fileprivate weak var customNavigationBar  : CustomNavigationBar!
-    @IBOutlet fileprivate weak var tableView            : UITableView!
+    @IBOutlet fileprivate weak var customNavigationBar        : CustomNavigationBar!
+    @IBOutlet fileprivate weak var tableView                  : UITableView!
+    @IBOutlet fileprivate weak var tableviewBottomConstraint  : NSLayoutConstraint!
+    @IBOutlet fileprivate weak var addPatientButton           : UIButton!
     
-    fileprivate var patients = [[String: String]]()
+    fileprivate var list = [Any]()
     
     weak var delegate : PatientListVCDelegate?
     
-    init () {
+    init (_ list: [Any]) {
         
+        self.list = list
         super.init(nibName: "PatientListVC", bundle: nil)
     }
     
@@ -37,7 +40,7 @@ class PatientListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: "ParentDetailCell", bundle: nil), forCellReuseIdentifier: ParentDetailCell.cellId)
+        setup()
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,13 +49,28 @@ class PatientListVC: UIViewController {
     }
     
     func reloadData() {
-    
+        
         tableView.reloadData()
     }
     
     @IBAction func addPatient(_ sender: Any) {
         
         delegate?.editButtonTappedFromVC(self)
+    }
+    
+    fileprivate func setup() {
+        
+        tableView.register(UINib(nibName: "ParentDetailCell", bundle: nil), forCellReuseIdentifier: ParentDetailCell.cellId)
+        
+        if StaticContentFile.isDoctorLogIn() {
+            
+            addPatientButton.isHidden = false
+            tableviewBottomConstraint.constant = 110
+        } else {
+            
+            addPatientButton.isHidden = true
+            tableviewBottomConstraint.constant = 0
+        }
     }
 }
 
@@ -62,7 +80,7 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return patients.count
+        return list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -70,11 +88,12 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ParentDetailCell.cellId, for: indexPath) as! ParentDetailCell
         cell.delegate = self
         
-        let dict = patients[indexPath.row]
-        
-        if let parentName = dict["ParentFName"] {
+        if let data = list[indexPath.row] as? PatientList {
             
-            cell.showParentName(parentName, showImage: false)
+            cell.showParentName(data.firstname, showImage: false)
+        } else  if let data = list[indexPath.row] as? DoctorList  {
+            
+            cell.showParentName("", showImage: false)
         }
         
         return cell
@@ -92,7 +111,7 @@ extension PatientListVC: ParentDetailCellDelegate {
     
     func parentDetailCell(_ cell: ParentDetailCell) {
         
-       delegate?.editButtonTappedFromVC(self)
+        delegate?.editButtonTappedFromVC(self)
     }
 }
 

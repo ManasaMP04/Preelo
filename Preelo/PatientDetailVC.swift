@@ -12,18 +12,20 @@ import Alamofire
 
 class PatientDetailVC: UIViewController {
     
-    fileprivate var patients      = [Int]()
+    fileprivate var list          = [Any]()
     fileprivate var addPatientVC  : AddPatientVC!
     fileprivate var patientListVC : PatientListVC!
     
     fileprivate var activityIndicator: UIActivityIndicatorView?
-    var isDoctorLogIn: Bool = false
+    
+    var patientDetail : Patients?
+    var doctorDetils  = [DoctorList]()
+    var isAPIFetched  = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        callApi()
-        
+        setup()
     }
     
     override func didReceiveMemoryWarning() {
@@ -34,52 +36,6 @@ class PatientDetailVC: UIViewController {
     func showParentDetailView(_ dict: [[String: String]]) {
         
         addPatientVC.showParentDetailView(dict)
-    }
-    
-    fileprivate func callApi() {
-        
-        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
-        
-        activityIndicator?.startAnimating()
-        
-        Alamofire.request(PatientRouter.get())
-            .responseObject(keyPath: "data") { (response: DataResponse<Patients>) in
-                
-                self.activityIndicator?.stopAnimating()
-                
-                if let result = response.result.value, result.patientList.count > 0 {
-                    
-                    self.addPatientVC = AddPatientVC(false)
-                    self.addPatientVC.delegate = self
-                    self.addSubViewToView(self.addPatientVC.view)
-                }
-                else {
-                    
-                    self.patientListVC = PatientListVC()
-                    self.addSubViewToView(self.patientListVC.view)
-                }
-        }
-
-//        if patients.count == 0 {
-//            
-//            addPatientVC = AddPatientVC(false)
-//            addPatientVC.delegate = self
-//            addSubViewToView(addPatientVC.view)
-//        } else {
-//            
-//            patientListVC = PatientListVC()
-//            addSubViewToView(patientListVC.view)
-//        }
-    }
-    
-    fileprivate func addSubViewToView(_ subView : UIView) {
-        
-        view.addSubview(subView)
-        subView.translatesAutoresizingMaskIntoConstraints = false
-        AutoLayoutHelper.addTopSpaceConstraintToView(subView, topSpace: 0)
-        AutoLayoutHelper.addBottomSpaceConstraintToView(subView, bottomSpace: 0)
-        AutoLayoutHelper.addLeadingSpaceConstraintToView(subView, leadingSpace: 0)
-        AutoLayoutHelper.addTrailingSpaceConstraintToView(subView, trailingSpace: 0)
     }
 }
 
@@ -114,16 +70,6 @@ extension PatientDetailVC: AlertVCDelegate {
             
             addPatientVC.view.removeFromSuperview()
         }
-        
-        if patientListVC == nil {
-            
-            patientListVC = PatientListVC()
-            patientListVC.delegate = self
-            addSubViewToView(patientListVC.view)
-        } else {
-        
-            patientListVC.reloadData()
-        }
     }
 }
 
@@ -136,5 +82,81 @@ extension PatientDetailVC: PatientListVCDelegate {
         let addpatientVC = AddPatientVC(true)
         addpatientVC.delegate = self
         navigationController?.pushViewController(addpatientVC, animated: true)
+    }
+}
+
+//MARK:- Call API
+
+extension PatientDetailVC {
+    
+    fileprivate func setup() {
+        
+        if StaticContentFile.isDoctorLogIn() {
+            
+            isAPIFetched ? showPatientListOrAddPatientVC() :  callApi()
+        } else {
+            
+            if isAPIFetched {
+                
+                self.patientListVC = PatientListVC(self.doctorDetils)
+                self.patientListVC.delegate = self
+                self.addSubViewToView(self.patientListVC.view)
+            } else {
+                
+                callApi()
+            }
+        }
+    }
+    
+    fileprivate func showPatientListOrAddPatientVC () {
+        
+        if let patients = patientDetail, patients.patientList.count > 0 {
+            
+            patientListVC = PatientListVC(patients.patientList)
+            patientListVC.delegate = self
+            addSubViewToView(patientListVC.view)
+        } else {
+            
+            addPatientVC = AddPatientVC(false)
+            addPatientVC.delegate = self
+            addSubViewToView(addPatientVC.view)
+        }
+    }
+    
+    fileprivate func addSubViewToView(_ subView : UIView) {
+        
+        view.addSubview(subView)
+        subView.translatesAutoresizingMaskIntoConstraints = false
+        AutoLayoutHelper.addTopSpaceConstraintToView(subView, topSpace: 0)
+        AutoLayoutHelper.addBottomSpaceConstraintToView(subView, bottomSpace: 0)
+        AutoLayoutHelper.addLeadingSpaceConstraintToView(subView, leadingSpace: 0)
+        AutoLayoutHelper.addTrailingSpaceConstraintToView(subView, trailingSpace: 0)
+    }
+    
+    fileprivate func callApi() {
+        
+        if StaticContentFile.isDoctorLogIn() {
+            
+            Alamofire.request(PatientRouter.get())
+                .responseObject { (response: DataResponse<Patients>) in
+                    
+                    if let result = response.result.value {
+                        
+                        self.patientDetail = result
+                        self.showPatientListOrAddPatientVC ()
+                    }}
+        } else {
+            
+            Alamofire.request(DoctorListRouter.get())
+                .responseArray(keyPath: "data") { (response: DataResponse<[DoctorList]>) in
+                    
+                    if let result = response.result.value {
+                        
+                        self.doctorDetils = result
+                        
+                        self.patientListVC = PatientListVC(self.doctorDetils)
+                        self.patientListVC.delegate = self
+                        self.addSubViewToView(self.patientListVC.view)
+                    }}}
     }
 }

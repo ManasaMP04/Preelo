@@ -105,7 +105,7 @@ class PreeloTextField: UITextField {
                 
                 return predicate.evaluate(with: input)
                 
-            } catch let _ as NSError {
+            } catch _ as NSError {
                 
                 NSLog("This \(regex) regex was bad!")
             }

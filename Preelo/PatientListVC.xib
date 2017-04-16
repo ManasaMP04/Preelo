@@ -11,8 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PatientListVC" customModule="Preelo" customModuleProvider="target">
             <connections>
+                <outlet property="addPatientButton" destination="a6n-ch-xJC" id="yrS-4u-0Fy"/>
                 <outlet property="customNavigationBar" destination="b1s-jB-EFU" id="Tt5-G1-B3y"/>
                 <outlet property="tableView" destination="O7a-J3-f8k" id="uVw-Gq-wlN"/>
+                <outlet property="tableviewBottomConstraint" destination="97A-oX-UlP" id="yTM-tA-dVc"/>
                 <outlet property="view" destination="bCa-Kr-aBd" id="QVz-3q-esb"/>
             </connections>
         </placeholder>
@@ -52,7 +54,7 @@
             <constraints>
                 <constraint firstItem="b1s-jB-EFU" firstAttribute="top" secondItem="bCa-Kr-aBd" secondAttribute="top" id="2wX-Gi-1ng"/>
                 <constraint firstItem="O7a-J3-f8k" firstAttribute="top" secondItem="b1s-jB-EFU" secondAttribute="bottom" id="4zX-mN-6Rj"/>
-                <constraint firstItem="a6n-ch-xJC" firstAttribute="top" secondItem="O7a-J3-f8k" secondAttribute="bottom" id="8oC-T4-8Dq"/>
+                <constraint firstAttribute="bottom" secondItem="O7a-J3-f8k" secondAttribute="bottom" constant="110" id="97A-oX-UlP"/>
                 <constraint firstItem="O7a-J3-f8k" firstAttribute="leading" secondItem="bCa-Kr-aBd" secondAttribute="leading" id="DqF-Si-980"/>
                 <constraint firstItem="b1s-jB-EFU" firstAttribute="leading" secondItem="bCa-Kr-aBd" secondAttribute="leading" id="F9D-2J-zwC"/>
                 <constraint firstAttribute="trailing" secondItem="b1s-jB-EFU" secondAttribute="trailing" id="RXa-Pi-Opw"/>

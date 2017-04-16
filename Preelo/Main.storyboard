@@ -137,6 +137,9 @@
                                 </state>
                                 <state key="selected" backgroundImage="button_pressed"/>
                                 <state key="highlighted" backgroundImage="button_pressed"/>
+                                <connections>
+                                    <action selector="continueButtonTapped:" destination="xCx-HI-EVa" eventType="touchUpInside" id="uVB-fV-PVB"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get your password on your email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="950-Ya-zyT">
                                 <rect key="frame" x="38.5" y="114" width="243" height="18"/>
@@ -209,7 +212,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="486"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello Doctor!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wt3-xF-rif">
-                                                <rect key="frame" x="107.5" y="23" width="106" height="19.5"/>
+                                                <rect key="frame" x="107" y="23" width="106" height="20"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
                                                 <color key="textColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -250,7 +253,7 @@
                                                 </constraints>
                                                 <color key="textColor" red="0.50196078430000002" green="0.50980392159999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Qc-Vl-2j1">
                                                 <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
@@ -475,7 +478,7 @@
             </objects>
             <point key="canvasLocation" x="2374" y="24"/>
         </scene>
-        <!--Item-->
+        <!--Patient DetailVC-->
         <scene sceneID="UYL-b7-9fR">
             <objects>
                 <viewController storyboardIdentifier="AddPatientVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iS0-gO-1Gg" customClass="PatientDetailVC" customModule="Preelo" customModuleProvider="target" sceneMemberID="viewController">
@@ -488,17 +491,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" image="Patient" selectedImage="Patient-Active" id="jCc-dw-zK0"/>
+                    <tabBarItem key="tabBarItem" title="" id="jCc-dw-zK0"/>
                     <navigationItem key="navigationItem" id="9cY-bN-3bt"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XBM-TU-hwK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3083" y="24"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab BarVC-->
         <scene sceneID="nPZ-3f-q9C">
             <objects>
-                <tabBarController storyboardIdentifier="tabVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Up5-0W-sMX" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Up5-0W-sMX" customClass="TabBarVC" customModule="Preelo" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="VrN-nX-jTG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -640,8 +643,6 @@
         <image name="Msg" width="33" height="33"/>
         <image name="Msg-Active" width="33" height="33"/>
         <image name="Open-Menu" width="28" height="28"/>
-        <image name="Patient" width="33" height="33"/>
-        <image name="Patient-Active" width="33" height="33"/>
         <image name="Profile-settings-Icons" width="49" height="49"/>
         <image name="Schedule" width="33" height="33"/>
         <image name="Schedule-Active" width="33" height="33"/>

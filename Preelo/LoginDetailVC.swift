@@ -45,12 +45,13 @@ extension LoginDetailVC {
     
     @IBAction func loginButtonTapped(_ sender: Any) {
         
-        //        performSegue(withIdentifier: "loginSuccess", sender: nil)
-        
         if let email = userName.text, let password = password.text,
-            email.characters.count > 0, password.characters.count > 0 {
+            StaticContentFile.isValidEmail(email) , password.characters.count > 0 {
             
             isDoctorLogIn ? callLogiApi(email, password: password, urlRequest: LogInRouter.doc_post(email, password)) : callLogiApi(email, password: password, urlRequest: LogInRouter.post(email, password))
+        } else if let email = userName.text, !StaticContentFile.isValidEmail(email) {
+            
+            view.showToast(message: "Email id is invalid")
         } else {
             
             view.showToast(message: "Please enter the required fields")
@@ -97,6 +98,17 @@ extension LoginDetailVC {
         }
     }
     
+    fileprivate func alertMessage(_ title: String, message: String) {
+        
+        let alertView = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction.init(title: "OK", style: .default, handler: { (action) in
+            
+            alertView.dismiss(animated: true, completion: nil)
+        })
+        
+        alertView.addAction(action)
+        self.present(alertView, animated: true, completion: nil)
+    }
     
     fileprivate func callLogiApi(_ email: String, password: String,  urlRequest: URLRequestConvertible){
         
@@ -112,11 +124,14 @@ extension LoginDetailVC {
                     
                     let defaults = UserDefaults.standard
                     defaults.set(result.token, forKey: "token")
-                    self.isDoctorLogIn ? defaults.set(loginDetail.doctorid, forKey: "id") : defaults.set(loginDetail.id, forKey: "id")
+                    self.isDoctorLogIn ? defaults.set(loginDetail.id, forKey: "id") : defaults.set(loginDetail.id, forKey: "id")
                     defaults.set(self.isDoctorLogIn, forKey: "isDoctorLogIn")
                     self.performSegue(withIdentifier: "loginSuccess", sender: nil)
-                }
-                else {
+                } else if let result = response.result.value, result.status == "VERIFY" {
+                    
+                    self.alertMessage("Verify", message: result.message)
+                    
+                } else {
                     
                     self.view.showToast(message: "Login failed")
                 }

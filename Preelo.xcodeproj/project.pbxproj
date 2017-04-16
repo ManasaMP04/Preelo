@@ -40,6 +40,10 @@
 		623D5EDD1EA0BAA200389481 /* SlideOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */; };
 		623D5EE01EA0C52000389481 /* DisplayPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623D5EDF1EA0C52000389481 /* DisplayPhotoVC.swift */; };
 		623D5EE21EA0C81500389481 /* DisplayPhotoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 623D5EE11EA0C81500389481 /* DisplayPhotoVC.xib */; };
+		626AB13D1EA35FD2001271D3 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626AB13C1EA35FD2001271D3 /* TabBarVC.swift */; };
+		626AB13F1EA36350001271D3 /* DoctorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626AB13E1EA36350001271D3 /* DoctorList.swift */; };
+		626AB1431EA36461001271D3 /* ChildrenDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626AB1421EA36461001271D3 /* ChildrenDetail.swift */; };
+		626AB1451EA365FE001271D3 /* DoctorListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626AB1441EA365FE001271D3 /* DoctorListRouter.swift */; };
 		629E4E891EA29C1600F280AD /* logIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E881EA29C1600F280AD /* logIn.swift */; };
 		629E4E8B1EA29C8800F280AD /* LogInDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E8A1EA29C8800F280AD /* LogInDetail.swift */; };
 		629E4E8D1EA29FD200F280AD /* PatientRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E8C1EA29FD200F280AD /* PatientRouter.swift */; };
@@ -120,6 +124,10 @@
 		623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideOutVC.swift; sourceTree = "<group>"; };
 		623D5EDF1EA0C52000389481 /* DisplayPhotoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayPhotoVC.swift; sourceTree = "<group>"; };
 		623D5EE11EA0C81500389481 /* DisplayPhotoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisplayPhotoVC.xib; sourceTree = "<group>"; };
+		626AB13C1EA35FD2001271D3 /* TabBarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
+		626AB13E1EA36350001271D3 /* DoctorList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoctorList.swift; sourceTree = "<group>"; };
+		626AB1421EA36461001271D3 /* ChildrenDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildrenDetail.swift; sourceTree = "<group>"; };
+		626AB1441EA365FE001271D3 /* DoctorListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoctorListRouter.swift; sourceTree = "<group>"; };
 		629E4E881EA29C1600F280AD /* logIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = logIn.swift; sourceTree = "<group>"; };
 		629E4E8A1EA29C8800F280AD /* LogInDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInDetail.swift; sourceTree = "<group>"; };
 		629E4E8C1EA29FD200F280AD /* PatientRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientRouter.swift; sourceTree = "<group>"; };
@@ -254,6 +262,7 @@
 		622A8FD01E9D542B00B34B56 /* PatientVC */ = {
 			isa = PBXGroup;
 			children = (
+				626AB13C1EA35FD2001271D3 /* TabBarVC.swift */,
 				622A8FAF1E9D3A1200B34B56 /* PatientDetailVC.swift */,
 				622A8FA31E9D3A1200B34B56 /* AddPatientVC.swift */,
 				622A8FA41E9D3A1200B34B56 /* AddPatientVC.xib */,
@@ -304,6 +313,8 @@
 				629E4E921EA2AABB00F280AD /* Patients.swift */,
 				629E4E941EA2AB7300F280AD /* PatientList.swift */,
 				629E4E961EA2AB7F00F280AD /* familyList.swift */,
+				626AB13E1EA36350001271D3 /* DoctorList.swift */,
+				626AB1421EA36461001271D3 /* ChildrenDetail.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -314,6 +325,7 @@
 				62ACD5041EA125D1000B0EDE /* NetworkURL.swift */,
 				62ACD5071EA129BF000B0EDE /* LogInRouter.swift */,
 				629E4E8C1EA29FD200F280AD /* PatientRouter.swift */,
+				626AB1441EA365FE001271D3 /* DoctorListRouter.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -565,18 +577,22 @@
 			files = (
 				622A8FBB1E9D3A1200B34B56 /* Extensions.swift in Sources */,
 				629E4E8B1EA29C8800F280AD /* LogInDetail.swift in Sources */,
+				626AB1431EA36461001271D3 /* ChildrenDetail.swift in Sources */,
 				622A8FBD1E9D3A1200B34B56 /* ForgotPasswordVC.swift in Sources */,
 				623D5EE01EA0C52000389481 /* DisplayPhotoVC.swift in Sources */,
 				622A8FBC1E9D3A1200B34B56 /* FloatingTextField.swift in Sources */,
 				629E4E971EA2AB7F00F280AD /* familyList.swift in Sources */,
 				622A8FC91E9D3A1200B34B56 /* StaticContentFile.swift in Sources */,
 				622A8FBE1E9D3A1200B34B56 /* LoginDetailVC.swift in Sources */,
+				626AB1451EA365FE001271D3 /* DoctorListRouter.swift in Sources */,
 				622A8FBA1E9D3A1200B34B56 /* CustomNavigationBar.swift in Sources */,
 				622A8FC41E9D3A1200B34B56 /* PatientListVC.swift in Sources */,
 				629E4E931EA2AABB00F280AD /* Patients.swift in Sources */,
+				626AB13F1EA36350001271D3 /* DoctorList.swift in Sources */,
 				622A8FBF1E9D3A1200B34B56 /* LoginVC.swift in Sources */,
 				62E3AB861EA10C140061802F /* ChatVC.swift in Sources */,
 				62E3AB7D1EA101410061802F /* ChatCell.swift in Sources */,
+				626AB13D1EA35FD2001271D3 /* TabBarVC.swift in Sources */,
 				622A8FC11E9D3A1200B34B56 /* MessageVC.swift in Sources */,
 				62E3AB821EA107530061802F /* DisclaimerVC.swift in Sources */,
 				622A8FCD1E9D500C00B34B56 /* ParentDetailCell.swift in Sources */,
@@ -740,6 +756,7 @@
 			baseConfigurationReference = B609595407FF0E67B98510E1 /* Pods-Preelo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = Preelo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = redBus.Preelo;
@@ -753,6 +770,7 @@
 			baseConfigurationReference = 841BFB6489E27734BA4F917F /* Pods-Preelo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = Preelo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = redBus.Preelo;

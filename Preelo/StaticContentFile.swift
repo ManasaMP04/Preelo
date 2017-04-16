@@ -19,13 +19,26 @@ class StaticContentFile: NSObject {
         return defaults.bool(forKey: "isDoctorLogIn")
     }
     
-    static func getToxenAndId() -> (String, Int) {
+    static func getToken() -> String {
         
         if let token = defaults.string(forKey: "token")  {
             
-            return (token,defaults.integer(forKey: "id"))
+            return token
         }
         
-        return ("",0)
+        return ""
+    }
+    
+    static func getId() -> Int {
+        
+        return defaults.integer(forKey: "id")
+    }
+    
+    static func isValidEmail(_ email: String) -> Bool {
+        
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: email)
     }
 }

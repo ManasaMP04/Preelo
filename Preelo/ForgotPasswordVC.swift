@@ -11,7 +11,7 @@ import AlamofireObjectMapper
 import Alamofire
 
 class ForgotPasswordVC: UIViewController {
-
+    
     @IBOutlet fileprivate weak var emailId              : FloatingTextField!
     @IBOutlet fileprivate weak var continueButton       : UIButton!
     
@@ -19,10 +19,10 @@ class ForgotPasswordVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setup()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -33,24 +33,36 @@ class ForgotPasswordVC: UIViewController {
         _ = navigationController?.popViewController(animated: true)
     }
     
-    fileprivate func callLogiApi(_ email: String){
+    @IBAction func continueButtonTapped(_ sender: Any) {
         
-        Alamofire.request(LogInRouter.forgotPassword(email))
-            .responseObject { (response: DataResponse<ForgotPassword>) in
-                
-                if let result = response.result.value, result.status == "SUCCESS" {
+        activityIndicator?.startAnimating()
+        
+        if let text = emailId.text, StaticContentFile.isValidEmail(text) {
+            
+            Alamofire.request(LogInRouter.forgotPassword(text))
+                .responseObject { (response: DataResponse<ForgotPassword>) in
                     
-                    _ = self.navigationController?.popViewController(animated: true)
-                }
-                else {
+                    self.activityIndicator?.stopAnimating()
                     
-                    self.view.showToast(message: "Reset password is failed")
-                }
+                    if let result = response.result.value, result.status == "SUCCESS" {
+                        
+                        self.view.showToast(message: result.message)
+                        _ = self.navigationController?.popViewController(animated: true)
+                    }
+                    else {
+                        
+                        self.view.showToast(message: "Reset password is failed")
+                    }
+            }
+        } else {
+            
+            self.view.showToast(message: "Email id is invalid")
         }
     }
     
     fileprivate func setup() {
-    
+        
+        emailId.setLeftViewIcon("UserName")
         continueButton.layer.cornerRadius  = continueButton.frame.size.width / 11
         continueButton.titleLabel?.font    = StaticContentFile.buttonFont
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
