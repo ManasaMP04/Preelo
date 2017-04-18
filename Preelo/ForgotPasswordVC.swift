@@ -46,12 +46,14 @@ class ForgotPasswordVC: UIViewController {
                     
                     if let result = response.result.value, result.status == "SUCCESS" {
                         
-                        self.view.showToast(message: result.message)
-                        _ = self.navigationController?.popViewController(animated: true)
-                    }
-                    else {
+                         self.view.showToast(message: result.message)
                         
-                        self.view.showToast(message: "Reset password is failed")
+//                        _ = self.navigationController?.popViewController(animated: true)
+                        
+                    }
+                    else if let result = response.result.value {
+                        
+                        self.view.showToast(message: result.message)
                     }
             }
         } else {

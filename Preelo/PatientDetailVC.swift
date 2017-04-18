@@ -59,7 +59,7 @@ extension PatientDetailVC: AddPatientVCDelegate {
         
         let alertVC = AlertVC()
         
-        alertVC.setTitle("New Patient", description: attributeText(withText: patientList.firstname), notificationTitle: "Notification")
+      //  alertVC.setTitle("New Patient", description: attributeText(withText: patientList.firstname), notificationTitle: "Notification")
         alertVC.delegate = self
         navigationController?.pushViewController(alertVC, animated: true)
     }
@@ -71,7 +71,7 @@ extension PatientDetailVC: AlertVCDelegate {
     
     func tappedDoneButton(_ alertVC: AlertVC) {
         
-        _ = navigationController?.popViewController(animated: true)
+        _ = navigationController?.popToRootViewController(animated: true)
         if let patient = newPatient {
             
             callAPIToAddPatient(patient)
@@ -159,7 +159,7 @@ extension PatientDetailVC {
         let output      = NSMutableAttributedString(string: text)
         let opt = NSMutableAttributedString(string: "Patient")
         
-        let attr = [NSFontAttributeName: UIFont(name: "Ubuntu-Mediumd", size: 12)!, NSForegroundColorAttributeName:UIColor.colorWithHex(0x23B5B9)]
+        let attr = [NSFontAttributeName: UIFont(name: "Ubuntu-Medium", size: 12)!, NSForegroundColorAttributeName:UIColor.colorWithHex(0x23B5B9)]
         
         let attr1 = [NSFontAttributeName: UIFont(name: "Ubuntu-Light", size: 26)!, NSForegroundColorAttributeName: UIColor.colorWithHex(0x23B5B9)]
         
