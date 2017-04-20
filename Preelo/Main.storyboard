@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,7 +35,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-with-shadow" translatesAutoresizingMaskIntoConstraints="NO" id="F4Z-PN-Y9Q">
-                                <rect key="frame" x="62.5" y="99" width="195" height="195"/>
+                                <rect key="frame" x="63" y="99" width="195" height="195"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="195" id="bXu-O0-Pq1"/>
                                     <constraint firstAttribute="height" constant="195" id="nd9-iJ-cMe"/>
@@ -142,7 +141,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get your password on your email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="950-Ya-zyT">
-                                <rect key="frame" x="38.5" y="114" width="243" height="18"/>
+                                <rect key="frame" x="39" y="114" width="243" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="Nec-p8-lMi"/>
                                     <constraint firstAttribute="width" constant="584" id="TSW-Wb-tmV"/>
@@ -212,7 +211,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="486"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello Doctor!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wt3-xF-rif">
-                                                <rect key="frame" x="107.5" y="23" width="106" height="20"/>
+                                                <rect key="frame" x="107" y="23" width="106" height="20"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
                                                 <color key="textColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -478,25 +477,6 @@
             </objects>
             <point key="canvasLocation" x="2374" y="24"/>
         </scene>
-        <!--Patient DetailVC-->
-        <scene sceneID="UYL-b7-9fR">
-            <objects>
-                <viewController storyboardIdentifier="AddPatientVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iS0-gO-1Gg" customClass="PatientDetailVC" customModule="Preelo" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Uh9-NR-pdY"/>
-                        <viewControllerLayoutGuide type="bottom" id="boz-i2-fJN"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="zfl-F2-dVy">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="550"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="9cY-bN-3bt"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XBM-TU-hwK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3752" y="24"/>
-        </scene>
         <!--Tab BarVC-->
         <scene sceneID="nPZ-3f-q9C">
             <objects>
@@ -541,7 +521,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome Doctor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gA-k0-QPo">
-                                <rect key="frame" x="98.5" y="23" width="123.5" height="18"/>
+                                <rect key="frame" x="98" y="23" width="124" height="18"/>
                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -590,7 +570,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.23529411759999999" green="0.71372549019999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="emh-ft-5xm" firstAttribute="centerX" secondItem="5Ye-us-Ck0" secondAttribute="centerX" id="1U2-m8-96o"/>
                             <constraint firstItem="6Qh-P6-RtW" firstAttribute="top" secondItem="emh-ft-5xm" secondAttribute="bottom" constant="28" id="1cf-uw-7lW"/>
@@ -646,15 +626,80 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="iS0-gO-1Gg" kind="relationship" relationship="rootViewController" id="Vpi-BZ-jwx"/>
+                        <segue destination="Gmr-tO-YXI" kind="relationship" relationship="rootViewController" id="cZa-5l-Gbk"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ILc-qU-esK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3082.5" y="23.75"/>
         </scene>
+        <!--Patient ListVC-->
+        <scene sceneID="sij-km-8p0">
+            <objects>
+                <viewController storyboardIdentifier="PatientListVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Gmr-tO-YXI" customClass="PatientListVC" customModule="Preelo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2HK-ER-UJZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="I7t-eg-2Lm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="btp-zu-jqD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="550"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFD-2z-stm" customClass="CustomNavigationBar" customModule="Preelo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Z2d-9O-AkK"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3G8-io-1zL">
+                                <rect key="frame" x="10" y="60" width="300" height="371"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Gmr-tO-YXI" id="eP7-QS-WHc"/>
+                                    <outlet property="delegate" destination="Gmr-tO-YXI" id="UtJ-pj-scR"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1AL-5H-iDN">
+                                <rect key="frame" x="250" y="431" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="09Z-Go-6cD"/>
+                                    <constraint firstAttribute="width" constant="60" id="RSA-sP-Fqb"/>
+                                </constraints>
+                                <state key="normal" image="Add-Patient Button"/>
+                                <connections>
+                                    <action selector="addPatient:" destination="Gmr-tO-YXI" eventType="touchUpInside" id="HjC-XG-rhc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="3G8-io-1zL" secondAttribute="trailing" constant="10" id="26v-G3-ClE"/>
+                            <constraint firstItem="cFD-2z-stm" firstAttribute="leading" secondItem="btp-zu-jqD" secondAttribute="leading" id="Mku-2V-z59"/>
+                            <constraint firstItem="cFD-2z-stm" firstAttribute="top" secondItem="btp-zu-jqD" secondAttribute="top" id="PvD-Tg-Pa5"/>
+                            <constraint firstItem="I7t-eg-2Lm" firstAttribute="top" secondItem="3G8-io-1zL" secondAttribute="bottom" constant="70" id="Skh-t8-fVT"/>
+                            <constraint firstItem="3G8-io-1zL" firstAttribute="leading" secondItem="btp-zu-jqD" secondAttribute="leading" constant="10" id="WKi-P3-evu"/>
+                            <constraint firstAttribute="trailing" secondItem="cFD-2z-stm" secondAttribute="trailing" id="hP5-tq-dxe"/>
+                            <constraint firstItem="3G8-io-1zL" firstAttribute="top" secondItem="cFD-2z-stm" secondAttribute="bottom" id="jbu-gQ-MMq"/>
+                            <constraint firstItem="1AL-5H-iDN" firstAttribute="trailing" secondItem="3G8-io-1zL" secondAttribute="trailing" id="oRx-hQ-zai"/>
+                            <constraint firstItem="1AL-5H-iDN" firstAttribute="top" secondItem="3G8-io-1zL" secondAttribute="bottom" id="pU3-aI-e44"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="czz-Cx-dqU"/>
+                    <connections>
+                        <outlet property="addPatientButton" destination="1AL-5H-iDN" id="guB-Ag-htP"/>
+                        <outlet property="customNavigationBar" destination="cFD-2z-stm" id="6Mq-FM-k90"/>
+                        <outlet property="tableView" destination="3G8-io-1zL" id="xcq-Wp-yJM"/>
+                        <outlet property="tableviewBottomConstraint" destination="Skh-t8-fVT" id="Gcg-az-mQ0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pyj-QW-T1O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3814" y="24"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="Add-Patient Button" width="73" height="73"/>
         <image name="Back" width="28" height="28"/>
         <image name="Doctor-with-shadow" width="303" height="303"/>
         <image name="Logo-with-shadow" width="303" height="303"/>

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -160,7 +159,8 @@
                                 <constraint firstItem="Xza-2a-OdR" firstAttribute="leading" secondItem="06D-tg-brZ" secondAttribute="leading" id="Met-nC-24C"/>
                                 <constraint firstItem="BMu-SK-oRR" firstAttribute="leading" secondItem="oAD-Yn-iuI" secondAttribute="leading" id="Qbb-A7-JES"/>
                                 <constraint firstItem="U8N-7O-a9q" firstAttribute="leading" secondItem="8YQ-me-EtC" secondAttribute="leading" id="Rd6-kH-hUg"/>
-                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BMu-SK-oRR" secondAttribute="bottom" constant="10" id="Smg-Ms-mhp"/>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BMu-SK-oRR" secondAttribute="bottom" constant="20" id="S7K-ns-8Sd"/>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="U8N-7O-a9q" secondAttribute="bottom" constant="10" id="V8X-ky-buE"/>
                                 <constraint firstAttribute="trailing" secondItem="S6E-gC-QXA" secondAttribute="trailing" constant="50" id="Xkz-oG-yGf"/>
                                 <constraint firstItem="06D-tg-brZ" firstAttribute="leading" secondItem="S6E-gC-QXA" secondAttribute="leading" id="ZL6-1e-XBc"/>
                                 <constraint firstItem="Xza-2a-OdR" firstAttribute="top" secondItem="06D-tg-brZ" secondAttribute="bottom" constant="20" id="aPz-He-GHt"/>

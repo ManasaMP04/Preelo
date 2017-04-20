@@ -21,17 +21,29 @@ class AlertVC: UIViewController {
     @IBOutlet fileprivate weak var doneButton           : UIButton!
     @IBOutlet fileprivate weak var notificationView     : UIView!
     
-    
     weak var delegate : AlertVCDelegate?
+    
+    fileprivate var titleValue = ""
+    fileprivate var descriptionString: NSAttributedString?
+    fileprivate var notificationString = ""
+    
+    init (_ title: String, description: NSAttributedString, notificationTitle: String) {
+        
+        self.titleValue = title
+        self.descriptionString = description
+        self.notificationString = notificationTitle
+        
+        super.init(nibName: "AlertVC", bundle: nil)
+    }
+    
+    required init?(coder aDecoder:NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        notificationView.addShadowWithColor(UIColor.lightGray)
-        notificationView.layer.cornerRadius = 5
-        notificationView.layer.borderWidth = 0.2
-        notificationView.layer.borderColor = UIColor.lightGray.cgColor
-        customeNavigation.delegate = self
+        setup()
     }
     
     override func didReceiveMemoryWarning() {
@@ -39,11 +51,16 @@ class AlertVC: UIViewController {
         
     }
     
-    func setTitle(_ title: String, description: NSAttributedString, notificationTitle: String) {
+    fileprivate func setup() {
         
-        customeNavigation.setTitle(title)
-        self.notificationTitle.text = notificationTitle
-        notificationDetail.attributedText = description
+        notificationView.addShadowWithColor(UIColor.lightGray)
+        notificationView.layer.cornerRadius = 5
+        notificationView.layer.borderWidth = 0.2
+        notificationView.layer.borderColor = UIColor.lightGray.cgColor
+        customeNavigation.delegate = self
+        customeNavigation.setTitle(titleValue)
+        self.notificationTitle.text = notificationString
+        notificationDetail.attributedText = descriptionString
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {

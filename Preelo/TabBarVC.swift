@@ -46,24 +46,21 @@ class TabBarVC: UITabBarController {
             Alamofire.request(PatientRouter.get())
                 .responseObject(keyPath: "data") { (response: DataResponse<Patients>) in
                     
-                    if let result = response.result.value,
-                        let nav = self.viewControllers?[2] as? UINavigationController,
-                        let patientDetail = nav.viewControllers[0] as? PatientDetailVC {
+                    if let result = response.result.value, let patientList = self.storyboard?.instantiateViewController(withIdentifier: "PatientListVC") as? PatientListVC {
                         
-                        patientDetail.patientDetail = result
-                        patientDetail.isAPIFetched = true
+                        patientList.isAPIFetched = true
+                        patientList.list = result.patientList
+                        patientList.patientDetail = result
                     }}
         } else {
             
             Alamofire.request(DoctorListRouter.get())
                 .responseArray(keyPath: "data") { (response: DataResponse<[DoctorList]>) in
                     
-                    if let result = response.result.value,
-                        let nav = self.viewControllers?[2] as? UINavigationController,
-                        let patientDetail = nav.viewControllers[0] as? PatientDetailVC {
+                    if let result = response.result.value, let patientList = self.storyboard?.instantiateViewController(withIdentifier: "PatientListVC") as? PatientListVC {
                         
-                        patientDetail.isAPIFetched = true
-                        patientDetail.doctorDetils = result
+                        patientList.isAPIFetched = true
+                        patientList.list = result
                     }}
         }
     }

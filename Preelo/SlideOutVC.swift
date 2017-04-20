@@ -11,7 +11,7 @@ import AlamofireObjectMapper
 import Alamofire
 
 class SlideOutVC: UIViewController {
-
+    
     @IBOutlet fileprivate weak var slideButton      : UIButton!
     @IBOutlet fileprivate weak var profileSetting   : UIButton!
     @IBOutlet fileprivate weak var settings         : UIButton!
@@ -19,37 +19,34 @@ class SlideOutVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         logOut.layer.cornerRadius  = logOut.frame.size.width / 11
         logOut.titleLabel?.font    = StaticContentFile.buttonFont
         
-        if let image = UIImage(named: "Splash-BG") {
-            
-            view.backgroundColor = UIColor.init(patternImage: image)
-        }
+        setGradientBackground()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
     }
     
     @IBAction func slideOutButtonTapped(_ sender: Any) {
-    
+        
         _ = navigationController?.popViewController(animated: true)
     }
     
     @IBAction func profileButtonTapped(_ sender: Any) {
-    
+        
     }
     
     @IBAction func settingsButtonTapped(_ sender: Any) {
-    
-    
+        
+        
     }
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
-    
+        
         Alamofire.request(LogoutRouter.post())
             .responseObject { (response: DataResponse<logOut>) in
                 
@@ -58,5 +55,18 @@ class SlideOutVC: UIViewController {
                     StaticContentFile.removeAllKeys()
                     _ = self.navigationController?.popToRootViewController(animated: true)
                 }}
+    }
+    
+    func setGradientBackground() {
+        
+        let colorTop =  UIColor.colorWithHex(0x3cb6cc).cgColor
+        let colorBottom = UIColor.colorWithHex(0x38cacc).cgColor
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [ colorTop, colorBottom]
+        gradientLayer.locations = [0.0, 100]
+        gradientLayer.frame = self.view.bounds
+        
+        self.view.layer.addSublayer(gradientLayer)
     }
 }

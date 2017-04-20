@@ -7,13 +7,8 @@
 //
 
 import UIKit
-
-protocol AddPatientVCDelegate: class {
-    
-    func pushParentDetailVCFromVC(_ addGuestVC: AddPatientVC, patientData: PatientList, index: Int)
-    
-    func tappedDoneButtonFromVC(_ addGuestVC: AddPatientVC, patientList: PatientList)
-}
+import AlamofireObjectMapper
+import Alamofire
 
 fileprivate let cellHeight = CGFloat(45)
 fileprivate let alertMsgFormat = NSLocalizedString("Patient %@ has been succesfully added to the patients list", comment: "Alert")
@@ -30,15 +25,12 @@ class AddPatientVC: UIViewController {
     @IBOutlet fileprivate weak var tableview            : UITableView!
     @IBOutlet fileprivate weak var doneButton           : UIButton!
     
-    fileprivate var showBackButton = true
+    fileprivate var activityIndicator   : UIActivityIndicatorView?
+    fileprivate var patientList         : PatientList?
     
-    fileprivate var patientList: PatientList?
-    
-    weak var delegate: AddPatientVCDelegate?
-    
-    init (_ showBackButton: Bool) {
+    init (_ patientList: PatientList?) {
         
-        self.showBackButton = showBackButton
+        self.patientList = patientList
         super.init(nibName: "AddPatientVC", bundle: nil)
     }
     
@@ -64,11 +56,11 @@ class AddPatientVC: UIViewController {
             
             if let patient = patientList {
                 
-                delegate?.pushParentDetailVCFromVC(self, patientData: patient, index: -1)
+                pushParentVC(patient, index: -1)
             } else {
                 
                 let list = PatientList(fname, lName: lName, familyList: [FamilyList]())
-                delegate?.pushParentDetailVCFromVC(self, patientData: list, index: -1)
+                pushParentVC(list, index: -1)
             }
         } else {
             
@@ -80,7 +72,10 @@ class AddPatientVC: UIViewController {
         
         if let list = patientList {
             
-            delegate?.tappedDoneButtonFromVC(self, patientList: list)
+            let alertVC = AlertVC("New Patient", description: attributeText(withText: list.firstname), notificationTitle: "Notification")
+            
+            alertVC.delegate = self
+            navigationController?.pushViewController(alertVC, animated: true)
         }
     }
     
@@ -130,7 +125,7 @@ extension AddPatientVC: ParentDetailCellDelegate {
         
         if let indexpath = tableview.indexPath(for: cell), let list = patientList {
             
-            self.delegate?.pushParentDetailVCFromVC(self, patientData: list, index: indexpath.row)
+            pushParentVC(list, index: indexpath.row)
         }
     }
 }
@@ -151,6 +146,61 @@ extension AddPatientVC {
         
         firstName.isCompleteBoarder = true
         lastName.isCompleteBoarder  = true
+        
+        showDefaultValues()
+    }
+    
+    fileprivate func showDefaultValues() {
+    
+        if let list = patientList {
+            
+            firstName.text = list.firstname
+            lastName.text  = list.lastname
+            
+            showParentDetailView(list)
+        }
+    }
+    
+    fileprivate func attributeText(withText text: String) -> NSMutableAttributedString {
+        
+        let output      = NSMutableAttributedString(string: text)
+        let opt = NSMutableAttributedString(string: "Patient")
+        
+        let attr = [NSFontAttributeName: UIFont(name: "Ubuntu-Medium", size: 12)!, NSForegroundColorAttributeName:UIColor.colorWithHex(0x23B5B9)]
+        
+        let attr1 = [NSFontAttributeName: UIFont(name: "Ubuntu-Light", size: 26)!, NSForegroundColorAttributeName: UIColor.colorWithHex(0x23B5B9)]
+        
+        
+        opt.addAttributes(attr1, range: NSMakeRange(0, opt.length))
+        
+        output.addAttributes(attr, range: NSMakeRange(0, output.length))
+        
+        output.append(NSMutableAttributedString(string: " has been succesfully added to the patients list"))
+        
+        return output
+    }
+    
+    fileprivate func callAPIToAddPatient(_ patient: PatientList) {
+        
+        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+        activityIndicator?.startAnimating()
+        
+        Alamofire.request(PatientRouter.post(patient))
+            .responseObject { (response: DataResponse<addPatient>) in
+                
+                self.activityIndicator?.stopAnimating()
+                if let _ = response.result.value {
+                    
+                    self.activityIndicator?.stopAnimating()
+                    
+                }}
+    }
+    
+    fileprivate func pushParentVC(_ list: PatientList, index: Int) {
+        
+        let parentDetail = ParentDetailVC(list, index: index)
+        
+        navigationController?.pushViewController(parentDetail, animated: true)
     }
 }
 
@@ -161,3 +211,19 @@ extension AddPatientVC: CustomNavigationBarDelegate {
         _ = navigationController?.popViewController(animated: true)
     }
 }
+
+//MARK:- AddPatientVCDelegate
+
+extension AddPatientVC: AlertVCDelegate {
+    
+    func tappedDoneButton(_ alertVC: AlertVC) {
+        
+        _ = navigationController?.popToRootViewController(animated: true)
+        
+        if let patient = patientList {
+            
+            callAPIToAddPatient(patient)
+        }
+    }
+}
+

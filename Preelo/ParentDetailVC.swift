@@ -58,19 +58,15 @@ class ParentDetailVC: UIViewController {
         if let fname = firstName.text, fname.characters.count > 0,
             let lname = lastName.text, lname.characters.count > 0,
             let email = email.text, StaticContentFile.isValidEmail(email),
-            let phone = phoneNumber.text, phone.characters.count == 10, let relation = relationship.text {
+            let phone = phoneNumber.text, phone.characters.count == 10, let relation = relationship.text, let addPatientVC = navigationController?.viewControllerWithClass(AddPatientVC.self) as? AddPatientVC {
             
             let family = FamilyList(fname, lName: lname, email: email, phone: phone, relation: relation)
             
-            if let addPatientVC = navigationController?.viewControllerWithClass(AddPatientVC.self) as? AddPatientVC, let patient = patientList {
+            if let patient = patientList {
                 
                 addPatientVC.showParentDetailView(getList(patient, family: family))
                 _ = navigationController?.popToViewController(addPatientVC, animated: true)
                 
-            } else if let patientDetailVC = navigationController?.viewControllerWithClass(PatientDetailVC.self) as? PatientDetailVC, let patient = patientList {
-                
-                patientDetailVC.showParentDetailView(getList(patient, family: family))
-                _ = navigationController?.popToViewController(patientDetailVC, animated: true)
             }
         } else if let email = email.text, StaticContentFile.isValidEmail(email) {
             

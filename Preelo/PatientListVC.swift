@@ -7,12 +7,8 @@
 //
 
 import UIKit
-
-protocol PatientListVCDelegate: class {
-    
-    func editButtonTappedFromVC(_ addGuestVC: PatientListVC)
-}
-
+import AlamofireObjectMapper
+import Alamofire
 
 fileprivate let cellHeight = CGFloat(45)
 
@@ -23,19 +19,10 @@ class PatientListVC: UIViewController {
     @IBOutlet fileprivate weak var tableviewBottomConstraint  : NSLayoutConstraint!
     @IBOutlet fileprivate weak var addPatientButton           : UIButton!
     
-    fileprivate var list = [Any]()
-    
-    weak var delegate : PatientListVCDelegate?
-    
-    init (_ list: [Any]) {
-        
-        self.list = list
-        super.init(nibName: "PatientListVC", bundle: nil)
-    }
-    
-    required init?(coder aDecoder:NSCoder) {
-        super.init(coder: aDecoder)
-    }
+    fileprivate var activityIndicator: UIActivityIndicatorView?
+    var list = [Any]()
+    var patientDetail : Patients?
+    var isAPIFetched  = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,27 +35,31 @@ class PatientListVC: UIViewController {
         
     }
     
-    func reloadData() {
-        
-        tableView.reloadData()
-    }
-    
     @IBAction func addPatient(_ sender: Any) {
         
-        delegate?.editButtonTappedFromVC(self)
+        let addPatientVC = AddPatientVC(nil)
+        
+        self.navigationController?.pushViewController(addPatientVC, animated: true)
     }
     
     fileprivate func setup() {
         
         customNavigationBar.setTitle("Patients")
         customNavigationBar.delegate = self
+        navigationController?.navigationBar.isHidden = true
+        navigationItem.hidesBackButton = true
         
         tableView.register(UINib(nibName: "ParentDetailCell", bundle: nil), forCellReuseIdentifier: ParentDetailCell.cellId)
+        
+        if !isAPIFetched {
+            
+            callApi()
+        }
         
         if StaticContentFile.isDoctorLogIn() {
             
             addPatientButton.isHidden = false
-            tableviewBottomConstraint.constant = 140
+            tableviewBottomConstraint.constant = 70
         } else {
             
             addPatientButton.isHidden = true
@@ -114,7 +105,11 @@ extension PatientListVC: ParentDetailCellDelegate {
     
     func parentDetailCell(_ cell: ParentDetailCell) {
         
-        delegate?.editButtonTappedFromVC(self)
+        if let indexpath = tableView.indexPath(for: cell), let patientList = list as? [PatientList] {
+            
+            let addPatientVC = AddPatientVC(patientList[indexpath.row])
+            self.navigationController?.pushViewController(addPatientVC, animated: true)
+        }
     }
 }
 
@@ -123,6 +118,41 @@ extension PatientListVC: CustomNavigationBarDelegate {
     func tappedBackButtonFromVC(_ customView: CustomNavigationBar) {
         
         _ = navigationController?.popViewController(animated: true)
+    }
+}
+
+extension PatientListVC {
+    
+    fileprivate func callApi() {
+        
+        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+        activityIndicator?.startAnimating()
+        
+        if StaticContentFile.isDoctorLogIn() {
+            
+            Alamofire.request(PatientRouter.get())
+                .responseObject(keyPath: "data") { (response: DataResponse<Patients>) in
+                    
+                    self.activityIndicator?.stopAnimating()
+                    
+                    if let result = response.result.value {
+                        
+                        self.patientDetail = result
+                        self.list = result.patientList
+                        self.tableView.reloadData()
+                    }}
+        } else {
+            
+            Alamofire.request(DoctorListRouter.get())
+                .responseArray(keyPath: "data") { (response: DataResponse<[DoctorList]>) in
+                    
+                    self.activityIndicator?.stopAnimating()
+                    
+                    if let result = response.result.value {
+                        
+                        self.list = result
+                        self.tableView.reloadData()
+                    }}}
     }
 }
 
