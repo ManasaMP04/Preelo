@@ -27,6 +27,7 @@ class AddPatientVC: UIViewController {
     
     fileprivate var activityIndicator   : UIActivityIndicatorView?
     fileprivate var patientList         : PatientList?
+    fileprivate var isEditPatient       = false
     
     init (_ patientList: PatientList?) {
         
@@ -151,13 +152,18 @@ extension AddPatientVC {
     }
     
     fileprivate func showDefaultValues() {
-    
+        
         if let list = patientList {
             
             firstName.text = list.firstname
             lastName.text  = list.lastname
             
             showParentDetailView(list)
+            
+            isEditPatient = true
+        } else {
+            
+            isEditPatient = false
         }
     }
     
@@ -181,6 +187,22 @@ extension AddPatientVC {
     }
     
     fileprivate func callAPIToAddPatient(_ patient: PatientList) {
+        
+        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+        activityIndicator?.startAnimating()
+        
+        Alamofire.request(PatientRouter.post(patient))
+            .responseObject { (response: DataResponse<addPatient>) in
+                
+                self.activityIndicator?.stopAnimating()
+                if let _ = response.result.value {
+                    
+                    self.activityIndicator?.stopAnimating()
+                    
+                }}
+    }
+    
+    fileprivate func callAPIToEditPatient(_ patient: PatientList) {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
@@ -222,7 +244,7 @@ extension AddPatientVC: AlertVCDelegate {
         
         if let patient = patientList {
             
-            callAPIToAddPatient(patient)
+            isEditPatient ? callAPIToEditPatient(patient): callAPIToAddPatient(patient)
         }
     }
 }

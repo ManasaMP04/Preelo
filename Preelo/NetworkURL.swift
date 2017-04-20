@@ -20,5 +20,6 @@ enum NetworkURL {
     static let addParent            = "patient/addFamily"
     static let patientAuthorization = "patient/requestAuthorization"
     static let patientList          = "patients"
+    static let editPatient          = "patients"
     static let doctorList           = "doctors"
 }

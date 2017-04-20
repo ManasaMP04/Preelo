@@ -13,6 +13,7 @@ enum PatientRouter:  URLRequestConvertible {
     
     case get()
     case post(PatientList)
+    case put(PatientList)
     
     public func asURLRequest() throws -> URLRequest {
         
@@ -21,6 +22,9 @@ enum PatientRouter:  URLRequestConvertible {
             switch self {
             case .get:
                 return .get
+                
+            case .put:
+                return .put
                 
             default:
                 return .post
@@ -35,6 +39,10 @@ enum PatientRouter:  URLRequestConvertible {
             switch self {
             case .get:
                 relativePath = NetworkURL.patientList
+               
+            case .put:
+                
+                 relativePath = NetworkURL.editPatient
                 
             default:
                 relativePath = NetworkURL.addPatient
