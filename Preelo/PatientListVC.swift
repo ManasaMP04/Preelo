@@ -20,9 +20,8 @@ class PatientListVC: UIViewController {
     @IBOutlet fileprivate weak var addPatientButton           : UIButton!
     
     fileprivate var activityIndicator: UIActivityIndicatorView?
-    var list = [Any]()
-    var patientDetail : Patients?
-    var isAPIFetched  = false
+    fileprivate var list = [Any]()
+    fileprivate var patientDetail : Patients?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,31 +39,6 @@ class PatientListVC: UIViewController {
         let addPatientVC = AddPatientVC(nil)
         
         self.navigationController?.pushViewController(addPatientVC, animated: true)
-    }
-    
-    fileprivate func setup() {
-        
-        customNavigationBar.setTitle("Patients")
-        customNavigationBar.delegate = self
-        navigationController?.navigationBar.isHidden = true
-        navigationItem.hidesBackButton = true
-        
-        tableView.register(UINib(nibName: "ParentDetailCell", bundle: nil), forCellReuseIdentifier: ParentDetailCell.cellId)
-        
-        if !isAPIFetched {
-            
-            callApi()
-        }
-        
-        if StaticContentFile.isDoctorLogIn() {
-            
-            addPatientButton.isHidden = false
-            tableviewBottomConstraint.constant = 70
-        } else {
-            
-            addPatientButton.isHidden = true
-            tableviewBottomConstraint.constant = 0
-        }
     }
 }
 
@@ -85,9 +59,9 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
         if let data = list[indexPath.row] as? PatientList {
             
             cell.showParentName(data.firstname, showImage: false)
-        } else  if let _ = list[indexPath.row] as? DoctorList  {
+        } else  if let list = list[indexPath.row] as? DoctorList  {
             
-            cell.showParentName("", showImage: false, showEdit: false)
+            cell.showParentName(list.doctor_firstname , showImage: false, showEdit: false)
         }
         
         return cell
@@ -96,6 +70,16 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         return cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if !StaticContentFile.isDoctorLogIn(), let nav = self.parent as? UINavigationController, let tab =  nav.parent as? TabBarVC, let docList = list[indexPath.row] as? DoctorList  {
+            
+            tab.selectedIndex = 0
+            tab.showMessageList(docList)
+            _ = navigationController?.popToRootViewController(animated: true)
+        }
     }
 }
 
@@ -113,6 +97,8 @@ extension PatientListVC: ParentDetailCellDelegate {
     }
 }
 
+//MARK:-  CustomNavigationBarDelegate
+
 extension PatientListVC: CustomNavigationBarDelegate {
     
     func tappedBackButtonFromVC(_ customView: CustomNavigationBar) {
@@ -120,6 +106,9 @@ extension PatientListVC: CustomNavigationBarDelegate {
         _ = navigationController?.popViewController(animated: true)
     }
 }
+
+//MARK:-  private methods
+
 
 extension PatientListVC {
     
@@ -153,6 +142,39 @@ extension PatientListVC {
                         self.list = result
                         self.tableView.reloadData()
                     }}}
+    }
+    
+    fileprivate func setup() {
+        
+        StaticContentFile.isDoctorLogIn() ? customNavigationBar.setTitle("Patients") : customNavigationBar.setTitle("Doctors")
+        customNavigationBar.delegate = self
+        navigationController?.navigationBar.isHidden = true
+        navigationItem.hidesBackButton = true
+        
+        tableView.register(UINib(nibName: "ParentDetailCell", bundle: nil), forCellReuseIdentifier: ParentDetailCell.cellId)
+        
+        if let nav = self.parent as? UINavigationController, let tab =  nav.parent as? TabBarVC {
+            
+            if tab.isAPIFetched {
+                
+                list = tab.list
+                patientDetail = tab.patientDetail
+            } else {
+                callApi()
+            }
+        } else {
+            callApi()
+        }
+        
+        if StaticContentFile.isDoctorLogIn() {
+            
+            addPatientButton.isHidden = false
+            tableviewBottomConstraint.constant = 70
+        } else {
+            
+            addPatientButton.isHidden = true
+            tableviewBottomConstraint.constant = 0
+        }
     }
 }
 

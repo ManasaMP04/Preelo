@@ -36,6 +36,16 @@ class StaticContentFile: NSObject {
         return ""
     }
     
+    static func getName() -> String {
+        
+        if let name = defaults.string(forKey: "name")  {
+            
+            return name
+        }
+        
+        return ""
+    }
+    
     static func getId() -> Int {
         
         return defaults.integer(forKey: "id")

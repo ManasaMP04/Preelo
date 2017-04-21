@@ -215,6 +215,7 @@
 				622A8FD01E9D542B00B34B56 /* PatientVC */,
 				622A8FD21E9D547E00B34B56 /* parentVC */,
 				623D5EDE1EA0C4D000389481 /* MessageVC */,
+				623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */,
 				622A8FB41E9D3A1200B34B56 /* ReminderVC.swift */,
 				62E3AB7F1EA106CF0061802F /* ChatVC */,
 				62ACD5061EA1292A000B0EDE /* Network */,
@@ -268,8 +269,6 @@
 				622A8FB01E9D3A1200B34B56 /* PatientListVC.swift */,
 				622A8FA31E9D3A1200B34B56 /* AddPatientVC.swift */,
 				622A8FA41E9D3A1200B34B56 /* AddPatientVC.xib */,
-				622A8FCB1E9D500C00B34B56 /* ParentDetailCell.swift */,
-				622A8FCC1E9D500C00B34B56 /* ParentDetailCell.xib */,
 			);
 			name = PatientVC;
 			sourceTree = "<group>";
@@ -289,6 +288,8 @@
 			children = (
 				622A8FAE1E9D3A1200B34B56 /* ParentDetailVC.swift */,
 				6203EECD1EA61D8000E7D38B /* ParentDetailVC.xib */,
+				622A8FCB1E9D500C00B34B56 /* ParentDetailCell.swift */,
+				622A8FCC1E9D500C00B34B56 /* ParentDetailCell.xib */,
 			);
 			name = parentVC;
 			sourceTree = "<group>";
@@ -297,9 +298,6 @@
 			isa = PBXGroup;
 			children = (
 				622A8FAD1E9D3A1200B34B56 /* MessageVC.swift */,
-				62E3AB7B1EA101410061802F /* ChatCell.swift */,
-				62E3AB7C1EA101410061802F /* ChatCell.xib */,
-				623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */,
 			);
 			name = MessageVC;
 			sourceTree = "<group>";
@@ -344,10 +342,12 @@
 		62E3AB7F1EA106CF0061802F /* ChatVC */ = {
 			isa = PBXGroup;
 			children = (
-				62E3AB801EA107530061802F /* DisclaimerVC.swift */,
-				62E3AB811EA107530061802F /* DisclaimerVC.xib */,
 				62E3AB841EA10C140061802F /* ChatVC.swift */,
 				62E3AB851EA10C140061802F /* ChatVC.xib */,
+				62E3AB801EA107530061802F /* DisclaimerVC.swift */,
+				62E3AB811EA107530061802F /* DisclaimerVC.xib */,
+				62E3AB7B1EA101410061802F /* ChatCell.swift */,
+				62E3AB7C1EA101410061802F /* ChatCell.xib */,
 				623D5EDF1EA0C52000389481 /* DisplayPhotoVC.swift */,
 				623D5EE11EA0C81500389481 /* DisplayPhotoVC.xib */,
 			);

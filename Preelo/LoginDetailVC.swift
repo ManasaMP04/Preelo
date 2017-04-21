@@ -124,7 +124,8 @@ extension LoginDetailVC {
                     
                     let defaults = UserDefaults.standard
                     defaults.set(result.token, forKey: "token")
-                    self.isDoctorLogIn ? defaults.set(loginDetail.id, forKey: "id") : defaults.set(loginDetail.id, forKey: "id")
+                    self.isDoctorLogIn ? defaults.set(loginDetail.doctorid, forKey: "id") : defaults.set(loginDetail.id, forKey: "id")
+                    defaults.set(loginDetail.firstname, forKey: "name")
                     defaults.set(self.isDoctorLogIn, forKey: "isDoctorLogIn")
                     self.performSegue(withIdentifier: "loginSuccess", sender: nil)
                 } else if let result = response.result.value, result.status == "VERIFY" {

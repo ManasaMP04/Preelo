@@ -341,7 +341,7 @@
         <!--MessageVC-->
         <scene sceneID="j13-Vx-saq">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="fAo-Np-iZa" customClass="MessageVC" customModule="Preelo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MessageVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fAo-Np-iZa" customClass="MessageVC" customModule="Preelo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vfp-qs-ZTN"/>
                         <viewControllerLayoutGuide type="bottom" id="GkN-Tx-FWP"/>

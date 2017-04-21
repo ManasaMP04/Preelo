@@ -25,16 +25,34 @@ class MessageVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        customNavigationBar.setTitle("Welcome Doctor", backButtonImageName: "Menu")
-        customNavigationBar.delegate = self
-        messagesButton.isSelected = true
+       setup()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
     }
+    
+    func showMessageList(_ doctorList: DoctorList) {
+    
+    }
 }
+
+//MARK:- private methods
+
+extension MessageVC {
+
+    fileprivate func setup() {
+    
+        StaticContentFile.isDoctorLogIn() ? customNavigationBar.setTitle("Welcome Doctor", backButtonImageName: "Menu") : customNavigationBar.setTitle(String(format: "Welcome %@", StaticContentFile.getName()), backButtonImageName: "Menu")
+        customNavigationBar.delegate = self
+        messagesButton.isSelected = true
+        
+        tableview.register(UINib(nibName: "ChatCell", bundle: nil), forCellReuseIdentifier: ChatCell.cellId)
+    }
+}
+
+//MARK:- CustomNavigationBarDelegate
 
 extension MessageVC: CustomNavigationBarDelegate {
     
@@ -52,18 +70,23 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: ParentDetailCell.cellId, for: indexPath) as! ParentDetailCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ChatCell.cellId, for: indexPath) as! ChatCell
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 0
+        return 110
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
     }
 }
