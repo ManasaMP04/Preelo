@@ -39,6 +39,6 @@ class FamilyList: Mappable {
         id                 <- map["id"]
         authstatus         <- map["authstatus"]
         email              <- map["email"]
-        phone              <- map["phone"]
+        phone              <- map["phonenumber"]
     }
 }

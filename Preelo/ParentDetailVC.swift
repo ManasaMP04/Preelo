@@ -117,8 +117,8 @@ class ParentDetailVC: UIViewController {
             
             firstName.text   = familyData.firstname
             lastName.text    = familyData.lastname
-            phoneNumber.text = ""
-            self.email.text  = ""
+            phoneNumber.text = familyData.phone
+            self.email.text  = familyData.email
             relationship.text = familyData.relationship
         }
     }
