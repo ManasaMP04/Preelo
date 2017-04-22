@@ -12,7 +12,7 @@ class StaticContentFile: NSObject {
     
     static let defaults = UserDefaults.standard
     
-    static let buttonFont = UIFont(name: "Ubuntu-Bold", size: 15)!
+    static let buttonFont = UIFont(name: "Ubuntu-Medium", size: 14)!
     
     static func setLayer(_ view: UIButton) {
     

@@ -103,7 +103,10 @@ extension PatientListVC: CustomNavigationBarDelegate {
     
     func tappedBackButtonFromVC(_ customView: CustomNavigationBar) {
         
-        _ = navigationController?.popViewController(animated: true)
+        if let nav = self.parent as? UINavigationController, let tab = nav.parent as? UITabBarController {
+            
+            tab.selectedIndex = 0
+        }
     }
 }
 

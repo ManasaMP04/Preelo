@@ -22,8 +22,6 @@ class SlideOutVC: UIViewController {
         
         logOut.layer.cornerRadius  = logOut.frame.size.width / 11
         logOut.titleLabel?.font    = StaticContentFile.buttonFont
-        
-        setGradientBackground()
     }
     
     override func didReceiveMemoryWarning() {
@@ -55,18 +53,5 @@ class SlideOutVC: UIViewController {
                     StaticContentFile.removeAllKeys()
                     _ = self.navigationController?.popToRootViewController(animated: true)
                 }}
-    }
-    
-    func setGradientBackground() {
-        
-        let colorTop =  UIColor.colorWithHex(0x3cb6cc).cgColor
-        let colorBottom = UIColor.colorWithHex(0x38cacc).cgColor
-        
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [ colorTop, colorBottom]
-        gradientLayer.locations = [0.0, 100]
-        gradientLayer.frame = self.view.bounds
-        
-        self.view.layer.addSublayer(gradientLayer)
     }
 }

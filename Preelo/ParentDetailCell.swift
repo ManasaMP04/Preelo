@@ -19,6 +19,7 @@ class ParentDetailCell: UITableViewCell {
     @IBOutlet fileprivate weak var editButton        : UIButton!
     @IBOutlet fileprivate weak var imageViewWidth    : NSLayoutConstraint!
     @IBOutlet fileprivate weak var imageViewTrailing : NSLayoutConstraint!
+    @IBOutlet fileprivate weak var cardView          : UIView!
     
     weak var delegate: ParentDetailCellDelegate?
     

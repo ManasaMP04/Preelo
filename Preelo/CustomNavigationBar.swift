@@ -71,7 +71,7 @@ class CustomNavigationBar: UIView {
         backButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backButton)
         
-        AutoLayoutHelper.addLeadingSpaceConstraintToView(backButton, leadingSpace: 15)
+        AutoLayoutHelper.addLeadingSpaceConstraintToView(backButton, leadingSpace: 0)
         AutoLayoutHelper.addVerticalAlignConstraintToView(backButton, withCenterOffset: 5)
         AutoLayoutHelper.addHeightConstraintToView(backButton, value: 45)
         AutoLayoutHelper.addWidthConstraintToView(backButton, value: 45)

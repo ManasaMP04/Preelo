@@ -94,7 +94,7 @@ extension LoginDetailVC {
         } else {
             
             titleLabel.text        = "Hello Patient"
-            profileImageView.image = UIImage(named: "Patient")
+            profileImageView.image = UIImage(named: "Patient logo")
         }
     }
     

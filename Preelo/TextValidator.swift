@@ -106,14 +106,6 @@ class TextValidator: NSObject {
             emptyMessage = NSLocalizedString("Password cannot be empty", comment:"Error message")
             validationMessage = NSLocalizedString("Enter your password", comment:"Validation message")
             break
-            
-        default:
-            limit               = 0
-            subregex            = ""
-            regex               = ""
-            emptyMessage        = ""
-            validationMessage   = ""
-            break
         }
         
         self.rule = Rule(limit: limit, regex: regex, subregex: subregex, emptyMessage: emptyMessage, validationMessage: validationMessage)

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,46 +22,60 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Man-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="wfQ-OD-CbL">
-                        <rect key="frame" x="10" y="8" width="28" height="28"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEN-8n-elh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="42.5"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Man-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="wfQ-OD-CbL">
+                                <rect key="frame" x="16" y="7.5" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="8Wh-YL-gtR"/>
+                                    <constraint firstAttribute="width" constant="28" id="d8M-7G-dk0"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBY-GP-FNy">
+                                <rect key="frame" x="60.5" y="13.5" width="34.5" height="16"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                <color key="textColor" red="0.25490196078431371" green="0.25098039215686274" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRw-PW-mMI">
+                                <rect key="frame" x="259" y="0.0" width="45" height="42.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="qaI-YZ-asj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="13"/>
+                                <state key="normal" title="EDIT">
+                                    <color key="titleColor" red="0.13725490196078433" green="0.70980392156862748" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="editButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Gbq-s4-VAR"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="28" id="8Wh-YL-gtR"/>
-                            <constraint firstAttribute="width" constant="28" id="d8M-7G-dk0"/>
+                            <constraint firstItem="wfQ-OD-CbL" firstAttribute="centerY" secondItem="CBY-GP-FNy" secondAttribute="centerY" id="AlM-J3-KLB"/>
+                            <constraint firstAttribute="trailing" secondItem="iRw-PW-mMI" secondAttribute="trailing" constant="16" id="I9Q-6Q-46s"/>
+                            <constraint firstItem="CBY-GP-FNy" firstAttribute="centerY" secondItem="gEN-8n-elh" secondAttribute="centerY" id="JDY-ai-hdi"/>
+                            <constraint firstItem="wfQ-OD-CbL" firstAttribute="leading" secondItem="gEN-8n-elh" secondAttribute="leading" constant="16" id="ZR7-0w-pr6"/>
+                            <constraint firstAttribute="bottom" secondItem="iRw-PW-mMI" secondAttribute="bottom" id="jhT-UU-EL8"/>
+                            <constraint firstItem="iRw-PW-mMI" firstAttribute="top" secondItem="gEN-8n-elh" secondAttribute="top" id="pYn-dN-lh8"/>
+                            <constraint firstItem="CBY-GP-FNy" firstAttribute="leading" secondItem="wfQ-OD-CbL" secondAttribute="trailing" constant="16" id="qQD-Ir-jrr"/>
                         </constraints>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBY-GP-FNy">
-                        <rect key="frame" x="48" y="11.5" width="44.5" height="20.5"/>
-                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
-                        <color key="textColor" red="0.25490196078431371" green="0.25098039215686274" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRw-PW-mMI">
-                        <rect key="frame" x="275" y="-1.5" width="45" height="45"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="45" id="gnl-Kk-QIC"/>
-                            <constraint firstAttribute="width" constant="45" id="qaI-YZ-asj"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="13"/>
-                        <state key="normal" title="EDIT">
-                            <color key="titleColor" red="0.13725490196078433" green="0.70980392156862748" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
-                        </state>
-                        <connections>
-                            <action selector="editButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Gbq-s4-VAR"/>
-                        </connections>
-                    </button>
+                    </view>
                 </subviews>
+                <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstItem="wfQ-OD-CbL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="VrP-0b-MxA"/>
-                    <constraint firstItem="CBY-GP-FNy" firstAttribute="centerY" secondItem="wfQ-OD-CbL" secondAttribute="centerY" id="atj-40-JxN"/>
-                    <constraint firstItem="wfQ-OD-CbL" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cOD-5V-Zwf"/>
-                    <constraint firstAttribute="trailing" secondItem="iRw-PW-mMI" secondAttribute="trailing" id="mkf-7C-hSg"/>
-                    <constraint firstItem="iRw-PW-mMI" firstAttribute="centerY" secondItem="CBY-GP-FNy" secondAttribute="centerY" id="qw6-ZV-hEi"/>
-                    <constraint firstItem="CBY-GP-FNy" firstAttribute="leading" secondItem="wfQ-OD-CbL" secondAttribute="trailing" constant="10" id="sT2-MM-93f"/>
+                    <constraint firstItem="gEN-8n-elh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="CBb-UU-P8I"/>
+                    <constraint firstAttribute="trailing" secondItem="gEN-8n-elh" secondAttribute="trailing" id="I2t-gP-Dfw"/>
+                    <constraint firstItem="gEN-8n-elh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="c0c-OB-WTX"/>
+                    <constraint firstAttribute="bottom" secondItem="gEN-8n-elh" secondAttribute="bottom" constant="1" id="yyQ-9K-s20"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="cardView" destination="gEN-8n-elh" id="6wf-3m-Qkg"/>
                 <outlet property="editButton" destination="iRw-PW-mMI" id="dHx-ef-wZf"/>
-                <outlet property="imageViewTrailing" destination="VrP-0b-MxA" id="sFZ-hn-75b"/>
+                <outlet property="imageViewTrailing" destination="ZR7-0w-pr6" id="N6x-Jd-c8j"/>
                 <outlet property="imageViewWidth" destination="d8M-7G-dk0" id="HKM-i4-Zze"/>
                 <outlet property="parentName" destination="CBY-GP-FNy" id="YbY-IA-uCb"/>
             </connections>
