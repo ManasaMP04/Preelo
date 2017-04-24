@@ -34,6 +34,16 @@ class PatientListVC: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(true)
+        
+        if let nav = self.parent as? UINavigationController, let tab = nav.parent as? UITabBarController {
+            
+            tab.tabBar.isHidden = true
+        }
+    }
+    
     @IBAction func addPatient(_ sender: Any) {
         
         let addPatientVC = AddPatientVC(nil)
@@ -74,11 +84,17 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if !StaticContentFile.isDoctorLogIn(), let nav = self.parent as? UINavigationController, let tab =  nav.parent as? TabBarVC, let docList = list[indexPath.row] as? DoctorList  {
+        if !StaticContentFile.isDoctorLogIn(), let docList = list[indexPath.row] as? DoctorList, docList.children.count > 0 {
             
-            tab.selectedIndex = 0
-            tab.showMessageList(docList)
-            _ = navigationController?.popToRootViewController(animated: true)
+            guard docList.children.count > 1 else {
+                
+                callAPIToSelectDocOrPatient(docList.children[0], docList:docList)
+                return
+            }
+            let vc = SelectChildrenVC(docList)
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+            return
         }
     }
 }
@@ -110,10 +126,47 @@ extension PatientListVC: CustomNavigationBarDelegate {
     }
 }
 
+//MARK:-  SelectChildrenVCDelegate
+
+extension PatientListVC: SelectChildrenVCDelegate {
+    
+    func selectChildrenVC(_ vc: SelectChildrenVC, selectedChild: ChildrenDetail, docList: DoctorList) {
+        
+        callAPIToSelectDocOrPatient(selectedChild, docList:docList)
+    }
+}
+
 //MARK:-  private methods
 
-
 extension PatientListVC {
+    
+    fileprivate func callAPIToSelectDocOrPatient(_ selectedChild: ChildrenDetail, docList: DoctorList) {
+        
+        if StaticContentFile.isDoctorLogIn() {
+            
+            callAPIToSelect(SelectRouter.post(selectedChild.patientid, docList.parent_id), childrenDetail: selectedChild, docList: docList)
+        } else {
+            
+            callAPIToSelect(SelectRouter.doc_post(selectedChild.patientid, docList.doctorid), childrenDetail: selectedChild, docList: docList)
+        }
+    }
+    
+    fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible, childrenDetail: ChildrenDetail, docList: DoctorList) {
+        
+        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+        activityIndicator?.startAnimating()
+        
+        Alamofire.request(urlRequest)
+            .responseObject { (response: DataResponse<AuthorizeRequest>) in
+                
+                self.activityIndicator?.stopAnimating()
+                
+                if let result = response.result.value, result.status == "SUCCESS" {
+                    
+                    let chatvc = ChatVC(docList, childrenDetail: childrenDetail)
+                    self.navigationController?.pushViewController(chatvc, animated: true)
+                }}
+    }
     
     fileprivate func callApi() {
         

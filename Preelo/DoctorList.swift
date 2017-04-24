@@ -10,7 +10,7 @@ import ObjectMapper
 
 class DoctorList: Mappable {
     
-    var status    = ""
+    var status            = ""
     var parent_id         = 0
     var doctorid          = 0
     var doctor_firstname  = ""
@@ -27,6 +27,6 @@ class DoctorList: Mappable {
         doctorid          <- map["doctorid"]
         doctor_firstname  <- map["doctor_firstname"]
         id                <- map["id"]
-        children          <- map["patients"]
+        children          <- map["children"]
     }
 }

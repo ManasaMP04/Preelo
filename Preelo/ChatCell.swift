@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol ChatCellDelegate: class {
+    
+    func chatCell(_ cell: ChatCell, isAuthAccepted: Bool)
+}
+
 class ChatCell: UITableViewCell {
     
     @IBOutlet fileprivate weak var declineRequestView   : UIView!
@@ -15,8 +20,10 @@ class ChatCell: UITableViewCell {
     @IBOutlet fileprivate weak var name                 : UILabel!
     @IBOutlet fileprivate weak var descriptionLabel     : UILabel!
     @IBOutlet fileprivate weak var time                 : UILabel!
+    @IBOutlet fileprivate weak var acceptAuthViewHeight : NSLayoutConstraint!
     
     static let cellId = "ChatCell"
+    weak var delegate : ChatCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,6 +41,24 @@ class ChatCell: UITableViewCell {
         descriptionLabel.text = discription
         self.time.text = time
         imageview.image = UIImage(named: image)
-        declineRequestView.isHidden = isdeclineRequestViewHide
+        declineRequestView.isHidden = !isdeclineRequestViewHide
+        
+        if isdeclineRequestViewHide {
+            
+            acceptAuthViewHeight.constant = 45
+        } else {
+            
+            acceptAuthViewHeight.constant = 0
+        }
+    }
+    
+    @IBAction func declineButtonIsTapped(_ sender: Any) {
+    
+        delegate?.chatCell(self, isAuthAccepted: false)
+    }
+    
+    @IBAction func acceptButtonIsTapped(_ sender: Any) {
+   
+        delegate?.chatCell(self, isAuthAccepted: true)
     }
 }

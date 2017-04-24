@@ -1,34 +1,25 @@
 //
-//  PatientRouterr.swift
+//  AuthorizationRequestListRouter.swift
 //  Preelo
 //
-//  Created by Manasa MP on 16/04/17.
+//  Created by Manasa MP on 24/04/17.
 //  Copyright © 2017 Manasa MP. All rights reserved.
 //
 
 import Foundation
 import Alamofire
 
-enum PatientRouter:  URLRequestConvertible {
+enum AuthorizationRequestListRouter:  URLRequestConvertible {
     
     case get()
-    case post(PatientList)
-    case put(PatientList)
+    case approveAuth_post(Int, Int)
+    case rejectAuth_post(Int, Int)
     
     public func asURLRequest() throws -> URLRequest {
         
         var method: HTTPMethod {
             
-            switch self {
-            case .get:
-                return .get
-                
-            case .put:
-                return .put
-                
-            default:
-                return .post
-            }
+            return .get
         }
         
         let url: URL = {
@@ -37,15 +28,18 @@ enum PatientRouter:  URLRequestConvertible {
             var relativePath: String
             
             switch self {
-            case .get:
-                relativePath = NetworkURL.patientList
-               
-            case .put:
                 
-                 relativePath = NetworkURL.editPatient
+            case .get():
                 
-            default:
-                relativePath = NetworkURL.addPatient
+                relativePath = NetworkURL.authRequestList
+                
+            case .approveAuth_post(_, _):
+                
+                relativePath = NetworkURL.docApproveAuthorization
+            
+            case .rejectAuth_post(_, _):
+            
+            relativePath = NetworkURL.docRejectAuthorization
             }
             
             url = url.appendingPathComponent(relativePath)
@@ -59,34 +53,26 @@ enum PatientRouter:  URLRequestConvertible {
             
             switch self {
                 
-            case .post(let list):
+            case .get():
                 
-                dict = ["firstname" : list.firstname,
-                        "lastname" : list.lastname,
-                        "token" : StaticContentFile.getToken()]
+                dict = ["token"         : StaticContentFile.getToken()]
+               
+            case .approveAuth_post(let patientid, let parentid):
                 
-                var families = [[String: Any]]()
+                 dict = ["token"         : StaticContentFile.getToken(),
+                         "patientid"     : patientid,
+                         "parentid"      : parentid]
                 
-                for family in list.family {
-                    
-                    let familyDict = ["firstname" : family.firstname,
-                                      "lastname" : family.lastname,
-                                      "relationship": family.relationship,
-                                      "phonenumber": family.phone,
-                                      "email" : family.email]
-                    
-                    families.append(familyDict)
-                }
+            case .rejectAuth_post(let patientid, let parentid):
                 
-                dict["family"] = families
-                
-                
-            default: dict = [:]
+                dict = ["token"         : StaticContentFile.getToken(),
+                        "patientid"     : patientid,
+                        "parentid"      : parentid]
             }
             
             return dict
         }()
-        
+
         var urlRequest = URLRequest(url: url)
         let encoding   = URLEncoding.queryString
         var encodedRequest : URLRequest!
@@ -94,8 +80,7 @@ enum PatientRouter:  URLRequestConvertible {
         switch self {
         case .get:
             
-            let dict = ["token" : StaticContentFile.getToken()]
-            encodedRequest          = try encoding.encode(urlRequest, with: dict)
+            encodedRequest          = try encoding.encode(urlRequest, with: params)
         default:
             do {
                 
@@ -107,7 +92,7 @@ enum PatientRouter:  URLRequestConvertible {
                 
             }
         }
-        
+
         encodedRequest.httpMethod       = method.rawValue
         encodedRequest.timeoutInterval  = 30
         

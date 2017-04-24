@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-R.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SelectChildrenVC" customModule="Preelo" customModuleProvider="target">
+            <connections>
+                <outlet property="tableview" destination="KYu-Wa-myb" id="pxn-04-sRq"/>
+                <outlet property="tableviewHeight" destination="qvP-cD-eAd" id="PA5-6q-Mih"/>
+                <outlet property="view" destination="TSJ-KU-RSN" id="OAn-qB-Vq1"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="TSJ-KU-RSN">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oZX-kC-iqD">
+                    <rect key="frame" x="20" y="262" width="335" height="142"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KYu-Wa-myb">
+                            <rect key="frame" x="0.0" y="55" width="335" height="77"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="77" id="qvP-cD-eAd"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="o2y-h9-2fw"/>
+                                <outlet property="delegate" destination="-1" id="dK4-eD-Yvv"/>
+                            </connections>
+                        </tableView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nVL-Ko-qhp">
+                            <rect key="frame" x="0.0" y="0.0" width="335" height="45"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select A Child" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Wd-U1-9Xi">
+                                    <rect key="frame" x="124.5" y="15" width="87.5" height="16"/>
+                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                    <color key="textColor" red="0.35294117650000001" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.75294117650000003" green="0.75294117650000003" blue="0.75294117650000003" alpha="0.1225066489" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="2Wd-U1-9Xi" firstAttribute="centerX" secondItem="nVL-Ko-qhp" secondAttribute="centerX" id="3J8-6n-FUv"/>
+                                <constraint firstItem="2Wd-U1-9Xi" firstAttribute="centerY" secondItem="nVL-Ko-qhp" secondAttribute="centerY" id="Ht7-se-Ifr"/>
+                                <constraint firstAttribute="height" constant="45" id="zyT-rE-39T"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="KYu-Wa-myb" secondAttribute="trailing" id="AUe-a2-oOK"/>
+                        <constraint firstItem="nVL-Ko-qhp" firstAttribute="leading" secondItem="oZX-kC-iqD" secondAttribute="leading" id="ELn-kn-Tti"/>
+                        <constraint firstItem="KYu-Wa-myb" firstAttribute="top" secondItem="nVL-Ko-qhp" secondAttribute="bottom" constant="10" id="WYX-u9-8rQ"/>
+                        <constraint firstItem="KYu-Wa-myb" firstAttribute="leading" secondItem="oZX-kC-iqD" secondAttribute="leading" id="erM-zY-AkV"/>
+                        <constraint firstAttribute="bottom" secondItem="KYu-Wa-myb" secondAttribute="bottom" constant="10" id="r0g-7d-qSx"/>
+                        <constraint firstItem="nVL-Ko-qhp" firstAttribute="top" secondItem="oZX-kC-iqD" secondAttribute="top" id="rCR-N6-W6q"/>
+                        <constraint firstAttribute="trailing" secondItem="nVL-Ko-qhp" secondAttribute="trailing" id="sAe-ZI-bhv"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xYo-im-5zk">
+                    <rect key="frame" x="305" y="25" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="4tH-d5-zcF"/>
+                        <constraint firstAttribute="width" constant="60" id="ZhE-G4-0cL"/>
+                    </constraints>
+                    <state key="normal" image="cross_filled"/>
+                    <connections>
+                        <action selector="closeButtonTapped:" destination="-1" eventType="touchUpInside" id="Rfo-Iz-GhH"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.89000000000000001" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="xYo-im-5zk" firstAttribute="top" secondItem="TSJ-KU-RSN" secondAttribute="top" constant="25" id="GFH-Pq-lMO"/>
+                <constraint firstItem="oZX-kC-iqD" firstAttribute="leading" secondItem="TSJ-KU-RSN" secondAttribute="leading" constant="20" id="Oe2-pQ-Nws"/>
+                <constraint firstAttribute="trailing" secondItem="xYo-im-5zk" secondAttribute="trailing" constant="10" id="eNf-Rg-jdQ"/>
+                <constraint firstItem="oZX-kC-iqD" firstAttribute="centerY" secondItem="TSJ-KU-RSN" secondAttribute="centerY" id="leq-OG-vaZ"/>
+                <constraint firstAttribute="trailing" secondItem="oZX-kC-iqD" secondAttribute="trailing" constant="20" id="oSN-cn-qM5"/>
+            </constraints>
+            <point key="canvasLocation" x="-84" y="-110"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="cross_filled" width="16" height="16"/>
+    </resources>
+</document>
