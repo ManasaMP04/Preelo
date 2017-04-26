@@ -15,7 +15,7 @@ class DocAuthorizationRequest: Mappable {
     var relationship      = ""
     var doctorid          = 0
     var patientid         = 0
-    var userid            = 0
+    var parentid          = 0
     var family_id         = 0
 
     required init?(map: Map) {
@@ -29,7 +29,7 @@ class DocAuthorizationRequest: Mappable {
         relationship       <- map["relationship"]
         doctorid           <- map["doctorid"]
         patientid          <- map["patientid"]
-        userid             <- map["userid"]
+        parentid           <- map["parentid"]
         family_id          <- map["family_id"]
     }
 }

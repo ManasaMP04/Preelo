@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Ubuntu-L.ttf">
+            <string>Ubuntu-Light</string>
+        </array>
         <array key="Ubuntu-M.ttf">
             <string>Ubuntu-Medium</string>
         </array>
@@ -356,7 +359,7 @@
                                 <rect key="frame" x="0.0" y="60" width="320" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHO-Nt-Vys">
-                                        <rect key="frame" x="0.0" y="0.0" width="120" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="75" height="60"/>
                                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="14"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="MESSAGES">
@@ -367,9 +370,10 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryb-yl-gBd">
-                                        <rect key="frame" x="120" y="0.0" width="200" height="60"/>
+                                        <rect key="frame" x="75" y="0.0" width="245" height="60"/>
                                         <color key="backgroundColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="0.15140845070422534" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="14"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="AUTHORIZATION REQUESTS">
                                             <color key="titleColor" red="0.13725490200000001" green="0.70980392160000005" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -377,6 +381,16 @@
                                             <color key="titleColor" red="0.65490196078431373" green="0.66274509803921566" blue="0.67450980392156867" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="66n-w8-Nku">
+                                        <rect key="frame" x="294" y="19.5" width="21" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="PIM-4Z-S9C"/>
+                                            <constraint firstAttribute="width" constant="21" id="VZx-lK-XIC"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -384,8 +398,10 @@
                                     <constraint firstItem="HHO-Nt-Vys" firstAttribute="top" secondItem="7M5-WT-u8G" secondAttribute="top" id="2A9-tF-HRg"/>
                                     <constraint firstAttribute="bottom" secondItem="ryb-yl-gBd" secondAttribute="bottom" id="Ccm-N7-sRr"/>
                                     <constraint firstItem="HHO-Nt-Vys" firstAttribute="leading" secondItem="7M5-WT-u8G" secondAttribute="leading" id="L6C-uh-bgX"/>
+                                    <constraint firstItem="66n-w8-Nku" firstAttribute="centerY" secondItem="ryb-yl-gBd" secondAttribute="centerY" id="WFM-gi-C2t"/>
+                                    <constraint firstAttribute="trailing" secondItem="66n-w8-Nku" secondAttribute="trailing" constant="5" id="fb8-q8-eg1"/>
                                     <constraint firstAttribute="height" constant="60" id="hBY-G4-1yQ"/>
-                                    <constraint firstItem="ryb-yl-gBd" firstAttribute="width" secondItem="HHO-Nt-Vys" secondAttribute="width" constant="80" id="iOc-P7-7a2"/>
+                                    <constraint firstItem="ryb-yl-gBd" firstAttribute="width" secondItem="HHO-Nt-Vys" secondAttribute="width" constant="170" id="iOc-P7-7a2"/>
                                     <constraint firstAttribute="bottom" secondItem="HHO-Nt-Vys" secondAttribute="bottom" id="jH7-Ez-Dfw"/>
                                     <constraint firstAttribute="trailing" secondItem="ryb-yl-gBd" secondAttribute="trailing" id="pIE-1b-xfr"/>
                                     <constraint firstItem="ryb-yl-gBd" firstAttribute="top" secondItem="7M5-WT-u8G" secondAttribute="top" id="tAP-dX-82K"/>
@@ -429,6 +445,7 @@
                         <outlet property="authorizationRequest" destination="ryb-yl-gBd" id="WrV-mH-oR5"/>
                         <outlet property="customNavigationBar" destination="D4Q-OT-sUr" id="7M4-FZ-jYm"/>
                         <outlet property="messagesButton" destination="HHO-Nt-Vys" id="XF9-kc-BbB"/>
+                        <outlet property="notificationCount" destination="66n-w8-Nku" id="7N6-x9-GUB"/>
                         <outlet property="tableview" destination="7dC-AD-nVJ" id="QOX-c0-iYm"/>
                     </connections>
                 </viewController>

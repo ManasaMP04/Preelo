@@ -18,6 +18,7 @@ class MessageVC: UIViewController {
         case authentication
     }
     
+    @IBOutlet fileprivate weak var notificationCount    : UILabel!
     @IBOutlet fileprivate weak var customNavigationBar  : CustomNavigationBar!
     @IBOutlet fileprivate weak var messagesButton       : UIButton!
     @IBOutlet fileprivate weak var authorizationRequest : UIButton!
@@ -37,6 +38,16 @@ class MessageVC: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(true)
+        
+        if let nav = self.parent as? UINavigationController, let tab = nav.parent as? UITabBarController {
+            
+            tab.tabBar.isHidden = false
+        }
     }
     
     func showMessageList(_ doctorList: DoctorList) {
@@ -75,6 +86,9 @@ extension MessageVC {
         tableview.tableFooterView = UIView()
         tableview.estimatedRowHeight = 30
         tableview.rowHeight = UITableViewAutomaticDimension
+        notificationCount.layer.cornerRadius = 10
+        notificationCount.backgroundColor = UIColor.colorWithHex(0x3CCACC)
+        notificationCount.isHidden = true
         
         if StaticContentFile.isDoctorLogIn() {
             
@@ -95,10 +109,24 @@ extension MessageVC {
                     
                     self.list = result.authRequest
                     self.tableview.reloadData()
+                    
+                    self.hideOrShowNotificationCount()
                 }}
     }
     
-    fileprivate func callAPIForAcceptAuth(_ request: URLRequestConvertible) {
+    fileprivate func hideOrShowNotificationCount() {
+        
+        if list.count > 0 {
+            
+            self.notificationCount.isHidden = false
+            notificationCount.text = "\(list.count)"
+        } else {
+            
+            self.notificationCount.isHidden = true
+        }
+    }
+    
+    fileprivate func callAPIForAcceptAuth(_ request: URLRequestConvertible, index: Int) {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
@@ -108,9 +136,9 @@ extension MessageVC {
                 
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
-                  
-                    print(result)
                     
+                    self.list.remove(at: index)
+                    self.tableview.reloadData()
                 }}
     }
 }
@@ -162,8 +190,8 @@ extension MessageVC: ChatCellDelegate {
     func chatCell(_ cell: ChatCell, isAuthAccepted: Bool) {
         
         if let indexPath = tableview.indexPath(for: cell), let data = list[indexPath.row] as? DocAuthorizationRequest {
-        
-            isAuthAccepted ? callAPIForAcceptAuth( AuthorizationRequestListRouter.approveAuth_post(data.patientid, data.family_id)) : callAPIForAcceptAuth( AuthorizationRequestListRouter.rejectAuth_post(data.patientid, data.family_id))
+            
+            isAuthAccepted ? callAPIForAcceptAuth( AuthorizationRequestListRouter.approveAuth_post(data.patientid, data.parentid), index: indexPath.row) : callAPIForAcceptAuth( AuthorizationRequestListRouter.rejectAuth_post(data.patientid, data.parentid), index: indexPath.row)
         }
     }
 }

@@ -19,7 +19,14 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
         
         var method: HTTPMethod {
             
-            return .get
+            switch self {
+                
+            case .get():
+                return .get
+                
+            default:
+                return .post
+            }
         }
         
         let url: URL = {
@@ -36,10 +43,10 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
             case .approveAuth_post(_, _):
                 
                 relativePath = NetworkURL.docApproveAuthorization
-            
+                
             case .rejectAuth_post(_, _):
-            
-            relativePath = NetworkURL.docRejectAuthorization
+                
+                relativePath = NetworkURL.docRejectAuthorization
             }
             
             url = url.appendingPathComponent(relativePath)
@@ -56,12 +63,12 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
             case .get():
                 
                 dict = ["token"         : StaticContentFile.getToken()]
-               
+                
             case .approveAuth_post(let patientid, let parentid):
                 
-                 dict = ["token"         : StaticContentFile.getToken(),
-                         "patientid"     : patientid,
-                         "parentid"      : parentid]
+                dict = ["token"         : StaticContentFile.getToken(),
+                        "patientid"     : patientid,
+                        "parentid"      : parentid]
                 
             case .rejectAuth_post(let patientid, let parentid):
                 
@@ -72,7 +79,7 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
             
             return dict
         }()
-
+        
         var urlRequest = URLRequest(url: url)
         let encoding   = URLEncoding.queryString
         var encodedRequest : URLRequest!
@@ -92,7 +99,7 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
                 
             }
         }
-
+        
         encodedRequest.httpMethod       = method.rawValue
         encodedRequest.timeoutInterval  = 30
         

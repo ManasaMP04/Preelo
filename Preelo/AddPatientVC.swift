@@ -50,6 +50,16 @@ class AddPatientVC: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(true)
+        
+        if let nav = self.parent as? UINavigationController, let tab = nav.parent as? UITabBarController {
+            
+            tab.tabBar.isHidden = false
+        }
+    }
+    
     @IBAction func addPatientButtonTapped(_ sender: Any) {
         
         if let fname = firstName.text, let lName = lastName.text,
@@ -68,15 +78,11 @@ class AddPatientVC: UIViewController {
             view.showToast(message: "Please enter FirstName and LastName")
         }
     }
-    
     @IBAction func doneButtonTapped(_ sender: Any) {
         
-        if let list = patientList {
+        if let patient = patientList {
             
-            let alertVC = AlertVC("New Patient", description: attributeText(withText: list.firstname), notificationTitle: "Notification")
-            
-            alertVC.delegate = self
-            navigationController?.pushViewController(alertVC, animated: true)
+            isEditPatient ? callAPIToEditPatient(patient): callAPIToAddPatient(patient)
         }
     }
     
@@ -167,7 +173,7 @@ extension AddPatientVC {
         }
     }
     
-    fileprivate func attributeText(withText text: String) -> NSMutableAttributedString {
+    fileprivate func attributeText(withText text: String, isEdit: Bool) -> NSMutableAttributedString {
         
         let output      = NSMutableAttributedString(string: text)
         let opt = NSMutableAttributedString(string: "Patient")
@@ -181,9 +187,25 @@ extension AddPatientVC {
         
         output.addAttributes(attr, range: NSMakeRange(0, output.length))
         
-        output.append(NSMutableAttributedString(string: " has been succesfully added to the patients list"))
+        if isEdit {
+            
+            output.append(NSMutableAttributedString(string: " has been succesfully edited"))
+        } else {
+            output.append(NSMutableAttributedString(string: " has been succesfully added to the patients list"))
+        }
         
         return output
+    }
+    
+    fileprivate func showAlertView(_ isEdit: Bool) {
+        
+        if let list = patientList {
+            
+            let alertVC = AlertVC("New Patient", description: attributeText(withText: list.firstname,  isEdit: isEdit), notificationTitle: "Notification")
+            
+            alertVC.delegate = self
+            navigationController?.pushViewController(alertVC, animated: true)
+        }
     }
     
     fileprivate func callAPIToAddPatient(_ patient: PatientList) {
@@ -197,9 +219,11 @@ extension AddPatientVC {
                 self.activityIndicator?.stopAnimating()
                 if let _ = response.result.value {
                     
-                    self.activityIndicator?.stopAnimating()
+                   self.showAlertView(false)
+                } else {
                     
-                }}
+                    self.view.showToast(message: "Patient Add is failed")
+                } }
     }
     
     fileprivate func callAPIToEditPatient(_ patient: PatientList) {
@@ -213,8 +237,10 @@ extension AddPatientVC {
                 self.activityIndicator?.stopAnimating()
                 if let _ = response.result.value {
                     
-                    self.activityIndicator?.stopAnimating()
+                    self.showAlertView(true)
+                } else {
                     
+                    self.view.showToast(message: "Patient Edit is failed")
                 }}
     }
     
@@ -240,12 +266,7 @@ extension AddPatientVC: AlertVCDelegate {
     
     func tappedDoneButton(_ alertVC: AlertVC) {
         
-        _ = navigationController?.popToRootViewController(animated: true)
-        
-        if let patient = patientList {
-            
-            isEditPatient ? callAPIToEditPatient(patient): callAPIToAddPatient(patient)
-        }
+       _ = navigationController?.popToRootViewController(animated: true)
     }
 }
 

@@ -14,6 +14,7 @@ class logIn: Mappable {
     var status          = ""
     var token           = ""
     var loginDetail     : LogInDetail?
+    var notifications   = [String]()
     
     required init?(map: Map) {
         
@@ -25,6 +26,7 @@ class logIn: Mappable {
         status              <- map["status"]
         token               <- map["token"]
         loginDetail         <- map["data"]
+        notifications       <- map["notifications"]
     }
 }
 
