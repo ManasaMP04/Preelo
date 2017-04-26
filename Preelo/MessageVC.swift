@@ -126,7 +126,7 @@ extension MessageVC {
         }
     }
     
-    fileprivate func callAPIForAcceptAuth(_ request: URLRequestConvertible, index: Int) {
+    fileprivate func callAPIForAcceptAuth(_ request: URLRequestConvertible, indexPath: IndexPath) {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
@@ -137,8 +137,9 @@ extension MessageVC {
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    self.list.remove(at: index)
-                    self.tableview.reloadData()
+                    self.list.remove(at: indexPath.row)
+                    self.hideOrShowNotificationCount()
+                    self.tableview.deleteRows(at: [indexPath], with: .automatic)
                 }}
     }
 }
@@ -191,7 +192,7 @@ extension MessageVC: ChatCellDelegate {
         
         if let indexPath = tableview.indexPath(for: cell), let data = list[indexPath.row] as? DocAuthorizationRequest {
             
-            isAuthAccepted ? callAPIForAcceptAuth( AuthorizationRequestListRouter.approveAuth_post(data.patientid, data.parentid), index: indexPath.row) : callAPIForAcceptAuth( AuthorizationRequestListRouter.rejectAuth_post(data.patientid, data.parentid), index: indexPath.row)
+            isAuthAccepted ? callAPIForAcceptAuth( AuthorizationRequestListRouter.approveAuth_post(data.patientid, data.parentid), indexPath: indexPath) : callAPIForAcceptAuth( AuthorizationRequestListRouter.rejectAuth_post(data.patientid, data.parentid), indexPath: indexPath)
         }
     }
 }

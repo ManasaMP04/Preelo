@@ -20,10 +20,12 @@
             <connections>
                 <outlet property="authorizationView" destination="lTA-JT-YDU" id="NwA-bG-bCN"/>
                 <outlet property="customeNavigation" destination="tDf-nw-scH" id="SD6-CN-TfP"/>
+                <outlet property="messageTF" destination="PBg-pE-klS" id="NxR-CM-ek7"/>
                 <outlet property="requestAuthButton" destination="9xN-2L-JeE" id="Xhy-ex-5Cf"/>
                 <outlet property="requestAuthorizationViewHeight" destination="xsS-eV-WSn" id="YKc-UU-gNK"/>
                 <outlet property="scrollView" destination="WAt-Pe-tRq" id="6wi-Wt-7fM"/>
                 <outlet property="tableview" destination="Wcp-gu-6Ue" id="a1L-vm-q97"/>
+                <outlet property="toolbarView" destination="oxm-pz-0QZ" id="hoQ-Zb-EX2"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -93,9 +95,53 @@ authorization to send messages</string>
                                 </tableView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oxm-pz-0QZ">
                                     <rect key="frame" x="0.0" y="562" width="375" height="45"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S23-Yt-seN">
+                                            <rect key="frame" x="8" y="0.0" width="45" height="45"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="45" id="MHR-xW-7ac"/>
+                                            </constraints>
+                                            <state key="normal" title="Button"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WLu-iP-TRf">
+                                            <rect key="frame" x="54" y="0.0" width="45" height="45"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="45" id="gAY-RA-sST"/>
+                                            </constraints>
+                                            <state key="normal" title="Button"/>
+                                        </button>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PBg-pE-klS">
+                                            <rect key="frame" x="107" y="8" width="207" height="30"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xAF-hp-Svp">
+                                            <rect key="frame" x="322" y="0.0" width="45" height="45"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="45" id="NTP-XC-uWF"/>
+                                            </constraints>
+                                            <state key="normal" title="Button"/>
+                                            <connections>
+                                                <action selector="sendButtonTapped:" destination="-1" eventType="touchUpInside" id="v4Z-os-Jrf"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="5Y9-82-0PI"/>
+                                        <constraint firstItem="PBg-pE-klS" firstAttribute="centerY" secondItem="WLu-iP-TRf" secondAttribute="centerY" id="7qB-Qc-vu7"/>
+                                        <constraint firstItem="xAF-hp-Svp" firstAttribute="leading" secondItem="PBg-pE-klS" secondAttribute="trailing" constant="8" id="Cri-jN-8NT"/>
+                                        <constraint firstItem="WLu-iP-TRf" firstAttribute="bottom" secondItem="S23-Yt-seN" secondAttribute="bottom" id="L6w-YA-8Sx"/>
+                                        <constraint firstItem="S23-Yt-seN" firstAttribute="leading" secondItem="oxm-pz-0QZ" secondAttribute="leading" constant="8" id="OIC-zO-4SY"/>
+                                        <constraint firstAttribute="trailing" secondItem="xAF-hp-Svp" secondAttribute="trailing" constant="8" id="SQf-Vk-xcF"/>
+                                        <constraint firstItem="xAF-hp-Svp" firstAttribute="top" secondItem="WLu-iP-TRf" secondAttribute="top" id="h10-2U-eZE"/>
+                                        <constraint firstItem="WLu-iP-TRf" firstAttribute="leading" secondItem="S23-Yt-seN" secondAttribute="trailing" constant="1" id="nLa-zC-uup"/>
+                                        <constraint firstItem="WLu-iP-TRf" firstAttribute="top" secondItem="S23-Yt-seN" secondAttribute="top" id="re0-og-DT8"/>
+                                        <constraint firstItem="xAF-hp-Svp" firstAttribute="bottom" secondItem="WLu-iP-TRf" secondAttribute="bottom" id="v6w-6g-7gr"/>
+                                        <constraint firstAttribute="bottom" secondItem="S23-Yt-seN" secondAttribute="bottom" id="v8a-UM-Iyk"/>
+                                        <constraint firstItem="PBg-pE-klS" firstAttribute="leading" secondItem="WLu-iP-TRf" secondAttribute="trailing" constant="8" id="vBk-X1-YR0"/>
+                                        <constraint firstItem="S23-Yt-seN" firstAttribute="top" secondItem="oxm-pz-0QZ" secondAttribute="top" id="zmb-6h-yCe"/>
                                     </constraints>
                                 </view>
                             </subviews>

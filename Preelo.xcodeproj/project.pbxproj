@@ -54,6 +54,7 @@
 		629E4E971EA2AB7F00F280AD /* FamilyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E961EA2AB7F00F280AD /* FamilyList.swift */; };
 		62ACD5051EA125D1000B0EDE /* NetworkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5041EA125D1000B0EDE /* NetworkURL.swift */; };
 		62ACD5081EA129BF000B0EDE /* LogInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5071EA129BF000B0EDE /* LogInRouter.swift */; };
+		62D027DD1EB12E0500A6ACF3 /* SendTextMessageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */; };
 		62D064941EA3EEB4007A503F /* addPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D064931EA3EEB4007A503F /* addPatient.swift */; };
 		62D064961EA3EF00007A503F /* addFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D064951EA3EF00007A503F /* addFamily.swift */; };
 		62D432811EA3C08F005FA616 /* LogoutRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D432801EA3C08F005FA616 /* LogoutRouter.swift */; };
@@ -146,6 +147,7 @@
 		629E4E961EA2AB7F00F280AD /* FamilyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyList.swift; sourceTree = "<group>"; };
 		62ACD5041EA125D1000B0EDE /* NetworkURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkURL.swift; sourceTree = "<group>"; };
 		62ACD5071EA129BF000B0EDE /* LogInRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInRouter.swift; sourceTree = "<group>"; };
+		62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendTextMessageRouter.swift; sourceTree = "<group>"; };
 		62D064931EA3EEB4007A503F /* addPatient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addPatient.swift; sourceTree = "<group>"; };
 		62D064951EA3EF00007A503F /* addFamily.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addFamily.swift; sourceTree = "<group>"; };
 		62D432801EA3C08F005FA616 /* LogoutRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutRouter.swift; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 				62D432801EA3C08F005FA616 /* LogoutRouter.swift */,
 				62DAC9ED1EABF897005BB0FF /* AuthorizeRouter.swift */,
 				624B44551EAE79410014D2A2 /* AuthorizationRequestListRouter.swift */,
+				62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -632,6 +635,7 @@
 				624B44561EAE79410014D2A2 /* AuthorizationRequestListRouter.swift in Sources */,
 				626AB13F1EA36350001271D3 /* DoctorList.swift in Sources */,
 				622A8FBF1E9D3A1200B34B56 /* LoginVC.swift in Sources */,
+				62D027DD1EB12E0500A6ACF3 /* SendTextMessageRouter.swift in Sources */,
 				624B44541EAE76FD0014D2A2 /* DocAuthorizationRequest.swift in Sources */,
 				62E3AB861EA10C140061802F /* ChatVC.swift in Sources */,
 				62E3AB7D1EA101410061802F /* ChatCell.swift in Sources */,

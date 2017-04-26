@@ -16,6 +16,8 @@ class TabBarVC: UITabBarController {
     fileprivate(set) var patientDetail : Patients?
     fileprivate(set) var isAPIFetched  = false
     
+    var loginDetail : logIn!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

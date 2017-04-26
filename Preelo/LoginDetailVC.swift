@@ -19,6 +19,7 @@ class LoginDetailVC: UIViewController {
     @IBOutlet fileprivate weak var titleLabel       : UILabel!
     
     fileprivate var activityIndicator: UIActivityIndicatorView?
+    fileprivate var loginDetail : logIn!
     
     var isDoctorLogIn: Bool = false
     
@@ -122,6 +123,8 @@ extension LoginDetailVC {
                 if let result = response.result.value, result.status == "SUCCESS",
                     let loginDetail = result.loginDetail {
                     
+                    self.loginDetail = result
+                    
                     let defaults = UserDefaults.standard
                     defaults.set(result.token, forKey: "token")
                     self.isDoctorLogIn ? defaults.set(loginDetail.doctorid, forKey: "id") : defaults.set(loginDetail.id, forKey: "id")
@@ -136,6 +139,14 @@ extension LoginDetailVC {
                     
                     self.view.showToast(message: "Login failed")
                 }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "loginSuccess", let tab = segue.destination as? TabBarVC {
+            
+            tab.loginDetail = loginDetail
         }
     }
 }

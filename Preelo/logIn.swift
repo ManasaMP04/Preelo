@@ -14,7 +14,7 @@ class logIn: Mappable {
     var status          = ""
     var token           = ""
     var loginDetail     : LogInDetail?
-    var notifications   = [String]()
+    var notifications   = [String: String]()
     
     required init?(map: Map) {
         
