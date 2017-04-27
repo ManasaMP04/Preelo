@@ -147,13 +147,12 @@ extension AddPatientVC {
         
         customNavigationBar.setTitle("New Patient")
         customNavigationBar.delegate = self
-        
-        StaticContentFile.setLayer(addPatientButton)
-        addPatientButton.titleLabel?.font    = StaticContentFile.buttonFont
-        
+        StaticContentFile.setButtonFont(addPatientButton, backgroundColorNeeed: false)
+        StaticContentFile.setButtonFont(doneButton)
         firstName.isCompleteBoarder = true
         lastName.isCompleteBoarder  = true
-        
+        StaticContentFile.setFontForTF(lastName)
+        StaticContentFile.setFontForTF(firstName)
         showDefaultValues()
     }
     

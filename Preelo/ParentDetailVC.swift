@@ -101,14 +101,20 @@ class ParentDetailVC: UIViewController {
         relationButton.layer.borderColor   = UIColor.black.cgColor
         customNavigationBar.setTitle("New Patient")
         customNavigationBar.delegate = self
-        doneButton.layer.cornerRadius  = doneButton.frame.size.width / 11
-        doneButton.titleLabel?.font    = StaticContentFile.buttonFont
+        
         pickerView.dataSource = self
         pickerView.delegate   = self
         firstName.isCompleteBoarder = true
         lastName.isCompleteBoarder = true
         phoneNumber.isCompleteBoarder = true
         email.isCompleteBoarder = true
+        
+        StaticContentFile.setFontForTF(firstName)
+        StaticContentFile.setFontForTF(lastName)
+        StaticContentFile.setFontForTF(phoneNumber)
+        StaticContentFile.setFontForTF(email)
+        StaticContentFile.setButtonFont(doneButton)
+        
         self.navigationController?.navigationBar.isHidden = true
         
         if let list = patientList, selectedIndex >= 0, list.family.count >= selectedIndex {

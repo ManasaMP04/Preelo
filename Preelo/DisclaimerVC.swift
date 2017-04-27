@@ -62,8 +62,8 @@ extension DisclaimerVC {
         
         customeNavigation.setTitle("DISCLAIMER")
         customeNavigation.delegate = self
-        agreeButton.titleLabel?.font = StaticContentFile.buttonFont
-        dontAgreeButton.titleLabel?.font = StaticContentFile.buttonFont
+        StaticContentFile.setButtonFont(agreeButton)
+        StaticContentFile.setButtonFont(dontAgreeButton)
     }
     
     fileprivate func callAPI() {

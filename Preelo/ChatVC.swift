@@ -92,7 +92,7 @@ extension ChatVC {
     
     fileprivate func setup() {
         
-        requestAuthButton.titleLabel?.font = StaticContentFile.buttonFont
+        StaticContentFile.setButtonFont(requestAuthButton)
         
         if let nav = self.parent as? UINavigationController, let tab = nav.parent as? UITabBarController {
             

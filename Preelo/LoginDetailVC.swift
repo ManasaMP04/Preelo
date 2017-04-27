@@ -83,8 +83,9 @@ extension LoginDetailVC {
         userName.setLeftViewIcon("UserName")
         password.setLeftViewIcon("Password")
         
-        login.layer.cornerRadius  = login.frame.size.width / 11
-        login.titleLabel?.font    = StaticContentFile.buttonFont
+        StaticContentFile.setFontForTF(password, autoCaps: false)
+        StaticContentFile.setFontForTF(userName, autoCaps: false)
+        StaticContentFile.setButtonFont(login)
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         

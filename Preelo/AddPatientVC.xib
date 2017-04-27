@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Ubuntu-B.ttf">
+            <string>Ubuntu-Bold</string>
+        </array>
         <array key="Ubuntu-R.ttf">
             <string>Ubuntu</string>
         </array>
@@ -64,10 +67,10 @@
                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLx-Jc-nAO">
-                                    <rect key="frame" x="16" y="161" width="343" height="50"/>
+                                    <rect key="frame" x="16" y="166" width="343" height="45"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="fMK-u9-TaZ"/>
+                                        <constraint firstAttribute="height" constant="45" id="fMK-u9-TaZ"/>
                                     </constraints>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <state key="normal" title="ADD PARENT">
@@ -81,10 +84,10 @@
                                     <rect key="frame" x="0.0" y="211" width="375" height="0.0"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buM-FQ-aP7">
-                                            <rect key="frame" x="16" y="281" width="343" height="50"/>
+                                            <rect key="frame" x="16" y="277.5" width="343" height="45"/>
                                             <color key="backgroundColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="50" id="vZ7-Dh-LN6"/>
+                                                <constraint firstAttribute="height" constant="45" id="vZ7-Dh-LN6"/>
                                             </constraints>
                                             <state key="normal" title="DONE">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -94,13 +97,13 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PARENTS INFORMATION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSs-3g-aig">
-                                            <rect key="frame" x="16" y="30" width="191.5" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <rect key="frame" x="16" y="35" width="131" height="12.5"/>
+                                            <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="11"/>
                                             <color key="textColor" red="0.73725490196078436" green="0.74509803921568629" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a5o-8G-56d">
-                                            <rect key="frame" x="16" y="61" width="343" height="200"/>
+                                            <rect key="frame" x="16" y="57.5" width="343" height="200"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="200" id="aOg-bI-oXO"/>
@@ -114,7 +117,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" id="H4C-CA-5Rc"/>
-                                        <constraint firstItem="FSs-3g-aig" firstAttribute="top" secondItem="p7P-Bs-yzI" secondAttribute="top" constant="30" id="Kqe-7a-bIo"/>
+                                        <constraint firstItem="FSs-3g-aig" firstAttribute="top" secondItem="p7P-Bs-yzI" secondAttribute="top" constant="35" id="Kqe-7a-bIo"/>
                                         <constraint firstItem="buM-FQ-aP7" firstAttribute="centerX" secondItem="p7P-Bs-yzI" secondAttribute="centerX" id="OFm-MB-aQu"/>
                                         <constraint firstItem="a5o-8G-56d" firstAttribute="leading" secondItem="FSs-3g-aig" secondAttribute="leading" id="PUY-lh-yyg"/>
                                         <constraint firstItem="buM-FQ-aP7" firstAttribute="top" secondItem="a5o-8G-56d" secondAttribute="bottom" constant="20" id="fE0-Fz-O4Q"/>
@@ -132,7 +135,7 @@
                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="p7P-Bs-yzI" secondAttribute="bottom" constant="10" id="MRv-tL-rmF"/>
                                 <constraint firstAttribute="trailing" secondItem="p7P-Bs-yzI" secondAttribute="trailing" id="Mqy-bg-jDz"/>
                                 <constraint firstItem="OLx-Jc-nAO" firstAttribute="trailing" secondItem="8rX-3j-COY" secondAttribute="trailing" id="XlK-UG-Cpv"/>
-                                <constraint firstItem="OLx-Jc-nAO" firstAttribute="top" secondItem="8rX-3j-COY" secondAttribute="bottom" constant="20" id="adT-sM-guz"/>
+                                <constraint firstItem="OLx-Jc-nAO" firstAttribute="top" secondItem="8rX-3j-COY" secondAttribute="bottom" constant="25" id="adT-sM-guz"/>
                                 <constraint firstAttribute="trailing" secondItem="A2A-h8-50m" secondAttribute="trailing" constant="16" id="cpy-th-zbI"/>
                                 <constraint firstItem="OLx-Jc-nAO" firstAttribute="leading" secondItem="8rX-3j-COY" secondAttribute="leading" id="iT5-KI-EgO"/>
                                 <constraint firstItem="8rX-3j-COY" firstAttribute="leading" secondItem="A2A-h8-50m" secondAttribute="leading" id="kbd-MK-mYP"/>

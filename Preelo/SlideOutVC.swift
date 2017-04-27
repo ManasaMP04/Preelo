@@ -20,8 +20,7 @@ class SlideOutVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        logOut.layer.cornerRadius  = logOut.frame.size.width / 11
-        logOut.titleLabel?.font    = StaticContentFile.buttonFont
+        StaticContentFile.setButtonFont(logOut)
     }
     
     override func didReceiveMemoryWarning() {

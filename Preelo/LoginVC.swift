@@ -50,17 +50,14 @@ extension LoginVC {
             view.backgroundColor = UIColor.init(patternImage: image)
         }
         
-        doctorLogin.layer.cornerRadius  = doctorLogin.frame.size.width / 11
-        patientLogin.layer.cornerRadius = doctorLogin.frame.size.width / 11
-        
-        doctorLogin.titleLabel?.font    = StaticContentFile.buttonFont
-        patientLogin.titleLabel?.font   = StaticContentFile.buttonFont
+        StaticContentFile.setButtonFont(doctorLogin)
+        StaticContentFile.setButtonFont(patientLogin)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "logIn" {
-        
+            
             let loginVC           = segue.destination as? LoginDetailVC
             loginVC?.isDoctorLogIn = isDoctorLogIn
         }

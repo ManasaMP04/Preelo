@@ -12,13 +12,26 @@ class StaticContentFile: NSObject {
     
     static let defaults = UserDefaults.standard
     
-    static let buttonFont = UIFont(name: "Ubuntu-Medium", size: 14)!
+    static func setButtonFont(_ button: UIButton, backgroundColorNeeed: Bool = true) {
+        
+        button.backgroundColor = backgroundColorNeeed ? UIColor.colorWithHex(0x3DB0BB) : UIColor.clear
+        
+        button.titleLabel?.font = UIFont(name: "Ubuntu-Bold", size: 12)!
+        button.titleLabel?.textColor = UIColor.white
+        
+        button.layer.borderColor = UIColor.colorWithHex(0x3DB0BB).cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = button.frame.size.width / 11
+        button.addShadowWithColor(UIColor.black, offset: CGSize(width: 0, height: 4), opacity: 0.4, radius: 5)
+    }
     
-    static func setLayer(_ view: UIButton) {
-    
-        view.layer.borderColor = UIColor.colorWithHex(0x23B5B9).cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = view.frame.size.width / 11
+    static func setFontForTF(_ tf: UITextField, autoCaps: Bool = true) {
+        
+        tf.textColor              = UIColor(white: 0.2, alpha: 1.0)
+        tf.font                   = UIFont(name: "Ubuntu-Light", size: 12)!
+        
+        tf.autocapitalizationType = autoCaps ? .sentences : .none
+        tf.clearButtonMode        = .whileEditing
     }
     
     static func isDoctorLogIn() -> Bool {
@@ -60,7 +73,7 @@ class StaticContentFile: NSObject {
     }
     
     static func removeAllKeys() {
-    
+        
         defaults.removeObject(forKey: "isDoctorLogIn")
         defaults.removeObject(forKey: "token")
         defaults.removeObject(forKey: "id")

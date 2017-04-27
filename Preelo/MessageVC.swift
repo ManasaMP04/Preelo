@@ -66,6 +66,27 @@ class MessageVC: UIViewController {
             messagesButton.backgroundColor = UIColor.white
         }
     }
+    
+    @IBAction func authorizationButtonTapped(_ sender: Any) {
+        
+        authorizationButtonSelected(true)
+    }
+    
+    @IBAction func messageButtonTapped(_ sender: Any) {
+        
+         authorizationButtonSelected(false)
+    }
+    
+    fileprivate func authorizationButtonSelected(_ status: Bool) {
+    
+        authorizationRequest.isSelected = status
+        messagesButton.isSelected       = !status
+        selection = status ? .authentication : .message
+        authorizationRequest.backgroundColor =  status ? UIColor.colorWithHex(0xE6FAFE) : UIColor.clear
+        messagesButton.backgroundColor = status ? UIColor.clear : UIColor.colorWithHex(0xE6FAFE)
+        messagesButton.titleLabel?.textColor = status ? UIColor.colorWithHex(0x40AABB) : UIColor.colorWithHex(0xA7A9AC)
+        authorizationRequest.titleLabel?.textColor = status ? UIColor.colorWithHex(0xA7A9AC) : UIColor.colorWithHex(0x40AABB)
+    }
 }
 
 //MARK:- private methods
@@ -74,12 +95,10 @@ extension MessageVC {
     
     fileprivate func setup() {
         
-        authorizationRequest.isSelected = false
-        messagesButton.isSelected = true
+         authorizationButtonSelected(true)
         
         StaticContentFile.isDoctorLogIn() ? customNavigationBar.setTitle("Welcome Doctor", backButtonImageName: "Menu") : customNavigationBar.setTitle(String(format: "Welcome %@", StaticContentFile.getName()), backButtonImageName: "Menu")
         customNavigationBar.delegate = self
-        messagesButton.isSelected = true
         
         tableview.register(UINib(nibName: "ChatCell", bundle: nil), forCellReuseIdentifier: ChatCell.cellId)
         

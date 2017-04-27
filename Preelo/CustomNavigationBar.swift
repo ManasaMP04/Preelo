@@ -27,6 +27,12 @@ class CustomNavigationBar: UIView {
         setup()
     }
     
+    override open class var layerClass: AnyClass {
+        get{
+            return CAGradientLayer.classForCoder()
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
@@ -55,7 +61,8 @@ class CustomNavigationBar: UIView {
     
     fileprivate func setup() {
         
-        self.backgroundColor = UIColor.colorWithHex(0x3CCACC)
+        let gradientLayer = self.layer as! CAGradientLayer
+        gradientLayer.colors = [UIColor.colorWithHex(0x43BACB).cgColor, UIColor.colorWithHex(0x42C6CB).cgColor]
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

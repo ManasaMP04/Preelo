@@ -46,9 +46,9 @@ class ForgotPasswordVC: UIViewController {
                     
                     if let result = response.result.value, result.status == "SUCCESS" {
                         
-                         self.view.showToast(message: result.message)
+                        self.view.showToast(message: result.message)
                         
-//                        _ = self.navigationController?.popViewController(animated: true)
+                        //                        _ = self.navigationController?.popViewController(animated: true)
                         
                     }
                     else if let result = response.result.value {
@@ -65,8 +65,8 @@ class ForgotPasswordVC: UIViewController {
     fileprivate func setup() {
         
         emailId.setLeftViewIcon("UserName")
-        continueButton.layer.cornerRadius  = continueButton.frame.size.width / 11
-        continueButton.titleLabel?.font    = StaticContentFile.buttonFont
+        StaticContentFile.setFontForTF(emailId, autoCaps: false)
+        StaticContentFile.setButtonFont(continueButton)
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
     }
 }
