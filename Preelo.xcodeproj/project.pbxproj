@@ -54,6 +54,7 @@
 		629E4E971EA2AB7F00F280AD /* FamilyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E961EA2AB7F00F280AD /* FamilyList.swift */; };
 		62ACD5051EA125D1000B0EDE /* NetworkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5041EA125D1000B0EDE /* NetworkURL.swift */; };
 		62ACD5081EA129BF000B0EDE /* LogInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5071EA129BF000B0EDE /* LogInRouter.swift */; };
+		62C6F7F91EB87BCA00D5160A /* RelationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */; };
 		62D027DD1EB12E0500A6ACF3 /* SendTextMessageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */; };
 		62D064941EA3EEB4007A503F /* addPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D064931EA3EEB4007A503F /* addPatient.swift */; };
 		62D064961EA3EF00007A503F /* addFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D064951EA3EF00007A503F /* addFamily.swift */; };
@@ -147,6 +148,8 @@
 		629E4E961EA2AB7F00F280AD /* FamilyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyList.swift; sourceTree = "<group>"; };
 		62ACD5041EA125D1000B0EDE /* NetworkURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkURL.swift; sourceTree = "<group>"; };
 		62ACD5071EA129BF000B0EDE /* LogInRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInRouter.swift; sourceTree = "<group>"; };
+		62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationPickerView.swift; sourceTree = "<group>"; };
+		62C6F7FA1EB8811D00D5160A /* Preelo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Preelo-Bridging-Header.h"; sourceTree = "<group>"; };
 		62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendTextMessageRouter.swift; sourceTree = "<group>"; };
 		62D064931EA3EEB4007A503F /* addPatient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addPatient.swift; sourceTree = "<group>"; };
 		62D064951EA3EF00007A503F /* addFamily.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addFamily.swift; sourceTree = "<group>"; };
@@ -226,6 +229,7 @@
 			children = (
 				621C2C171E750D95008BD57F /* AppDelegate.swift */,
 				622A8FCF1E9D540400B34B56 /* Extension */,
+				62C6F7FA1EB8811D00D5160A /* Preelo-Bridging-Header.h */,
 				629E4E871EA29BF700F280AD /* Models */,
 				622A8FD11E9D546300B34B56 /* logIn */,
 				622A8FD01E9D542B00B34B56 /* PatientVC */,
@@ -307,6 +311,7 @@
 				6203EECD1EA61D8000E7D38B /* ParentDetailVC.xib */,
 				622A8FCB1E9D500C00B34B56 /* ParentDetailCell.swift */,
 				622A8FCC1E9D500C00B34B56 /* ParentDetailCell.xib */,
+				62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */,
 			);
 			name = parentVC;
 			sourceTree = "<group>";
@@ -488,6 +493,7 @@
 				TargetAttributes = {
 					621C2C131E750D95008BD57F = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					621C2C271E750D95008BD57F = {
@@ -623,6 +629,7 @@
 				626AB1431EA36461001271D3 /* ChildrenDetail.swift in Sources */,
 				62D064941EA3EEB4007A503F /* addPatient.swift in Sources */,
 				622A8FBD1E9D3A1200B34B56 /* ForgotPasswordVC.swift in Sources */,
+				62C6F7F91EB87BCA00D5160A /* RelationPickerView.swift in Sources */,
 				623D5EE01EA0C52000389481 /* DisplayPhotoVC.swift in Sources */,
 				622A8FBC1E9D3A1200B34B56 /* FloatingTextField.swift in Sources */,
 				629E4E971EA2AB7F00F280AD /* FamilyList.swift in Sources */,
@@ -809,12 +816,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Preelo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = redBus.Preelo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Preelo/Preelo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -826,12 +836,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Preelo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = redBus.Preelo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Preelo/Preelo-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

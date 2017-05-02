@@ -32,13 +32,13 @@ class PreeloTextField: UITextField {
     
     weak var textFieldDelegate : PreeloTextFieldDelegate?
     
-    enum RBPTextFieldAppearance {
+    enum TextFieldAppearance {
         
         case textField
         case label
     }
     
-    fileprivate(set) var appearance     : RBPTextFieldAppearance    = .textField
+    fileprivate(set) var appearance     : TextFieldAppearance    = .textField
     fileprivate(set) var inputType      : TextInputType          = .generic
     
     //MARK:- Private Properties

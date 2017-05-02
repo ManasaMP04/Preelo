@@ -12,11 +12,12 @@ import Alamofire
 
 class LoginDetailVC: UIViewController {
     
-    @IBOutlet fileprivate weak var userName         : FloatingTextField!
-    @IBOutlet fileprivate weak var password         : FloatingTextField!
-    @IBOutlet fileprivate weak var login            : UIButton!
-    @IBOutlet fileprivate weak var profileImageView : UIImageView!
-    @IBOutlet fileprivate weak var titleLabel       : UILabel!
+    @IBOutlet fileprivate weak var userName             : FloatingTextField!
+    @IBOutlet fileprivate weak var password             : FloatingTextField!
+    @IBOutlet fileprivate weak var login                : UIButton!
+    @IBOutlet fileprivate weak var profileImageView     : UIImageView!
+    @IBOutlet fileprivate weak var titleLabel           : UILabel!
+    @IBOutlet fileprivate weak var forgotPasswordButton : UIButton!
     
     fileprivate var activityIndicator: UIActivityIndicatorView?
     fileprivate var loginDetail : logIn!
@@ -86,6 +87,7 @@ extension LoginDetailVC {
         StaticContentFile.setFontForTF(password, autoCaps: false)
         StaticContentFile.setFontForTF(userName, autoCaps: false)
         StaticContentFile.setButtonFont(login)
+        StaticContentFile.setUnderlineForButton(forgotPasswordButton, text: "Forgot Password ?")
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         

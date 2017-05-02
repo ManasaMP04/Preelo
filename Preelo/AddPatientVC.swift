@@ -151,6 +151,7 @@ extension AddPatientVC {
         StaticContentFile.setButtonFont(doneButton)
         firstName.isCompleteBoarder = true
         lastName.isCompleteBoarder  = true
+        
         StaticContentFile.setFontForTF(lastName)
         StaticContentFile.setFontForTF(firstName)
         showDefaultValues()

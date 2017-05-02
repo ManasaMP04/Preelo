@@ -170,6 +170,8 @@ class FloatingTextField: PreeloTextField {
             var r = self.title.frame
             r.origin.y = self.titleYPadding
             self.title.frame = r
+            self.title.font = UIFont(name: "Ubuntu-Light", size: 11)!
+            self.font       = UIFont(name: "Ubuntu", size: 13)!
         }, completion:nil)
     }
     
@@ -181,6 +183,7 @@ class FloatingTextField: PreeloTextField {
             var r = self.title.frame
             r.origin.y = self.title.font.lineHeight + self.hintYPadding
             self.title.frame = r
+            self.title.font = UIFont(name: "Ubuntu-Light", size: 11)!
         }, completion:nil)
     }
     

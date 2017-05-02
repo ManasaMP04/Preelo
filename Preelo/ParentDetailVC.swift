@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DXPopover
 
 class ParentDetailVC: UIViewController {
     
@@ -16,12 +17,10 @@ class ParentDetailVC: UIViewController {
     @IBOutlet fileprivate weak var phoneNumber          : FloatingTextField!
     @IBOutlet fileprivate weak var email                : FloatingTextField!
     @IBOutlet fileprivate weak var doneButton           : UIButton!
-    @IBOutlet fileprivate weak var pickerView           : UIPickerView!
-    @IBOutlet fileprivate weak var pickerViewHeight     : NSLayoutConstraint!
     @IBOutlet fileprivate weak var customNavigationBar  : CustomNavigationBar!
     @IBOutlet fileprivate weak var relationship         : UILabel!
     
-    fileprivate let pickerData    = ["Father", "Mother"]
+    fileprivate let popAnimator   = DXPopover()
     fileprivate var patientList   : PatientList?
     fileprivate var selectedIndex = -1
     
@@ -50,7 +49,10 @@ class ParentDetailVC: UIViewController {
     
     @IBAction func selectRelationButtonTapped(_ sender: Any) {
         
-        pickerViewHeight.constant = 100
+        let relationView    = RelationPickerView()
+        relationView.delegate = self
+        popAnimator.show(at: firstName, withContentView: relationView, in: self.view)
+
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
@@ -98,12 +100,10 @@ class ParentDetailVC: UIViewController {
 
         relationButton.layer.cornerRadius  = 5
         relationButton.layer.borderWidth   = 1
-        relationButton.layer.borderColor   = UIColor.black.cgColor
+        relationButton.layer.borderColor   = UIColor.lightGray.cgColor
         customNavigationBar.setTitle("New Patient")
         customNavigationBar.delegate = self
         
-        pickerView.dataSource = self
-        pickerView.delegate   = self
         firstName.isCompleteBoarder = true
         lastName.isCompleteBoarder = true
         phoneNumber.isCompleteBoarder = true
@@ -130,36 +130,15 @@ class ParentDetailVC: UIViewController {
     }
 }
 
-//MARK:- UIPickerViewDelegate & UIPickerViewDataSource
-
-extension ParentDetailVC: UIPickerViewDelegate, UIPickerViewDataSource {
+extension ParentDetailVC: RelationPickerViewDelegate {
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        
-        return 1
-    }
+    func relationPickerView(_ view: RelationPickerView, text: String) {
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
-        return pickerData.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        return pickerData[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        relationship.text           = pickerData[row]
-        pickerViewHeight.constant   = 0
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        
-        return 30
+        relationship.text = text
+        popAnimator.dismiss()
     }
 }
+
 
 extension ParentDetailVC: CustomNavigationBarDelegate {
     

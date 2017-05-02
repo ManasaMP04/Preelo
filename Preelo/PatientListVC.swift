@@ -34,16 +34,6 @@ class PatientListVC: UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-        super.viewWillAppear(true)
-        
-        if let nav = self.parent as? UINavigationController, let tab = nav.parent as? UITabBarController {
-            
-            tab.tabBar.isHidden = true
-        }
-    }
-    
     @IBAction func addPatient(_ sender: Any) {
         
         let addPatientVC = AddPatientVC(nil)
@@ -225,7 +215,7 @@ extension PatientListVC {
         if StaticContentFile.isDoctorLogIn() {
             
             addPatientButton.isHidden = false
-            tableviewBottomConstraint.constant = 70
+            tableviewBottomConstraint.constant = 100
         } else {
             
             addPatientButton.isHidden = true

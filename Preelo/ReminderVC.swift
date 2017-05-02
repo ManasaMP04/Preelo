@@ -22,4 +22,13 @@ class ReminderVC: UIViewController {
        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(true)
+        
+        if let tab = self.parent as? TabBarVC {
+            
+            tab.changeTheItem()
+        }
+    }
 }

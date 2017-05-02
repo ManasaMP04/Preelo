@@ -44,9 +44,9 @@ class MessageVC: UIViewController {
         
         super.viewWillAppear(true)
         
-        if let nav = self.parent as? UINavigationController, let tab = nav.parent as? UITabBarController {
+        if let tab = self.parent as? TabBarVC {
             
-            tab.tabBar.isHidden = false
+            tab.changeTheItem()
         }
     }
     

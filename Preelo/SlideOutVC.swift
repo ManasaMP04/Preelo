@@ -17,10 +17,13 @@ class SlideOutVC: UIViewController {
     @IBOutlet fileprivate weak var settings         : UIButton!
     @IBOutlet fileprivate weak var logOut           : UIButton!
     
+    fileprivate var activityIndicator: UIActivityIndicatorView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         StaticContentFile.setButtonFont(logOut)
+        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
     }
     
     override func didReceiveMemoryWarning() {
@@ -44,8 +47,12 @@ class SlideOutVC: UIViewController {
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
         
+        activityIndicator?.startAnimating()
+        
         Alamofire.request(LogoutRouter.post())
             .responseObject { (response: DataResponse<logOut>) in
+                
+                self.activityIndicator?.stopAnimating()
                 
                 if let _ = response.result.value {
                     

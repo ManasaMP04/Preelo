@@ -14,6 +14,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DXPopover-DXPopover.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>DXPopover.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ObjectMapper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,12 +47,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>8F5C57CDB6551A5057CEEE523A7EB36A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9502FB01641FBABB78522037E882757B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B0DFD2A26C1350893753EFC6C998F448</key>
+		<key>D479E111A702D9488AB56257EDBDCDB5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F9A98A733A198D3EFAAD86F0CEE58A58</key>
 		<dict>
 			<key>primary</key>
 			<true/>

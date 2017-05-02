@@ -36,20 +36,15 @@ class TabBarVC: UITabBarController {
             messageVC.showMessageList(doctorList)
         }
     }
-}
-
-//MARK:- Private Methods
-
-extension TabBarVC {
     
-    fileprivate func setup() {
-        
+    func changeTheItem() {
+    
         if StaticContentFile.isDoctorLogIn() {
             
             if let item = tabBar.items?[2] {
                 
-                item.selectedImage = UIImage(named: "Patient-Active")
-                item.image         = UIImage(named: "Patient")
+                item.selectedImage = UIImage(named: "Patient")
+                item.image         = UIImage(named: "Patient-Active")
             }
         } else {
             
@@ -59,6 +54,14 @@ extension TabBarVC {
                 item.image         = UIImage(named: "Doctors-list-icon")
             }
         }
+    }
+}
+
+//MARK:- Private Methods
+
+extension TabBarVC {
+    
+    fileprivate func setup() {
         
         callLogiApi()
     }

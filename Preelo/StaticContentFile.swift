@@ -11,6 +11,9 @@ import UIKit
 class StaticContentFile: NSObject {
     
     static let defaults = UserDefaults.standard
+    static let screenBounds     = UIScreen.main.bounds
+    static let screenWidth      = screenBounds.size.width
+    static let screenHeight     = screenBounds.size.height
     
     static func setButtonFont(_ button: UIButton, backgroundColorNeeed: Bool = true) {
         
@@ -21,8 +24,12 @@ class StaticContentFile: NSObject {
         
         button.layer.borderColor = UIColor.colorWithHex(0x3DB0BB).cgColor
         button.layer.borderWidth = 1
-        button.layer.cornerRadius = button.frame.size.width / 11
-        button.addShadowWithColor(UIColor.black, offset: CGSize(width: 0, height: 4), opacity: 0.4, radius: 5)
+        button.layer.cornerRadius = button.frame.size.width / 14
+        
+        if backgroundColorNeeed {
+            
+            button.addShadowWithColor(UIColor.black, offset: CGSize(width: 0, height: 4), opacity: 0.4, radius: 5)
+        }
     }
     
     static func setFontForTF(_ tf: UITextField, autoCaps: Bool = true) {
@@ -32,6 +39,15 @@ class StaticContentFile: NSObject {
         
         tf.autocapitalizationType = autoCaps ? .sentences : .none
         tf.clearButtonMode        = .whileEditing
+    }
+    
+    static func setUnderlineForButton(_ button: UIButton, font: UIFont = UIFont(name: "Ubuntu-Bold", size: 12)!, color: UIColor = UIColor.colorWithHex(0x3DB0BB), text: String) {
+        
+        let attrs = [ NSFontAttributeName :font, NSForegroundColorAttributeName : color,
+                      NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue] as [String : Any]
+        
+        let str = NSAttributedString(string: text, attributes: attrs)
+        button.setAttributedTitle(str, for: .normal)
     }
     
     static func isDoctorLogIn() -> Bool {
