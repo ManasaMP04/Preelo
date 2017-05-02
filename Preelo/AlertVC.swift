@@ -26,12 +26,21 @@ class AlertVC: UIViewController {
     fileprivate var titleValue = ""
     fileprivate var descriptionString: NSAttributedString?
     fileprivate var notificationString = ""
+    fileprivate var isHideCustomeNavigation = false
+    fileprivate var tabbarVC: TabBarVC?
     
-    init (_ title: String, description: NSAttributedString, notificationTitle: String) {
+    init (_ title: String, description: NSAttributedString, notificationTitle: String, isHideCustomeNavigation: Bool = false, navigation: UIViewController?) {
         
         self.titleValue = title
         self.descriptionString = description
         self.notificationString = notificationTitle
+        self.isHideCustomeNavigation = isHideCustomeNavigation
+        
+        if let nav = navigation as? UINavigationController,
+            let tab = nav.parent as? TabBarVC {
+            
+            tabbarVC = tab
+        }
         
         super.init(nibName: "AlertVC", bundle: nil)
     }
@@ -53,17 +62,28 @@ class AlertVC: UIViewController {
     
     fileprivate func setup() {
         
-        notificationView.addShadowWithColor(UIColor.lightGray)
         notificationView.layer.cornerRadius = 5
         notificationView.layer.borderWidth = 0.2
         notificationView.layer.borderColor = UIColor.lightGray.cgColor
+        StaticContentFile.setButtonFont(doneButton, backgroundColorNeeed: true)
         customeNavigation.delegate = self
         customeNavigation.setTitle(titleValue)
         self.notificationTitle.text = notificationString
         notificationDetail.attributedText = descriptionString
+        self.customeNavigation.isHidden = isHideCustomeNavigation
+        
+        if let tab = tabbarVC {
+        
+            tab.tabBar.isHidden = true
+        }
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
+        
+        if let tab = tabbarVC {
+            
+            tab.tabBar.isHidden = false
+        }
         
         delegate?.tappedDoneButton(self)
     }

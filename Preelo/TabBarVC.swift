@@ -54,6 +54,8 @@ class TabBarVC: UITabBarController {
                 item.image         = UIImage(named: "Doctors-list-icon")
             }
         }
+        
+        self.tabBar.isHidden = false
     }
 }
 

@@ -42,11 +42,9 @@ class ParentDetailCell: UITableViewCell {
         if !showImage {
             
             imageViewWidth.constant = 0
-            imageViewTrailing.constant = 0
         } else {
             
             imageViewWidth.constant = 28
-            imageViewTrailing.constant = 10
         }
         
         editButton.isHidden = !showEdit

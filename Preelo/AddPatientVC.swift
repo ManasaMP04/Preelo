@@ -145,8 +145,6 @@ extension AddPatientVC {
         
         tableview.register(UINib(nibName: "ParentDetailCell", bundle: nil), forCellReuseIdentifier: ParentDetailCell.cellId)
         
-        customNavigationBar.setTitle("New Patient")
-        customNavigationBar.delegate = self
         StaticContentFile.setButtonFont(addPatientButton, backgroundColorNeeed: false)
         StaticContentFile.setButtonFont(doneButton)
         firstName.isCompleteBoarder = true
@@ -167,10 +165,14 @@ extension AddPatientVC {
             showParentDetailView(list)
             
             isEditPatient = true
+            customNavigationBar.setTitle("Edit Patient")
         } else {
             
             isEditPatient = false
+            customNavigationBar.setTitle("New Patient")
         }
+        
+        customNavigationBar.delegate = self
     }
     
     fileprivate func attributeText(withText text: String, isEdit: Bool) -> NSMutableAttributedString {
@@ -199,12 +201,14 @@ extension AddPatientVC {
     
     fileprivate func showAlertView(_ isEdit: Bool) {
         
-        if let list = patientList {
+        if let list = patientList  {
             
-            let alertVC = AlertVC("New Patient", description: attributeText(withText: list.firstname,  isEdit: isEdit), notificationTitle: "Notification")
-            
+            let alertVC = AlertVC("New Patient", description: attributeText(withText: list.firstname,  isEdit: isEdit), notificationTitle: "Notification", isHideCustomeNavigation: true, navigation: self.parent)
             alertVC.delegate = self
-            navigationController?.pushViewController(alertVC, animated: true)
+            alertVC.providesPresentationContextTransitionStyle = true;
+            alertVC.definesPresentationContext = true;
+            alertVC.modalPresentationStyle=UIModalPresentationStyle.overCurrentContext
+            self.present(alertVC, animated: true, completion: nil)
         }
     }
     
@@ -219,7 +223,7 @@ extension AddPatientVC {
                 self.activityIndicator?.stopAnimating()
                 if let _ = response.result.value {
                     
-                   self.showAlertView(false)
+                    self.showAlertView(false)
                 } else {
                     
                     self.view.showToast(message: "Patient Add is failed")
@@ -266,7 +270,8 @@ extension AddPatientVC: AlertVCDelegate {
     
     func tappedDoneButton(_ alertVC: AlertVC) {
         
-       _ = navigationController?.popToRootViewController(animated: true)
+        dismiss(animated: false, completion: nil)
+        _ = navigationController?.popToRootViewController(animated: true)
     }
 }
 

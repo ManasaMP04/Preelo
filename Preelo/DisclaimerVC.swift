@@ -77,7 +77,7 @@ extension DisclaimerVC {
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    let alertVC = AlertVC("DISCLAIMER", description: self.attributeText(withText: self.docList.doctor_firstname), notificationTitle: "Notification")
+                    let alertVC = AlertVC("DISCLAIMER", description: self.attributeText(withText: self.docList.doctor_firstname), notificationTitle: "Notification", navigation: self.parent)
                     
                     alertVC.delegate = self
                     self.navigationController?.pushViewController(alertVC, animated: true)

@@ -74,13 +74,16 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if !StaticContentFile.isDoctorLogIn(), let docList = list[indexPath.row] as? DoctorList, docList.children.count > 0 {
+        if !StaticContentFile.isDoctorLogIn(),
+            let docList = list[indexPath.row] as? DoctorList,
+            docList.children.count > 0 {
             
             guard docList.children.count > 1 else {
                 
                 callAPIToSelectDocOrPatient(docList.children[0], docList:docList)
                 return
             }
+            
             let vc = SelectChildrenVC(docList)
             vc.delegate = self
             self.present(vc, animated: true, completion: nil)

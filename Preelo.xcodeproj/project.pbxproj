@@ -14,6 +14,7 @@
 		621C2C221E750D95008BD57F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 621C2C201E750D95008BD57F /* LaunchScreen.storyboard */; };
 		621C2C2D1E750D95008BD57F /* PreeloTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621C2C2C1E750D95008BD57F /* PreeloTests.swift */; };
 		621C2C381E750D95008BD57F /* PreeloUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621C2C371E750D95008BD57F /* PreeloUITests.swift */; };
+		6224B2641EB8EC11009C8D98 /* AlertVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6224B2631EB8EC11009C8D98 /* AlertVC.xib */; };
 		622A8FB71E9D3A1200B34B56 /* AddPatientVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FA31E9D3A1200B34B56 /* AddPatientVC.swift */; };
 		622A8FB81E9D3A1200B34B56 /* AddPatientVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622A8FA41E9D3A1200B34B56 /* AddPatientVC.xib */; };
 		622A8FB91E9D3A1200B34B56 /* AutoLayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FA51E9D3A1200B34B56 /* AutoLayoutHelper.swift */; };
@@ -34,7 +35,6 @@
 		622A8FCD1E9D500C00B34B56 /* ParentDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FCB1E9D500C00B34B56 /* ParentDetailCell.swift */; };
 		622A8FCE1E9D500C00B34B56 /* ParentDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622A8FCC1E9D500C00B34B56 /* ParentDetailCell.xib */; };
 		622A8FD71E9D6B3800B34B56 /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FD51E9D6B3800B34B56 /* AlertVC.swift */; };
-		622A8FD81E9D6B3800B34B56 /* AlertVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622A8FD61E9D6B3800B34B56 /* AlertVC.xib */; };
 		623D5EDD1EA0BAA200389481 /* SlideOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */; };
 		623D5EE01EA0C52000389481 /* DisplayPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623D5EDF1EA0C52000389481 /* DisplayPhotoVC.swift */; };
 		623D5EE21EA0C81500389481 /* DisplayPhotoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 623D5EE11EA0C81500389481 /* DisplayPhotoVC.xib */; };
@@ -108,6 +108,7 @@
 		621C2C331E750D95008BD57F /* PreeloUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PreeloUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		621C2C371E750D95008BD57F /* PreeloUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreeloUITests.swift; sourceTree = "<group>"; };
 		621C2C391E750D95008BD57F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6224B2631EB8EC11009C8D98 /* AlertVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertVC.xib; sourceTree = "<group>"; };
 		622A8FA31E9D3A1200B34B56 /* AddPatientVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPatientVC.swift; sourceTree = "<group>"; };
 		622A8FA41E9D3A1200B34B56 /* AddPatientVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPatientVC.xib; sourceTree = "<group>"; };
 		622A8FA51E9D3A1200B34B56 /* AutoLayoutHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoLayoutHelper.swift; sourceTree = "<group>"; };
@@ -128,7 +129,6 @@
 		622A8FCB1E9D500C00B34B56 /* ParentDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentDetailCell.swift; sourceTree = "<group>"; };
 		622A8FCC1E9D500C00B34B56 /* ParentDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParentDetailCell.xib; sourceTree = "<group>"; };
 		622A8FD51E9D6B3800B34B56 /* AlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
-		622A8FD61E9D6B3800B34B56 /* AlertVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertVC.xib; sourceTree = "<group>"; };
 		623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideOutVC.swift; sourceTree = "<group>"; };
 		623D5EDF1EA0C52000389481 /* DisplayPhotoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayPhotoVC.swift; sourceTree = "<group>"; };
 		623D5EE11EA0C81500389481 /* DisplayPhotoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisplayPhotoVC.xib; sourceTree = "<group>"; };
@@ -277,7 +277,7 @@
 				622A8FB51E9D3A1200B34B56 /* StaticContentFile.swift */,
 				622A8FB31E9D3A1200B34B56 /* PreeloTextField.swift */,
 				622A8FD51E9D6B3800B34B56 /* AlertVC.swift */,
-				622A8FD61E9D6B3800B34B56 /* AlertVC.xib */,
+				6224B2631EB8EC11009C8D98 /* AlertVC.xib */,
 				62E3AB881EA112A60061802F /* CustomFont */,
 			);
 			name = Extension;
@@ -547,9 +547,9 @@
 				62E3AB871EA10C140061802F /* ChatVC.xib in Resources */,
 				621C2C1F1E750D95008BD57F /* Assets.xcassets in Resources */,
 				623D5EE21EA0C81500389481 /* DisplayPhotoVC.xib in Resources */,
-				622A8FD81E9D6B3800B34B56 /* AlertVC.xib in Resources */,
 				62E3AB7E1EA101410061802F /* ChatCell.xib in Resources */,
 				62E3AB831EA107530061802F /* DisclaimerVC.xib in Resources */,
+				6224B2641EB8EC11009C8D98 /* AlertVC.xib in Resources */,
 				6203EECE1EA61D8000E7D38B /* ParentDetailVC.xib in Resources */,
 				622A8FC01E9D3A1200B34B56 /* Main.storyboard in Resources */,
 			);

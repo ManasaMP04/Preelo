@@ -121,9 +121,9 @@
                                         <constraint firstAttribute="trailing" secondItem="buM-FQ-aP7" secondAttribute="trailing" id="Laz-wL-7oA"/>
                                         <constraint firstItem="buM-FQ-aP7" firstAttribute="leading" secondItem="p7P-Bs-yzI" secondAttribute="leading" id="NGU-Iu-S2e"/>
                                         <constraint firstItem="buM-FQ-aP7" firstAttribute="centerX" secondItem="p7P-Bs-yzI" secondAttribute="centerX" id="OFm-MB-aQu"/>
-                                        <constraint firstItem="a5o-8G-56d" firstAttribute="leading" secondItem="FSs-3g-aig" secondAttribute="leading" id="PUY-lh-yyg"/>
                                         <constraint firstItem="FSs-3g-aig" firstAttribute="leading" secondItem="p7P-Bs-yzI" secondAttribute="leading" id="eS4-k7-9mt"/>
                                         <constraint firstItem="buM-FQ-aP7" firstAttribute="top" secondItem="a5o-8G-56d" secondAttribute="bottom" constant="20" id="fE0-Fz-O4Q"/>
+                                        <constraint firstItem="a5o-8G-56d" firstAttribute="leading" secondItem="p7P-Bs-yzI" secondAttribute="leading" id="foK-7y-sCK"/>
                                         <constraint firstItem="a5o-8G-56d" firstAttribute="top" secondItem="FSs-3g-aig" secondAttribute="bottom" constant="10" id="hpB-wO-OKP"/>
                                         <constraint firstAttribute="trailing" secondItem="a5o-8G-56d" secondAttribute="trailing" id="qC1-Q3-Aj1"/>
                                     </constraints>

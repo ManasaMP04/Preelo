@@ -112,7 +112,7 @@ class ParentDetailVC: UIViewController {
         StaticContentFile.setFontForTF(firstName)
         StaticContentFile.setFontForTF(lastName)
         StaticContentFile.setFontForTF(phoneNumber)
-        StaticContentFile.setFontForTF(email)
+        StaticContentFile.setFontForTF(email, autoCaps: false)
         StaticContentFile.setButtonFont(doneButton)
         
         self.navigationController?.navigationBar.isHidden = true

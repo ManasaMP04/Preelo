@@ -29,20 +29,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="42.5"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Man-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="wfQ-OD-CbL">
-                                <rect key="frame" x="16" y="7.5" width="28" height="28"/>
+                                <rect key="frame" x="0.0" y="7.5" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="8Wh-YL-gtR"/>
                                     <constraint firstAttribute="width" constant="28" id="d8M-7G-dk0"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBY-GP-FNy">
-                                <rect key="frame" x="60.5" y="13.5" width="34.5" height="16"/>
+                                <rect key="frame" x="44.5" y="13.5" width="34.5" height="16"/>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                 <color key="textColor" red="0.25490196078431371" green="0.25098039215686274" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRw-PW-mMI">
-                                <rect key="frame" x="259" y="0.0" width="45" height="42.5"/>
+                                <rect key="frame" x="275" y="0.0" width="45" height="42.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="qaI-YZ-asj"/>
                                 </constraints>
@@ -58,9 +58,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wfQ-OD-CbL" firstAttribute="centerY" secondItem="CBY-GP-FNy" secondAttribute="centerY" id="AlM-J3-KLB"/>
-                            <constraint firstAttribute="trailing" secondItem="iRw-PW-mMI" secondAttribute="trailing" constant="16" id="I9Q-6Q-46s"/>
+                            <constraint firstAttribute="right" secondItem="iRw-PW-mMI" secondAttribute="right" id="I9Q-6Q-46s"/>
                             <constraint firstItem="CBY-GP-FNy" firstAttribute="centerY" secondItem="gEN-8n-elh" secondAttribute="centerY" id="JDY-ai-hdi"/>
-                            <constraint firstItem="wfQ-OD-CbL" firstAttribute="leading" secondItem="gEN-8n-elh" secondAttribute="leading" constant="16" id="ZR7-0w-pr6"/>
+                            <constraint firstItem="wfQ-OD-CbL" firstAttribute="left" secondItem="gEN-8n-elh" secondAttribute="left" id="ZR7-0w-pr6"/>
                             <constraint firstAttribute="bottom" secondItem="iRw-PW-mMI" secondAttribute="bottom" id="jhT-UU-EL8"/>
                             <constraint firstItem="iRw-PW-mMI" firstAttribute="top" secondItem="gEN-8n-elh" secondAttribute="top" id="pYn-dN-lh8"/>
                             <constraint firstItem="CBY-GP-FNy" firstAttribute="leading" secondItem="wfQ-OD-CbL" secondAttribute="trailing" constant="16" id="qQD-Ir-jrr"/>
