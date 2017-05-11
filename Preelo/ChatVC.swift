@@ -21,16 +21,13 @@ class ChatVC: UIViewController {
     @IBOutlet fileprivate weak var requestAuthButton    : UIButton!
     @IBOutlet fileprivate weak var messageTF            : UITextField!
     
-    fileprivate var docList         : DoctorList!
-    fileprivate var childrenDetail  : ChildrenDetail!
-    fileprivate var messageList     = [Int]()
+    fileprivate var messageList         = [Int]()
     fileprivate var activityIndicator   : UIActivityIndicatorView?
+    fileprivate var channelDetail       : ChannelDetail?
     
-    init (_ docList: DoctorList, childrenDetail: ChildrenDetail) {
+    init (_ channelDetail: ChannelDetail?) {
         
-        self.docList = docList
-        self.childrenDetail = childrenDetail
-        
+        self.channelDetail = channelDetail
         super.init(nibName: "ChatVC", bundle: nil)
     }
     
@@ -52,8 +49,11 @@ class ChatVC: UIViewController {
     
     @IBAction func requestAuthorisationButtonTapped(_ sender: Any) {
         
-        let vc = DisclaimerVC(docList, childrenDetail: childrenDetail)
-        navigationController?.pushViewController(vc, animated: true)
+        if let detail = channelDetail {
+            
+            let vc = DisclaimerVC(detail)
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
@@ -99,16 +99,18 @@ extension ChatVC {
             tab.tabBar.isHidden = true
         }
         
-        customeNavigation.setTitle(docList.doctor_firstname)
+        if let detail = channelDetail {
+            
+            customeNavigation.setTitle(detail.doctorname)
+        }
         customeNavigation.delegate = self
         tableview.register(UINib(nibName: "ChatCell", bundle: nil), forCellReuseIdentifier: ChatCell.cellId)
         
-        if childrenDetail.authstatus {
-            
-            requestAuthorizationViewHeight.constant = 0
-            authorizationView.isHidden = true
-            toolbarView.isUserInteractionEnabled = true
-        } else {
+        requestAuthorizationViewHeight.constant = 0
+        authorizationView.isHidden = true
+        toolbarView.isUserInteractionEnabled = true
+        
+        if !StaticContentFile.isDoctorLogIn() {
             
             requestAuthorizationViewHeight.constant = 182
             authorizationView.isHidden = false

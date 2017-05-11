@@ -92,7 +92,7 @@ class MessageVC: UIViewController {
             
             list = request.authRequest
         } else if let channel = StaticContentFile.getChannel(), StaticContentFile.isDoctorLogIn() {
-        
+            
             list = channel.data
         }
         
@@ -150,15 +150,12 @@ extension MessageVC {
                 }}
     }
     
-    fileprivate func callAPIToSelectDocOrPatient(_ data: Any) {
+    fileprivate func callAPIToSelectDocOrPatient(_ data: ChannelDetail) {
         
-        if let channel = data as? ChannelDetail {
-            
-            StaticContentFile.isDoctorLogIn() ? callAPIToSelect(SelectRouter.patient_select_post(channel.patientId, channel.parentId)) : callAPIToSelect(SelectRouter.doc_select_post(channel.patientId, channel.doctorId))
-        }
+        StaticContentFile.isDoctorLogIn() ? callAPIToSelect(SelectRouter.patient_select_post(data.patientId, data.parentId), data: data) : callAPIToSelect(SelectRouter.doc_select_post(data.patientId, data.doctorId), data: data)
     }
     
-    fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible) {
+    fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible, data: ChannelDetail) {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
@@ -170,7 +167,8 @@ extension MessageVC {
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                   
+                    let chatVC = ChatVC(data)
+                    self.navigationController?.pushViewController(chatVC, animated: true)
                 }}
     }
 }
@@ -201,20 +199,27 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ChatCell.cellId, for: indexPath) as! ChatCell
         cell.delegate = self
         
-        cell.showData(list[indexPath.row], isdeclineRequestViewHide: selection == .message)
+        let status = selection == .authentication && StaticContentFile.isDoctorLogIn()
+        
+        cell.showData(list[indexPath.row], isdeclineRequestViewShow: status)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if StaticContentFile.isDoctorLogIn() && selection == .authentication {
+            
+            return 130
+        }
         
         return 80
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if selection == .message {
-        
-            callAPIToSelectDocOrPatient(list[indexPath.row])
+        if selection == .message, let data = list[indexPath.row] as? ChannelDetail {
+            
+            callAPIToSelectDocOrPatient(data)
         }
     }
 }

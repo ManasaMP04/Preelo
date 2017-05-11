@@ -17,14 +17,11 @@ class DisclaimerVC: UIViewController {
     @IBOutlet fileprivate weak var dontAgreeButton      : UIButton!
     
     fileprivate var activityIndicator                   : UIActivityIndicatorView?
-    fileprivate var docList                             : DoctorList!
-    fileprivate var childrenDetail                      : ChildrenDetail!
+    fileprivate var channelDetail                       : ChannelDetail!
     
-    init (_ docList: DoctorList, childrenDetail: ChildrenDetail) {
+    init (_ channelDetail: ChannelDetail) {
         
-        self.docList = docList
-        self.childrenDetail = childrenDetail
-        
+        self.channelDetail = channelDetail
         super.init(nibName: "DisclaimerVC", bundle: nil)
     }
     
@@ -71,13 +68,13 @@ extension DisclaimerVC {
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
         
-        Alamofire.request(AuthorizeRouter.post(docList, childrenDetail))
+        Alamofire.request(AuthorizeRouter.post(channelDetail))
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    let alertVC = AlertVC("DISCLAIMER", description: self.attributeText(withText: self.docList.doctor_firstname), notificationTitle: "Notification", navigation: self.parent)
+                    let alertVC = AlertVC("DISCLAIMER", description: self.attributeText(withText: self.channelDetail.doctorname), notificationTitle: "Notification", navigation: self.parent)
                     
                     alertVC.delegate = self
                     self.navigationController?.pushViewController(alertVC, animated: true)

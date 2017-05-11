@@ -11,7 +11,7 @@ import Alamofire
 
 enum AuthorizeRouter:  URLRequestConvertible {
     
-    case post(DoctorList, ChildrenDetail)
+    case post(ChannelDetail)
     
     public func asURLRequest() throws -> URLRequest {
         
@@ -34,12 +34,12 @@ enum AuthorizeRouter:  URLRequestConvertible {
             
             switch self {
                 
-            case .post(let docList, let child):
+            case .post(let channelDetail):
                 
                 var dict: [String: Any] = ["token"         : StaticContentFile.getToken(),
-                                           "patientid"     : child.patientid]
+                                           "patientid"     : channelDetail.patientId]
                 
-                let array = [["parentid"      : docList.parent_id]]
+                let array = [["parentid"      : channelDetail.parentId]]
                 
                 dict["family"] = array
                 

@@ -13,17 +13,38 @@ enum SendTextMessageRouter:  URLRequestConvertible {
     
     case post(String)
     
+    case get(ChannelDetail)
+    
     public func asURLRequest() throws -> URLRequest {
         
         var method: HTTPMethod {
             
-            return .post
+            switch self {
+                
+            case .get:
+                return .get
+                
+            case .post:
+                return .post
+            }
         }
         
         let url: URL = {
             
             var url = URL(string: NetworkURL.baseUrl)!
-            let relativePath = NetworkURL.sendText
+            
+            var relativePath = ""
+            
+            switch self {
+                
+            case .get:
+               
+                relativePath = NetworkURL.getMessages
+                
+            case .post:
+                
+                relativePath = NetworkURL.sendText
+            }
             
             url = url.appendingPathComponent(relativePath)
             
@@ -37,6 +58,13 @@ enum SendTextMessageRouter:  URLRequestConvertible {
                 
                 let dict = ["token"         : StaticContentFile.getToken(),
                             "message_text"  : text]
+                
+                return dict
+                
+            case .get(let channelDetail):
+                
+                let dict = ["token"         : StaticContentFile.getToken(),
+                            "channel_id"  : channelDetail.channel_id]
                 
                 return dict
             } }()

@@ -34,7 +34,7 @@ class ChatCell: UITableViewCell {
         
     }
     
-    func showData(_ data: Any, isdeclineRequestViewHide: Bool = true) {
+    func showData(_ data: Any, isdeclineRequestViewShow: Bool = true) {
         
         if let auth = data as? DocAuthorizationRequest {
         
@@ -53,9 +53,9 @@ class ChatCell: UITableViewCell {
             }
         }
         
-        declineRequestView.isHidden = isdeclineRequestViewHide
+        declineRequestView.isHidden = !isdeclineRequestViewShow
         
-        if !isdeclineRequestViewHide {
+        if isdeclineRequestViewShow {
             
             acceptAuthViewHeight.constant = 45
         } else {

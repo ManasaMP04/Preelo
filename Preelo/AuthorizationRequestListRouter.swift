@@ -15,6 +15,7 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
     case channel_get()
     case approveAuth_post(Int, Int)
     case rejectAuth_post(Int, Int)
+    case get_patient_AuthRequest()
     
     public func asURLRequest() throws -> URLRequest {
         
@@ -22,7 +23,7 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
             
             switch self {
                 
-            case .get(), .channel_get():
+            case .get(), .channel_get(), .get_patient_AuthRequest():
                 return .get
                 
             default:
@@ -47,6 +48,10 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
                 
                 relativePath = NetworkURL.docApproveAuthorization
                 
+            case .get_patient_AuthRequest():
+                
+                relativePath = NetworkURL.patientAuthRequest
+                
             case .rejectAuth_post(_, _):
                 
                 relativePath = NetworkURL.docRejectAuthorization
@@ -63,7 +68,7 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
             
             switch self {
                 
-            case .get(), .channel_get():
+            case .get(), .channel_get(), .get_patient_AuthRequest():
                 
                 dict = ["token"         : StaticContentFile.getToken()]
                 
@@ -88,7 +93,7 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
         var encodedRequest : URLRequest!
         
         switch self {
-        case .get, .channel_get():
+        case .get, .channel_get(), .get_patient_AuthRequest():
             
             encodedRequest          = try encoding.encode(urlRequest, with: params)
         default:

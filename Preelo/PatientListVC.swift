@@ -156,8 +156,7 @@ extension PatientListVC {
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    let chatvc = ChatVC(docList, childrenDetail: childrenDetail)
-                    self.navigationController?.pushViewController(chatvc, animated: true)
+            
                 }}
     }
     

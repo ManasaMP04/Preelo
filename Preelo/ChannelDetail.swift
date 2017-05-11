@@ -60,6 +60,7 @@ class ChannelDetail: Mappable {
     var doctorId            = 0
     var parentId            = 0
     var patientId           = 0
+    var auth_status         = false
     
     required init?(map: Map) {
         
@@ -78,9 +79,10 @@ class ChannelDetail: Mappable {
         recent_message      <- map["recent_message"]
         recent_timestamp    <- map["recent_timestamp"]
         unread_count        <- map["unread_count"]
-        doctorId            <- map["doctorId"]
-        parentId            <- map["parentId"]
-        patientId           <- map["patientId"]
+        doctorId            <- map["doctor_id"]
+        parentId            <- map["parent_id"]
+        patientId           <- map["patient_id"]
+        auth_status         <- map["auth_status"]
     }
     
     func modelToDict() -> [String : Any] {
