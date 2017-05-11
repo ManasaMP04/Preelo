@@ -19,7 +19,6 @@ class ChatCell: UITableViewCell {
     @IBOutlet fileprivate weak var imageview            : UIImageView!
     @IBOutlet fileprivate weak var name                 : UILabel!
     @IBOutlet fileprivate weak var descriptionLabel     : UILabel!
-    @IBOutlet fileprivate weak var time                 : UILabel!
     @IBOutlet fileprivate weak var acceptAuthViewHeight : NSLayoutConstraint!
     
     static let cellId = "ChatCell"
@@ -35,15 +34,28 @@ class ChatCell: UITableViewCell {
         
     }
     
-    func showData(_ name: String, discription: String, time: String, image: String, isdeclineRequestViewHide: Bool = true) {
+    func showData(_ data: Any, isdeclineRequestViewHide: Bool = true) {
         
-        self.name.text = name
-        descriptionLabel.text = discription
-        self.time.text = time
-        imageview.image = UIImage(named: image)
-        declineRequestView.isHidden = !isdeclineRequestViewHide
+        if let auth = data as? DocAuthorizationRequest {
         
-        if isdeclineRequestViewHide {
+            self.name.text = auth.firstname
+            descriptionLabel.text = String(format: "Patient %@ %@ has sent You an authorization request", auth.firstname, auth.lastname)
+        } else if let channel = data as? ChannelDetail {
+        
+            self.name.text = channel.patientname
+            
+            if let message = channel.recent_message.last {
+            
+                descriptionLabel.text = message.message_text
+            } else {
+            
+                 descriptionLabel.text = ""
+            }
+        }
+        
+        declineRequestView.isHidden = isdeclineRequestViewHide
+        
+        if !isdeclineRequestViewHide {
             
             acceptAuthViewHeight.constant = 45
         } else {

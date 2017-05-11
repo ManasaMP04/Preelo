@@ -74,11 +74,11 @@ class MessageVC: UIViewController {
     
     @IBAction func messageButtonTapped(_ sender: Any) {
         
-         authorizationButtonSelected(false)
+        authorizationButtonSelected(false)
     }
     
     fileprivate func authorizationButtonSelected(_ status: Bool) {
-    
+        
         authorizationRequest.isSelected = status
         messagesButton.isSelected       = !status
         selection = status ? .authentication : .message
@@ -86,6 +86,17 @@ class MessageVC: UIViewController {
         messagesButton.backgroundColor = status ? UIColor.clear : UIColor.colorWithHex(0xE6FAFE)
         messagesButton.titleLabel?.textColor = status ? UIColor.colorWithHex(0x40AABB) : UIColor.colorWithHex(0xA7A9AC)
         authorizationRequest.titleLabel?.textColor = status ? UIColor.colorWithHex(0xA7A9AC) : UIColor.colorWithHex(0x40AABB)
+        
+        list.removeAll()
+        if status, let request = StaticContentFile.getAuthRequest(), StaticContentFile.isDoctorLogIn() {
+            
+            list = request.authRequest
+        } else if let channel = StaticContentFile.getChannel(), StaticContentFile.isDoctorLogIn() {
+        
+            list = channel.data
+        }
+        
+        tableview.reloadData()
     }
 }
 
@@ -95,7 +106,7 @@ extension MessageVC {
     
     fileprivate func setup() {
         
-         authorizationButtonSelected(true)
+        authorizationButtonSelected(true)
         
         StaticContentFile.isDoctorLogIn() ? customNavigationBar.setTitle("Welcome Doctor", backButtonImageName: "Menu") : customNavigationBar.setTitle(String(format: "Welcome %@", StaticContentFile.getName()), backButtonImageName: "Menu")
         customNavigationBar.delegate = self
@@ -108,29 +119,6 @@ extension MessageVC {
         notificationCount.layer.cornerRadius = 10
         notificationCount.backgroundColor = UIColor.colorWithHex(0x3CCACC)
         notificationCount.isHidden = true
-        
-        if StaticContentFile.isDoctorLogIn() {
-            
-            callAPI()
-        }
-    }
-    
-    fileprivate func callAPI() {
-        
-        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
-        activityIndicator?.startAnimating()
-        
-        Alamofire.request(AuthorizationRequestListRouter.get())
-            .responseObject { (response: DataResponse<AuthorizeRequest>) in
-                
-                self.activityIndicator?.stopAnimating()
-                if let result = response.result.value, result.status == "SUCCESS" {
-                    
-                    self.list = result.authRequest
-                    self.tableview.reloadData()
-                    
-                    self.hideOrShowNotificationCount()
-                }}
     }
     
     fileprivate func hideOrShowNotificationCount() {
@@ -161,6 +149,30 @@ extension MessageVC {
                     self.tableview.deleteRows(at: [indexPath], with: .automatic)
                 }}
     }
+    
+    fileprivate func callAPIToSelectDocOrPatient(_ data: Any) {
+        
+        if let channel = data as? ChannelDetail {
+            
+            StaticContentFile.isDoctorLogIn() ? callAPIToSelect(SelectRouter.patient_select_post(channel.patientId, channel.parentId)) : callAPIToSelect(SelectRouter.doc_select_post(channel.patientId, channel.doctorId))
+        }
+    }
+    
+    fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible) {
+        
+        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+        activityIndicator?.startAnimating()
+        
+        Alamofire.request(urlRequest)
+            .responseObject { (response: DataResponse<AuthorizeRequest>) in
+                
+                self.activityIndicator?.stopAnimating()
+                
+                if let result = response.result.value, result.status == "SUCCESS" {
+                    
+                   
+                }}
+    }
 }
 
 //MARK:- CustomNavigationBarDelegate
@@ -189,17 +201,21 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ChatCell.cellId, for: indexPath) as! ChatCell
         cell.delegate = self
         
-        if let auth = list[indexPath.row] as? DocAuthorizationRequest {
-            
-            cell.showData(auth.firstname, discription: String(format: "Patient %@ %@ has sent You an authorization request", auth.firstname, auth.lastname), time: "", image: "")
-        }
-        
+        cell.showData(list[indexPath.row], isdeclineRequestViewHide: selection == .message)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 80
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        if selection == .message {
         
+            callAPIToSelectDocOrPatient(list[indexPath.row])
+        }
     }
 }
 

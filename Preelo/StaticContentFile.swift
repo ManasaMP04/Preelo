@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import ObjectMapper
 
 class StaticContentFile: NSObject {
     
@@ -73,6 +75,44 @@ class StaticContentFile: NSObject {
         }
         
         return ""
+    }
+    
+    static func getAuthRequest() -> AuthorizeRequest? {
+        
+        do {
+            
+            if let requests = defaults.value(forKey: "authRequest") {
+                
+                let jsonData = try JSONSerialization.data(withJSONObject: requests, options: .prettyPrinted)
+                
+                if let jsonString = String.init(data: jsonData, encoding: .utf8),
+                    let result = Mapper<AuthorizeRequest>().map(JSONString: jsonString) {
+                    
+                    return result
+                }
+                
+            }} catch { }
+        
+        return nil
+    }
+    
+    static func getChannel() -> ChannelObject? {
+        
+        do {
+            
+            if let requests = defaults.value(forKey: "channel") {
+                
+                let jsonData = try JSONSerialization.data(withJSONObject: requests, options: .prettyPrinted)
+                
+                if let jsonString = String.init(data: jsonData, encoding: .utf8),
+                    let result = Mapper<ChannelObject>().map(JSONString: jsonString) {
+                    
+                    return result
+                }
+                
+            }} catch { }
+        
+        return nil
     }
     
     static func getId() -> Int {

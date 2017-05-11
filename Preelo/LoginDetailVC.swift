@@ -121,11 +121,10 @@ extension LoginDetailVC {
         Alamofire.request(urlRequest)
             .responseObject { (response: DataResponse<logIn>) in
                 
-                self.activityIndicator?.stopAnimating()
-                
                 if let result = response.result.value, result.status == "SUCCESS",
                     let loginDetail = result.loginDetail {
                     
+                    self.isDoctorLogIn ? self.callChannelAPI() : self.activityIndicator?.stopAnimating()
                     self.loginDetail = result
                     
                     let defaults = UserDefaults.standard
@@ -133,16 +132,54 @@ extension LoginDetailVC {
                     self.isDoctorLogIn ? defaults.set(loginDetail.doctorid, forKey: "id") : defaults.set(loginDetail.id, forKey: "id")
                     defaults.set(loginDetail.firstname, forKey: "name")
                     defaults.set(self.isDoctorLogIn, forKey: "isDoctorLogIn")
-                    self.performSegue(withIdentifier: "loginSuccess", sender: nil)
                 } else if let result = response.result.value, result.status == "VERIFY" {
                     
                     self.alertMessage("Verify", message: result.message)
                     
                 } else {
                     
+                    self.activityIndicator?.stopAnimating()
                     self.view.showToast(message: "Login failed")
                 }
         }
+    }
+    
+    fileprivate func callChannelAPI() {
+        
+        Alamofire.request(AuthorizationRequestListRouter.channel_get())
+            .responseObject {(response: DataResponse<ChannelObject>) in
+                
+                if let result = response.result.value, result.status == "SUCCESS" {
+                    
+                    let defaults = UserDefaults.standard
+                    let dict1   = result.modelToDict()
+                    defaults.setValue(dict1, forKeyPath: "channel")
+                    
+                    self.callAPIToGetAuthRequest()
+                } else {
+                    
+                    self.activityIndicator?.stopAnimating()
+                    self.view.showToast(message: "Please try again something went wrong")
+                }}
+    }
+    
+    fileprivate func callAPIToGetAuthRequest() {
+        
+        Alamofire.request(AuthorizationRequestListRouter.get())
+            .responseObject { (response: DataResponse<AuthorizeRequest>) in
+                
+                self.activityIndicator?.stopAnimating()
+                if let result = response.result.value, result.status == "SUCCESS" {
+                    
+                    let defaults = UserDefaults.standard
+                    let dict1   = result.modelToDict()
+                    defaults.setValue(dict1, forKeyPath: "authRequest")
+                   
+                    self.performSegue(withIdentifier: "loginSuccess", sender: nil)
+                }else {
+                    
+                    self.view.showToast(message: "Please try again something went wrong")
+                }}
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

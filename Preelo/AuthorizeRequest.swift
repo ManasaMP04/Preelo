@@ -24,4 +24,21 @@ class AuthorizeRequest: Mappable {
         status              <- map["status"]
         authRequest         <- map["data"]
     }
+    
+    func modelToDict() -> [String : Any] {
+        
+        var dict = [String : Any]()
+        
+        dict["message"] = message
+        dict["status"] = status
+        
+        var array = [Any]()
+        for request in authRequest {
+            
+            array.append(request.modelToDict())
+        }
+        dict["authRequest"] = array
+        
+        return dict
+    }
 }

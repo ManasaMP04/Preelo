@@ -11,8 +11,8 @@ import Alamofire
 
 enum SelectRouter:  URLRequestConvertible {
     
-    case post(Int, Int)
-    case doc_post(Int, Int)
+    case patient_select_post(Int, Int)
+    case doc_select_post(Int, Int)
     
     public func asURLRequest() throws -> URLRequest {
         
@@ -28,11 +28,11 @@ enum SelectRouter:  URLRequestConvertible {
             
             switch self {
                 
-            case .post(_, _):
+            case .patient_select_post(_, _):
                 
                 relativePath = NetworkURL.patientSelect
                 
-            case .doc_post(_, _):
+            case .doc_select_post(_, _):
                 
                 relativePath = NetworkURL.docSelect
             }
@@ -48,7 +48,7 @@ enum SelectRouter:  URLRequestConvertible {
             
             switch self {
                 
-            case .post(let patientId, let parentId):
+            case .patient_select_post(let patientId, let parentId):
                 
                 dict = ["token"    : StaticContentFile.getToken(),
                         "parentid" : parentId,
@@ -56,7 +56,7 @@ enum SelectRouter:  URLRequestConvertible {
                 
                 return dict
                 
-            case .doc_post(let patientId, let doctorid):
+            case .doc_select_post(let patientId, let doctorid):
                 
                 dict = ["token"    : StaticContentFile.getToken(),
                         "doctorid" : doctorid,

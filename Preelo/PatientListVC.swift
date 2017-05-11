@@ -137,10 +137,10 @@ extension PatientListVC {
         
         if StaticContentFile.isDoctorLogIn() {
             
-            callAPIToSelect(SelectRouter.post(selectedChild.patientid, docList.parent_id), childrenDetail: selectedChild, docList: docList)
+            callAPIToSelect(SelectRouter.patient_select_post(selectedChild.patientid, docList.parent_id), childrenDetail: selectedChild, docList: docList)
         } else {
             
-            callAPIToSelect(SelectRouter.doc_post(selectedChild.patientid, docList.doctorid), childrenDetail: selectedChild, docList: docList)
+            callAPIToSelect(SelectRouter.doc_select_post(selectedChild.patientid, docList.doctorid), childrenDetail: selectedChild, docList: docList)
         }
     }
     

@@ -12,6 +12,7 @@ import Alamofire
 enum AuthorizationRequestListRouter:  URLRequestConvertible {
     
     case get()
+    case channel_get()
     case approveAuth_post(Int, Int)
     case rejectAuth_post(Int, Int)
     
@@ -21,7 +22,7 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
             
             switch self {
                 
-            case .get():
+            case .get(), .channel_get():
                 return .get
                 
             default:
@@ -39,7 +40,9 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
             case .get():
                 
                 relativePath = NetworkURL.authRequestList
+            case .channel_get() :
                 
+                relativePath = NetworkURL.channel
             case .approveAuth_post(_, _):
                 
                 relativePath = NetworkURL.docApproveAuthorization
@@ -60,7 +63,7 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
             
             switch self {
                 
-            case .get():
+            case .get(), .channel_get():
                 
                 dict = ["token"         : StaticContentFile.getToken()]
                 
@@ -85,7 +88,7 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
         var encodedRequest : URLRequest!
         
         switch self {
-        case .get:
+        case .get, .channel_get():
             
             encodedRequest          = try encoding.encode(urlRequest, with: params)
         default:

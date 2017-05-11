@@ -15,6 +15,7 @@ class TabBarVC: UITabBarController {
     fileprivate(set) var list = [Any]()
     fileprivate(set) var patientDetail : Patients?
     fileprivate(set) var isAPIFetched  = false
+    fileprivate var activityIndicator  : UIActivityIndicatorView?
     
     var loginDetail : logIn!
     
@@ -38,7 +39,7 @@ class TabBarVC: UITabBarController {
     }
     
     func changeTheItem() {
-    
+        
         if StaticContentFile.isDoctorLogIn() {
             
             if let item = tabBar.items?[2] {
@@ -68,7 +69,7 @@ extension TabBarVC {
         callLogiApi()
     }
     
-    fileprivate func callLogiApi(){
+    fileprivate func callLogiApi() {
         
         if StaticContentFile.isDoctorLogIn() {
             
