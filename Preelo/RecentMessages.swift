@@ -13,7 +13,7 @@ class RecentMessages: Mappable {
     var message_type         = ""
     var message_text         = ""
     var message_date         = ""
-    var image_url            = ""
+    var image_url            = [String]()
     var message_id           = 0
     var person               = ""
     var image_upload_status  = ""

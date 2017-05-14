@@ -10,31 +10,44 @@ import UIKit
 
 class CompleteImageVC: UIViewController {
 
-    @IBOutlet fileprivate weak var numberOfImages   : UILabel!
-    @IBOutlet fileprivate weak var collectionView   : UICollectionView!
+    @IBOutlet fileprivate weak var numberOfImages    : UILabel!
+    @IBOutlet fileprivate weak var collectionView    : UICollectionView!
+    @IBOutlet fileprivate weak var customeNavigation : CustomNavigationBar!
     
     fileprivate var imageList = [String]()
+    fileprivate var name = ""
     
-    init (_ imageList: [String]) {
+    init (_ imageList: [String], name: String) {
         
         self.imageList = imageList
+        self.name      = name
         super.init(nibName: "ChatVC", bundle: nil)
     }
     
     required init?(coder aDecoder:NSCoder) {
         super.init(coder: aDecoder)
-    }
     
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
          collectionView.register(UINib(nibName: "ImageCell", bundle: nil), forCellWithReuseIdentifier: ImageCell.cellId)
+        customeNavigation.setTitle(name)
+        customeNavigation.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
        
+    }
+}
+
+extension CompleteImageVC: CustomNavigationBarDelegate {
+    
+    func tappedBackButtonFromVC(_ customView: CustomNavigationBar) {
+        
+        _ = navigationController?.popViewController(animated: true)
     }
 }
 

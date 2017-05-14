@@ -23,9 +23,9 @@ class ChatVC: UIViewController {
     
     fileprivate var messageList         = [RecentMessages]()
     fileprivate var activityIndicator   : UIActivityIndicatorView?
-    fileprivate var channelDetail       : ChannelDetail?
+    fileprivate var channelDetail       : ChannelDetail!
     
-    init (_ channelDetail: ChannelDetail?) {
+    init (_ channelDetail: ChannelDetail) {
         
         self.channelDetail = channelDetail
         super.init(nibName: "ChatVC", bundle: nil)
@@ -49,11 +49,8 @@ class ChatVC: UIViewController {
     
     @IBAction func requestAuthorisationButtonTapped(_ sender: Any) {
         
-        if let detail = channelDetail {
-            
-            let vc = DisclaimerVC(detail)
-            navigationController?.pushViewController(vc, animated: true)
-        }
+        let vc = DisclaimerVC(channelDetail)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
@@ -69,27 +66,6 @@ class ChatVC: UIViewController {
 
 extension ChatVC {
     
-    fileprivate func callAPIToSendText(_ text: String) {
-        
-        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
-        activityIndicator?.startAnimating()
-        
-        Alamofire.request(SendTextMessageRouter.post(text))
-            .responseObject { (response: DataResponse<AuthorizeRequest>) in
-                
-                self.activityIndicator?.stopAnimating()
-                if let _ = response.result.value {
-                    
-                    
-                } else {
-                    
-                    self.view.showToast(message: "Send Message Failed")
-                } } .responseString { (string) in
-                    
-                    print(string)
-        }
-    }
-    
     fileprivate func setup() {
         
         StaticContentFile.setButtonFont(requestAuthButton)
@@ -99,11 +75,25 @@ extension ChatVC {
             tab.tabBar.isHidden = true
         }
         
-        if let detail = channelDetail {
+        requestAuthorizationViewHeight.constant = 0
+        authorizationView.isHidden = true
+        toolbarView.isUserInteractionEnabled = true
+        
+        StaticContentFile.isDoctorLogIn() ? customeNavigation.setTitle(channelDetail.patientname) :  customeNavigation.setTitle(channelDetail.doctorname)
+        
+        if let recentMessage = channelDetail.recent_message.last {
             
-            StaticContentFile.isDoctorLogIn() ? customeNavigation.setTitle(detail.patientname) :  customeNavigation.setTitle(detail.doctorname)
+            activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+            activityIndicator?.startAnimating()
             
-            callApiToGetMessages(detail)
+            callApiToGetMessages(recentMessage.message_id)
+        }
+        
+        if !StaticContentFile.isDoctorLogIn(), !channelDetail.auth_status {
+            
+            requestAuthorizationViewHeight.constant = 182
+            authorizationView.isHidden = false
+            toolbarView.isUserInteractionEnabled = false
         }
         
         customeNavigation.delegate = self
@@ -111,27 +101,30 @@ extension ChatVC {
         tableview.register(UINib(nibName: "ToMessageCell", bundle: nil), forCellReuseIdentifier: ToMessageCell.cellId)
          tableview.register(UINib(nibName: "ImageListCell", bundle: nil), forCellReuseIdentifier: ImageListCell.cellId)
         
-        requestAuthorizationViewHeight.constant = 0
-        authorizationView.isHidden = true
-        toolbarView.isUserInteractionEnabled = true
-        
-        if !StaticContentFile.isDoctorLogIn() {
-            
-            requestAuthorizationViewHeight.constant = 182
-            authorizationView.isHidden = false
-            toolbarView.isUserInteractionEnabled = false
-        }
-        
         tableview.estimatedRowHeight = 20
         tableview.rowHeight  = UITableViewAutomaticDimension
     }
     
-    fileprivate func callApiToGetMessages(_ data: ChannelDetail) {
+    fileprivate func callAPIToSendText(_ text: String) {
         
-        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
-        activityIndicator?.startAnimating()
+        Alamofire.request(SendTextMessageRouter.post(text))
+            .responseObject { (response: DataResponse<SuccessStatus>) in
+                
+                if let result = response.result.value {
+                    
+                    self.callApiToGetMessages(result.message_id)
+                } else {
+                    
+                    self.view.showToast(message: "Send Message Failed")
+                } } .responseString { (string) in
+                    
+                    print(string)
+        }
+    }
+    
+    fileprivate func callApiToGetMessages(_ messageId: Int) {
         
-        Alamofire.request(SendTextMessageRouter.get(data))
+        Alamofire.request(SendTextMessageRouter.get(channelDetail, messageId))
             .responseArray(keyPath: "data") {(response: DataResponse<[RecentMessages]>) in
                 
                 if let result = response.result.value {
@@ -168,6 +161,15 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
         
         let message = messageList[indexPath.row]
         
+        if message.message_type == "IMAGE" {
+        
+            let cell = tableView.dequeueReusableCell(withIdentifier: ImageListCell.cellId, for: indexPath) as! ImageListCell
+            cell.showImages(message)
+            
+            return cell
+        
+        }
+        
         if message.person == "you" {
         
              let cell = tableView.dequeueReusableCell(withIdentifier: FromMessageCell.cellId, for: indexPath) as! FromMessageCell
@@ -189,7 +191,7 @@ extension ChatVC: ImageListCellDelegate {
     
     func imageListCell(_ cell: ImageListCell, imageList: [String], index: Int) {
     
-        let vc = CompleteImageVC(imageList)
+        let vc = CompleteImageVC(imageList, name: channelDetail.patientname)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

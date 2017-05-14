@@ -19,10 +19,10 @@ class ImageListCell: UITableViewCell {
     @IBOutlet fileprivate weak var cardView         : UIView!
     @IBOutlet fileprivate weak var collectionView   : UICollectionView!
     
-    let imageList = [String]()
+    var imageList = [String]()
     
     weak var delegate: ImageListCellDelegate?
-    static let ceelId = "ImageListCell"
+    static let cellId = "ImageListCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,6 +44,12 @@ class ImageListCell: UITableViewCell {
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "ImageCell", bundle: nil), forCellWithReuseIdentifier: ImageCell.cellId)
     }
+    
+    func showImages(_ recentMessage: RecentMessages) {
+    
+        imageList = recentMessage.image_url
+        collectionView.reloadData()
+    }
 }
 
 extension ImageListCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -58,7 +64,7 @@ extension ImageListCell: UICollectionViewDelegate, UICollectionViewDataSource, U
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.cellId, for: indexPath) as! ImageCell
         
         cell.showImage(imageList[indexPath.row])
-        
+
         return cell
     }
     

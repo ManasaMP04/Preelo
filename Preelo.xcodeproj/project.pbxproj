@@ -36,8 +36,6 @@
 		622A8FCE1E9D500C00B34B56 /* ParentDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622A8FCC1E9D500C00B34B56 /* ParentDetailCell.xib */; };
 		622A8FD71E9D6B3800B34B56 /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FD51E9D6B3800B34B56 /* AlertVC.swift */; };
 		623D5EDD1EA0BAA200389481 /* SlideOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */; };
-		623D5EE01EA0C52000389481 /* DisplayPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623D5EDF1EA0C52000389481 /* DisplayPhotoVC.swift */; };
-		623D5EE21EA0C81500389481 /* DisplayPhotoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 623D5EE11EA0C81500389481 /* DisplayPhotoVC.xib */; };
 		624B44541EAE76FD0014D2A2 /* DocAuthorizationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624B44531EAE76FD0014D2A2 /* DocAuthorizationRequest.swift */; };
 		624B44561EAE79410014D2A2 /* AuthorizationRequestListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624B44551EAE79410014D2A2 /* AuthorizationRequestListRouter.swift */; };
 		624C63081EADDF8A00934D3E /* SelectRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624C63071EADDF8A00934D3E /* SelectRouter.swift */; };
@@ -66,6 +64,7 @@
 		62B729F31EC84575006057DB /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B729F11EC84575006057DB /* ImageCell.xib */; };
 		62B729F61EC84800006057DB /* CompleteImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729F41EC84800006057DB /* CompleteImageVC.swift */; };
 		62B729F71EC84800006057DB /* CompleteImageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B729F51EC84800006057DB /* CompleteImageVC.xib */; };
+		62B729F91EC8538A006057DB /* SuccessStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729F81EC8538A006057DB /* SuccessStatus.swift */; };
 		62C6F7F91EB87BCA00D5160A /* RelationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */; };
 		62D027DD1EB12E0500A6ACF3 /* SendTextMessageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */; };
 		62D064941EA3EEB4007A503F /* addPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D064931EA3EEB4007A503F /* addPatient.swift */; };
@@ -142,8 +141,6 @@
 		622A8FCC1E9D500C00B34B56 /* ParentDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParentDetailCell.xib; sourceTree = "<group>"; };
 		622A8FD51E9D6B3800B34B56 /* AlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
 		623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideOutVC.swift; sourceTree = "<group>"; };
-		623D5EDF1EA0C52000389481 /* DisplayPhotoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayPhotoVC.swift; sourceTree = "<group>"; };
-		623D5EE11EA0C81500389481 /* DisplayPhotoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisplayPhotoVC.xib; sourceTree = "<group>"; };
 		624B44531EAE76FD0014D2A2 /* DocAuthorizationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocAuthorizationRequest.swift; sourceTree = "<group>"; };
 		624B44551EAE79410014D2A2 /* AuthorizationRequestListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationRequestListRouter.swift; sourceTree = "<group>"; };
 		624C63071EADDF8A00934D3E /* SelectRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectRouter.swift; sourceTree = "<group>"; };
@@ -172,6 +169,7 @@
 		62B729F11EC84575006057DB /* ImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
 		62B729F41EC84800006057DB /* CompleteImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteImageVC.swift; sourceTree = "<group>"; };
 		62B729F51EC84800006057DB /* CompleteImageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompleteImageVC.xib; sourceTree = "<group>"; };
+		62B729F81EC8538A006057DB /* SuccessStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessStatus.swift; sourceTree = "<group>"; };
 		62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationPickerView.swift; sourceTree = "<group>"; };
 		62C6F7FA1EB8811D00D5160A /* Preelo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Preelo-Bridging-Header.h"; sourceTree = "<group>"; };
 		62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendTextMessageRouter.swift; sourceTree = "<group>"; };
@@ -365,6 +363,7 @@
 				624B44531EAE76FD0014D2A2 /* DocAuthorizationRequest.swift */,
 				626160F41EC42E82002CCCA8 /* ChannelDetail.swift */,
 				626160F61EC43146002CCCA8 /* RecentMessages.swift */,
+				62B729F81EC8538A006057DB /* SuccessStatus.swift */,
 				62D064921EA3EE91007A503F /* AddPatient */,
 			);
 			name = Models;
@@ -427,8 +426,6 @@
 				62B729EB1EC83E85006057DB /* Cell */,
 				62E3AB801EA107530061802F /* DisclaimerVC.swift */,
 				62E3AB811EA107530061802F /* DisclaimerVC.xib */,
-				623D5EDF1EA0C52000389481 /* DisplayPhotoVC.swift */,
-				623D5EE11EA0C81500389481 /* DisplayPhotoVC.xib */,
 				62B729F41EC84800006057DB /* CompleteImageVC.swift */,
 				62B729F51EC84800006057DB /* CompleteImageVC.xib */,
 			);
@@ -595,7 +592,6 @@
 				62E3AB871EA10C140061802F /* ChatVC.xib in Resources */,
 				621C2C1F1E750D95008BD57F /* Assets.xcassets in Resources */,
 				62B729F71EC84800006057DB /* CompleteImageVC.xib in Resources */,
-				623D5EE21EA0C81500389481 /* DisplayPhotoVC.xib in Resources */,
 				62E3AB7E1EA101410061802F /* ChatCell.xib in Resources */,
 				62E3AB831EA107530061802F /* DisclaimerVC.xib in Resources */,
 				6224B2641EB8EC11009C8D98 /* AlertVC.xib in Resources */,
@@ -681,7 +677,6 @@
 				626160F71EC43146002CCCA8 /* RecentMessages.swift in Sources */,
 				622A8FBD1E9D3A1200B34B56 /* ForgotPasswordVC.swift in Sources */,
 				62C6F7F91EB87BCA00D5160A /* RelationPickerView.swift in Sources */,
-				623D5EE01EA0C52000389481 /* DisplayPhotoVC.swift in Sources */,
 				622A8FBC1E9D3A1200B34B56 /* FloatingTextField.swift in Sources */,
 				629E4E971EA2AB7F00F280AD /* FamilyList.swift in Sources */,
 				622A8FC91E9D3A1200B34B56 /* StaticContentFile.swift in Sources */,
@@ -691,6 +686,7 @@
 				622A8FC41E9D3A1200B34B56 /* PatientListVC.swift in Sources */,
 				629E4E931EA2AABB00F280AD /* Patients.swift in Sources */,
 				624B44561EAE79410014D2A2 /* AuthorizationRequestListRouter.swift in Sources */,
+				62B729F91EC8538A006057DB /* SuccessStatus.swift in Sources */,
 				62B729E51EC83E63006057DB /* FromMessageCell.swift in Sources */,
 				626AB13F1EA36350001271D3 /* DoctorList.swift in Sources */,
 				622A8FBF1E9D3A1200B34B56 /* LoginVC.swift in Sources */,

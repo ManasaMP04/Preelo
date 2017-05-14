@@ -16,6 +16,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CompleteImageVC" customModule="Preelo" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="Ven-2D-Hyp" id="pIl-tW-i1v"/>
+                <outlet property="customeNavigation" destination="b9L-DL-5b2" id="BPb-FQ-q09"/>
                 <outlet property="numberOfImages" destination="dbQ-Zt-lTX" id="Bfa-vp-Mqq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

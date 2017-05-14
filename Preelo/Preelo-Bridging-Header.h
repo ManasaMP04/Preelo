@@ -11,3 +11,5 @@
 
 
 #endif /* Preelo_Bridging_Header_h */
+
+#import <SDWebImage/UIImageView+WebCache.h>

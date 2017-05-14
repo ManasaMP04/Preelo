@@ -22,8 +22,7 @@ class ImageCell: UICollectionViewCell {
     func showImage(_ imageName: String) {
     
         let urlString         = imageName
-        let hotelImageUrl     = URL(string: urlString)
-        
-        imageView.sd_setImage(with: hotelImageUrl, completed: nil)
+        let imageUrl     = URL(string: urlString)
+        imageView.sd_setImage(with: imageUrl, completed: nil)
     }
 }

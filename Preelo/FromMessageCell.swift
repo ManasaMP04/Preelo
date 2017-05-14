@@ -12,6 +12,7 @@ class FromMessageCell: UITableViewCell {
     
     @IBOutlet fileprivate weak var cardView             : UIView!
     @IBOutlet fileprivate weak var descriptionLabel     : UILabel!
+    @IBOutlet fileprivate weak var messageImageView     : UIImageView!
     
     static let cellId = "FromMessageCell"
     
@@ -31,5 +32,10 @@ class FromMessageCell: UITableViewCell {
     func showMessage(_ message: RecentMessages) {
         
         descriptionLabel.text = message.message_text
+    }
+    
+    func showImage(_ status: String) {
+    
+        
     }
 }
