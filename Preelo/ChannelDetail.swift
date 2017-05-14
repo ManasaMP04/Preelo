@@ -47,7 +47,7 @@ class ChannelObject: Mappable {
 class ChannelDetail: Mappable {
     
     var channel_name        = ""
-    var channel_id          = ""
+    var channel_id          = 0
     var relationship        = ""
     var patientname         = ""
     var doctorname          = ""
@@ -61,6 +61,7 @@ class ChannelDetail: Mappable {
     var parentId            = 0
     var patientId           = 0
     var auth_status         = false
+    var doctor_user_id      = 0
     
     required init?(map: Map) {
         
@@ -83,6 +84,7 @@ class ChannelDetail: Mappable {
         parentId            <- map["parent_id"]
         patientId           <- map["patient_id"]
         auth_status         <- map["auth_status"]
+        doctor_user_id      <- map["doctor_user_id"]
     }
     
     func modelToDict() -> [String : Any] {
@@ -93,6 +95,8 @@ class ChannelDetail: Mappable {
         dict["channel_id"] = channel_id
         dict["relationship"] = relationship
         dict["patientname"] = patientname
+        dict["doctorname"] = doctorname
+        dict["parentname"] = parentname
         dict["parent_initials"] = parent_initials
         dict["doctor_initials"] = doctor_initials
         
@@ -105,6 +109,11 @@ class ChannelDetail: Mappable {
         
         dict["recent_timestamp"] = recent_timestamp
         dict["unread_count"] = unread_count
+        dict["doctor_id"] = doctorId
+        dict["parent_id"] = parentId
+        dict["patient_id"] = patientId
+        dict["auth_status"] = auth_status
+        dict["doctor_user_id"] = doctor_user_id
         
         return dict
     }

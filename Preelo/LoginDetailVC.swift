@@ -154,7 +154,6 @@ extension LoginDetailVC {
                     let defaults = UserDefaults.standard
                     let dict1   = result.modelToDict()
                     defaults.setValue(dict1, forKeyPath: "channel")
-                    self.performSegue(withIdentifier: "loginSuccess", sender: nil)
                     
                     if self.isDoctorLogIn {
                         

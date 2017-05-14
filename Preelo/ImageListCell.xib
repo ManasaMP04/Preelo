@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-M.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="166" id="gQF-pF-tqs" customClass="ImageListCell" customModule="Preelo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="335" height="166"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gQF-pF-tqs" id="pZj-r6-jl0">
+                <rect key="frame" x="0.0" y="0.0" width="335" height="165"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lAK-5a-YnY">
+                        <rect key="frame" x="8" y="37" width="319" height="120"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Opa-j4-7RM">
+                                <rect key="frame" x="8" y="5" width="303" height="110"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="110" id="DbX-Cf-IrO"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FBX-sv-dl8">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Opa-j4-7RM" secondAttribute="trailing" constant="8" id="B9g-Db-c1g"/>
+                            <constraint firstItem="Opa-j4-7RM" firstAttribute="leading" secondItem="lAK-5a-YnY" secondAttribute="leading" constant="8" id="GY7-bB-eX7"/>
+                            <constraint firstItem="Opa-j4-7RM" firstAttribute="top" secondItem="lAK-5a-YnY" secondAttribute="top" constant="5" id="aqe-DQ-MDD"/>
+                            <constraint firstAttribute="bottom" secondItem="Opa-j4-7RM" secondAttribute="bottom" constant="5" id="iJD-tm-2mn"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xIZ-Of-bTb">
+                        <rect key="frame" x="8" y="10" width="22" height="17"/>
+                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="15"/>
+                        <color key="textColor" red="0.25490196079999999" green="0.25098039220000001" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="xIZ-Of-bTb" firstAttribute="leading" secondItem="pZj-r6-jl0" secondAttribute="leading" constant="8" id="0yC-UT-5oT"/>
+                    <constraint firstItem="lAK-5a-YnY" firstAttribute="leading" secondItem="pZj-r6-jl0" secondAttribute="leading" constant="8" id="IGg-0n-1e5"/>
+                    <constraint firstAttribute="bottom" secondItem="lAK-5a-YnY" secondAttribute="bottom" constant="8.5" id="Nk5-7u-vNM"/>
+                    <constraint firstItem="lAK-5a-YnY" firstAttribute="top" secondItem="xIZ-Of-bTb" secondAttribute="bottom" constant="10" id="SrT-AD-B37"/>
+                    <constraint firstAttribute="trailing" secondItem="lAK-5a-YnY" secondAttribute="trailing" constant="8" id="XsA-N0-sIH"/>
+                    <constraint firstItem="xIZ-Of-bTb" firstAttribute="top" secondItem="pZj-r6-jl0" secondAttribute="top" constant="10" id="bjL-lS-yKL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="cardView" destination="lAK-5a-YnY" id="0lt-Wk-05J"/>
+                <outlet property="collectionView" destination="Opa-j4-7RM" id="eq6-a6-nS5"/>
+                <outlet property="nameLabel" destination="xIZ-Of-bTb" id="Phd-bp-evO"/>
+            </connections>
+            <point key="canvasLocation" x="68.5" y="225"/>
+        </tableViewCell>
+    </objects>
+</document>

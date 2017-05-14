@@ -7,7 +7,8 @@ target 'Preelo' do
 use_frameworks!
 
     pod 'AlamofireObjectMapper', '~> 4.0.0' 
-    pod “DXPopover"   
+    pod "DXPopover"  
+    pod 'SDWebImage', '~> 3.8' 
 
     post_install do |installer|
       installer.pods_project.targets.each do |target|

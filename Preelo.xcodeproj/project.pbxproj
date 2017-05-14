@@ -56,6 +56,16 @@
 		629E4E971EA2AB7F00F280AD /* FamilyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E961EA2AB7F00F280AD /* FamilyList.swift */; };
 		62ACD5051EA125D1000B0EDE /* NetworkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5041EA125D1000B0EDE /* NetworkURL.swift */; };
 		62ACD5081EA129BF000B0EDE /* LogInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5071EA129BF000B0EDE /* LogInRouter.swift */; };
+		62B729E51EC83E63006057DB /* FromMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729E31EC83E63006057DB /* FromMessageCell.swift */; };
+		62B729E61EC83E63006057DB /* FromMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B729E41EC83E63006057DB /* FromMessageCell.xib */; };
+		62B729E91EC83E74006057DB /* ToMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729E71EC83E74006057DB /* ToMessageCell.swift */; };
+		62B729EA1EC83E74006057DB /* ToMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B729E81EC83E74006057DB /* ToMessageCell.xib */; };
+		62B729EE1EC84387006057DB /* ImageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729EC1EC84387006057DB /* ImageListCell.swift */; };
+		62B729EF1EC84387006057DB /* ImageListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B729ED1EC84387006057DB /* ImageListCell.xib */; };
+		62B729F21EC84575006057DB /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729F01EC84575006057DB /* ImageCell.swift */; };
+		62B729F31EC84575006057DB /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B729F11EC84575006057DB /* ImageCell.xib */; };
+		62B729F61EC84800006057DB /* CompleteImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729F41EC84800006057DB /* CompleteImageVC.swift */; };
+		62B729F71EC84800006057DB /* CompleteImageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B729F51EC84800006057DB /* CompleteImageVC.xib */; };
 		62C6F7F91EB87BCA00D5160A /* RelationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */; };
 		62D027DD1EB12E0500A6ACF3 /* SendTextMessageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */; };
 		62D064941EA3EEB4007A503F /* addPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D064931EA3EEB4007A503F /* addPatient.swift */; };
@@ -152,6 +162,16 @@
 		629E4E961EA2AB7F00F280AD /* FamilyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyList.swift; sourceTree = "<group>"; };
 		62ACD5041EA125D1000B0EDE /* NetworkURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkURL.swift; sourceTree = "<group>"; };
 		62ACD5071EA129BF000B0EDE /* LogInRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInRouter.swift; sourceTree = "<group>"; };
+		62B729E31EC83E63006057DB /* FromMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromMessageCell.swift; sourceTree = "<group>"; };
+		62B729E41EC83E63006057DB /* FromMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FromMessageCell.xib; sourceTree = "<group>"; };
+		62B729E71EC83E74006057DB /* ToMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToMessageCell.swift; sourceTree = "<group>"; };
+		62B729E81EC83E74006057DB /* ToMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToMessageCell.xib; sourceTree = "<group>"; };
+		62B729EC1EC84387006057DB /* ImageListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageListCell.swift; sourceTree = "<group>"; };
+		62B729ED1EC84387006057DB /* ImageListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageListCell.xib; sourceTree = "<group>"; };
+		62B729F01EC84575006057DB /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		62B729F11EC84575006057DB /* ImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
+		62B729F41EC84800006057DB /* CompleteImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteImageVC.swift; sourceTree = "<group>"; };
+		62B729F51EC84800006057DB /* CompleteImageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompleteImageVC.xib; sourceTree = "<group>"; };
 		62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationPickerView.swift; sourceTree = "<group>"; };
 		62C6F7FA1EB8811D00D5160A /* Preelo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Preelo-Bridging-Header.h"; sourceTree = "<group>"; };
 		62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendTextMessageRouter.swift; sourceTree = "<group>"; };
@@ -324,6 +344,8 @@
 			isa = PBXGroup;
 			children = (
 				622A8FAD1E9D3A1200B34B56 /* MessageVC.swift */,
+				62E3AB7B1EA101410061802F /* ChatCell.swift */,
+				62E3AB7C1EA101410061802F /* ChatCell.xib */,
 			);
 			name = MessageVC;
 			sourceTree = "<group>";
@@ -364,6 +386,21 @@
 			name = Network;
 			sourceTree = "<group>";
 		};
+		62B729EB1EC83E85006057DB /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				62B729E31EC83E63006057DB /* FromMessageCell.swift */,
+				62B729E41EC83E63006057DB /* FromMessageCell.xib */,
+				62B729E71EC83E74006057DB /* ToMessageCell.swift */,
+				62B729E81EC83E74006057DB /* ToMessageCell.xib */,
+				62B729EC1EC84387006057DB /* ImageListCell.swift */,
+				62B729ED1EC84387006057DB /* ImageListCell.xib */,
+				62B729F01EC84575006057DB /* ImageCell.swift */,
+				62B729F11EC84575006057DB /* ImageCell.xib */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 		62D064921EA3EE91007A503F /* AddPatient */ = {
 			isa = PBXGroup;
 			children = (
@@ -385,14 +422,15 @@
 		62E3AB7F1EA106CF0061802F /* ChatVC */ = {
 			isa = PBXGroup;
 			children = (
-				62E3AB7B1EA101410061802F /* ChatCell.swift */,
-				62E3AB7C1EA101410061802F /* ChatCell.xib */,
 				62E3AB841EA10C140061802F /* ChatVC.swift */,
 				62E3AB851EA10C140061802F /* ChatVC.xib */,
+				62B729EB1EC83E85006057DB /* Cell */,
 				62E3AB801EA107530061802F /* DisclaimerVC.swift */,
 				62E3AB811EA107530061802F /* DisclaimerVC.xib */,
 				623D5EDF1EA0C52000389481 /* DisplayPhotoVC.swift */,
 				623D5EE11EA0C81500389481 /* DisplayPhotoVC.xib */,
+				62B729F41EC84800006057DB /* CompleteImageVC.swift */,
+				62B729F51EC84800006057DB /* CompleteImageVC.xib */,
 			);
 			name = ChatVC;
 			sourceTree = "<group>";
@@ -542,16 +580,21 @@
 				62E3AB961EA114340061802F /* Ubuntu-B.ttf in Resources */,
 				62E3AB971EA114340061802F /* Ubuntu-C.ttf in Resources */,
 				62E3AB981EA114340061802F /* Ubuntu-L.ttf in Resources */,
+				62B729F31EC84575006057DB /* ImageCell.xib in Resources */,
+				62B729EF1EC84387006057DB /* ImageListCell.xib in Resources */,
 				62DAC9EC1EABEF04005BB0FF /* SelectChildrenVC.xib in Resources */,
 				62E3AB991EA114340061802F /* Ubuntu-M.ttf in Resources */,
 				62E3AB9A1EA114340061802F /* Ubuntu-R.ttf in Resources */,
 				62E3AB9B1EA114340061802F /* UbuntuMono-B.ttf in Resources */,
 				62E3AB9C1EA114340061802F /* UbuntuMono-R.ttf in Resources */,
 				622A8FCE1E9D500C00B34B56 /* ParentDetailCell.xib in Resources */,
+				62B729EA1EC83E74006057DB /* ToMessageCell.xib in Resources */,
+				62B729E61EC83E63006057DB /* FromMessageCell.xib in Resources */,
 				621C2C221E750D95008BD57F /* LaunchScreen.storyboard in Resources */,
 				622A8FB81E9D3A1200B34B56 /* AddPatientVC.xib in Resources */,
 				62E3AB871EA10C140061802F /* ChatVC.xib in Resources */,
 				621C2C1F1E750D95008BD57F /* Assets.xcassets in Resources */,
+				62B729F71EC84800006057DB /* CompleteImageVC.xib in Resources */,
 				623D5EE21EA0C81500389481 /* DisplayPhotoVC.xib in Resources */,
 				62E3AB7E1EA101410061802F /* ChatCell.xib in Resources */,
 				62E3AB831EA107530061802F /* DisclaimerVC.xib in Resources */,
@@ -631,6 +674,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				622A8FBB1E9D3A1200B34B56 /* Extensions.swift in Sources */,
+				62B729EE1EC84387006057DB /* ImageListCell.swift in Sources */,
 				629E4E8B1EA29C8800F280AD /* LogInDetail.swift in Sources */,
 				626AB1431EA36461001271D3 /* ChildrenDetail.swift in Sources */,
 				62D064941EA3EEB4007A503F /* addPatient.swift in Sources */,
@@ -647,6 +691,7 @@
 				622A8FC41E9D3A1200B34B56 /* PatientListVC.swift in Sources */,
 				629E4E931EA2AABB00F280AD /* Patients.swift in Sources */,
 				624B44561EAE79410014D2A2 /* AuthorizationRequestListRouter.swift in Sources */,
+				62B729E51EC83E63006057DB /* FromMessageCell.swift in Sources */,
 				626AB13F1EA36350001271D3 /* DoctorList.swift in Sources */,
 				622A8FBF1E9D3A1200B34B56 /* LoginVC.swift in Sources */,
 				62D027DD1EB12E0500A6ACF3 /* SendTextMessageRouter.swift in Sources */,
@@ -655,6 +700,7 @@
 				62E3AB7D1EA101410061802F /* ChatCell.swift in Sources */,
 				626AB13D1EA35FD2001271D3 /* TabBarVC.swift in Sources */,
 				622A8FC11E9D3A1200B34B56 /* MessageVC.swift in Sources */,
+				62B729F61EC84800006057DB /* CompleteImageVC.swift in Sources */,
 				62E3AB821EA107530061802F /* DisclaimerVC.swift in Sources */,
 				622A8FCD1E9D500C00B34B56 /* ParentDetailCell.swift in Sources */,
 				629E4E891EA29C1600F280AD /* logIn.swift in Sources */,
@@ -663,8 +709,10 @@
 				622A8FD71E9D6B3800B34B56 /* AlertVC.swift in Sources */,
 				629E4E8F1EA2A41C00F280AD /* ForgotPassword.swift in Sources */,
 				62DAC9EB1EABEF04005BB0FF /* SelectChildrenVC.swift in Sources */,
+				62B729F21EC84575006057DB /* ImageCell.swift in Sources */,
 				623D5EDD1EA0BAA200389481 /* SlideOutVC.swift in Sources */,
 				622A8FC21E9D3A1200B34B56 /* ParentDetailVC.swift in Sources */,
+				62B729E91EC83E74006057DB /* ToMessageCell.swift in Sources */,
 				62D064961EA3EF00007A503F /* addFamily.swift in Sources */,
 				629E4E8D1EA29FD200F280AD /* PatientRouter.swift in Sources */,
 				622A8FB71E9D3A1200B34B56 /* AddPatientVC.swift in Sources */,

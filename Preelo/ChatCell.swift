@@ -22,6 +22,7 @@ class ChatCell: UITableViewCell {
     @IBOutlet fileprivate weak var acceptAuthViewHeight : NSLayoutConstraint!
     
     static let cellId = "ChatCell"
+    
     weak var delegate : ChatCellDelegate?
     
     override func awakeFromNib() {
@@ -34,7 +35,7 @@ class ChatCell: UITableViewCell {
         
     }
     
-    func showData(_ data: Any, isdeclineRequestViewShow: Bool = true) {
+    func showData(_ data: Any, isdeclineRequestViewShow: Bool = false) {
         
         if let auth = data as? DocAuthorizationRequest {
         

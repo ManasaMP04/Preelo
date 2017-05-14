@@ -21,7 +21,7 @@ class ChatVC: UIViewController {
     @IBOutlet fileprivate weak var requestAuthButton    : UIButton!
     @IBOutlet fileprivate weak var messageTF            : UITextField!
     
-    fileprivate var messageList         = [Int]()
+    fileprivate var messageList         = [RecentMessages]()
     fileprivate var activityIndicator   : UIActivityIndicatorView?
     fileprivate var channelDetail       : ChannelDetail?
     
@@ -101,10 +101,15 @@ extension ChatVC {
         
         if let detail = channelDetail {
             
-            customeNavigation.setTitle(detail.doctorname)
+            StaticContentFile.isDoctorLogIn() ? customeNavigation.setTitle(detail.patientname) :  customeNavigation.setTitle(detail.doctorname)
+            
+            callApiToGetMessages(detail)
         }
+        
         customeNavigation.delegate = self
-        tableview.register(UINib(nibName: "ChatCell", bundle: nil), forCellReuseIdentifier: ChatCell.cellId)
+        tableview.register(UINib(nibName: "FromMessageCell", bundle: nil), forCellReuseIdentifier: FromMessageCell.cellId)
+        tableview.register(UINib(nibName: "ToMessageCell", bundle: nil), forCellReuseIdentifier: ToMessageCell.cellId)
+         tableview.register(UINib(nibName: "ImageListCell", bundle: nil), forCellReuseIdentifier: ImageListCell.cellId)
         
         requestAuthorizationViewHeight.constant = 0
         authorizationView.isHidden = true
@@ -116,6 +121,29 @@ extension ChatVC {
             authorizationView.isHidden = false
             toolbarView.isUserInteractionEnabled = false
         }
+        
+        tableview.estimatedRowHeight = 20
+        tableview.rowHeight  = UITableViewAutomaticDimension
+    }
+    
+    fileprivate func callApiToGetMessages(_ data: ChannelDetail) {
+        
+        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+        activityIndicator?.startAnimating()
+        
+        Alamofire.request(SendTextMessageRouter.get(data))
+            .responseArray(keyPath: "data") {(response: DataResponse<[RecentMessages]>) in
+                
+                if let result = response.result.value {
+                    
+                    self.messageList = result
+                    self.tableview.reloadData()
+                    self.activityIndicator?.stopAnimating()
+                } else {
+                    
+                    self.activityIndicator?.stopAnimating()
+                    self.view.showToast(message: "Please try again something went wrong")
+                }}
     }
 }
 
@@ -138,13 +166,30 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: ChatCell.cellId, for: indexPath) as! ChatCell
+        let message = messageList[indexPath.row]
         
-        return cell
+        if message.person == "you" {
+        
+             let cell = tableView.dequeueReusableCell(withIdentifier: FromMessageCell.cellId, for: indexPath) as! FromMessageCell
+            cell.showMessage(message)
+            
+            return cell
+        } else {
+        
+             let cell = tableView.dequeueReusableCell(withIdentifier: ToMessageCell.cellId, for: indexPath) as! ToMessageCell
+            
+            cell.showMessage(message)
+            
+            return cell
+        }
     }
+}
+
+extension ChatVC: ImageListCellDelegate {
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return 40
+    func imageListCell(_ cell: ImageListCell, imageList: [String], index: Int) {
+    
+        let vc = CompleteImageVC(imageList)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

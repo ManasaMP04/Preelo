@@ -33,24 +33,24 @@ enum SendTextMessageRouter:  URLRequestConvertible {
             
             var url = URL(string: NetworkURL.baseUrl)!
             
-            var relativePath = ""
+            var relativePath: String
             
             switch self {
                 
-            case .get:
-               
-                relativePath = NetworkURL.getMessages
-                
-            case .post:
+            case .post(_):
                 
                 relativePath = NetworkURL.sendText
+                
+            case .get(_):
+                
+                relativePath = NetworkURL.getMessages
             }
             
             url = url.appendingPathComponent(relativePath)
             
             return url
         }()
-        
+
         let params: [String: Any] = {
             
             switch self {
@@ -63,24 +63,36 @@ enum SendTextMessageRouter:  URLRequestConvertible {
                 
             case .get(let channelDetail):
                 
-                let dict = ["token"         : StaticContentFile.getToken(),
+                var dict: [String: Any] = ["token"         : StaticContentFile.getToken(),
                             "channel_id"  : channelDetail.channel_id]
                 
+                if let recentMessage = channelDetail.recent_message.last {
+                
+                    dict["message_id"] = recentMessage.message_id
+                }
+                
                 return dict
-            } }()
+            }
+        }()
         
         var urlRequest = URLRequest(url: url)
         let encoding                = URLEncoding.queryString
         var encodedRequest : URLRequest!
         
-        do {
+        switch self {
+        case .get:
             
-            urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions())
-            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-            
-            encodedRequest          = try encoding.encode(urlRequest, with: nil)
-        } catch {
-            
+            encodedRequest          = try encoding.encode(urlRequest, with: params)
+        default:
+            do {
+                
+                urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions())
+                urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+                
+                encodedRequest          = try encoding.encode(urlRequest, with: nil)
+            } catch {
+                
+            }
         }
         
         encodedRequest.httpMethod       = method.rawValue
