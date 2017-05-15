@@ -22,7 +22,6 @@ class StaticContentFile: NSObject {
         button.backgroundColor = backgroundColorNeeed ? UIColor.colorWithHex(0x3DB0BB) : UIColor.clear
         
         button.titleLabel?.font = UIFont(name: "Ubuntu-Bold", size: 12)!
-        button.titleLabel?.textColor = UIColor.white
         
         button.layer.borderColor = UIColor.colorWithHex(0x3DB0BB).cgColor
         button.layer.borderWidth = 1
@@ -31,6 +30,7 @@ class StaticContentFile: NSObject {
         if backgroundColorNeeed {
             
             button.addShadowWithColor(UIColor.black, offset: CGSize(width: 0, height: 4), opacity: 0.4, radius: 5)
+            button.titleLabel?.textColor = UIColor.white
         }
     }
     

@@ -12,6 +12,7 @@ class PatientList: Mappable {
     
     var firstname         = ""
     var lastname          = ""
+    var id                = 0
     var family            = [FamilyList]()
     
     init(_ fName: String, lName: String, familyList: [FamilyList]) {
@@ -30,5 +31,6 @@ class PatientList: Mappable {
         firstname             <- map["firstname"]
         lastname              <- map["lastname"]
         family                <- map["family"]
+        id                    <- map["id"]
     }
 }

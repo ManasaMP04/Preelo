@@ -21,6 +21,7 @@ class LoginDetailVC: UIViewController {
     
     fileprivate var activityIndicator: UIActivityIndicatorView?
     fileprivate var loginDetail : logIn!
+    fileprivate let plistManager = PlistManager()
     
     var isDoctorLogIn: Bool = false
     

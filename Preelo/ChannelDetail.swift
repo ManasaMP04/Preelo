@@ -69,14 +69,10 @@ class ChannelDetail: Mappable {
     
     func mapping(map: Map) {
         
-        channel_name        <- map["channel_name"]
         channel_id          <- map["channel_id"]
         relationship        <- map["relationship"]
         patientname         <- map["patientname"]
         doctorname          <- map["doctorname"]
-        parentname          <- map["parentname"]
-        parent_initials     <- map["parent_initials"]
-        doctor_initials     <- map["doctor_initials"]
         recent_message      <- map["recent_message"]
         recent_timestamp    <- map["recent_timestamp"]
         unread_count        <- map["unread_count"]
@@ -84,21 +80,16 @@ class ChannelDetail: Mappable {
         parentId            <- map["parent_id"]
         patientId           <- map["patient_id"]
         auth_status         <- map["auth_status"]
-        doctor_user_id      <- map["doctor_user_id"]
     }
     
     func modelToDict() -> [String : Any] {
         
         var dict = [String : Any]()
         
-        dict["channel_name"] = channel_name
         dict["channel_id"] = channel_id
         dict["relationship"] = relationship
         dict["patientname"] = patientname
         dict["doctorname"] = doctorname
-        dict["parentname"] = parentname
-        dict["parent_initials"] = parent_initials
-        dict["doctor_initials"] = doctor_initials
         
         var array = [Any]()
         for message in recent_message {
@@ -113,7 +104,6 @@ class ChannelDetail: Mappable {
         dict["parent_id"] = parentId
         dict["patient_id"] = patientId
         dict["auth_status"] = auth_status
-        dict["doctor_user_id"] = doctor_user_id
         
         return dict
     }

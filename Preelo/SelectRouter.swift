@@ -48,18 +48,18 @@ enum SelectRouter:  URLRequestConvertible {
             
             switch self {
                 
-            case .patient_select_post(let patientId, let parentId):
+            case .patient_select_post(let patientId, let id):
                 
                 dict = ["token"    : StaticContentFile.getToken(),
-                        "parentid" : parentId,
+                        "parentid" : id,
                         "patientid" : patientId]
                 
                 return dict
                 
-            case .doc_select_post(let patientId, let doctorid):
+            case .doc_select_post(let patientId, let id):
                 
                 dict = ["token"    : StaticContentFile.getToken(),
-                        "doctorid" : doctorid,
+                        "doctorid" : id,
                         "patientid" : patientId]
                 
                 return dict

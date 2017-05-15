@@ -234,18 +234,20 @@ extension AddPatientVC {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
+        self.activityIndicator?.stopAnimating()
+         self.showAlertView(true)
         
-        Alamofire.request(PatientRouter.post(patient))
-            .responseObject { (response: DataResponse<addPatient>) in
-                
-                self.activityIndicator?.stopAnimating()
-                if let _ = response.result.value {
-                    
-                    self.showAlertView(true)
-                } else {
-                    
-                    self.view.showToast(message: "Patient Edit is failed")
-                }}
+//        Alamofire.request(PatientRouter.post(patient))
+//            .responseObject { (response: DataResponse<addPatient>) in
+//                
+//                self.activityIndicator?.stopAnimating()
+//                if let _ = response.result.value {
+//                    
+//                    self.showAlertView(true)
+//                } else {
+//                    
+//                    self.view.showToast(message: "Patient Edit is failed")
+//                }}
     }
     
     fileprivate func pushParentVC(_ list: PatientList, index: Int) {

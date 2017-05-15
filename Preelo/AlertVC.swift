@@ -74,7 +74,7 @@ class AlertVC: UIViewController {
         
         if let tab = tabbarVC {
         
-            tab.tabBar.isHidden = true
+            tab.tabBar.isUserInteractionEnabled = false
         }
     }
     
@@ -82,7 +82,7 @@ class AlertVC: UIViewController {
         
         if let tab = tabbarVC {
             
-            tab.tabBar.isHidden = false
+            tab.tabBar.isUserInteractionEnabled = true
         }
         
         delegate?.tappedDoneButton(self)

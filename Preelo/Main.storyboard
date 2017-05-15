@@ -756,7 +756,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3G8-io-1zL">
-                                <rect key="frame" x="0.0" y="60" width="320" height="341"/>
+                                <rect key="frame" x="0.0" y="60" width="320" height="441"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Gmr-tO-YXI" id="eP7-QS-WHc"/>
@@ -764,7 +764,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1AL-5H-iDN">
-                                <rect key="frame" x="260" y="411" width="60" height="60"/>
+                                <rect key="frame" x="260" y="406" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="09Z-Go-6cD"/>
                                     <constraint firstAttribute="width" constant="60" id="RSA-sP-Fqb"/>
@@ -780,12 +780,12 @@
                             <constraint firstAttribute="trailing" secondItem="3G8-io-1zL" secondAttribute="trailing" id="26v-G3-ClE"/>
                             <constraint firstItem="cFD-2z-stm" firstAttribute="leading" secondItem="btp-zu-jqD" secondAttribute="leading" id="Mku-2V-z59"/>
                             <constraint firstItem="cFD-2z-stm" firstAttribute="top" secondItem="btp-zu-jqD" secondAttribute="top" id="PvD-Tg-Pa5"/>
-                            <constraint firstItem="I7t-eg-2Lm" firstAttribute="top" secondItem="3G8-io-1zL" secondAttribute="bottom" constant="100" id="Skh-t8-fVT"/>
+                            <constraint firstItem="I7t-eg-2Lm" firstAttribute="top" secondItem="3G8-io-1zL" secondAttribute="bottom" id="Skh-t8-fVT"/>
                             <constraint firstItem="3G8-io-1zL" firstAttribute="leading" secondItem="btp-zu-jqD" secondAttribute="leading" id="WKi-P3-evu"/>
+                            <constraint firstItem="I7t-eg-2Lm" firstAttribute="top" secondItem="1AL-5H-iDN" secondAttribute="bottom" constant="35" id="av7-JW-BqN"/>
                             <constraint firstAttribute="trailing" secondItem="cFD-2z-stm" secondAttribute="trailing" id="hP5-tq-dxe"/>
                             <constraint firstItem="3G8-io-1zL" firstAttribute="top" secondItem="cFD-2z-stm" secondAttribute="bottom" id="jbu-gQ-MMq"/>
                             <constraint firstItem="1AL-5H-iDN" firstAttribute="trailing" secondItem="3G8-io-1zL" secondAttribute="trailing" id="oRx-hQ-zai"/>
-                            <constraint firstItem="1AL-5H-iDN" firstAttribute="top" secondItem="3G8-io-1zL" secondAttribute="bottom" constant="10" id="pU3-aI-e44"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="czz-Cx-dqU"/>

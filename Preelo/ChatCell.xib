@@ -95,6 +95,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="acceptAuthViewHeight" destination="uV0-b7-s7B" id="QdO-JA-Dj6"/>
+                <outlet property="acceptButton" destination="6ET-2i-gnO" id="bs8-hU-R10"/>
+                <outlet property="declineButton" destination="XQt-Od-80z" id="U7G-n5-0pE"/>
                 <outlet property="declineRequestView" destination="LUq-9q-RLp" id="XOd-zd-ote"/>
                 <outlet property="descriptionLabel" destination="zNZ-f7-ocl" id="sNl-eu-eYh"/>
                 <outlet property="imageview" destination="fVS-ki-vTD" id="Dmx-kD-eVu"/>

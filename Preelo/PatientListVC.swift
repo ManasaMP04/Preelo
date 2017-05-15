@@ -74,17 +74,17 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if !StaticContentFile.isDoctorLogIn(),
-            let docList = list[indexPath.row] as? DoctorList,
-            docList.children.count > 0 {
+        if StaticContentFile.isDoctorLogIn(),
+            let patient = list[indexPath.row] as? PatientList,
+            patient.family.count > 0 {
             
-            guard docList.children.count > 1 else {
+            guard patient.family.count > 1 else {
                 
-                callAPIToSelectDocOrPatient(docList.children[0], docList:docList)
+                callAPIToSelectDocOrPatient(patient, index: 0)
                 return
             }
             
-            let vc = SelectChildrenVC(docList)
+            let vc = SelectChildrenVC(patient)
             vc.delegate = self
             self.present(vc, animated: true, completion: nil)
             return
@@ -123,9 +123,9 @@ extension PatientListVC: CustomNavigationBarDelegate {
 
 extension PatientListVC: SelectChildrenVCDelegate {
     
-    func selectChildrenVC(_ vc: SelectChildrenVC, selectedChild: ChildrenDetail, docList: DoctorList) {
+    func selectChildrenVC(_ vc: SelectChildrenVC, list: Any, index: Int) {
         
-        callAPIToSelectDocOrPatient(selectedChild, docList:docList)
+        callAPIToSelectDocOrPatient(list, index: index)
     }
 }
 
@@ -133,18 +133,18 @@ extension PatientListVC: SelectChildrenVCDelegate {
 
 extension PatientListVC {
     
-    fileprivate func callAPIToSelectDocOrPatient(_ selectedChild: ChildrenDetail, docList: DoctorList) {
+    fileprivate func callAPIToSelectDocOrPatient(_ data : Any, index: Int) {
         
-        if StaticContentFile.isDoctorLogIn() {
-            
-            callAPIToSelect(SelectRouter.patient_select_post(selectedChild.patientid, docList.parent_id), childrenDetail: selectedChild, docList: docList)
-        } else {
-            
-            callAPIToSelect(SelectRouter.doc_select_post(selectedChild.patientid, docList.doctorid), childrenDetail: selectedChild, docList: docList)
+        if let data1 = data as? PatientList {
+        
+            let family = data1.family[0]
+            callAPIToSelect(SelectRouter.patient_select_post(data1.id, family.id))
+        } else if let _ = data as? DoctorList {
+        
         }
     }
     
-    fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible, childrenDetail: ChildrenDetail, docList: DoctorList) {
+    fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible) {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
@@ -156,7 +156,8 @@ extension PatientListVC {
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-            
+                    let vc = ChatVC()
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }}
     }
     
@@ -194,6 +195,7 @@ extension PatientListVC {
     
     fileprivate func setup() {
         
+        view.bringSubview(toFront: addPatientButton)
         StaticContentFile.isDoctorLogIn() ? customNavigationBar.setTitle("Patients") : customNavigationBar.setTitle("Doctors")
         customNavigationBar.delegate = self
         navigationController?.navigationBar.isHidden = true
@@ -212,16 +214,6 @@ extension PatientListVC {
             }
         } else {
             callApi()
-        }
-        
-        if StaticContentFile.isDoctorLogIn() {
-            
-            addPatientButton.isHidden = false
-            tableviewBottomConstraint.constant = 100
-        } else {
-            
-            addPatientButton.isHidden = true
-            tableviewBottomConstraint.constant = 0
         }
     }
 }

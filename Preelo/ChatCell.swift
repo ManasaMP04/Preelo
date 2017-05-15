@@ -20,6 +20,8 @@ class ChatCell: UITableViewCell {
     @IBOutlet fileprivate weak var name                 : UILabel!
     @IBOutlet fileprivate weak var descriptionLabel     : UILabel!
     @IBOutlet fileprivate weak var acceptAuthViewHeight : NSLayoutConstraint!
+    @IBOutlet fileprivate weak var declineButton        : UIButton!
+    @IBOutlet fileprivate weak var acceptButton         : UIButton!
     
     static let cellId = "ChatCell"
     
@@ -28,6 +30,8 @@ class ChatCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        StaticContentFile.setButtonFont(declineButton, backgroundColorNeeed: false)
+        StaticContentFile.setButtonFont(acceptButton)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

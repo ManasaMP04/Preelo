@@ -68,6 +68,7 @@
 		62B729FC1EC862C5006057DB /* SelectedImagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729FA1EC862C5006057DB /* SelectedImagesVC.swift */; };
 		62B729FD1EC862C5006057DB /* SelectedImagesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B729FB1EC862C5006057DB /* SelectedImagesVC.xib */; };
 		62C6F7F91EB87BCA00D5160A /* RelationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */; };
+		62CDDBDD1ECA3354000A2AC7 /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDDBDC1ECA3354000A2AC7 /* PlistManager.swift */; };
 		62D027DD1EB12E0500A6ACF3 /* SendTextMessageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */; };
 		62D064941EA3EEB4007A503F /* addPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D064931EA3EEB4007A503F /* addPatient.swift */; };
 		62D064961EA3EF00007A503F /* addFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D064951EA3EF00007A503F /* addFamily.swift */; };
@@ -176,6 +177,7 @@
 		62B729FB1EC862C5006057DB /* SelectedImagesVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectedImagesVC.xib; sourceTree = "<group>"; };
 		62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationPickerView.swift; sourceTree = "<group>"; };
 		62C6F7FA1EB8811D00D5160A /* Preelo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Preelo-Bridging-Header.h"; sourceTree = "<group>"; };
+		62CDDBDC1ECA3354000A2AC7 /* PlistManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
 		62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendTextMessageRouter.swift; sourceTree = "<group>"; };
 		62D064931EA3EEB4007A503F /* addPatient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addPatient.swift; sourceTree = "<group>"; };
 		62D064951EA3EF00007A503F /* addFamily.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addFamily.swift; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 				622A8FB31E9D3A1200B34B56 /* PreeloTextField.swift */,
 				622A8FD51E9D6B3800B34B56 /* AlertVC.swift */,
 				6224B2631EB8EC11009C8D98 /* AlertVC.xib */,
+				62CDDBDC1ECA3354000A2AC7 /* PlistManager.swift */,
 				62E3AB881EA112A60061802F /* CustomFont */,
 			);
 			name = Extension;
@@ -712,6 +715,7 @@
 				622A8FD71E9D6B3800B34B56 /* AlertVC.swift in Sources */,
 				629E4E8F1EA2A41C00F280AD /* ForgotPassword.swift in Sources */,
 				62DAC9EB1EABEF04005BB0FF /* SelectChildrenVC.swift in Sources */,
+				62CDDBDD1ECA3354000A2AC7 /* PlistManager.swift in Sources */,
 				62B729F21EC84575006057DB /* ImageCell.swift in Sources */,
 				623D5EDD1EA0BAA200389481 /* SlideOutVC.swift in Sources */,
 				622A8FC21E9D3A1200B34B56 /* ParentDetailVC.swift in Sources */,

@@ -24,11 +24,24 @@ class SelectedImagesVC: UIViewController {
     
     weak var delegate: SelectedImagesVCDelegate?
     fileprivate var imageList = [UIImage]()
+    fileprivate var isCamera  = true
+    
+    init(_ isCamera: Bool = true) {
+    
+        self.isCamera = isCamera
+        super.init(nibName: "SelectedImagesVC", bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         customNavigation.delegate = self
+        selectImageButton.isHidden = isCamera
+        collectionViewHeight.constant = 0
     }
     
     override func didReceiveMemoryWarning() {
@@ -47,7 +60,6 @@ class SelectedImagesVC: UIViewController {
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .savedPhotosAlbum
-        imagePicker.sele
         present(imagePicker, animated: true, completion: nil)
     }
 }
@@ -67,10 +79,17 @@ extension SelectedImagesVC: UIImagePickerControllerDelegate, UINavigationControl
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
             imageList.append(image)
+            imageView.image = image
         }
         
-        collectionViewHeight.constant = imageList.count > 1 ? 45 : 0
-        collectionView.reloadData()
+        if !isCamera {
+        
+            collectionViewHeight.constant = imageList.count > 1 ? 45 : 0
+            collectionView.reloadData()
+        } else {
+        
+             picker.dismiss(animated: true, completion: nil)
+        }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

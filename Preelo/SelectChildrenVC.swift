@@ -10,7 +10,7 @@ import UIKit
 
 protocol SelectChildrenVCDelegate: class {
     
-    func selectChildrenVC(_ vc: SelectChildrenVC, selectedChild: ChildrenDetail, docList: DoctorList)
+    func selectChildrenVC(_ vc: SelectChildrenVC, list: Any, index: Int)
 }
 
 class SelectChildrenVC: UIViewController {
@@ -18,22 +18,22 @@ class SelectChildrenVC: UIViewController {
     @IBOutlet fileprivate weak var tableview        : UITableView!
     @IBOutlet fileprivate weak var tableviewHeight  : NSLayoutConstraint!
     
-    fileprivate var childrenList = [ChildrenDetail]()
-    fileprivate var docList : DoctorList!
+    fileprivate var list = [Any]()
+    fileprivate var patientList: PatientList!
     
     weak var delegate: SelectChildrenVCDelegate?
     
-    init (_ docList: DoctorList) {
+    init (_ list: PatientList) {
         
-        self.docList = docList
-        self.childrenList = docList.children
+        self.list = list.family
+        patientList = list
         
         super.init(nibName: "SelectChildrenVC", bundle: nil)
     }
     
     required init?(coder aDecoder:NSCoder) {
         super.init(coder: aDecoder)
-    
+        
     }
     
     override func viewDidLoad() {
@@ -42,10 +42,10 @@ class SelectChildrenVC: UIViewController {
         tableview.reloadData()
         
         if tableview.contentSize.height < self.view.frame.size.height - 200 {
-        
+            
             tableviewHeight.constant = tableview.contentSize.height
         } else {
-        
+            
             tableviewHeight.constant = self.view.frame.size.height - 200
         }
     }
@@ -67,16 +67,18 @@ extension SelectChildrenVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return childrenList.count
+        return list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell.init(style: .default, reuseIdentifier: "cell")
         
-        let detail = childrenList[indexPath.row]
-        cell.textLabel?.text = detail.child_firstname
-        cell.textLabel?.font = UIFont(name: "Ubuntu", size: 14)!
+        if let detail = list[indexPath.row] as? FamilyList {
+            
+            cell.textLabel?.text = detail.firstname
+            cell.textLabel?.font = UIFont(name: "Ubuntu", size: 14)!
+        }
         
         return cell
     }
@@ -88,6 +90,6 @@ extension SelectChildrenVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        delegate?.selectChildrenVC(self, selectedChild: childrenList[indexPath.row], docList: docList)
+        delegate?.selectChildrenVC(self, list: patientList, index: indexPath.row)
     }
 }

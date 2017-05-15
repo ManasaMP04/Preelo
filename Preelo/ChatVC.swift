@@ -32,10 +32,18 @@ class ChatVC: UIViewController {
     fileprivate var channelDetail       : ChannelDetail!
     fileprivate var images              = [UIImage]()
     fileprivate var selection:Selection = .camera
+    fileprivate var isPatientFlow       = false
     
     init (_ channelDetail: ChannelDetail) {
         
         self.channelDetail = channelDetail
+        self.isPatientFlow = false
+        super.init(nibName: "ChatVC", bundle: nil)
+    }
+    
+    init () {
+    
+        self.isPatientFlow = true
         super.init(nibName: "ChatVC", bundle: nil)
     }
     
@@ -97,21 +105,24 @@ extension ChatVC {
         authorizationView.isHidden = true
         toolbarView.isUserInteractionEnabled = true
         
-        StaticContentFile.isDoctorLogIn() ? customeNavigation.setTitle(channelDetail.patientname) :  customeNavigation.setTitle(channelDetail.doctorname)
-        
-        if let recentMessage = channelDetail.recent_message.last {
+        if  !isPatientFlow {
             
-            activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
-            activityIndicator?.startAnimating()
+            StaticContentFile.isDoctorLogIn() ? customeNavigation.setTitle(channelDetail.patientname) :  customeNavigation.setTitle(channelDetail.doctorname)
             
-            callApiToGetMessages(recentMessage.message_id)
-        }
-        
-        if !StaticContentFile.isDoctorLogIn(), !channelDetail.auth_status {
+            if let recentMessage = channelDetail.recent_message.last {
+                
+                activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+                activityIndicator?.startAnimating()
+                
+                callApiToGetMessages(recentMessage.message_id)
+            }
             
-            requestAuthorizationViewHeight.constant = 182
-            authorizationView.isHidden = false
-            toolbarView.isUserInteractionEnabled = false
+            if !StaticContentFile.isDoctorLogIn(), !channelDetail.auth_status {
+                
+                requestAuthorizationViewHeight.constant = 182
+                authorizationView.isHidden = false
+                toolbarView.isUserInteractionEnabled = false
+            }
         }
         
         customeNavigation.delegate = self
@@ -178,8 +189,6 @@ extension ChatVC: UIImagePickerControllerDelegate, UINavigationControllerDelegat
         
              images.append(image)
         }
-       
-        selection == .camera
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

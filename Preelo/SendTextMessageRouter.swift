@@ -63,7 +63,7 @@ enum SendTextMessageRouter:  URLRequestConvertible {
                 
             case .get(let channelDetail, let messageId):
                 
-                var dict: [String: Any] = ["token"         : StaticContentFile.getToken(),
+                let dict: [String: Any] = ["token"         : StaticContentFile.getToken(),
                             "channel_id"  : channelDetail.channel_id,
                             "message_id"  : messageId]
                 

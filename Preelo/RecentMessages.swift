@@ -17,6 +17,7 @@ class RecentMessages: Mappable {
     var message_id           = 0
     var person               = ""
     var image_upload_status  = ""
+    var status               = ""
     
     required init?(map: Map) {
         
@@ -31,6 +32,7 @@ class RecentMessages: Mappable {
         message_id          <- map["message_id"]
         person              <- map["person"]
         image_upload_status <- map["image_upload_status"]
+        status              <- map["status"]
     }
     
     func modelToDict() -> [String : Any] {
@@ -44,6 +46,7 @@ class RecentMessages: Mappable {
         dict["message_id"] = message_id
         dict["person"] = person
         dict["image_upload_status"] = image_upload_status
+        dict["status"]  = status
         
         return dict
     }

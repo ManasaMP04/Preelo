@@ -25,6 +25,7 @@ class LoginVC: UIViewController {
         super.didReceiveMemoryWarning()
         
     }
+    
     @IBAction func doctorLogin(_ sender: Any) {
         
         isDoctorLogIn = true
