@@ -12,6 +12,12 @@ import Alamofire
 
 class ChatVC: UIViewController {
     
+    enum Selection:Int {
+        
+        case camera = 0
+        case gallery
+    }
+    
     @IBOutlet fileprivate weak var customeNavigation    : CustomNavigationBar!
     @IBOutlet fileprivate weak var authorizationView    : UIView!
     @IBOutlet fileprivate weak var tableview            : UITableView!
@@ -24,6 +30,8 @@ class ChatVC: UIViewController {
     fileprivate var messageList         = [RecentMessages]()
     fileprivate var activityIndicator   : UIActivityIndicatorView?
     fileprivate var channelDetail       : ChannelDetail!
+    fileprivate var images              = [UIImage]()
+    fileprivate var selection:Selection = .camera
     
     init (_ channelDetail: ChannelDetail) {
         
@@ -59,6 +67,16 @@ class ChatVC: UIViewController {
             
             callAPIToSendText(text)
         }
+    }
+    
+    @IBAction func galleryButtonTapped(_ sender: Any) {
+    
+            selection = .gallery
+    }
+    
+    @IBAction func cameraButtonTapped(_ sender: Any) {
+     
+        selection = .camera
     }
 }
 
@@ -105,8 +123,20 @@ extension ChatVC {
         tableview.rowHeight  = UITableViewAutomaticDimension
     }
     
+    fileprivate func selectImages() {
+    
+        images.removeAll()
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = selection == .camera ? .camera : .savedPhotosAlbum
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
     fileprivate func callAPIToSendText(_ text: String) {
         
+        messageTF.text = ""
+        self.view.endEditing(true)
         Alamofire.request(SendTextMessageRouter.post(text))
             .responseObject { (response: DataResponse<SuccessStatus>) in
                 
@@ -137,6 +167,24 @@ extension ChatVC {
                     self.activityIndicator?.stopAnimating()
                     self.view.showToast(message: "Please try again something went wrong")
                 }}
+    }
+}
+
+extension ChatVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        
+             images.append(image)
+        }
+       
+        selection == .camera
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    
+        picker.dismiss(animated: true, completion: nil)
     }
 }
 

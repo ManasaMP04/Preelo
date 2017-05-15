@@ -96,22 +96,28 @@ authorization to send messages</string>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oxm-pz-0QZ">
                                     <rect key="frame" x="0.0" y="562" width="375" height="45"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S23-Yt-seN">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S23-Yt-seN">
                                             <rect key="frame" x="8" y="0.0" width="45" height="45"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="45" id="MHR-xW-7ac"/>
                                             </constraints>
-                                            <state key="normal" title="Button"/>
+                                            <state key="normal" image="Camera"/>
+                                            <connections>
+                                                <action selector="cameraButtonTapped:" destination="-1" eventType="touchUpInside" id="d86-u4-nHg"/>
+                                            </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WLu-iP-TRf">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WLu-iP-TRf">
                                             <rect key="frame" x="54" y="0.0" width="45" height="45"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="45" id="gAY-RA-sST"/>
                                             </constraints>
-                                            <state key="normal" title="Button"/>
+                                            <state key="normal" image="Gallery"/>
+                                            <connections>
+                                                <action selector="galleryButtonTapped:" destination="-1" eventType="touchUpInside" id="KQt-Ch-ig3"/>
+                                            </connections>
                                         </button>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PBg-pE-klS">
-                                            <rect key="frame" x="107" y="8" width="207" height="30"/>
+                                            <rect key="frame" x="107" y="7.5" width="207" height="30"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
@@ -186,4 +192,8 @@ authorization to send messages</string>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="Camera" width="25" height="19"/>
+        <image name="Gallery" width="24" height="19"/>
+    </resources>
 </document>

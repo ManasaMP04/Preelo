@@ -25,4 +25,9 @@ class ImageCell: UICollectionViewCell {
         let imageUrl     = URL(string: urlString)
         imageView.sd_setImage(with: imageUrl, completed: nil)
     }
+    
+    func showImageWithName(_ imageName: UIImage) {
+        
+        imageView.image        = imageName
+    }
 }

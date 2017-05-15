@@ -65,6 +65,8 @@
 		62B729F61EC84800006057DB /* CompleteImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729F41EC84800006057DB /* CompleteImageVC.swift */; };
 		62B729F71EC84800006057DB /* CompleteImageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B729F51EC84800006057DB /* CompleteImageVC.xib */; };
 		62B729F91EC8538A006057DB /* SuccessStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729F81EC8538A006057DB /* SuccessStatus.swift */; };
+		62B729FC1EC862C5006057DB /* SelectedImagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729FA1EC862C5006057DB /* SelectedImagesVC.swift */; };
+		62B729FD1EC862C5006057DB /* SelectedImagesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B729FB1EC862C5006057DB /* SelectedImagesVC.xib */; };
 		62C6F7F91EB87BCA00D5160A /* RelationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */; };
 		62D027DD1EB12E0500A6ACF3 /* SendTextMessageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */; };
 		62D064941EA3EEB4007A503F /* addPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D064931EA3EEB4007A503F /* addPatient.swift */; };
@@ -170,6 +172,8 @@
 		62B729F41EC84800006057DB /* CompleteImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteImageVC.swift; sourceTree = "<group>"; };
 		62B729F51EC84800006057DB /* CompleteImageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompleteImageVC.xib; sourceTree = "<group>"; };
 		62B729F81EC8538A006057DB /* SuccessStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessStatus.swift; sourceTree = "<group>"; };
+		62B729FA1EC862C5006057DB /* SelectedImagesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedImagesVC.swift; sourceTree = "<group>"; };
+		62B729FB1EC862C5006057DB /* SelectedImagesVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectedImagesVC.xib; sourceTree = "<group>"; };
 		62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationPickerView.swift; sourceTree = "<group>"; };
 		62C6F7FA1EB8811D00D5160A /* Preelo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Preelo-Bridging-Header.h"; sourceTree = "<group>"; };
 		62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendTextMessageRouter.swift; sourceTree = "<group>"; };
@@ -423,6 +427,8 @@
 			children = (
 				62E3AB841EA10C140061802F /* ChatVC.swift */,
 				62E3AB851EA10C140061802F /* ChatVC.xib */,
+				62B729FA1EC862C5006057DB /* SelectedImagesVC.swift */,
+				62B729FB1EC862C5006057DB /* SelectedImagesVC.xib */,
 				62B729EB1EC83E85006057DB /* Cell */,
 				62E3AB801EA107530061802F /* DisclaimerVC.swift */,
 				62E3AB811EA107530061802F /* DisclaimerVC.xib */,
@@ -579,6 +585,7 @@
 				62E3AB981EA114340061802F /* Ubuntu-L.ttf in Resources */,
 				62B729F31EC84575006057DB /* ImageCell.xib in Resources */,
 				62B729EF1EC84387006057DB /* ImageListCell.xib in Resources */,
+				62B729FD1EC862C5006057DB /* SelectedImagesVC.xib in Resources */,
 				62DAC9EC1EABEF04005BB0FF /* SelectChildrenVC.xib in Resources */,
 				62E3AB991EA114340061802F /* Ubuntu-M.ttf in Resources */,
 				62E3AB9A1EA114340061802F /* Ubuntu-R.ttf in Resources */,
@@ -709,6 +716,7 @@
 				623D5EDD1EA0BAA200389481 /* SlideOutVC.swift in Sources */,
 				622A8FC21E9D3A1200B34B56 /* ParentDetailVC.swift in Sources */,
 				62B729E91EC83E74006057DB /* ToMessageCell.swift in Sources */,
+				62B729FC1EC862C5006057DB /* SelectedImagesVC.swift in Sources */,
 				62D064961EA3EF00007A503F /* addFamily.swift in Sources */,
 				629E4E8D1EA29FD200F280AD /* PatientRouter.swift in Sources */,
 				622A8FB71E9D3A1200B34B56 /* AddPatientVC.swift in Sources */,

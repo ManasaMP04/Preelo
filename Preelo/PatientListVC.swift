@@ -150,7 +150,7 @@ extension PatientListVC {
         activityIndicator?.startAnimating()
         
         Alamofire.request(urlRequest)
-            .responseObject { (response: DataResponse<AuthorizeRequest>) in
+            .responseObject { (response: DataResponse<SuccessStatus>) in
                 
                 self.activityIndicator?.stopAnimating()
                 
