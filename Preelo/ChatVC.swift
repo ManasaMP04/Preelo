@@ -32,18 +32,21 @@ class ChatVC: UIViewController {
     fileprivate var channelDetail       : ChannelDetail!
     fileprivate var images              = [UIImage]()
     fileprivate var selection:Selection = .camera
-    fileprivate var isPatientFlow       = false
+    fileprivate var isPatient_DocFlow   = false
+    fileprivate var patientOrDocId      = 0
+    fileprivate var name                = ""
     
     init (_ channelDetail: ChannelDetail) {
         
         self.channelDetail = channelDetail
-        self.isPatientFlow = false
+        self.isPatient_DocFlow = false
         super.init(nibName: "ChatVC", bundle: nil)
     }
     
-    init () {
-    
-        self.isPatientFlow = true
+    init (_ Id: Int, name: String) {
+        
+        self.patientOrDocId = Id
+        self.isPatient_DocFlow = true
         super.init(nibName: "ChatVC", bundle: nil)
     }
     
@@ -73,17 +76,29 @@ class ChatVC: UIViewController {
         
         if let text = messageTF.text {
             
+            let recentMessage = RecentMessages("text", text: text, senderId: StaticContentFile.getId())
+            messageList.append(recentMessage)
+            tableview.reloadData()
+            
+            var id = patientOrDocId
+            
+            if !isPatient_DocFlow {
+                
+                id = StaticContentFile.isDoctorLogIn() ? channelDetail.patientId : channelDetail.doctorId
+            }
+            
+            StaticContentFile.saveMessage(recentMessage, id: id)
             callAPIToSendText(text)
         }
     }
     
     @IBAction func galleryButtonTapped(_ sender: Any) {
-    
-            selection = .gallery
+        
+        selection = .gallery
     }
     
     @IBAction func cameraButtonTapped(_ sender: Any) {
-     
+        
         selection = .camera
     }
 }
@@ -96,46 +111,47 @@ extension ChatVC {
         
         StaticContentFile.setButtonFont(requestAuthButton)
         
-        if let nav = self.parent as? UINavigationController, let tab = nav.parent as? UITabBarController {
-            
-            tab.tabBar.isHidden = true
-        }
-        
         requestAuthorizationViewHeight.constant = 0
         authorizationView.isHidden = true
         toolbarView.isUserInteractionEnabled = true
         
-        if  !isPatientFlow {
+        if  !isPatient_DocFlow {
             
             StaticContentFile.isDoctorLogIn() ? customeNavigation.setTitle(channelDetail.patientname) :  customeNavigation.setTitle(channelDetail.doctorname)
+            self.messageList = channelDetail.recent_message
+            //            if let recentMessage = channelDetail.recent_message.last {
+            //
+            //                activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+            //                activityIndicator?.startAnimating()
+            //
+            //                callApiToGetMessages(recentMessage.message_id)
+            //            }
+        } else {
             
-            if let recentMessage = channelDetail.recent_message.last {
-                
-                activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
-                activityIndicator?.startAnimating()
-                
-                callApiToGetMessages(recentMessage.message_id)
-            }
+            self.messageList = StaticContentFile.getMessages(patientOrDocId)
+            customeNavigation.setTitle(name)
+        }
+        
+        self.tableview.reloadData()
+        
+        if !StaticContentFile.isDoctorLogIn(), !channelDetail.auth_status {
             
-            if !StaticContentFile.isDoctorLogIn(), !channelDetail.auth_status {
-                
-                requestAuthorizationViewHeight.constant = 182
-                authorizationView.isHidden = false
-                toolbarView.isUserInteractionEnabled = false
-            }
+            requestAuthorizationViewHeight.constant = 182
+            authorizationView.isHidden = false
+            toolbarView.isUserInteractionEnabled = false
         }
         
         customeNavigation.delegate = self
         tableview.register(UINib(nibName: "FromMessageCell", bundle: nil), forCellReuseIdentifier: FromMessageCell.cellId)
         tableview.register(UINib(nibName: "ToMessageCell", bundle: nil), forCellReuseIdentifier: ToMessageCell.cellId)
-         tableview.register(UINib(nibName: "ImageListCell", bundle: nil), forCellReuseIdentifier: ImageListCell.cellId)
+        tableview.register(UINib(nibName: "ImageListCell", bundle: nil), forCellReuseIdentifier: ImageListCell.cellId)
         
         tableview.estimatedRowHeight = 20
         tableview.rowHeight  = UITableViewAutomaticDimension
     }
     
     fileprivate func selectImages() {
-    
+        
         images.removeAll()
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -151,9 +167,8 @@ extension ChatVC {
         Alamofire.request(SendTextMessageRouter.post(text))
             .responseObject { (response: DataResponse<SuccessStatus>) in
                 
-                if let result = response.result.value {
+                if let _ = response.result.value {
                     
-                    self.callApiToGetMessages(result.message_id)
                 } else {
                     
                     self.view.showToast(message: "Send Message Failed")
@@ -182,17 +197,17 @@ extension ChatVC {
 }
 
 extension ChatVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-        
-             images.append(image)
+            
+            images.append(image)
         }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-    
+        
         picker.dismiss(animated: true, completion: nil)
     }
 }
@@ -219,23 +234,23 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
         let message = messageList[indexPath.row]
         
         if message.message_type == "IMAGE" {
-        
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: ImageListCell.cellId, for: indexPath) as! ImageListCell
             cell.showImages(message)
             
             return cell
-        
+            
         }
         
-        if message.person == "you" {
-        
-             let cell = tableView.dequeueReusableCell(withIdentifier: FromMessageCell.cellId, for: indexPath) as! FromMessageCell
+        if message.senderId == StaticContentFile.getId() {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: FromMessageCell.cellId, for: indexPath) as! FromMessageCell
             cell.showMessage(message)
             
             return cell
         } else {
-        
-             let cell = tableView.dequeueReusableCell(withIdentifier: ToMessageCell.cellId, for: indexPath) as! ToMessageCell
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: ToMessageCell.cellId, for: indexPath) as! ToMessageCell
             
             cell.showMessage(message)
             
@@ -247,7 +262,7 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
 extension ChatVC: ImageListCellDelegate {
     
     func imageListCell(_ cell: ImageListCell, imageList: [String], index: Int) {
-    
+        
         let vc = CompleteImageVC(imageList, name: channelDetail.patientname)
         self.navigationController?.pushViewController(vc, animated: true)
     }

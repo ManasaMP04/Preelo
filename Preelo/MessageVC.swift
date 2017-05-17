@@ -88,12 +88,12 @@ class MessageVC: UIViewController {
         authorizationRequest.titleLabel?.textColor = status ? UIColor.colorWithHex(0xA7A9AC) : UIColor.colorWithHex(0x40AABB)
         
         list.removeAll()
-        if status, let request = StaticContentFile.getAuthRequest(), StaticContentFile.isDoctorLogIn() {
+        if status, let request = StaticContentFile.getAuthRequest() {
             
             list = request.authRequest
-        } else if let channel = StaticContentFile.getChannel(), StaticContentFile.isDoctorLogIn() {
+        } else {
             
-            list = channel.data
+            list = StaticContentFile.getChannel()
         }
         
         tableview.reloadData()
@@ -133,7 +133,7 @@ extension MessageVC {
         }
     }
     
-    fileprivate func callAPIForAcceptAuth(_ request: URLRequestConvertible, indexPath: IndexPath) {
+    fileprivate func callAPIForAcceptAuth(_ request: URLRequestConvertible, indexPath: IndexPath, data: DocAuthorizationRequest) {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
@@ -141,6 +141,7 @@ extension MessageVC {
         Alamofire.request(request)
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
+                StaticContentFile.updateAuthRequest(data)
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
@@ -163,6 +164,7 @@ extension MessageVC {
         Alamofire.request(urlRequest)
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
+                StaticContentFile.updateMessage(data)
                 self.activityIndicator?.stopAnimating()
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
@@ -232,7 +234,7 @@ extension MessageVC: ChatCellDelegate {
         
         if let indexPath = tableview.indexPath(for: cell), let data = list[indexPath.row] as? DocAuthorizationRequest {
             
-            isAuthAccepted ? callAPIForAcceptAuth( AuthorizationRequestListRouter.approveAuth_post(data.patientid, data.parentid), indexPath: indexPath) : callAPIForAcceptAuth( AuthorizationRequestListRouter.rejectAuth_post(data.patientid, data.parentid), indexPath: indexPath)
+            isAuthAccepted ? callAPIForAcceptAuth( AuthorizationRequestListRouter.approveAuth_post(data.patientid, data.parentid), indexPath: indexPath, data: data) : callAPIForAcceptAuth( AuthorizationRequestListRouter.rejectAuth_post(data.patientid, data.parentid), indexPath: indexPath, data: data)
         }
     }
 }

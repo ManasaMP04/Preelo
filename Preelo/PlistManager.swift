@@ -14,8 +14,8 @@ class PlistManager {
     
     enum PlistFile {
         
-        case channelMessage
         case message
+        case authRequest
     }
     
     //MARK:- Public API
@@ -78,11 +78,11 @@ class PlistManager {
         
         switch file {
             
-        case .channelMessage:
-            return "channelMessage.plist"
-            
         case .message:
             return "message.plist"
+            
+        case .authRequest:
+            return "authRequest.plist"
         }
     }
     

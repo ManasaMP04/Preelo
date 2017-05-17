@@ -137,14 +137,14 @@ extension PatientListVC {
         
         if let data1 = data as? PatientList {
         
-            let family = data1.family[0]
-            callAPIToSelect(SelectRouter.patient_select_post(data1.id, family.id))
+            let family = data1.family[index]
+            callAPIToSelect(SelectRouter.patient_select_post(family.patientid, family.id), id: family.patientid, name: data1.firstname)
         } else if let _ = data as? DoctorList {
         
         }
     }
     
-    fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible) {
+    fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible, id: Int, name: String) {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
@@ -156,7 +156,7 @@ extension PatientListVC {
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    let vc = ChatVC()
+                    let vc = ChatVC(id, name: name)
                     self.navigationController?.pushViewController(vc, animated: true)
                 }}
     }

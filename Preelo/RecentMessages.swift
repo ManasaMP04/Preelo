@@ -16,8 +16,17 @@ class RecentMessages: Mappable {
     var image_url            = [String]()
     var message_id           = 0
     var person               = ""
+    var senderId             = 0
     var image_upload_status  = ""
-    var status               = ""
+    var status               = "u"
+    
+    init(_ type: String, text: String = "", image: [String] = [String](), senderId: Int) {
+        
+        message_type = type
+        message_text = text
+        image_url = image
+        self.senderId  = senderId
+    }
     
     required init?(map: Map) {
         
@@ -33,6 +42,7 @@ class RecentMessages: Mappable {
         person              <- map["person"]
         image_upload_status <- map["image_upload_status"]
         status              <- map["status"]
+        senderId            <- map["senderId"]
     }
     
     func modelToDict() -> [String : Any] {
@@ -44,9 +54,8 @@ class RecentMessages: Mappable {
         dict["message_date"] = message_date
         dict["image_url"] = image_url
         dict["message_id"] = message_id
-        dict["person"] = person
-        dict["image_upload_status"] = image_upload_status
         dict["status"]  = status
+        dict["senderId"]  = senderId
         
         return dict
     }

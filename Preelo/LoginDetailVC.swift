@@ -152,9 +152,10 @@ extension LoginDetailVC {
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    let defaults = UserDefaults.standard
-                    let dict1   = result.modelToDict()
-                    defaults.setValue(dict1, forKeyPath: "channel")
+                    for detail in result.data {
+                    
+                        StaticContentFile.saveMessage(detail)
+                    }
                     
                     if self.isDoctorLogIn {
                         
@@ -179,9 +180,7 @@ extension LoginDetailVC {
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    let defaults = UserDefaults.standard
-                    let dict1   = result.modelToDict()
-                    defaults.setValue(dict1, forKeyPath: "authRequest")
+                     StaticContentFile.saveAuthRequest(result)
                     
                     self.performSegue(withIdentifier: "loginSuccess", sender: nil)
                 }else {
