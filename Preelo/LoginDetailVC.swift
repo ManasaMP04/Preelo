@@ -135,6 +135,7 @@ extension LoginDetailVC {
                     self.callChannelAPI()
                 } else if let result = response.result.value, result.status == "VERIFY" {
                     
+                    self.activityIndicator?.stopAnimating()
                     self.alertMessage("Verify", message: result.message)
                     
                 } else {

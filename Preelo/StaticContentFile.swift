@@ -254,10 +254,7 @@ class StaticContentFile: NSObject {
                 
                 for message in detail.recent_message {
                     
-                    if let msgid = list["message_id"] as? Int, msgid != message.message_id {
-                    
-                        list.append(message.modelToDict())
-                    }
+                     list.append(message.modelToDict())
                 }
                 
                 msgList["recent_message"] = list

@@ -10,9 +10,9 @@ import ObjectMapper
 
 class addPatient: Mappable {
     
-    var doctor_first_name         = ""
-    var doctor_last_name          = ""
-    var family            = [FamilyList]()
+    var doctor_first_name     = ""
+    var doctor_last_name      = ""
+    var family                = [FamilyList]()
     
     required init?(map: Map) {
         
@@ -20,8 +20,8 @@ class addPatient: Mappable {
     
     func mapping(map: Map) {
         
-        doctor_first_name             <- map["doctor_first_name"]
-        doctor_last_name              <- map["doctor_last_name"]
+        doctor_first_name     <- map["doctor_first_name"]
+        doctor_last_name      <- map["doctor_last_name"]
         family                <- map["family"]
     }
 }

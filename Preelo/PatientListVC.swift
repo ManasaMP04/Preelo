@@ -40,6 +40,12 @@ class PatientListVC: UIViewController {
         
         self.navigationController?.pushViewController(addPatientVC, animated: true)
     }
+    
+    func refreshTableview(_ data: PatientList) {
+    
+        list.append(data)
+        tableView.reloadData()
+    }
 }
 
 //MARK:- UITableViewDelegate, UITableViewDataSource

@@ -273,7 +273,12 @@ extension AddPatientVC: AlertVCDelegate {
     func tappedDoneButton(_ alertVC: AlertVC) {
         
         dismiss(animated: false, completion: nil)
-        _ = navigationController?.popToRootViewController(animated: true)
+        
+        if let vc = navigationController?.viewControllerWithClass(PatientListVC.self) as?  PatientListVC, let data = patientList {
+        
+            vc.refreshTableview(data)
+            _ = navigationController?.popToViewController(vc, animated: true)
+        }
     }
 }
 

@@ -35,9 +35,9 @@ class ForgotPasswordVC: UIViewController {
     
     @IBAction func continueButtonTapped(_ sender: Any) {
         
-        activityIndicator?.startAnimating()
-        
         if let text = emailId.text, StaticContentFile.isValidEmail(text) {
+            
+            activityIndicator?.startAnimating()
             
             Alamofire.request(LogInRouter.forgotPassword(text))
                 .responseObject { (response: DataResponse<ForgotPassword>) in
@@ -46,10 +46,16 @@ class ForgotPasswordVC: UIViewController {
                     
                     if let result = response.result.value, result.status == "SUCCESS" {
                         
-                        self.view.showToast(message: result.message)
-                        
-                        //                        _ = self.navigationController?.popViewController(animated: true)
-                        
+                        UIView.animate(withDuration: 0.9, animations: {
+                            
+                            self.view.showToast(message: result.message)
+                        }, completion: { (status) in
+                            
+                            _ = self.navigationController?.popViewController(animated: true)
+                        })
+                        UIView.animate(withDuration: 0.5, animations: {
+                            
+                        })
                     }
                     else if let result = response.result.value {
                         
