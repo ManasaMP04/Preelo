@@ -9,22 +9,25 @@
 import UIKit
 
 class ImageCell: UICollectionViewCell {
-
+    
     @IBOutlet fileprivate weak var imageView : UIImageView!
     
     static let cellId = "ImageCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       
+        
     }
-
-    func showImage(_ imageName: UIImage) {
     
-         imageView.image   = imageName
-//        let urlString    = imageName
-//        let imageUrl     = URL(string: urlString)
-//        imageView.sd_setImage(with: imageUrl, completed: nil)
+    func showImage(_ imageName: Any) {
+        
+        if let name = imageName as? UIImage {
+            
+            imageView.image   = name
+        }
+        //        let urlString    = imageName
+        //        let imageUrl     = URL(string: urlString)
+        //        imageView.sd_setImage(with: imageUrl, completed: nil)
     }
     
     func showImageWithName(_ imageName: UIImage) {

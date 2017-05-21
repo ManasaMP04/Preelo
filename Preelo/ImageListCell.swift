@@ -10,7 +10,7 @@ import UIKit
 
 protocol ImageListCellDelegate: class {
     
-    func imageListCell(_ cell: ImageListCell, imageList: [UIImage], index: Int)
+    func imageListCell(_ cell: ImageListCell, imageList: [Any], index: Int)
 }
 
 class ImageListCell: UITableViewCell {
@@ -19,7 +19,7 @@ class ImageListCell: UITableViewCell {
     @IBOutlet fileprivate weak var cardView         : UIView!
     @IBOutlet fileprivate weak var collectionView   : UICollectionView!
     
-    var imageList = [UIImage]()
+    var imageList = [Any]()
     
     weak var delegate: ImageListCellDelegate?
     static let cellId = "ImageListCell"

@@ -322,7 +322,7 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
 
 extension ChatVC: ImageListCellDelegate {
     
-    func imageListCell(_ cell: ImageListCell, imageList: [UIImage], index: Int) {
+    func imageListCell(_ cell: ImageListCell, imageList: [Any], index: Int) {
         
         let vc = CompleteImageVC(imageList, name: channelDetail.patientname)
         self.navigationController?.pushViewController(vc, animated: true)

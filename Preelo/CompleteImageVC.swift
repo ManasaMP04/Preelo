@@ -14,10 +14,10 @@ class CompleteImageVC: UIViewController {
     @IBOutlet fileprivate weak var collectionView    : UICollectionView!
     @IBOutlet fileprivate weak var customeNavigation : CustomNavigationBar!
     
-    fileprivate var imageList = [UIImage]()
+    fileprivate var imageList = [Any]()
     fileprivate var name = ""
     
-    init (_ imageList: [UIImage], name: String) {
+    init (_ imageList: [Any], name: String) {
         
         self.imageList = imageList
         self.name      = name
