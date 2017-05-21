@@ -80,6 +80,7 @@ class ChannelDetail: Mappable {
         parentId            <- map["parent_id"]
         patientId           <- map["patient_id"]
         auth_status         <- map["auth_status"]
+        doctor_user_id      <- map["doctor_user_id"]
     }
     
     func modelToDict() -> [String : Any] {
@@ -104,6 +105,7 @@ class ChannelDetail: Mappable {
         dict["parent_id"] = parentId
         dict["patient_id"] = patientId
         dict["auth_status"] = auth_status
+        dict["doctor_user_id"] = doctor_user_id
         
         return dict
     }

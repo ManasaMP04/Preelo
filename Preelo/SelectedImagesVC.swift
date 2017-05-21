@@ -26,9 +26,10 @@ class SelectedImagesVC: UIViewController {
     fileprivate var imageList = [UIImage]()
     fileprivate var isCamera  = true
     
-    init(_ isCamera: Bool = true) {
+    init(_ isCamera: Bool = true, image: UIImage) {
     
         self.isCamera = isCamera
+        self.imageList.append(image)
         super.init(nibName: "SelectedImagesVC", bundle: nil)
     }
     
@@ -42,6 +43,7 @@ class SelectedImagesVC: UIViewController {
         customNavigation.delegate = self
         selectImageButton.isHidden = isCamera
         collectionViewHeight.constant = 0
+        imageView.image = imageList[0]
     }
     
     override func didReceiveMemoryWarning() {

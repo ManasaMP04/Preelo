@@ -29,9 +29,9 @@ class ToMessageCell: UITableViewCell {
         
     }
  
-    func showMessage(_ message: RecentMessages) {
+    func showMessage(_ message: RecentMessages, name: String) {
         
         descriptionLabel.text = message.message_text
-        nameLabel.text = ""
+        nameLabel.text = name
     }
 }

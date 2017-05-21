@@ -27,11 +27,22 @@ class LoginDetailVC: UIViewController {
     
     var isDoctorLogIn: Bool = false
     
+    fileprivate var scrollViewBottomInset : CGFloat! {
+        
+        didSet {
+            
+            var currentInset                = self.scrollView.contentInset
+            currentInset.bottom             = scrollViewBottomInset
+            self.scrollView.contentInset    = currentInset
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setup()
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -91,7 +102,7 @@ extension LoginDetailVC {
     fileprivate func setup() {
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+                                               selector: #selector(keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -242,21 +253,19 @@ extension LoginDetailVC {
     
     @objc fileprivate func keyboardWasShown(_ notification: Notification) {
         
-        if let  userInfo = notification.userInfo{
+        if let info = (notification as NSNotification).userInfo {
             
-            var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-            keyboardFrame = view.convert(keyboardFrame, from: nil)
+            let dictionary = info as NSDictionary
             
-            var contentInset = scrollView.contentInset
-            contentInset.bottom = keyboardFrame.size.height - (StaticContentFile.screenHeight * 0.12)
-            scrollView.contentInset = contentInset
+            let kbSize = (dictionary.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
+            
+            self.scrollViewBottomInset = kbSize.height + 10
         }
     }
     
     @objc fileprivate func keyboardWillHide(_ notification: Notification) {
         
-        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
-        scrollView.contentInset = contentInset
+        self.scrollViewBottomInset = 0
     }
 }
 

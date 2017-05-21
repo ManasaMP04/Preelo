@@ -15,9 +15,11 @@ class DisclaimerVC: UIViewController {
     @IBOutlet fileprivate weak var customeNavigation    : CustomNavigationBar!
     @IBOutlet fileprivate weak var agreeButton          : UIButton!
     @IBOutlet fileprivate weak var dontAgreeButton      : UIButton!
+    @IBOutlet fileprivate weak var descriptionLabel     : UITextView!
     
     fileprivate var activityIndicator                   : UIActivityIndicatorView?
     fileprivate var channelDetail                       : ChannelDetail!
+    fileprivate var descriptionStr = " The messages shared and the images uploaded in this app may not be immediately available to the doctor for review. Please understand the doctors might be attending other patients and this messages could possibly read at later time (24-48 hours), if this is an important message and need urgent response, send the message and call the doctor to inform about the message. This app is mainly focussed on delivering the images so that the doctor can review and provide initial feedback. This app is not intended for diagnosis or prescription. Please agree to the above terms to continue "
     
     init (_ channelDetail: ChannelDetail) {
         
@@ -61,6 +63,12 @@ extension DisclaimerVC {
         customeNavigation.delegate = self
         StaticContentFile.setButtonFont(agreeButton)
         StaticContentFile.setButtonFont(dontAgreeButton, backgroundColorNeeed: false, borderNeeded: false)
+        
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 10
+        let attributes = [NSParagraphStyleAttributeName : style]
+        descriptionLabel.attributedText = NSAttributedString(string: descriptionStr, attributes:attributes)
+        descriptionLabel.scrollRangeToVisible(NSRange(location:0, length:0))
     }
     
     fileprivate func callAPI() {

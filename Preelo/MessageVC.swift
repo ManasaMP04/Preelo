@@ -91,6 +91,8 @@ class MessageVC: UIViewController {
         if status, let request = StaticContentFile.getAuthRequest() {
             
             list = request.authRequest
+            notificationCount.text = "\(list.count)"
+            notificationCount.isHidden = list.count == 0
         } else if !status {
             
             list = StaticContentFile.getChannel()
@@ -106,6 +108,8 @@ extension MessageVC {
     
     fileprivate func setup() {
         
+        notificationCount.layer.cornerRadius = 10.5
+        notificationCount.clipsToBounds      = true
         authorizationButtonSelected(true)
         
         StaticContentFile.isDoctorLogIn() ? customNavigationBar.setTitle("Welcome Doctor", backButtonImageName: "Menu") : customNavigationBar.setTitle(String(format: "Welcome %@", StaticContentFile.getName()), backButtonImageName: "Menu")
@@ -114,21 +118,6 @@ extension MessageVC {
         tableview.register(UINib(nibName: "ChatCell", bundle: nil), forCellReuseIdentifier: ChatCell.cellId)
         
         tableview.tableFooterView = UIView()
-        notificationCount.layer.cornerRadius = 10
-        notificationCount.backgroundColor = UIColor.colorWithHex(0x3CCACC)
-        notificationCount.isHidden = true
-    }
-    
-    fileprivate func hideOrShowNotificationCount() {
-        
-        if list.count > 0 {
-            
-            self.notificationCount.isHidden = false
-            notificationCount.text = "\(list.count)"
-        } else {
-            
-            self.notificationCount.isHidden = true
-        }
     }
     
     fileprivate func callAPIForAcceptAuth(_ request: URLRequestConvertible, indexPath: IndexPath, data: DocAuthorizationRequest) {
@@ -144,14 +133,13 @@ extension MessageVC {
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     self.list.remove(at: indexPath.row)
-                    self.hideOrShowNotificationCount()
                     self.tableview.deleteRows(at: [indexPath], with: .automatic)
                 }}
     }
     
     fileprivate func callAPIToSelectDocOrPatient(_ data: ChannelDetail, index: Int) {
         
-        StaticContentFile.isDoctorLogIn() ? callAPIToSelect(SelectRouter.patient_select_post(data.patientId, data.parentId), data: data, index: index) : callAPIToSelect(SelectRouter.doc_select_post(data.patientId, data.doctorId), data: data, index: index)
+        StaticContentFile.isDoctorLogIn() ? callAPIToSelect(SelectRouter.patient_select_post(data.patientId, data.parentId), data: data, index: index) : callAPIToSelect(SelectRouter.doc_select_post(data.patientId, data.doctorId, data.doctor_user_id), data: data, index: index)
     }
     
     fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible, data: ChannelDetail, index: Int) {

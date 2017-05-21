@@ -85,7 +85,7 @@ authorization to send messages</string>
                                         <constraint firstAttribute="height" constant="144" id="xsS-eV-WSn"/>
                                     </constraints>
                                 </view>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wcp-gu-6Ue">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wcp-gu-6Ue">
                                     <rect key="frame" x="0.0" y="154" width="375" height="408"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <connections>
@@ -166,6 +166,7 @@ authorization to send messages</string>
                             </constraints>
                         </view>
                     </subviews>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="xUv-Ng-3SV" firstAttribute="height" secondItem="WAt-Pe-tRq" secondAttribute="height" priority="999" id="Owh-cl-Ctw"/>
                         <constraint firstItem="xUv-Ng-3SV" firstAttribute="leading" secondItem="WAt-Pe-tRq" secondAttribute="leading" id="ZbS-Dg-XAr"/>
@@ -189,8 +190,16 @@ authorization to send messages</string>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="u3u-xt-mTy" appends="YES" id="3vk-8S-Tfn"/>
+            </connections>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
+        <tapGestureRecognizer cancelsTouchesInView="NO" id="u3u-xt-mTy">
+            <connections>
+                <action selector="tapGesture:" destination="-1" id="4J4-Hw-elg"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="Camera" width="25" height="19"/>

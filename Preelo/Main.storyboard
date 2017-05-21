@@ -11,9 +11,6 @@
         <array key="Ubuntu-B.ttf">
             <string>Ubuntu-Bold</string>
         </array>
-        <array key="Ubuntu-L.ttf">
-            <string>Ubuntu-Light</string>
-        </array>
         <array key="Ubuntu-M.ttf">
             <string>Ubuntu-Medium</string>
         </array>
@@ -395,16 +392,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7M5-WT-u8G">
                                 <rect key="frame" x="0.0" y="60" width="320" height="45"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="66n-w8-Nku">
-                                        <rect key="frame" x="294" y="12" width="21" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="PIM-4Z-S9C"/>
-                                            <constraint firstAttribute="width" constant="21" id="VZx-lK-XIC"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="12"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bzb-g9-CY5">
                                         <rect key="frame" x="0.0" y="0.0" width="105" height="45"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -435,6 +422,17 @@
                                             <action selector="authorizationButtonTapped:" destination="fAo-Np-iZa" eventType="touchUpInside" id="SCj-Oi-gCt"/>
                                         </connections>
                                     </button>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="66n-w8-Nku">
+                                        <rect key="frame" x="294" y="12" width="21" height="21"/>
+                                        <color key="backgroundColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="PIM-4Z-S9C"/>
+                                            <constraint firstAttribute="width" constant="21" id="VZx-lK-XIC"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>

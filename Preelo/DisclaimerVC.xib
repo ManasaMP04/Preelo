@@ -8,8 +8,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Ubuntu-R.ttf">
-            <string>Ubuntu</string>
+        <array key="Ubuntu-L.ttf">
+            <string>Ubuntu-Light</string>
         </array>
     </customFonts>
     <objects>
@@ -17,6 +17,7 @@
             <connections>
                 <outlet property="agreeButton" destination="cNB-At-ljK" id="lD0-3r-Mfs"/>
                 <outlet property="customeNavigation" destination="4uQ-QJ-8KC" id="BWG-bg-FJd"/>
+                <outlet property="descriptionLabel" destination="wB4-ms-6np" id="Gvc-PT-eK9"/>
                 <outlet property="dontAgreeButton" destination="df7-wB-6px" id="sqB-Ff-EYd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -59,22 +60,22 @@
                         <action selector="agreeButtonTapped:" destination="-1" eventType="touchUpInside" id="EWj-gm-RG0"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WEn-TS-glD">
-                    <rect key="frame" x="16" y="80" width="343" height="188.5"/>
-                    <string key="text">The messages shared and the images uploaded in this app may not be immediately available to the doctor for review. Please understand the doctors might be attending other patients and this messages could possibly read at later time (24-48 hours), if
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wB4-ms-6np">
+                    <rect key="frame" x="10" y="70" width="355" height="482"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <mutableString key="text">The messages shared and the images uploaded in this app may not be immediately available to the doctor for review. Please understand the doctors might be attending other patients and this messages could possibly read at later time (24-48 hours), if
 this is an important message and need urgent response, send the message and call the doctor to inform about the message. This app is mainly focussed on delivering the images so that the doctor can review and provide initial feedback. This app is not
-intended for diagnosis or prescription. Please agree to the above terms to continue </string>
-                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+intended for diagnosis or prescription. Please agree to the above terms to continue </mutableString>
                     <color key="textColor" red="0.57647058823529407" green="0.58431372549019611" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                    <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="15"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="WEn-TS-glD" secondAttribute="trailing" constant="16" id="1wQ-um-ebP"/>
-                <constraint firstItem="cNB-At-ljK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="WEn-TS-glD" secondAttribute="bottom" constant="8" id="7mi-FD-qc6"/>
-                <constraint firstItem="WEn-TS-glD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="8Ux-gN-Ye3"/>
+                <constraint firstItem="cNB-At-ljK" firstAttribute="top" secondItem="wB4-ms-6np" secondAttribute="bottom" constant="10" id="COJ-dM-ymx"/>
                 <constraint firstItem="4uQ-QJ-8KC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="H9C-Pb-2GC"/>
+                <constraint firstItem="wB4-ms-6np" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="LLG-0C-AbZ"/>
                 <constraint firstItem="cNB-At-ljK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="PCI-ry-vG2"/>
                 <constraint firstAttribute="trailing" secondItem="cNB-At-ljK" secondAttribute="trailing" constant="16" id="PT7-ci-SSH"/>
                 <constraint firstItem="4uQ-QJ-8KC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="TlL-C1-rjE"/>
@@ -82,7 +83,8 @@ intended for diagnosis or prescription. Please agree to the above terms to conti
                 <constraint firstAttribute="trailing" secondItem="4uQ-QJ-8KC" secondAttribute="trailing" id="ghu-sl-jcj"/>
                 <constraint firstItem="df7-wB-6px" firstAttribute="top" secondItem="cNB-At-ljK" secondAttribute="bottom" constant="10" id="kxq-2Y-HOJ"/>
                 <constraint firstAttribute="bottom" secondItem="df7-wB-6px" secondAttribute="bottom" constant="20" id="mom-LJ-ZP1"/>
-                <constraint firstItem="WEn-TS-glD" firstAttribute="top" secondItem="4uQ-QJ-8KC" secondAttribute="bottom" constant="20" id="tU1-Yg-QY3"/>
+                <constraint firstItem="wB4-ms-6np" firstAttribute="top" secondItem="4uQ-QJ-8KC" secondAttribute="bottom" constant="10" id="pLg-Qn-cr4"/>
+                <constraint firstAttribute="trailing" secondItem="wB4-ms-6np" secondAttribute="trailing" constant="10" id="s8p-gI-TwK"/>
             </constraints>
         </view>
     </objects>

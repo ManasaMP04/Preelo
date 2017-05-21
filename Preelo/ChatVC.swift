@@ -36,10 +36,22 @@ class ChatVC: UIViewController {
     fileprivate var patientOrDocId      = 0
     fileprivate var name                = ""
     
+    fileprivate var scrollViewBottomInset : CGFloat! {
+        
+        didSet {
+            
+            var currentInset                = self.scrollView.contentInset
+            currentInset.bottom             = scrollViewBottomInset
+            self.scrollView.contentInset    = currentInset
+        }
+    }
+
     init (_ channelDetail: ChannelDetail) {
         
         self.channelDetail = channelDetail
         self.isPatient_DocFlow = false
+        name =  StaticContentFile.isDoctorLogIn() ? channelDetail.patientname : channelDetail.doctorname
+        
         super.init(nibName: "ChatVC", bundle: nil)
     }
     
@@ -47,6 +59,8 @@ class ChatVC: UIViewController {
         
         self.patientOrDocId = Id
         self.isPatient_DocFlow = true
+        self.name = name
+        
         super.init(nibName: "ChatVC", bundle: nil)
     }
     
@@ -65,6 +79,16 @@ class ChatVC: UIViewController {
         super.didReceiveMemoryWarning()
         
     }
+}
+
+//MARK:- IBActions
+
+extension ChatVC {
+
+    @IBAction func tapGesture(_ sender: Any) {
+        
+        view.endEditing(true)
+    }
     
     @IBAction func requestAuthorisationButtonTapped(_ sender: Any) {
         
@@ -74,7 +98,7 @@ class ChatVC: UIViewController {
     
     @IBAction func sendButtonTapped(_ sender: Any) {
         
-        if let text = messageTF.text {
+        if let text = messageTF.text, text.characters.count > 0 {
             
             let recentMessage = RecentMessages("text", text: text, senderId: StaticContentFile.getId())
             messageList.append(recentMessage)
@@ -95,11 +119,15 @@ class ChatVC: UIViewController {
     @IBAction func galleryButtonTapped(_ sender: Any) {
         
         selection = .gallery
+        
+        selectImages()
     }
     
     @IBAction func cameraButtonTapped(_ sender: Any) {
         
         selection = .camera
+        
+        selectImages()
     }
 }
 
@@ -110,10 +138,11 @@ extension ChatVC {
     fileprivate func setup() {
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+                                               selector: #selector(keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        messageTF.delegate = self
         
         StaticContentFile.setButtonFont(requestAuthButton)
         
@@ -121,9 +150,9 @@ extension ChatVC {
         authorizationView.isHidden = true
         toolbarView.isUserInteractionEnabled = true
         
+        customeNavigation.setTitle(name)
+        
         if  !isPatient_DocFlow {
-            
-            StaticContentFile.isDoctorLogIn() ? customeNavigation.setTitle(channelDetail.patientname) :  customeNavigation.setTitle(channelDetail.doctorname)
             
             self.messageList = channelDetail.recent_message
             
@@ -131,9 +160,6 @@ extension ChatVC {
                 
                 callApiToGetMessages(recentMessage.message_id)
             }
-        } else {
-            
-            customeNavigation.setTitle(name)
         }
         
         self.tableview.reloadData()
@@ -214,7 +240,10 @@ extension ChatVC: UIImagePickerControllerDelegate, UINavigationControllerDelegat
         
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
-            images.append(image)
+            let vc = SelectedImagesVC(selection == .camera, image: image)
+            vc.delegate = self
+            navigationController?.pushViewController(vc, animated: true)
+            picker.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -264,7 +293,7 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: ToMessageCell.cellId, for: indexPath) as! ToMessageCell
             
-            cell.showMessage(message)
+            cell.showMessage(message, name: name)
             
             return cell
         }
@@ -286,21 +315,43 @@ extension ChatVC {
     
     @objc fileprivate func keyboardWasShown(_ notification: Notification) {
         
-        if let  userInfo = notification.userInfo{
+        if let info = (notification as NSNotification).userInfo {
             
-            var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-            keyboardFrame = view.convert(keyboardFrame, from: nil)
+            let dictionary = info as NSDictionary
             
-            var contentInset = scrollView.contentInset
-            contentInset.bottom = keyboardFrame.size.height - (StaticContentFile.screenHeight * 0.12)
-            scrollView.contentInset = contentInset
+            let kbSize = (dictionary.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
+            
+            self.scrollViewBottomInset = kbSize.height + 10
         }
     }
     
     @objc fileprivate func keyboardWillHide(_ notification: Notification) {
         
-        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
-        scrollView.contentInset = contentInset
+       self.scrollViewBottomInset = 0
     }
 }
+
+//MARK:- TextFieldDelegate
+
+extension ChatVC : UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+       view.endEditing(true)
+       return true
+    }
+}
+
+//MARK:- SelectedImagesVCDelegate
+
+extension ChatVC : SelectedImagesVCDelegate {
+    
+    func sendButtonTapped(_ vc: SelectedImagesVC, imageList: [UIImage]) {
+    
+//        let recentMessage = RecentMessages("IMAGE", text: "", senderId: StaticContentFile.getId())
+//        messageList.append(recentMessage)
+//        tableview.reloadData()
+    }
+}
+
 
