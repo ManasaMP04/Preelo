@@ -87,8 +87,8 @@ class SelectedImagesVC: UIViewController {
         } else {
             
             let vc = BSImagePickerViewController()
-            
             vc.maxNumberOfSelections = 9
+            
             bs_presentImagePickerController(vc, animated: true,
                                             select: { (asset: PHAsset) -> Void in
                                                 

@@ -168,7 +168,7 @@ extension ChatVC {
             
             requestAuthorizationViewHeight.constant = 144
             authorizationView.isHidden = false
-            //toolbarView.isUserInteractionEnabled = false
+            toolbarView.isUserInteractionEnabled = false
         }
         
         customeNavigation.delegate = self
