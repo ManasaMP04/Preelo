@@ -26,6 +26,7 @@ class MessageVC: UIViewController {
     
     fileprivate var selection: Selection = .authentication
     fileprivate var activityIndicator    : UIActivityIndicatorView?
+    fileprivate var pullToRefreshControl : UIRefreshControl!
     
     fileprivate var list = [Any]()
     
@@ -96,6 +97,7 @@ extension MessageVC {
     
     fileprivate func setup() {
         
+        addPullToRefreshView()
         authorizationButtonSelected(true)
         notificationCount.layer.cornerRadius = 10.5
         notificationCount.clipsToBounds      = true
@@ -213,3 +215,61 @@ extension MessageVC: ChatCellDelegate {
         }
     }
 }
+
+//MARK:- UITableViewDelegate, UITableViewDataSource
+
+extension MessageVC{
+    
+    fileprivate func addPullToRefreshView() {
+        
+        pullToRefreshControl = UIRefreshControl()
+        pullToRefreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("Sync detail", comment:"Advice"))
+        pullToRefreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        tableview.addSubview(pullToRefreshControl!)
+    }
+    
+    func refresh(_ sender: UIRefreshControl) {
+        
+        if selection == .message {
+            
+            self.callChannelAPI()
+        } else {
+            self.callAPIToGetAuthRequest()
+        }
+    }
+    
+    fileprivate func callChannelAPI() {
+        
+        Alamofire.request(AuthorizationRequestListRouter.channel_get())
+            .responseObject {(response: DataResponse<ChannelObject>) in
+                
+                self.pullToRefreshControl?.endRefreshing()
+                
+                if let result = response.result.value, result.status == "SUCCESS" {
+                    
+                    self.list = result.data
+                    self.tableview.reloadData()
+                    for detail in result.data {
+                        
+                        StaticContentFile.saveMessage(detail)
+                    }
+                    
+                }}
+    }
+    
+    fileprivate func callAPIToGetAuthRequest() {
+        
+        Alamofire.request(AuthorizationRequestListRouter.get())
+            .responseObject { (response: DataResponse<AuthorizeRequest>) in
+                
+                self.pullToRefreshControl?.endRefreshing()
+                
+                if let result = response.result.value, result.status == "SUCCESS" {
+                    
+                    self.list = result.authRequest
+                    self.tableview.reloadData()
+                    StaticContentFile.saveAuthRequest(result)
+                }}
+    }
+}
+
