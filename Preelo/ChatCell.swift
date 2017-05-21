@@ -16,12 +16,13 @@ protocol ChatCellDelegate: class {
 class ChatCell: UITableViewCell {
     
     @IBOutlet fileprivate weak var declineRequestView   : UIView!
-    @IBOutlet fileprivate weak var imageview            : UIImageView!
+    @IBOutlet fileprivate weak var initial              : UILabel!
     @IBOutlet fileprivate weak var name                 : UILabel!
     @IBOutlet fileprivate weak var descriptionLabel     : UILabel!
     @IBOutlet fileprivate weak var acceptAuthViewHeight : NSLayoutConstraint!
     @IBOutlet fileprivate weak var declineButton        : UIButton!
     @IBOutlet fileprivate weak var acceptButton         : UIButton!
+    @IBOutlet fileprivate weak var countLabel           : UILabel!
     
     static let cellId = "ChatCell"
     
@@ -30,8 +31,7 @@ class ChatCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        StaticContentFile.setButtonFont(declineButton, backgroundColorNeeed: false)
-        StaticContentFile.setButtonFont(acceptButton)
+       setup()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -39,12 +39,39 @@ class ChatCell: UITableViewCell {
         
     }
     
+    fileprivate func setup() {
+    
+        StaticContentFile.setButtonFont(declineButton, backgroundColorNeeed: false)
+        StaticContentFile.setButtonFont(acceptButton)
+        declineButton.layer.cornerRadius = 18
+        acceptButton.layer.cornerRadius  = 18
+        initial.layer.cornerRadius = 15
+        countLabel.layer.cornerRadius = 10
+        countLabel.clipsToBounds = true
+        initial.layer.borderWidth = 1
+        initial.layer.borderColor = UIColor.colorWithHex(0x3CCAE0).cgColor
+    }
+    
     func showData(_ data: Any, isdeclineRequestViewShow: Bool = false) {
+        
+        initial.isHidden = true
+        countLabel.isHidden = true
         
         if let auth = data as? DocAuthorizationRequest {
         
             self.name.text = auth.firstname
             descriptionLabel.text = String(format: "Patient %@ %@ has sent You an authorization request", auth.firstname, auth.lastname)
+            
+            initial.isHidden = false
+            
+            if let  firstCh = auth.relationship.characters.first, StaticContentFile.isDoctorLogIn() {
+                
+                let srt = "\(firstCh)"
+                initial.text = srt.uppercased()
+            } else if !StaticContentFile.isDoctorLogIn() {
+                
+                initial.text = "D"
+            }
         } else if let channel = data as? ChannelDetail {
         
             self.name.text = channel.patientname
@@ -56,13 +83,28 @@ class ChatCell: UITableViewCell {
             
                  descriptionLabel.text = ""
             }
+            
+            initial.isHidden = false
+            countLabel.isHidden = channel.unread_count == 0
+            countLabel.text = "\(channel.unread_count)"
+            name.textColor = channel.unread_count == 0 ? UIColor.colorWithHex(0x6D6E71) : UIColor.colorWithHex(0x3CCAE0)
+            
+            if let  firstCh = channel.relationship.characters.first, StaticContentFile.isDoctorLogIn() {
+            
+                let srt = "\(firstCh)"
+                initial.text = srt.uppercased()
+            } else if !StaticContentFile.isDoctorLogIn() {
+            
+                 initial.text = "D"
+            }
+            
         }
         
         declineRequestView.isHidden = !isdeclineRequestViewShow
         
         if isdeclineRequestViewShow {
             
-            acceptAuthViewHeight.constant = 45
+            acceptAuthViewHeight.constant = 35
         } else {
             
             acceptAuthViewHeight.constant = 0

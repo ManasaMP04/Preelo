@@ -18,10 +18,12 @@ class LoginDetailVC: UIViewController {
     @IBOutlet fileprivate weak var profileImageView     : UIImageView!
     @IBOutlet fileprivate weak var titleLabel           : UILabel!
     @IBOutlet fileprivate weak var forgotPasswordButton : UIButton!
+    @IBOutlet fileprivate weak var scrollView           : UIScrollView!
     
-    fileprivate var activityIndicator: UIActivityIndicatorView?
-    fileprivate var loginDetail : logIn!
-    fileprivate let plistManager = PlistManager()
+    fileprivate var activityIndicator   : UIActivityIndicatorView?
+    fileprivate var loginDetail         : logIn!
+    fileprivate let plistManager        = PlistManager()
+    fileprivate let defaults            = UserDefaults.standard
     
     var isDoctorLogIn: Bool = false
     
@@ -39,6 +41,10 @@ class LoginDetailVC: UIViewController {
         
         
         _ = navigationController?.popViewController(animated: true)
+    }
+    @IBAction func gestureIsTapped(_ sender: Any) {
+    
+        view.endEditing(true)
     }
 }
 
@@ -68,7 +74,13 @@ extension LoginDetailVC : PreeloTextFieldDelegate {
     
     func textFieldReturned(_ textField: PreeloTextField) {
         
-        view.endEditing(true)
+        if userName.isFirstResponder {
+        
+            password.becomeFirstResponder()
+        } else {
+        
+            view.endEditing(true)
+        }
     }
 }
 
@@ -77,6 +89,12 @@ extension LoginDetailVC : PreeloTextFieldDelegate {
 extension LoginDetailVC {
     
     fileprivate func setup() {
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         userName.textFieldDelegate = self
         userName.validateForInputType(.generic, andNotifyDelegate: self)
@@ -127,11 +145,10 @@ extension LoginDetailVC {
                     
                     self.loginDetail = result
                     
-                    let defaults = UserDefaults.standard
-                    defaults.set(result.token, forKey: "token")
-                    self.isDoctorLogIn ? defaults.set(loginDetail.doctorid, forKey: "id") : defaults.set(loginDetail.id, forKey: "id")
-                    defaults.set(loginDetail.firstname, forKey: "name")
-                    defaults.set(self.isDoctorLogIn, forKey: "isDoctorLogIn")
+                    self.defaults.set(result.token, forKey: "token")
+                    self.isDoctorLogIn ? self.defaults.set(loginDetail.doctorid, forKey: "id") : self.defaults.set(loginDetail.id, forKey: "id")
+                    self.defaults.set(loginDetail.firstname, forKey: "name")
+                    self.defaults.set(self.isDoctorLogIn, forKey: "isDoctorLogIn")
                     self.callChannelAPI()
                 } else if let result = response.result.value, result.status == "VERIFY" {
                     
@@ -165,6 +182,7 @@ extension LoginDetailVC {
                         
                         self.activityIndicator?.stopAnimating()
                         self.performSegue(withIdentifier: "loginSuccess", sender: nil)
+                        self.defaults.set(true, forKey: "isLoggedIn")
                     }
                 } else {
                     
@@ -181,6 +199,7 @@ extension LoginDetailVC {
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
+                     self.defaults.set(true, forKey: "isLoggedIn")
                      StaticContentFile.saveAuthRequest(result)
                     
                     self.performSegue(withIdentifier: "loginSuccess", sender: nil)
@@ -198,9 +217,8 @@ extension LoginDetailVC {
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    let defaults = UserDefaults.standard
                     let dict1   = result.modelToDict()
-                    defaults.setValue(dict1, forKeyPath: "authRequest")
+                    self.defaults.setValue(dict1, forKeyPath: "authRequest")
                     
                     self.performSegue(withIdentifier: "loginSuccess", sender: nil)
                 }else {
@@ -215,6 +233,30 @@ extension LoginDetailVC {
             
             tab.loginDetail = loginDetail
         }
+    }
+}
+
+//MARK:- KeyBoard delegate methods
+
+extension LoginDetailVC {
+    
+    @objc fileprivate func keyboardWasShown(_ notification: Notification) {
+        
+        if let  userInfo = notification.userInfo{
+            
+            var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+            keyboardFrame = view.convert(keyboardFrame, from: nil)
+            
+            var contentInset = scrollView.contentInset
+            contentInset.bottom = keyboardFrame.size.height - (StaticContentFile.screenHeight * 0.12)
+            scrollView.contentInset = contentInset
+        }
+    }
+    
+    @objc fileprivate func keyboardWillHide(_ notification: Notification) {
+        
+        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+        scrollView.contentInset = contentInset
     }
 }
 

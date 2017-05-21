@@ -37,7 +37,7 @@ class AuthorizeRequest: Mappable {
             
             array.append(request.modelToDict())
         }
-        dict["authRequest"] = array
+        dict["data"] = array
         
         return dict
     }

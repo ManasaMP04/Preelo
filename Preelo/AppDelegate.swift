@@ -15,8 +15,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+       
+        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
+        
+        application.applicationIconBadgeNumber = 0
+        
+        setInitialVC()
+        
         return true
+    }
+    
+    fileprivate func setInitialVC() {
+    
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let defaults = UserDefaults.standard
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        if let status = defaults.value(forKey: "isLoggedIn") as? Bool, status {
+            
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "tabVC")
+            let nav = UINavigationController.init(rootViewController: initialViewController)
+            self.window?.rootViewController = nav
+        } else {
+            
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "navigation")
+            self.window?.rootViewController = initialViewController
+        }
+        
+        self.window?.makeKeyAndVisible()
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

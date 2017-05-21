@@ -32,6 +32,6 @@ class ToMessageCell: UITableViewCell {
     func showMessage(_ message: RecentMessages) {
         
         descriptionLabel.text = message.message_text
-        nameLabel.text = message.person
+        nameLabel.text = ""
     }
 }

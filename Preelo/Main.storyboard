@@ -347,6 +347,9 @@
                             <constraint firstItem="Uzx-Qb-UF8" firstAttribute="leading" secondItem="kwU-R5-y2V" secondAttribute="leading" id="qcn-mx-ydD"/>
                             <constraint firstItem="qKF-TK-iSp" firstAttribute="top" secondItem="Uzx-Qb-UF8" secondAttribute="bottom" id="r6S-se-tQq"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="wEv-Y4-tds" appends="YES" id="iTZ-Yu-z4z"/>
+                        </connections>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="550"/>
@@ -355,12 +358,18 @@
                         <outlet property="login" destination="b6O-jl-PXU" id="wG3-AP-YfV"/>
                         <outlet property="password" destination="XuS-dm-HLH" id="73q-j0-OgS"/>
                         <outlet property="profileImageView" destination="act-Ok-ZTm" id="JcW-Ja-TzZ"/>
+                        <outlet property="scrollView" destination="Uzx-Qb-UF8" id="Ege-hs-sfD"/>
                         <outlet property="titleLabel" destination="wt3-xF-rif" id="QEf-ar-6Aq"/>
                         <outlet property="userName" destination="b8W-Qz-wDI" id="JuW-kO-jXj"/>
                         <segue destination="Up5-0W-sMX" kind="show" identifier="loginSuccess" id="TZm-pS-HDj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VA0-cM-HOT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer cancelsTouchesInView="NO" id="wEv-Y4-tds">
+                    <connections>
+                        <action selector="gestureIsTapped:" destination="5HU-vd-92J" id="nVH-hX-iy5"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1477.5" y="-943.75"/>
         </scene>
@@ -702,7 +711,7 @@
         <!--Navigation Controller-->
         <scene sceneID="DSe-Uc-cAP">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4et-Wg-mun" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navigation" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4et-Wg-mun" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uZi-1T-5QJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

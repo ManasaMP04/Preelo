@@ -13,10 +13,8 @@ class DocAuthorizationRequest: Mappable {
     var firstname         = ""
     var lastname          = ""
     var relationship      = ""
-    var doctorid          = 0
     var patientid         = 0
     var parentid          = 0
-    var family_id         = 0
 
     required init?(map: Map) {
         
@@ -28,6 +26,7 @@ class DocAuthorizationRequest: Mappable {
         lastname           <- map["lastname"]
         patientid          <- map["patientid"]
         parentid           <- map["parentid"]
+        relationship       <- map["relationship"]
     }
     
     func modelToDict() -> [String : Any] {
@@ -38,6 +37,7 @@ class DocAuthorizationRequest: Mappable {
         dict["lastname"] = lastname
         dict["patientid"] = patientid
         dict["parentid"] = parentid
+        dict["relationship"] = relationship
         
         return dict
     }

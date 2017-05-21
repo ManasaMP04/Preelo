@@ -66,6 +66,7 @@ extension TabBarVC {
     
     fileprivate func setup() {
         
+        self.navigationController?.navigationBar.isHidden = true
         callLogiApi()
     }
     

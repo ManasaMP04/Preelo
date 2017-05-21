@@ -91,7 +91,7 @@ class MessageVC: UIViewController {
         if status, let request = StaticContentFile.getAuthRequest() {
             
             list = request.authRequest
-        } else {
+        } else if !status {
             
             list = StaticContentFile.getChannel()
         }
@@ -114,8 +114,6 @@ extension MessageVC {
         tableview.register(UINib(nibName: "ChatCell", bundle: nil), forCellReuseIdentifier: ChatCell.cellId)
         
         tableview.tableFooterView = UIView()
-        tableview.estimatedRowHeight = 30
-        tableview.rowHeight = UITableViewAutomaticDimension
         notificationCount.layer.cornerRadius = 10
         notificationCount.backgroundColor = UIColor.colorWithHex(0x3CCACC)
         notificationCount.isHidden = true
@@ -151,12 +149,12 @@ extension MessageVC {
                 }}
     }
     
-    fileprivate func callAPIToSelectDocOrPatient(_ data: ChannelDetail) {
+    fileprivate func callAPIToSelectDocOrPatient(_ data: ChannelDetail, index: Int) {
         
-        StaticContentFile.isDoctorLogIn() ? callAPIToSelect(SelectRouter.patient_select_post(data.patientId, data.parentId), data: data) : callAPIToSelect(SelectRouter.doc_select_post(data.patientId, data.doctorId), data: data)
+        StaticContentFile.isDoctorLogIn() ? callAPIToSelect(SelectRouter.patient_select_post(data.patientId, data.parentId), data: data, index: index) : callAPIToSelect(SelectRouter.doc_select_post(data.patientId, data.doctorId), data: data, index: index)
     }
     
-    fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible, data: ChannelDetail) {
+    fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible, data: ChannelDetail, index: Int) {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
@@ -164,14 +162,27 @@ extension MessageVC {
         Alamofire.request(urlRequest)
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
+                self.callapiToMarkedRead(data)
                 StaticContentFile.updateMessage(data)
                 self.activityIndicator?.stopAnimating()
+                data.unread_count = 0
+                self.list.remove(at: index)
+                self.list.insert(data, at: index)
+                self.tableview.reloadData()
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     let chatVC = ChatVC(data)
                     self.navigationController?.pushViewController(chatVC, animated: true)
                 }}
+    }
+    
+    fileprivate func callapiToMarkedRead(_ data: ChannelDetail) {
+    
+        Alamofire.request(SendTextMessageRouter.post_msgRead(data.channel_id))
+            .responseObject { (response: DataResponse<SuccessStatus>) in
+                
+                if let result = response.result.value, result.status == "SUCCESS" { }}
     }
 }
 
@@ -211,7 +222,7 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource {
         
         if StaticContentFile.isDoctorLogIn() && selection == .authentication {
             
-            return 130
+            return 125
         }
         
         return 80
@@ -221,7 +232,7 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource {
         
         if selection == .message, let data = list[indexPath.row] as? ChannelDetail {
             
-            callAPIToSelectDocOrPatient(data)
+            callAPIToSelectDocOrPatient(data, index: indexPath.row)
         }
     }
 }

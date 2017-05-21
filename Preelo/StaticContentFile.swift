@@ -12,21 +12,25 @@ import ObjectMapper
 
 class StaticContentFile: NSObject {
     
-    static let defaults = UserDefaults.standard
+    static let defaults         = UserDefaults.standard
     static let screenBounds     = UIScreen.main.bounds
     static let screenWidth      = screenBounds.size.width
     static let screenHeight     = screenBounds.size.height
     static let plistStorageManager = PlistManager()
     
-    static func setButtonFont(_ button: UIButton, backgroundColorNeeed: Bool = true) {
+    static func setButtonFont(_ button: UIButton, backgroundColorNeeed: Bool = true, borderNeeded: Bool = true) {
         
         button.backgroundColor = backgroundColorNeeed ? UIColor.colorWithHex(0x3DB0BB) : UIColor.clear
         
         button.titleLabel?.font = UIFont(name: "Ubuntu-Bold", size: 12)!
+        button.titleLabel?.textColor = UIColor.colorWithHex(0x3DB0BB)
         
-        button.layer.borderColor = UIColor.colorWithHex(0x3DB0BB).cgColor
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = button.frame.size.width / 14
+        if borderNeeded {
+            
+            button.layer.borderColor = UIColor.colorWithHex(0x3DB0BB).cgColor
+            button.layer.borderWidth = 1
+            button.layer.cornerRadius = button.frame.size.width / 14
+        }
         
         if backgroundColorNeeed {
             
@@ -53,6 +57,53 @@ class StaticContentFile: NSObject {
         button.setAttributedTitle(str, for: .normal)
     }
     
+    
+    static func isValidEmail(_ email: String) -> Bool {
+        
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: email)
+    }
+}
+
+//MARK:- remove all userDefalut values and plist
+
+extension StaticContentFile {
+    
+    static func removeAllKeys() {
+        
+        plistStorageManager.deleteObject(forKey: "\(StaticContentFile.getId())", inFile: .authRequest)
+        defaults.removeObject(forKey: "isDoctorLogIn")
+        defaults.removeObject(forKey: "token")
+        defaults.removeObject(forKey: "id")
+        defaults.removeObject(forKey: "name")
+        defaults.set(false, forKey: "isLoggedIn")
+        StaticContentFile.deleteMessagePlist()
+    }
+    
+    static func deleteMessagePlist() {
+    
+        let fileManager = FileManager.default
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        guard let dirPath = paths.first else {
+            return
+        }
+        
+        let filePath = "\(dirPath)/"+"PlistFiles/message.plist"
+        
+        do {
+            try fileManager.removeItem(atPath: filePath)
+        } catch let error as NSError {
+            print(error.debugDescription)
+        }
+    }
+}
+
+//MARK:- save/get other userDefalut values
+
+extension StaticContentFile {
+    
     static func isDoctorLogIn() -> Bool {
         
         return defaults.bool(forKey: "isDoctorLogIn")
@@ -77,6 +128,62 @@ class StaticContentFile: NSObject {
         
         return ""
     }
+
+    static func getId() -> Int {
+        
+        return defaults.integer(forKey: "id")
+    }
+}
+
+//MARK:- save/get auth
+
+extension StaticContentFile {
+    
+    static func updateAuthRequest(_ result: DocAuthorizationRequest) {
+        
+        if let authObject = plistStorageManager.objectForKey("\(StaticContentFile.getId())", inFile: .authRequest) as? [String: Any], let array =  authObject["data"] as? [[String: Any]] {
+            
+            var authArray = array
+            var authObject1 = authObject
+            
+            for (i,element) in authArray.enumerated() {
+                
+                if let id = element["patientid"] as? Int, id == result.patientid {
+                    
+                    authArray.remove(at: i)
+                    
+                    authObject1["data"] = authArray
+                    plistStorageManager.setObject(authObject1, forKey: "\(StaticContentFile.getId())", inFile: .authRequest)
+                    return
+                }
+            }
+        }
+    }
+    
+    static func saveAuthRequest(_ result: AuthorizeRequest) {
+        
+        var dict =  [String: Any]()
+        
+        if let authObject = plistStorageManager.objectForKey("\(StaticContentFile.getId())", inFile: .authRequest) as? [String: Any], let array =  authObject["authRequest"] as? [[String: Any]] {
+            
+            var authArray = array
+            var authObject1 = authObject
+            
+            for auth in result.authRequest {
+                
+                authArray.append(auth.modelToDict())
+            }
+            
+            authObject1["data"] = authArray
+            dict = authObject
+            
+        } else {
+            
+            dict =  result.modelToDict()
+        }
+        
+        plistStorageManager.setObject(dict, forKey: "\(StaticContentFile.getId())", inFile: .authRequest)
+    }
     
     static func getAuthRequest() -> AuthorizeRequest? {
         
@@ -99,122 +206,65 @@ class StaticContentFile: NSObject {
         
         return nil
     }
-    
-    static func getChannel() -> [ChannelDetail] {
-        
-        var array = [ChannelDetail]()
-        
-        if let keys = plistStorageManager.allKeysInPlistFile(.message) {
-            
-            for key in keys {
-                
-                if let object = plistStorageManager.objectForKey("\(key)", inFile: .message) as? [String: Any], let obj = object["\(key)"]  {
-                    
-                    do {
-                        let jsonData = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
-                        if let jsonString = String.init(data: jsonData, encoding: .utf8),
-                            let result = Mapper<ChannelDetail>().map(JSONString: jsonString) {
-                            
-                            array.append(result)
-                        }} catch {}
-                }}}
-        return array
-    }
-    
-    static func getId() -> Int {
-        
-        return defaults.integer(forKey: "id")
-    }
-    
-    static func isValidEmail(_ email: String) -> Bool {
-        
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluate(with: email)
-    }
-    
-    static func removeAllKeys() {
-        
-        plistStorageManager.deleteObject(forKey: "\(StaticContentFile.getId())", inFile: .authRequest)
-        defaults.removeObject(forKey: "isDoctorLogIn")
-        defaults.removeObject(forKey: "token")
-        defaults.removeObject(forKey: "id")
-        defaults.removeObject(forKey: "name")
-        
-        let fileManager = FileManager.default
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        guard let dirPath = paths.first else {
-            return
-        }
+}
 
-        let filePath = "\(dirPath)/"+"message.plist"
-        
-        do {
-            try fileManager.removeItem(atPath: filePath)
-        } catch let error as NSError {
-            print(error.debugDescription)
-        }
-    }
+//MARK:- save/get messages
+
+extension StaticContentFile {
     
-    static func saveAuthRequest(_ result: AuthorizeRequest) {
+    static func saveMessage(_ message: RecentMessages, id: Int) {
         
-        var dict =  [String: Any]()
+        var dict = [String: Any]()
         
-        if let authObject = plistStorageManager.objectForKey("\(StaticContentFile.getId())", inFile: .authRequest) as? [String: Any], let array =  authObject["authRequest"] as? [DocAuthorizationRequest] {
+        if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any], let messageList =  messageObject["\(id)"] as? [String: Any], let messages = messageList["recent_message"] as? [[String: Any]] {
             
-            var authArray = array
-            var authObject1 = authObject
-            authArray.append(contentsOf: result.authRequest)
-            authObject1["authRequest"] = authArray
-            dict = authObject
+            var messageObject1 = messageObject
+            var list = messages
+            list.append(message.modelToDict())
+            messageObject1["recent_message"] = list
+            messageObject1["unread_count"] = 0
+            dict["\(id)"] = messageObject1
             
         } else {
             
-            dict =  result.modelToDict()
+            dict["\(id)"] =  message.modelToDict()
         }
         
-        plistStorageManager.setObject(dict, forKey: "\(StaticContentFile.getId())", inFile: .authRequest)
+        plistStorageManager.setObject(dict, forKey: "\(id)", inFile: .message)
+        
     }
     
-    static func updateAuthRequest(_ result: DocAuthorizationRequest) {
+    static func saveMessage(_ detail: ChannelDetail) {
         
-        if let authObject = plistStorageManager.objectForKey("\(StaticContentFile.getId())", inFile: .authRequest) as? [String: Any], let array =  authObject["authRequest"] as? [DocAuthorizationRequest] {
+        var dict =  [String: Any]()
+        let id = StaticContentFile.isDoctorLogIn() ? detail.doctorId : detail.patientId
+        
+        if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any], let msgDetail =  messageObject["\(id)"] as? [String: Any] {
             
-            var authArray = array
-            var authObject1 = authObject
-            
-            for (i,element) in authArray.enumerated() {
+            if let messages = msgDetail["recent_message"] as? [[String: Any]] {
                 
-                if element.parentid == result.patientid {
+                var msgList = msgDetail
+                var list = messages
+                
+                for message in detail.recent_message {
                     
-                    authArray.remove(at: i)
-                    
-                    authObject1["authRequest"] = authArray
-                    plistStorageManager.setObject(authObject1, forKey: "\(StaticContentFile.getId())", inFile: .authRequest)
-                    return
+                    list.append(message.modelToDict())
                 }
+                
+                msgList["recent_message"] = list
+                msgList["unread_count"] = detail.unread_count
+                dict["\(id)"] = msgList
+            } else {
+                
+                dict["\(id)"] =  detail.modelToDict()
             }
-        }
-    }
-    
-    static func getMessages(_ id: Int) -> [RecentMessages] {
-        
-        var array = [RecentMessages]()
-        
-        if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any],
-            let messages = messageObject["recent_message"] as? [[String: Any]] {
             
-            do {
-                let jsonData = try JSONSerialization.data(withJSONObject: messages, options: .prettyPrinted)
-                if let jsonString = String.init(data: jsonData, encoding: .utf8),
-                    let result = Mapper<ChannelDetail>().map(JSONString: jsonString) {
-                    
-                    array.append(contentsOf: result.recent_message)
-                }} catch {}
+        } else {
+            
+            dict["\(id)"] =  detail.modelToDict()
         }
         
-        return array
+        plistStorageManager.setObject(dict as Any , forKey: "\(id)", inFile: .message)
     }
     
     static func updateMessage(_ detail: ChannelDetail) {
@@ -240,58 +290,25 @@ class StaticContentFile: NSObject {
         }
     }
     
-    static func saveMessage(_ detail: ChannelDetail) {
+    static func getChannel() -> [ChannelDetail] {
         
-        var dict =  [String: Any]()
-        let id = StaticContentFile.isDoctorLogIn() ? detail.patientId : detail.doctorId
+        var array = [ChannelDetail]()
         
-        if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any], let msgDetail =  messageObject["\(id)"] as? [String: Any] {
+        if let keys = plistStorageManager.allKeysInPlistFile(.message) {
             
-            if let messages = msgDetail["recent_message"] as? [[String: Any]] {
+            for key in keys {
                 
-                var msgList = msgDetail
-                var list = messages
-                
-                for message in detail.recent_message {
+                if let object = plistStorageManager.objectForKey("\(key)", inFile: .message) as? [String: Any], let obj = object["\(key)"]  {
                     
-                     list.append(message.modelToDict())
-                }
-                
-                msgList["recent_message"] = list
-                msgList["unread_count"] = detail.recent_message.count
-                dict["\(id)"] = msgList
-            } else {
-                
-                dict["\(id)"] =  detail.modelToDict()
-            }
-            
-        } else {
-            
-            dict["\(id)"] =  detail.modelToDict()
-        }
-        
-        plistStorageManager.setObject(dict as Any , forKey: "\(id)", inFile: .message)
+                    do {
+                        let jsonData = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
+                        if let jsonString = String.init(data: jsonData, encoding: .utf8),
+                            let result = Mapper<ChannelDetail>().map(JSONString: jsonString) {
+                            
+                            array.append(result)
+                        }} catch {}
+                }}}
+        return array
     }
     
-    static func saveMessage(_ message: RecentMessages, id: Int) {
-        
-        var dict = [String: Any]()
-        
-        if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any], let messageList =  messageObject["\(id)"] as? [String: Any], let messages = messageList["recent_message"] as? [[String: Any]] {
-            
-            var messageObject1 = messageObject
-            var list = messages
-            list.append(message.modelToDict())
-            messageObject1["recent_message"] = list
-            messageObject1["unread_count"] = 0
-            dict["\(id)"] = messageObject1
-            
-        } else {
-            
-            dict["\(id)"] =  message.modelToDict()
-        }
-        
-        plistStorageManager.setObject(dict, forKey: "\(id)", inFile: .message)
-        
-    }
 }

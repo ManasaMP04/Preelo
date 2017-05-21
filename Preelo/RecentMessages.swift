@@ -15,7 +15,6 @@ class RecentMessages: Mappable {
     var message_date         = ""
     var image_url            = [String]()
     var message_id           = 0
-    var person               = ""
     var senderId             = 0
     var image_upload_status  = ""
     var status               = "u"
@@ -38,8 +37,7 @@ class RecentMessages: Mappable {
         message_text        <- map["message_text"]
         message_date        <- map["message_date"]
         image_url           <- map["image_url"]
-        message_id          <- map["message_id"]
-        person              <- map["person"]
+        message_id          <- map["id"]
         image_upload_status <- map["image_upload_status"]
         status              <- map["status"]
         senderId            <- map["senderId"]
@@ -53,7 +51,7 @@ class RecentMessages: Mappable {
         dict["message_text"] = message_text
         dict["message_date"] = message_date
         dict["image_url"] = image_url
-        dict["message_id"] = message_id
+        dict["id"] = message_id
         dict["status"]  = status
         dict["senderId"]  = senderId
         

@@ -60,7 +60,7 @@ extension DisclaimerVC {
         customeNavigation.setTitle("DISCLAIMER")
         customeNavigation.delegate = self
         StaticContentFile.setButtonFont(agreeButton)
-        StaticContentFile.setButtonFont(dontAgreeButton)
+        StaticContentFile.setButtonFont(dontAgreeButton, backgroundColorNeeed: false, borderNeeded: false)
     }
     
     fileprivate func callAPI() {
@@ -75,9 +75,11 @@ extension DisclaimerVC {
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     let alertVC = AlertVC("DISCLAIMER", description: self.attributeText(withText: self.channelDetail.doctorname), notificationTitle: "Notification", navigation: self.parent)
-                    
                     alertVC.delegate = self
-                    self.navigationController?.pushViewController(alertVC, animated: true)
+                    alertVC.providesPresentationContextTransitionStyle = true;
+                    alertVC.definesPresentationContext = true;
+                    alertVC.modalPresentationStyle=UIModalPresentationStyle.overCurrentContext
+                    self.present(alertVC, animated: true, completion: nil)
                 }}
     }
     
@@ -113,6 +115,11 @@ extension DisclaimerVC: AlertVCDelegate {
     
     func tappedDoneButton(_ alertVC: AlertVC) {
         
-        _ = self.navigationController?.popToRootViewController(animated: true)
+        dismiss(animated: false, completion: nil)
+        
+        if let vc = navigationController?.viewControllerWithClass(ChatVC.self) as?  ChatVC {
+            
+            _ = navigationController?.popToViewController(vc, animated: true)
+        }
     }
 }

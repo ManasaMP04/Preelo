@@ -109,6 +109,12 @@ extension ChatVC {
     
     fileprivate func setup() {
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
         StaticContentFile.setButtonFont(requestAuthButton)
         
         requestAuthorizationViewHeight.constant = 0
@@ -118,17 +124,15 @@ extension ChatVC {
         if  !isPatient_DocFlow {
             
             StaticContentFile.isDoctorLogIn() ? customeNavigation.setTitle(channelDetail.patientname) :  customeNavigation.setTitle(channelDetail.doctorname)
+            
             self.messageList = channelDetail.recent_message
-            //            if let recentMessage = channelDetail.recent_message.last {
-            //
-            //                activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
-            //                activityIndicator?.startAnimating()
-            //
-            //                callApiToGetMessages(recentMessage.message_id)
-            //            }
+            
+            if let recentMessage = channelDetail.recent_message.last, channelDetail.unread_count > 0 {
+                
+                callApiToGetMessages(recentMessage.message_id)
+            }
         } else {
             
-            self.messageList = StaticContentFile.getMessages(patientOrDocId)
             customeNavigation.setTitle(name)
         }
         
@@ -136,7 +140,7 @@ extension ChatVC {
         
         if !StaticContentFile.isDoctorLogIn(), !channelDetail.auth_status {
             
-            requestAuthorizationViewHeight.constant = 182
+            requestAuthorizationViewHeight.constant = 144
             authorizationView.isHidden = false
             toolbarView.isUserInteractionEnabled = false
         }
@@ -184,8 +188,16 @@ extension ChatVC {
             .responseArray(keyPath: "data") {(response: DataResponse<[RecentMessages]>) in
                 
                 if let result = response.result.value {
+                  
+                    StaticContentFile.deleteMessagePlist()
                     
                     self.messageList = result
+                    
+                    for msg in result {
+                        
+                        StaticContentFile.saveMessage(msg, id: self.channelDetail.patientId)
+                    }
+                    
                     self.tableview.reloadData()
                     self.activityIndicator?.stopAnimating()
                 } else {
@@ -267,3 +279,28 @@ extension ChatVC: ImageListCellDelegate {
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
+
+//MARK:- KeyBoard delegate methods
+
+extension ChatVC {
+    
+    @objc fileprivate func keyboardWasShown(_ notification: Notification) {
+        
+        if let  userInfo = notification.userInfo{
+            
+            var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+            keyboardFrame = view.convert(keyboardFrame, from: nil)
+            
+            var contentInset = scrollView.contentInset
+            contentInset.bottom = keyboardFrame.size.height - (StaticContentFile.screenHeight * 0.12)
+            scrollView.contentInset = contentInset
+        }
+    }
+    
+    @objc fileprivate func keyboardWillHide(_ notification: Notification) {
+        
+        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+        scrollView.contentInset = contentInset
+    }
+}
+

@@ -57,7 +57,16 @@ class SlideOutVC: UIViewController {
                 if let _ = response.result.value {
                     
                     StaticContentFile.removeAllKeys()
-                    _ = self.navigationController?.popToRootViewController(animated: true)
+                    
+                    if let vc = self.navigationController?.viewControllerWithClass( LoginVC.self) as?  LoginVC {
+                        
+                        _ = self.navigationController?.popToViewController(vc, animated: true)
+                    } else if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                        
+                        let initialViewController = self.storyboard?.instantiateViewController(withIdentifier: "navigation")
+                        
+                        appDelegate.window?.rootViewController = initialViewController
+                    }
                 }}
     }
 }
