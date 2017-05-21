@@ -19,10 +19,23 @@ class ParentDetailVC: UIViewController {
     @IBOutlet fileprivate weak var doneButton           : UIButton!
     @IBOutlet fileprivate weak var customNavigationBar  : CustomNavigationBar!
     @IBOutlet fileprivate weak var relationship         : UILabel!
+    @IBOutlet fileprivate weak var scrollView           : UIScrollView!
     
     fileprivate let popAnimator   = DXPopover()
     fileprivate var patientList   : PatientList?
     fileprivate var selectedIndex = -1
+    
+    
+    fileprivate var scrollViewBottomInset : CGFloat! {
+        
+        didSet {
+            
+            var currentInset                = self.scrollView.contentInset
+            currentInset.bottom             = scrollViewBottomInset
+            self.scrollView.contentInset    = currentInset
+        }
+    }
+    
     
     init (_ patientList: PatientList, index: Int) {
         
@@ -47,12 +60,17 @@ class ParentDetailVC: UIViewController {
         
     }
     
+    @IBAction func gestureTapped(_ sender: Any) {
+    
+        self.view.endEditing(true)
+    }
+    
     @IBAction func selectRelationButtonTapped(_ sender: Any) {
         
         let relationView    = RelationPickerView()
         relationView.delegate = self
         popAnimator.show(at: firstName, withContentView: relationView, in: self.view)
-
+        
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
@@ -97,7 +115,13 @@ class ParentDetailVC: UIViewController {
     }
     
     fileprivate func setup() {
-
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
         relationButton.layer.cornerRadius  = 5
         relationButton.layer.borderWidth   = 1
         relationButton.layer.borderColor   = UIColor.lightGray.cgColor
@@ -105,6 +129,10 @@ class ParentDetailVC: UIViewController {
         customNavigationBar.delegate = self
         
         firstName.isCompleteBoarder = true
+        firstName.textFieldDelegate = self
+        lastName.textFieldDelegate = self
+        phoneNumber.textFieldDelegate = self
+        email.textFieldDelegate = self
         lastName.isCompleteBoarder = true
         phoneNumber.isCompleteBoarder = true
         email.isCompleteBoarder = true
@@ -114,6 +142,11 @@ class ParentDetailVC: UIViewController {
         StaticContentFile.setFontForTF(phoneNumber)
         StaticContentFile.setFontForTF(email, autoCaps: false)
         StaticContentFile.setButtonFont(doneButton)
+        
+        firstName.validateForInputType(.generic, andNotifyDelegate: self)
+        lastName.validateForInputType(.generic, andNotifyDelegate: self)
+        phoneNumber.validateForInputType(.mobile, andNotifyDelegate: self)
+        email.validateForInputType(.email, andNotifyDelegate: self)
         
         self.navigationController?.navigationBar.isHidden = true
         
@@ -133,7 +166,7 @@ class ParentDetailVC: UIViewController {
 extension ParentDetailVC: RelationPickerViewDelegate {
     
     func relationPickerView(_ view: RelationPickerView, text: String) {
-    
+        
         relationship.text = text
         popAnimator.dismiss()
     }
@@ -145,5 +178,49 @@ extension ParentDetailVC: CustomNavigationBarDelegate {
     func tappedBackButtonFromVC(_ customView: CustomNavigationBar) {
         
         _ = navigationController?.popViewController(animated: true)
+    }
+}
+
+//MARK:- KeyBoard delegate methods
+
+extension ParentDetailVC {
+    
+    @objc fileprivate func keyboardWasShown(_ notification: Notification) {
+        
+        if let info = (notification as NSNotification).userInfo {
+            
+            let dictionary = info as NSDictionary
+            
+            let kbSize = (dictionary.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
+            
+            self.scrollViewBottomInset = kbSize.height + 10
+        }
+    }
+    
+    @objc fileprivate func keyboardWillHide(_ notification: Notification) {
+        
+        self.scrollViewBottomInset = 0
+    }
+}
+
+//MARK:- TextFieldDelegate
+
+extension ParentDetailVC : PreeloTextFieldDelegate {
+    
+    func textFieldReturned(_ textField: PreeloTextField) {
+        
+        if firstName.isFirstResponder {
+            
+            lastName.becomeFirstResponder()
+        } else if lastName.isFirstResponder {
+            
+            phoneNumber.becomeFirstResponder()
+        } else if phoneNumber.isFirstResponder {
+            
+            email.becomeFirstResponder()
+        } else {
+            
+            view.endEditing(true)
+        }
     }
 }

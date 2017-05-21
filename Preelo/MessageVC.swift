@@ -50,21 +50,9 @@ class MessageVC: UIViewController {
         }
     }
     
-    func showMessageList(_ doctorList: DoctorList) {
+    func refresh() {
         
-        if selection == .message {
-            
-            authorizationRequest.isSelected = false
-            messagesButton.isSelected = true
-            messagesButton.backgroundColor = UIColor.colorWithHex(0x3CCACC, alpha: 0.15)
-            authorizationRequest.backgroundColor = UIColor.white
-        } else {
-            
-            authorizationRequest.isSelected = true
-            messagesButton.isSelected = false
-            authorizationRequest.backgroundColor = UIColor.colorWithHex(0x3CCACC, alpha: 0.15)
-            messagesButton.backgroundColor = UIColor.white
-        }
+        authorizationButtonSelected(false)
     }
     
     @IBAction func authorizationButtonTapped(_ sender: Any) {
@@ -108,9 +96,9 @@ extension MessageVC {
     
     fileprivate func setup() {
         
+        authorizationButtonSelected(true)
         notificationCount.layer.cornerRadius = 10.5
         notificationCount.clipsToBounds      = true
-        authorizationButtonSelected(true)
         
         StaticContentFile.isDoctorLogIn() ? customNavigationBar.setTitle("Welcome Doctor", backButtonImageName: "Menu") : customNavigationBar.setTitle(String(format: "Welcome %@", StaticContentFile.getName()), backButtonImageName: "Menu")
         customNavigationBar.delegate = self
@@ -133,16 +121,18 @@ extension MessageVC {
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     self.list.remove(at: indexPath.row)
+                    self.notificationCount.isHidden = self.list.count == 0
+                    self.notificationCount.text = "\(self.list.count)"
                     self.tableview.deleteRows(at: [indexPath], with: .automatic)
                 }}
     }
     
-    fileprivate func callAPIToSelectDocOrPatient(_ data: ChannelDetail, index: Int) {
+    fileprivate func callAPIToSelectDocOrPatient(_ data: ChannelDetail) {
         
-        StaticContentFile.isDoctorLogIn() ? callAPIToSelect(SelectRouter.patient_select_post(data.patientId, data.parentId), data: data, index: index) : callAPIToSelect(SelectRouter.doc_select_post(data.patientId, data.doctorId, data.doctor_user_id), data: data, index: index)
+        StaticContentFile.isDoctorLogIn() ? callAPIToSelect(SelectRouter.patient_select_post(data.patientId, data.parentId, data.doctor_user_id), data: data) : callAPIToSelect(SelectRouter.doc_select_post(data.patientId, data.doctorId, data.doctor_user_id), data: data)
     }
     
-    fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible, data: ChannelDetail, index: Int) {
+    fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible, data: ChannelDetail) {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
@@ -150,27 +140,13 @@ extension MessageVC {
         Alamofire.request(urlRequest)
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
-                self.callapiToMarkedRead(data)
-                StaticContentFile.updateMessage(data)
                 self.activityIndicator?.stopAnimating()
-                data.unread_count = 0
-                self.list.remove(at: index)
-                self.list.insert(data, at: index)
-                self.tableview.reloadData()
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     let chatVC = ChatVC(data)
                     self.navigationController?.pushViewController(chatVC, animated: true)
                 }}
-    }
-    
-    fileprivate func callapiToMarkedRead(_ data: ChannelDetail) {
-    
-        Alamofire.request(SendTextMessageRouter.post_msgRead(data.channel_id))
-            .responseObject { (response: DataResponse<SuccessStatus>) in
-                
-                if let result = response.result.value, result.status == "SUCCESS" { }}
     }
 }
 
@@ -220,7 +196,7 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource {
         
         if selection == .message, let data = list[indexPath.row] as? ChannelDetail {
             
-            callAPIToSelectDocOrPatient(data, index: indexPath.row)
+            callAPIToSelectDocOrPatient(data)
         }
     }
 }

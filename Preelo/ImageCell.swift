@@ -19,11 +19,12 @@ class ImageCell: UICollectionViewCell {
        
     }
 
-    func showImage(_ imageName: String) {
+    func showImage(_ imageName: UIImage) {
     
-        let urlString         = imageName
-        let imageUrl     = URL(string: urlString)
-        imageView.sd_setImage(with: imageUrl, completed: nil)
+         imageView.image   = imageName
+//        let urlString    = imageName
+//        let imageUrl     = URL(string: urlString)
+//        imageView.sd_setImage(with: imageUrl, completed: nil)
     }
     
     func showImageWithName(_ imageName: UIImage) {

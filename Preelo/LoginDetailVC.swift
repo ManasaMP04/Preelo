@@ -108,7 +108,7 @@ extension LoginDetailVC {
                                                selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         userName.textFieldDelegate = self
-        userName.validateForInputType(.generic, andNotifyDelegate: self)
+        userName.validateForInputType(.email, andNotifyDelegate: self)
         password.textFieldDelegate = self
         password.validateForInputType(.generic, andNotifyDelegate: self)
         userName.setLeftViewIcon("UserName")
@@ -150,6 +150,8 @@ extension LoginDetailVC {
         
         Alamofire.request(urlRequest)
             .responseObject { (response: DataResponse<logIn>) in
+                
+                StaticContentFile.removeAllKeys()
                 
                 if let result = response.result.value, result.status == "SUCCESS",
                     let loginDetail = result.loginDetail {

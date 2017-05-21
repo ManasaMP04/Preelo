@@ -14,14 +14,14 @@ class CompleteImageVC: UIViewController {
     @IBOutlet fileprivate weak var collectionView    : UICollectionView!
     @IBOutlet fileprivate weak var customeNavigation : CustomNavigationBar!
     
-    fileprivate var imageList = [String]()
+    fileprivate var imageList = [UIImage]()
     fileprivate var name = ""
     
-    init (_ imageList: [String], name: String) {
+    init (_ imageList: [UIImage], name: String) {
         
         self.imageList = imageList
         self.name      = name
-        super.init(nibName: "ChatVC", bundle: nil)
+        super.init(nibName: "CompleteImageVC", bundle: nil)
     }
     
     required init?(coder aDecoder:NSCoder) {
@@ -35,6 +35,7 @@ class CompleteImageVC: UIViewController {
          collectionView.register(UINib(nibName: "ImageCell", bundle: nil), forCellWithReuseIdentifier: ImageCell.cellId)
         customeNavigation.setTitle(name)
         customeNavigation.delegate = self
+        numberOfImages.text         = "\(1) of \(imageList.count)"
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,6 +70,14 @@ extension CompleteImageVC: UICollectionViewDelegate, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: StaticContentFile.screenWidth, height: StaticContentFile.screenHeight - 60)
+        return CGSize(width: StaticContentFile.screenWidth, height: StaticContentFile.screenHeight - 100)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        guard let indexPath = collectionView.indexPathsForVisibleItems.first else { return }
+        
+        let selectedIndex = (indexPath as NSIndexPath).row
+        numberOfImages.text         = "\(selectedIndex + 1) of \(imageList.count)"
     }
 }

@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import BSImagePicker
+import Photos
+import Alamofire
 
 protocol SelectedImagesVCDelegate: class {
     
     func sendButtonTapped(_ vc: SelectedImagesVC, imageList: [UIImage])
 }
-
 
 class SelectedImagesVC: UIViewController {
     
@@ -21,13 +23,15 @@ class SelectedImagesVC: UIViewController {
     @IBOutlet fileprivate weak var collectionView   : UICollectionView!
     @IBOutlet fileprivate weak var selectImageButton: UIButton!
     @IBOutlet fileprivate weak var collectionViewHeight: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var deleteButton         : UIButton!
     
     weak var delegate: SelectedImagesVCDelegate?
     fileprivate var imageList = [UIImage]()
     fileprivate var isCamera  = true
+    fileprivate var selectedIndex =  IndexPath(row: 0, section: 0)
     
     init(_ isCamera: Bool = true, image: UIImage) {
-    
+        
         self.isCamera = isCamera
         self.imageList.append(image)
         super.init(nibName: "SelectedImagesVC", bundle: nil)
@@ -40,10 +44,12 @@ class SelectedImagesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        customNavigation.setTitle("Selected Images")
         customNavigation.delegate = self
-        selectImageButton.isHidden = isCamera
+        isCamera ? selectImageButton.setImage(UIImage(named: "Camera"), for: .normal) : selectImageButton.setImage(UIImage(named: "Gallery"), for: .normal)
         collectionViewHeight.constant = 0
         imageView.image = imageList[0]
+        collectionView.register(UINib(nibName: "ImageCell", bundle: nil), forCellWithReuseIdentifier: ImageCell.cellId)
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,18 +57,69 @@ class SelectedImagesVC: UIViewController {
         
     }
     
+    @IBAction func deleteButtonTapped(_ sender: Any) {
+        
+        if imageList.count > 0 {
+            
+            imageView.image = imageList[selectedIndex.row + 1]
+            imageList.remove(at: selectedIndex.row)
+            collectionView.deleteItems(at: [selectedIndex])
+            
+             deleteButton.isHidden = imageList.count == 0
+        }
+    }
+    
     @IBAction func sendButtonTapped(_ sender: Any) {
         
         delegate?.sendButtonTapped(self, imageList: imageList)
+        _ = navigationController?.popViewController(animated: true)
     }
     
     @IBAction func selectImageButtonTapped(_ sender: Any) {
         
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .savedPhotosAlbum
-        present(imagePicker, animated: true, completion: nil)
+        if isCamera {
+            
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = false
+            imagePicker.sourceType = isCamera ?  .camera : .savedPhotosAlbum
+            present(imagePicker, animated: true, completion: nil)
+        } else {
+            
+            let vc = BSImagePickerViewController()
+            
+            vc.maxNumberOfSelections = 9
+            bs_presentImagePickerController(vc, animated: true,
+                                            select: { (asset: PHAsset) -> Void in
+                                                
+            }, deselect: { (asset: PHAsset) -> Void in
+                
+            }, cancel: { (assets: [PHAsset]) -> Void in
+                
+            }, finish: { (assets: [PHAsset]) -> Void in
+                
+                for element in assets {
+                    
+                    if element.mediaType == .image {
+                        
+                        let requestImageOption = PHImageRequestOptions()
+                        requestImageOption.deliveryMode = PHImageRequestOptionsDeliveryMode.highQualityFormat
+                        
+                        let manager = PHImageManager.default()
+                        
+                        manager.requestImage(for: element, targetSize: PHImageManagerMaximumSize, contentMode:PHImageContentMode.default, options: requestImageOption) { (image:UIImage?, _) in
+                            
+                            if let img = image {
+                                self.imageList.append(img)
+                                
+                                self.collectionViewHeight.constant = self.imageList.count > 0 ? 45 :  0
+                                self.deleteButton.isHidden = self.imageList.count == 0
+                                self.collectionView.reloadData()
+                                
+                            }}}}
+                
+            }, completion: nil)
+        }
     }
 }
 
@@ -76,21 +133,20 @@ extension SelectedImagesVC: CustomNavigationBarDelegate {
 
 extension SelectedImagesVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [
+        String : Any]) {
         
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
-            imageList.append(image)
             imageView.image = image
-        }
-        
-        if !isCamera {
-        
-            collectionViewHeight.constant = imageList.count > 1 ? 45 : 0
-            collectionView.reloadData()
-        } else {
-        
-             picker.dismiss(animated: true, completion: nil)
+            
+            if isCamera {
+                
+                imageList.removeAll()
+                imageList.append(image)
+            }
+            
+            picker.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -118,6 +174,7 @@ extension SelectedImagesVC: UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        selectedIndex = indexPath
         imageView.image = imageList[indexPath.row]
     }
     
@@ -125,5 +182,6 @@ extension SelectedImagesVC: UICollectionViewDelegate, UICollectionViewDataSource
         
         return CGSize(width: 45, height: 45)
     }
+    
 }
 

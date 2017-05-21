@@ -3,24 +3,33 @@ PODS:
   - AlamofireObjectMapper (4.0.0):
     - Alamofire (~> 4.0)
     - ObjectMapper (~> 2.0)
+  - BSGridCollectionViewLayout (1.2.0)
+  - BSImagePicker (2.5.0):
+    - BSGridCollectionViewLayout (~> 1.2.0)
+    - UIImageViewModeScaleAspect (~> 1.5.0)
   - DXPopover (0.1.1)
   - ObjectMapper (2.2.0)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - UIImageViewModeScaleAspect (1.5)
 
 DEPENDENCIES:
   - AlamofireObjectMapper (~> 4.0.0)
+  - BSImagePicker (~> 2.4)
   - DXPopover
   - SDWebImage (~> 3.8)
 
 SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
   AlamofireObjectMapper: 9faa3ce5a240efda1b209009a2d6e1e949227abc
+  BSGridCollectionViewLayout: 8f12c8e1e08c47057f5a39a6828f4395f043d78f
+  BSImagePicker: 9ad3385318ca0db7e792b51ea8929cfc39284c56
   DXPopover: 13e6bbd1a0da4e62b2190de51f43a94850769e0f
   ObjectMapper: 4060d739febae11ab0c6af8d786f98667c82e1bd
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  UIImageViewModeScaleAspect: 11a790a0b9d248a13dc63e3a78991f1463b6d84e
 
-PODFILE CHECKSUM: 85e951dd2983b57f094ae7fe83b78ca10c542e26
+PODFILE CHECKSUM: 82c4518b1eb06c0f04ca5dbaf79301d4a28825a6
 
 COCOAPODS: 1.2.0

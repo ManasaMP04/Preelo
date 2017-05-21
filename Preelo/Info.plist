@@ -20,16 +20,6 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Ubuntu-B.ttf</string>
-		<string>Ubuntu-C.ttf</string>
-		<string>Ubuntu-L.ttf</string>
-		<string>Ubuntu-M.ttf</string>
-		<string>Ubuntu-R.ttf</string>
-		<string>UbuntuMono-B.ttf</string>
-		<string>UbuntuMono-R.ttf</string>
-	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -49,21 +39,21 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>NSCalendarsUsageDescription</key>
-    <string>$(PRODUCT_NAME) calendar events</string>
-    <key>NSRemindersUsageDescription</key>
-    <string>$(PRODUCT_NAME) reminder use</string>
-    <key>NSCameraUsageDescription</key>
-    <string>This app requires to access your photo library to show image on profile and send via chat</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>This app requires to access your microphone to record video with your voice send via chat</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>This app requires to access your photo library to show image on profile and send via chat</string>
-    <key>NSContactsUsageDescription</key>
-    <string>$(PRODUCT_NAME) contact use</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>$(PRODUCT_NAME) location use</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>$(PRODUCT_NAME) location use</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>$(PRODUCT_NAME) calendar events</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>$(PRODUCT_NAME) reminder use</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires to access your photo library to show image on profile and send via chat</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app requires to access your microphone to record video with your voice send via chat</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires to access your photo library to show image on profile and send via chat</string>
+	<key>NSContactsUsageDescription</key>
+	<string>$(PRODUCT_NAME) contact use</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>$(PRODUCT_NAME) location use</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>$(PRODUCT_NAME) location use</string>
 </dict>
 </plist>

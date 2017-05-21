@@ -13,7 +13,7 @@ import Alamofire
 class TabBarVC: UITabBarController {
     
     fileprivate(set) var list = [Any]()
-    fileprivate(set) var patientDetail : Patients?
+    fileprivate(set) var patientDetail : Any!
     fileprivate(set) var isAPIFetched  = false
     fileprivate var activityIndicator  : UIActivityIndicatorView?
     
@@ -28,14 +28,6 @@ class TabBarVC: UITabBarController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
-    }
-    
-    func showMessageList(_ doctorList: DoctorList) {
-        
-        if let messageVC = storyboard?.instantiateViewController(withIdentifier: "MessageVC") as? MessageVC {
-            
-            messageVC.showMessageList(doctorList)
-        }
     }
     
     func changeTheItem() {
@@ -90,6 +82,7 @@ extension TabBarVC {
                     
                     if let result = response.result.value {
                         
+                        self.patientDetail = result
                         self.isAPIFetched = true
                         self.list = result
                     }}}

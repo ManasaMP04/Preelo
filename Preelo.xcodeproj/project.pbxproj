@@ -73,6 +73,7 @@
 		62D064941EA3EEB4007A503F /* addPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D064931EA3EEB4007A503F /* addPatient.swift */; };
 		62D064961EA3EF00007A503F /* addFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D064951EA3EF00007A503F /* addFamily.swift */; };
 		62D432811EA3C08F005FA616 /* LogoutRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D432801EA3C08F005FA616 /* LogoutRouter.swift */; };
+		62DA83641ED19F040048A9D9 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62DA83631ED19F040048A9D9 /* AssetsLibrary.framework */; };
 		62DAC9EB1EABEF04005BB0FF /* SelectChildrenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAC9E91EABEF04005BB0FF /* SelectChildrenVC.swift */; };
 		62DAC9EC1EABEF04005BB0FF /* SelectChildrenVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62DAC9EA1EABEF04005BB0FF /* SelectChildrenVC.xib */; };
 		62DAC9EE1EABF897005BB0FF /* AuthorizeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAC9ED1EABF897005BB0FF /* AuthorizeRouter.swift */; };
@@ -182,6 +183,7 @@
 		62D064931EA3EEB4007A503F /* addPatient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addPatient.swift; sourceTree = "<group>"; };
 		62D064951EA3EF00007A503F /* addFamily.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addFamily.swift; sourceTree = "<group>"; };
 		62D432801EA3C08F005FA616 /* LogoutRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutRouter.swift; sourceTree = "<group>"; };
+		62DA83631ED19F040048A9D9 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		62DAC9E91EABEF04005BB0FF /* SelectChildrenVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectChildrenVC.swift; sourceTree = "<group>"; };
 		62DAC9EA1EABEF04005BB0FF /* SelectChildrenVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectChildrenVC.xib; sourceTree = "<group>"; };
 		62DAC9ED1EABF897005BB0FF /* AuthorizeRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizeRouter.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62DA83641ED19F040048A9D9 /* AssetsLibrary.framework in Frameworks */,
 				1FFF0610CDC78805412E316B /* Pods_Preelo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -458,6 +461,7 @@
 		9A70AC1F04C3E9FF45C91C49 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				62DA83631ED19F040048A9D9 /* AssetsLibrary.framework */,
 				A609B1C2189643CD7DF9756B /* Pods_Preelo.framework */,
 			);
 			name = Frameworks;

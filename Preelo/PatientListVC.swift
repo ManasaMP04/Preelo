@@ -21,7 +21,7 @@ class PatientListVC: UIViewController {
     
     fileprivate var activityIndicator: UIActivityIndicatorView?
     fileprivate var list = [Any]()
-    fileprivate var patientDetail : Patients?
+    fileprivate var patientDetail : Any!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +42,7 @@ class PatientListVC: UIViewController {
     }
     
     func refreshTableview(_ data: PatientList) {
-    
+        
         list.append(data)
         tableView.reloadData()
     }
@@ -82,11 +82,12 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
         
         if StaticContentFile.isDoctorLogIn(),
             let patient = list[indexPath.row] as? PatientList,
+            let detail  = patientDetail as? Patients,
             patient.family.count > 0 {
             
             guard patient.family.count > 1 else {
                 
-                callAPIToSelectDocOrPatient(patient, index: 0)
+                callAPIToSelectDocOrPatient(patient, index: 0, id: detail.doctorid)
                 return
             }
             
@@ -131,7 +132,10 @@ extension PatientListVC: SelectChildrenVCDelegate {
     
     func selectChildrenVC(_ vc: SelectChildrenVC, list: Any, index: Int) {
         
-        callAPIToSelectDocOrPatient(list, index: index)
+        if let detail  = patientDetail as? Patients {
+            
+            callAPIToSelectDocOrPatient(list, index: index, id: detail.doctorid)
+        }
     }
 }
 
@@ -139,14 +143,14 @@ extension PatientListVC: SelectChildrenVCDelegate {
 
 extension PatientListVC {
     
-    fileprivate func callAPIToSelectDocOrPatient(_ data : Any, index: Int) {
+    fileprivate func callAPIToSelectDocOrPatient(_ data : Any, index: Int, id: Int) {
         
         if let data1 = data as? PatientList {
-        
+            
             let family = data1.family[index]
-            callAPIToSelect(SelectRouter.patient_select_post(family.patientid, family.id), id: family.patientid, name: data1.firstname)
+            callAPIToSelect(SelectRouter.patient_select_post(family.patientid, family.id, id), id: family.patientid, name: data1.firstname)
         } else if let _ = data as? DoctorList {
-        
+            
         }
     }
     
@@ -194,6 +198,7 @@ extension PatientListVC {
                     
                     if let result = response.result.value {
                         
+                        self.patientDetail = result
                         self.list = result
                         self.tableView.reloadData()
                     }}}

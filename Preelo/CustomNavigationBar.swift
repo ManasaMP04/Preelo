@@ -82,7 +82,5 @@ class CustomNavigationBar: UIView {
         AutoLayoutHelper.addVerticalAlignConstraintToView(backButton, withCenterOffset: 5)
         AutoLayoutHelper.addHeightConstraintToView(backButton, value: 45)
         AutoLayoutHelper.addWidthConstraintToView(backButton, value: 45)
-        
-       
     }
 }

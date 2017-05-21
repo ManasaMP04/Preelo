@@ -45,7 +45,7 @@ class ChatVC: UIViewController {
             self.scrollView.contentInset    = currentInset
         }
     }
-
+    
     init (_ channelDetail: ChannelDetail) {
         
         self.channelDetail = channelDetail
@@ -84,7 +84,7 @@ class ChatVC: UIViewController {
 //MARK:- IBActions
 
 extension ChatVC {
-
+    
     @IBAction func tapGesture(_ sender: Any) {
         
         view.endEditing(true)
@@ -156,7 +156,7 @@ extension ChatVC {
             
             self.messageList = channelDetail.recent_message
             
-            if let recentMessage = channelDetail.recent_message.last, channelDetail.unread_count > 0 {
+            if let recentMessage = channelDetail.recent_message.last, (channelDetail.unread_count > 0 || channelDetail.isFirstTime) {
                 
                 callApiToGetMessages(recentMessage.message_id)
             }
@@ -168,7 +168,7 @@ extension ChatVC {
             
             requestAuthorizationViewHeight.constant = 144
             authorizationView.isHidden = false
-            toolbarView.isUserInteractionEnabled = false
+            //toolbarView.isUserInteractionEnabled = false
         }
         
         customeNavigation.delegate = self
@@ -213,10 +213,13 @@ extension ChatVC {
         Alamofire.request(SendTextMessageRouter.get(channelDetail, messageId))
             .responseArray(keyPath: "data") {(response: DataResponse<[RecentMessages]>) in
                 
+                let plistStorageManager = PlistManager()
+                
+                plistStorageManager.deleteObject(forKey: "\(self.channelDetail.channel_id)", inFile: .message)
+                
                 if let result = response.result.value {
-                  
-                    StaticContentFile.deleteMessagePlist()
                     
+                    self.callapiToMarkedRead()
                     self.messageList = result
                     
                     for msg in result {
@@ -226,10 +229,26 @@ extension ChatVC {
                     
                     self.tableview.reloadData()
                     self.activityIndicator?.stopAnimating()
+                    
+                    if let vc = self.navigationController?.viewControllerWithClass(MessageVC.self) as? MessageVC {
+                        
+                        vc.refresh()
+                    }
                 } else {
                     
                     self.activityIndicator?.stopAnimating()
                     self.view.showToast(message: "Please try again something went wrong")
+                }}
+    }
+    
+    fileprivate func callapiToMarkedRead() {
+        
+        Alamofire.request(SendTextMessageRouter.post_msgRead(channelDetail.channel_id))
+            .responseObject { (response: DataResponse<SuccessStatus>) in
+                
+                if let result = response.result.value, result.status == "SUCCESS" {
+                    
+                    
                 }}
     }
 }
@@ -277,6 +296,7 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
         if message.message_type == "IMAGE" {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: ImageListCell.cellId, for: indexPath) as! ImageListCell
+            cell.delegate = self
             cell.showImages(message)
             
             return cell
@@ -302,7 +322,7 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
 
 extension ChatVC: ImageListCellDelegate {
     
-    func imageListCell(_ cell: ImageListCell, imageList: [String], index: Int) {
+    func imageListCell(_ cell: ImageListCell, imageList: [UIImage], index: Int) {
         
         let vc = CompleteImageVC(imageList, name: channelDetail.patientname)
         self.navigationController?.pushViewController(vc, animated: true)
@@ -327,7 +347,7 @@ extension ChatVC {
     
     @objc fileprivate func keyboardWillHide(_ notification: Notification) {
         
-       self.scrollViewBottomInset = 0
+        self.scrollViewBottomInset = 0
     }
 }
 
@@ -337,8 +357,8 @@ extension ChatVC : UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-       view.endEditing(true)
-       return true
+        view.endEditing(true)
+        return true
     }
 }
 
@@ -347,10 +367,79 @@ extension ChatVC : UITextFieldDelegate {
 extension ChatVC : SelectedImagesVCDelegate {
     
     func sendButtonTapped(_ vc: SelectedImagesVC, imageList: [UIImage]) {
+        
+        self.images = imageList
+        uploadImage ()
+
+        let recentMessage = RecentMessages("IMAGE", text: "Photos", senderId: StaticContentFile.getId())
+        recentMessage.image_url = imageList
+        messageList.append(recentMessage)
+        tableview.reloadData()
+        
+        var id = patientOrDocId
+        
+        if !isPatient_DocFlow {
+            
+            id = StaticContentFile.isDoctorLogIn() ? channelDetail.patientId : channelDetail.doctorId
+        }
+        
+        StaticContentFile.saveMessage(recentMessage, id: id)
+        tableview.reloadData()
+    }
     
-//        let recentMessage = RecentMessages("IMAGE", text: "", senderId: StaticContentFile.getId())
-//        messageList.append(recentMessage)
-//        tableview.reloadData()
+    //MARK:- upload image
+    
+    func uploadImage () {
+        
+        var url = URL(string: NetworkURL.baseUrl)!
+        
+        url = url.appendingPathComponent(NetworkURL.sendText)
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        
+        let parameters = ["token": StaticContentFile.getToken(),
+                          "message_text": "Photos"]
+        
+        do {
+            urlRequest.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+        } catch {
+            print(error)
+        }
+        
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.setValue("Authorization", forHTTPHeaderField: StaticContentFile.getToken())
+        
+        Alamofire.upload(multipartFormData: { MultipartFormData in
+            
+            for image in self.images {
+                
+                if let imgData = UIImageJPEGRepresentation(image, 0.2) {
+                    
+                    MultipartFormData.append(imgData, withName: "image", fileName: "image", mimeType: "image/jpg")
+                }
+            }
+        },with: urlRequest,encodingCompletion: { encodingResult in
+            
+            switch encodingResult {
+                
+            case .success(let upload, _, _):
+                
+                upload.responseJSON { response in
+                    
+                    if let info = response.result.value as? Dictionary<String, AnyObject> {
+                        
+                        if let links = info["links"] as? Dictionary<String, AnyObject> {
+                            
+                            if let imgLink = links["image_link"] as? String {
+                                print("LINK: \(imgLink)")
+                            }
+                        }
+                    }
+                    
+                } case .failure(let error):
+                    print(error)
+            }
+        })
     }
 }
 

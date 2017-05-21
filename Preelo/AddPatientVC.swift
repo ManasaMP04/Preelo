@@ -60,8 +60,14 @@ class AddPatientVC: UIViewController {
         }
     }
     
+    @IBAction func tapGestureTapped(_ sender: Any) {
+    
+        view.endEditing(true)
+    }
+    
     @IBAction func addPatientButtonTapped(_ sender: Any) {
         
+        self.view.endEditing(true)
         if let fname = firstName.text, let lName = lastName.text,
             fname.characters.count > 0, lName.characters.count > 0  {
             
@@ -153,6 +159,11 @@ extension AddPatientVC {
         StaticContentFile.setFontForTF(lastName)
         StaticContentFile.setFontForTF(firstName)
         showDefaultValues()
+        
+        firstName.textFieldDelegate = self
+        lastName.textFieldDelegate = self
+        firstName.validateForInputType(.generic, andNotifyDelegate: self)
+        lastName.validateForInputType(.generic, andNotifyDelegate: self)
     }
     
     fileprivate func showDefaultValues() {
@@ -278,6 +289,22 @@ extension AddPatientVC: AlertVCDelegate {
         
             vc.refreshTableview(data)
             _ = navigationController?.popToViewController(vc, animated: true)
+        }
+    }
+}
+
+//MARK:- TextFieldDelegate
+
+extension AddPatientVC : PreeloTextFieldDelegate {
+    
+    func textFieldReturned(_ textField: PreeloTextField) {
+        
+        if firstName.isFirstResponder {
+            
+            lastName.becomeFirstResponder()
+        } else if lastName.isFirstResponder {
+            
+           view.endEditing(true)
         }
     }
 }

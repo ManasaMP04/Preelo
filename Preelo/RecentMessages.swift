@@ -13,13 +13,13 @@ class RecentMessages: Mappable {
     var message_type         = ""
     var message_text         = ""
     var message_date         = ""
-    var image_url            = [String]()
+    var image_url            = [UIImage]()
     var message_id           = 0
     var senderId             = 0
     var image_upload_status  = ""
     var status               = "u"
     
-    init(_ type: String, text: String = "", image: [String] = [String](), senderId: Int) {
+    init(_ type: String, text: String = "", image: [UIImage] = [UIImage](), senderId: Int) {
         
         message_type = type
         message_text = text

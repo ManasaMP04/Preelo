@@ -218,11 +218,12 @@ extension StaticContentFile {
         
         if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any], let messageList =  messageObject["\(id)"] as? [String: Any], let messages = messageList["recent_message"] as? [[String: Any]] {
             
-            var messageObject1 = messageObject
+            var messageObject1 = messageList
             var list = messages
             list.append(message.modelToDict())
             messageObject1["recent_message"] = list
             messageObject1["unread_count"] = 0
+            messageObject1["isFirstTime"] = false
             dict["\(id)"] = messageObject1
             
         } else {
@@ -237,9 +238,9 @@ extension StaticContentFile {
     static func saveMessage(_ detail: ChannelDetail) {
         
         var dict =  [String: Any]()
-        let id = StaticContentFile.isDoctorLogIn() ? detail.doctorId : detail.patientId
+        let id = StaticContentFile.isDoctorLogIn() ? detail.patientId : detail.doctorId
         
-        if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any], let msgDetail =  messageObject["\(id)"] as? [String: Any] {
+        if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any], let msgDetail =  messageObject["\(detail.channel_id)"] as? [String: Any] {
             
             if let messages = msgDetail["recent_message"] as? [[String: Any]] {
                 
@@ -265,29 +266,6 @@ extension StaticContentFile {
         }
         
         plistStorageManager.setObject(dict as Any , forKey: "\(id)", inFile: .message)
-    }
-    
-    static func updateMessage(_ detail: ChannelDetail) {
-        
-        let id = StaticContentFile.isDoctorLogIn() ? detail.patientId : detail.doctorId
-        
-        if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any], let messages = messageObject["recent_message"] as? [[String: Any]] {
-            
-            var messageObject1 = messageObject
-            var list = messages
-            
-            for (index, element) in list.enumerated() {
-                
-                var msg = element
-                msg["status"] = "r"
-                list.remove(at: index)
-                list.insert(msg, at: index)
-            }
-            
-            messageObject1["unread_count"] = 0
-            messageObject1["recent_message"] = list
-            plistStorageManager.setObject(messageObject1, forKey: "\(id)", inFile: .message)
-        }
     }
     
     static func getChannel() -> [ChannelDetail] {
