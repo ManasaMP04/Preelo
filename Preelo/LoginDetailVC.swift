@@ -90,7 +90,7 @@ extension LoginDetailVC : PreeloTextFieldDelegate {
             password.becomeFirstResponder()
         } else {
         
-            view.endEditing(true)
+           loginButtonTapped(nil)
         }
     }
 }

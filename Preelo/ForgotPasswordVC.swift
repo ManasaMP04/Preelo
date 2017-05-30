@@ -71,8 +71,20 @@ class ForgotPasswordVC: UIViewController {
     fileprivate func setup() {
         
         emailId.setLeftViewIcon("UserName")
+        emailId.textFieldDelegate = self
+        emailId.validateForInputType(.email, andNotifyDelegate: self)
         StaticContentFile.setFontForTF(emailId, autoCaps: false)
         StaticContentFile.setButtonFont(continueButton)
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+    }
+}
+
+//MARK:- TextFieldDelegate
+
+extension ForgotPasswordVC : PreeloTextFieldDelegate {
+    
+    func textFieldReturned(_ textField: PreeloTextField) {
+        
+        continueButtonTapped(nil)
     }
 }

@@ -18,7 +18,7 @@ protocol RelationPickerViewDelegate: class {
 
 class RelationPickerView: UIView {
 
-    fileprivate let pickerData    = ["Father", "Mother"]
+    fileprivate let pickerData    = ["Father", "Mother", "Sister", "Brother", "Grandmother", "Grandfather", "Gaurdian"]
     fileprivate let pickerView    = UIPickerView()
     
     weak var delegate : RelationPickerViewDelegate?

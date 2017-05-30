@@ -269,7 +269,7 @@
                                                 </constraints>
                                                 <color key="textColor" red="0.50196078431372548" green="0.50980392156862742" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XuS-dm-HLH" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="296" width="280" height="40"/>
@@ -278,7 +278,7 @@
                                                 </constraints>
                                                 <color key="textColor" red="0.50196078430000002" green="0.50980392159999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go" secureTextEntry="YES"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Qc-Vl-2j1">
                                                 <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
@@ -644,8 +644,8 @@
                                     <constraint firstAttribute="height" constant="70" id="nzh-Ov-18b"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="13"/>
-                                <inset key="titleEdgeInsets" minX="-35" minY="40" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="35" minY="0.0" maxX="0.0" maxY="20"/>
+                                <inset key="titleEdgeInsets" minX="-45" minY="40" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="33" minY="0.0" maxX="0.0" maxY="20"/>
                                 <state key="normal" title="Settings" image="Settings"/>
                                 <connections>
                                     <action selector="settingsButtonTapped:" destination="TvH-fx-vlA" eventType="touchUpInside" id="fYM-NR-Vo8"/>
@@ -672,8 +672,8 @@
                                     <constraint firstAttribute="width" constant="120" id="R23-mh-qvR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="13"/>
-                                <inset key="titleEdgeInsets" minX="-35" minY="40" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="35" minY="0.0" maxX="0.0" maxY="20"/>
+                                <inset key="titleEdgeInsets" minX="-45" minY="40" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="38" minY="0.0" maxX="0.0" maxY="20"/>
                                 <state key="normal" title="Profile Settings" image="Profile-settings-Icons"/>
                                 <connections>
                                     <action selector="profileButtonTapped:" destination="TvH-fx-vlA" eventType="touchUpInside" id="faQ-5H-Oih"/>

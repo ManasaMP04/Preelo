@@ -85,16 +85,7 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
             let detail  = patientDetail as? Patients,
             patient.family.count > 0 {
             
-            guard patient.family.count > 1 else {
-                
-                callAPIToSelectDocOrPatient(patient, index: 0, id: detail.doctorid)
-                return
-            }
-            
-            let vc = SelectChildrenVC(patient)
-            vc.delegate = self
-            self.present(vc, animated: true, completion: nil)
-            return
+            callAPIToSelectDocOrPatient(patient, index: 0, id: detail.doctorid)
         }
     }
 }

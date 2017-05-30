@@ -71,10 +71,10 @@ class MessageVC: UIViewController {
         authorizationRequest.isSelected = status
         messagesButton.isSelected       = !status
         selection = status ? .authentication : .message
-        authorizationRequest.backgroundColor =  status ? UIColor.colorWithHex(0xE6FAFE) : UIColor.clear
-        messagesButton.backgroundColor = status ? UIColor.clear : UIColor.colorWithHex(0xE6FAFE)
-        messagesButton.titleLabel?.textColor = status ? UIColor.colorWithHex(0x40AABB) : UIColor.colorWithHex(0xA7A9AC)
-        authorizationRequest.titleLabel?.textColor = status ? UIColor.colorWithHex(0xA7A9AC) : UIColor.colorWithHex(0x40AABB)
+        authorizationRequest.backgroundColor =  status ? UIColor.clear : UIColor.colorWithHex(0xE6FAFE)
+        messagesButton.backgroundColor = status ? UIColor.colorWithHex(0xE6FAFE) : UIColor.clear
+        messagesButton.titleLabel?.textColor = status ? UIColor.colorWithHex(0xA7A9AC) : UIColor.colorWithHex(0x40AABB)
+        authorizationRequest.titleLabel?.textColor = status ? UIColor.colorWithHex(0x40AABB) : UIColor.colorWithHex(0xA7A9AC)
         
         list.removeAll()
         if status, let request = StaticContentFile.getAuthRequest() {
@@ -98,7 +98,7 @@ extension MessageVC {
     fileprivate func setup() {
         
         addPullToRefreshView()
-        authorizationButtonSelected(true)
+        authorizationButtonSelected(false)
         notificationCount.layer.cornerRadius = 10.5
         notificationCount.clipsToBounds      = true
         
