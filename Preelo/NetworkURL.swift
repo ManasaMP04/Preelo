@@ -26,6 +26,7 @@ enum NetworkURL {
     static let docRejectAuthorization       = "doctor/rejectAuthorization"
     static let editPatient                  = "patients"
     static let sendText                     = "messages/send"
+    static let sendImage                    = "messages/send"
     static let channel                      = "user/channels"
     static let patientAuthRequest           = "doctor/authRequests"
     static let getMessages                  = "messages"

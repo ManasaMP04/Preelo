@@ -67,23 +67,9 @@ class AddPatientVC: UIViewController {
     
     @IBAction func addPatientButtonTapped(_ sender: Any) {
         
-        self.view.endEditing(true)
-        if let fname = firstName.text, let lName = lastName.text,
-            fname.characters.count > 0, lName.characters.count > 0  {
-            
-            if let patient = patientList {
-                
-                pushParentVC(patient, index: -1)
-            } else {
-                
-                let list = PatientList(fname, lName: lName, familyList: [FamilyList]())
-                pushParentVC(list, index: -1)
-            }
-        } else {
-            
-            view.showToast(message: "Please enter FirstName and LastName")
-        }
+       addPatient ()
     }
+    
     @IBAction func doneButtonTapped(_ sender: Any) {
         
         if let patient = patientList {
@@ -146,6 +132,26 @@ extension AddPatientVC: ParentDetailCellDelegate {
 //MARK:- Private Meyhods
 
 extension AddPatientVC {
+    
+    fileprivate func addPatient () {
+    
+        self.view.endEditing(true)
+        if let fname = firstName.text, let lName = lastName.text,
+            fname.characters.count > 0, lName.characters.count > 0  {
+            
+            if let patient = patientList {
+                
+                pushParentVC(patient, index: -1)
+            } else {
+                
+                let list = PatientList(fname, lName: lName, familyList: [FamilyList]())
+                pushParentVC(list, index: -1)
+            }
+        } else {
+            
+            view.showToast(message: "Please enter FirstName and LastName")
+        }
+    }
     
     fileprivate func setup() {
         
@@ -304,7 +310,7 @@ extension AddPatientVC : PreeloTextFieldDelegate {
             lastName.becomeFirstResponder()
         } else if lastName.isFirstResponder {
             
-           view.endEditing(true)
+           addPatient ()
         }
     }
 }

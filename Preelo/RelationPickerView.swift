@@ -27,7 +27,7 @@ class RelationPickerView: UIView {
     
     init() {
         
-        super.init(frame: CGRect(x: 0, y: 0, width: Int(StaticContentFile.screenWidth - 40), height: pickerData.count*height + 40))
+        super.init(frame: CGRect(x: 0, y: 0, width: Int(StaticContentFile.screenWidth - 40), height: pickerData.count*height))
         
         setup()
     }

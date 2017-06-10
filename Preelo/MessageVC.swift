@@ -75,6 +75,8 @@ class MessageVC: UIViewController {
         messagesButton.backgroundColor = status ? UIColor.colorWithHex(0xE6FAFE) : UIColor.clear
         messagesButton.titleLabel?.textColor = status ? UIColor.colorWithHex(0xA7A9AC) : UIColor.colorWithHex(0x40AABB)
         authorizationRequest.titleLabel?.textColor = status ? UIColor.colorWithHex(0x40AABB) : UIColor.colorWithHex(0xA7A9AC)
+        messagesButton.titleLabel?.font = status ? UIFont(name: "Ubuntu", size: 12)! : UIFont(name: "Ubuntu-Bold", size: 12)!
+        authorizationRequest.titleLabel?.font = status ? UIFont(name: "Ubuntu-Bold", size: 12)! : UIFont(name: "Ubuntu", size: 12)!
         
         list.removeAll()
         if status, let request = StaticContentFile.getAuthRequest() {
@@ -191,7 +193,7 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource {
             return 125
         }
         
-        return 80
+        return 90
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

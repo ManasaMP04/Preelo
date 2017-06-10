@@ -16,6 +16,7 @@ class SlideOutVC: UIViewController {
     @IBOutlet fileprivate weak var profileSetting   : UIButton!
     @IBOutlet fileprivate weak var settings         : UIButton!
     @IBOutlet fileprivate weak var logOut           : UIButton!
+    @IBOutlet fileprivate weak var titleLabel       : UILabel!
     
     fileprivate var activityIndicator: UIActivityIndicatorView?
     
@@ -24,6 +25,8 @@ class SlideOutVC: UIViewController {
         
         StaticContentFile.setButtonFont(logOut)
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+        
+        titleLabel.text = StaticContentFile.isDoctorLogIn() ? "Welcome Doctor" : String(format: "Welcome %@", StaticContentFile.getName())
     }
     
     override func didReceiveMemoryWarning() {

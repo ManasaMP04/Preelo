@@ -23,6 +23,7 @@ class ChatCell: UITableViewCell {
     @IBOutlet fileprivate weak var declineButton        : UIButton!
     @IBOutlet fileprivate weak var acceptButton         : UIButton!
     @IBOutlet fileprivate weak var countLabel           : UILabel!
+    @IBOutlet fileprivate weak var parentName           : UILabel!
     
     static let cellId = "ChatCell"
     
@@ -31,7 +32,7 @@ class ChatCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-       setup()
+        setup()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -40,16 +41,16 @@ class ChatCell: UITableViewCell {
     }
     
     fileprivate func setup() {
-    
+        
         StaticContentFile.setButtonFont(declineButton, backgroundColorNeeed: false)
         StaticContentFile.setButtonFont(acceptButton)
         declineButton.layer.cornerRadius = 18
         acceptButton.layer.cornerRadius  = 18
-        initial.layer.cornerRadius = 15
+        initial.layer.cornerRadius = 20
+        initial.clipsToBounds = true
         countLabel.layer.cornerRadius = 10
         countLabel.clipsToBounds = true
         initial.layer.borderWidth = 1
-        initial.layer.borderColor = UIColor.colorWithHex(0x3CCAE0).cgColor
     }
     
     func showData(_ data: Any, isdeclineRequestViewShow: Bool = false) {
@@ -58,11 +59,12 @@ class ChatCell: UITableViewCell {
         countLabel.isHidden = true
         
         if let auth = data as? DocAuthorizationRequest {
-        
+            
             self.name.text = auth.firstname
             descriptionLabel.text = String(format: "Patient %@ %@ has sent You an authorization request", auth.firstname, auth.lastname)
             
             initial.isHidden = false
+            parentName.text = ""
             
             if let  firstCh = auth.relationship.characters.first, StaticContentFile.isDoctorLogIn() {
                 
@@ -73,31 +75,63 @@ class ChatCell: UITableViewCell {
                 initial.text = "D"
             }
         } else if let channel = data as? ChannelDetail {
-        
-            self.name.text = channel.patientname
             
             if let message = channel.recent_message.last {
-            
+                
                 descriptionLabel.text = message.message_text
             } else {
-            
-                 descriptionLabel.text = ""
+                
+                descriptionLabel.text = ""
             }
             
-            initial.isHidden = false
             countLabel.isHidden = channel.unread_count == 0
             countLabel.text = "\(channel.unread_count)"
             name.textColor = channel.unread_count == 0 ? UIColor.colorWithHex(0x6D6E71) : UIColor.colorWithHex(0x3CCAE0)
             
-            if let  firstCh = channel.relationship.characters.first, StaticContentFile.isDoctorLogIn() {
-            
-                let srt = "\(firstCh)"
-                initial.text = srt.uppercased()
+            if StaticContentFile.isDoctorLogIn() {
+                
+                parentName.text = channel.parentname
+                self.name.text = channel.patientname
+                
+                if let  firstCh = channel.relationship.characters.first {
+                    
+                    initial.isHidden = false
+                    initial.layer.borderColor = UIColor.clear.cgColor
+                    let srt = "\(firstCh)"
+                    initial.text = srt.uppercased()
+                    initial.textColor = UIColor.white
+                    
+                    if srt.lowercased() == "m" {
+                        
+                        initial.backgroundColor = UIColor.colorWithHex(0xFF6699)
+                    } else if srt.lowercased() == "f" {
+                        
+                        initial.backgroundColor = UIColor.colorWithHex(0x66A1FF)
+                    } else if srt.lowercased() == "b" || srt.lowercased() == "s" {
+                        
+                        initial.backgroundColor = UIColor.colorWithHex(0xB1CC64)
+                    } else if srt.lowercased() == "g" {
+                        
+                        initial.backgroundColor = UIColor.colorWithHex(0x16A085)
+                    } else {
+                        
+                        initial.backgroundColor = UIColor.colorWithHex(0x7F8C8D)
+                    }
+                }
             } else if !StaticContentFile.isDoctorLogIn() {
-            
-                 initial.text = "D"
+                
+                parentName.text = channel.patientname
+                self.name.text = channel.doctorname
+                
+                if let  firstCh = channel.doctorname.characters.first {
+                    
+                    initial.isHidden = false
+                    let srt = "\(firstCh)"
+                    initial.text = srt.uppercased()
+                    initial.layer.borderColor = UIColor.colorWithHex(0x3CCAE0).cgColor
+                    initial.backgroundColor = UIColor.white
+                }
             }
-            
         }
         
         declineRequestView.isHidden = !isdeclineRequestViewShow
@@ -112,12 +146,12 @@ class ChatCell: UITableViewCell {
     }
     
     @IBAction func declineButtonIsTapped(_ sender: Any) {
-    
+        
         delegate?.chatCell(self, isAuthAccepted: false)
     }
     
     @IBAction func acceptButtonIsTapped(_ sender: Any) {
-   
+        
         delegate?.chatCell(self, isAuthAccepted: true)
     }
 }

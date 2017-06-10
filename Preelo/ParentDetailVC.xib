@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -81,7 +81,7 @@
                                     </constraints>
                                     <color key="textColor" red="0.50196078430000002" green="0.50980392159999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                 </textField>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="PARENT’S LAST NAME" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Xza-2a-OdR" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
                                     <rect key="frame" x="16" y="168" width="343" height="40"/>
@@ -90,7 +90,7 @@
                                     </constraints>
                                     <color key="textColor" red="0.50196078430000002" green="0.50980392159999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                 </textField>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="PHONE NUMBER" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="U4K-Cf-0Mp" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
                                     <rect key="frame" x="16" y="228" width="343" height="40"/>
@@ -99,7 +99,7 @@
                                     </constraints>
                                     <color key="textColor" red="0.50196078430000002" green="0.50980392159999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad" returnKeyType="next"/>
                                 </textField>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="EMAIL ADDRESS" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8YQ-me-EtC" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
                                     <rect key="frame" x="16" y="288" width="343" height="40"/>
@@ -108,7 +108,7 @@
                                     </constraints>
                                     <color key="textColor" red="0.50196078430000002" green="0.50980392159999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="done"/>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8N-7O-a9q">
                                     <rect key="frame" x="16" y="348" width="343" height="50"/>

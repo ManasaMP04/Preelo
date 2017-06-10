@@ -238,7 +238,7 @@ extension StaticContentFile {
     static func saveMessage(_ detail: ChannelDetail) {
         
         var dict =  [String: Any]()
-        let id = StaticContentFile.isDoctorLogIn() ? detail.patientId : detail.doctorId
+        let id = StaticContentFile.isDoctorLogIn() ? detail.parentId : detail.doctorId
         
         if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any], let msgDetail =  messageObject["\(detail.channel_id)"] as? [String: Any] {
             

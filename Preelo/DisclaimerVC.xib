@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -63,11 +63,11 @@
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wB4-ms-6np">
                     <rect key="frame" x="10" y="70" width="355" height="482"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <mutableString key="text">The messages shared and the images uploaded in this app may not be immediately available to the doctor for review. Please understand the doctors might be attending other patients and this messages could possibly read at later time (24-48 hours), if
+                    <string key="text">The messages shared and the images uploaded in this app may not be immediately available to the doctor for review. Please understand the doctors might be attending other patients and this messages could possibly read at later time (24-48 hours), if
 this is an important message and need urgent response, send the message and call the doctor to inform about the message. This app is mainly focussed on delivering the images so that the doctor can review and provide initial feedback. This app is not
-intended for diagnosis or prescription. Please agree to the above terms to continue </mutableString>
+intended for diagnosis or prescription. Please agree to the above terms to continue </string>
                     <color key="textColor" red="0.57647058823529407" green="0.58431372549019611" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="15"/>
+                    <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="20"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
             </subviews>

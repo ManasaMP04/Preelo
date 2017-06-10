@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Ubuntu-B.ttf">
+            <string>Ubuntu-Bold</string>
+        </array>
         <array key="Ubuntu-L.ttf">
             <string>Ubuntu-Light</string>
         </array>
         <array key="Ubuntu-M.ttf">
             <string>Ubuntu-Medium</string>
         </array>
+        <array key="Ubuntu-R.ttf">
+            <string>Ubuntu</string>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="100" id="KGk-i7-Jjw" customClass="ChatCell" customModule="Preelo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="314" height="100"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="126" id="KGk-i7-Jjw" customClass="ChatCell" customModule="Preelo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="314" height="126"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="314" height="99.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="314" height="125.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43g-Jt-1cY">
-                        <rect key="frame" x="46" y="14.5" width="35.5" height="21"/>
+                        <rect key="frame" x="56" y="33" width="35.5" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="eJ5-0y-Z6W"/>
                         </constraints>
@@ -35,16 +42,16 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient Preet Praveen has sent You an authorization request" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNZ-f7-ocl">
-                        <rect key="frame" x="10" y="43.5" width="222.5" height="29.5"/>
-                        <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="13"/>
+                        <rect key="frame" x="56" y="75.5" width="227" height="29.5"/>
+                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="13"/>
                         <color key="textColor" red="0.65490196079999996" green="0.66274509800000003" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUq-9q-RLp">
-                        <rect key="frame" x="10" y="83" width="296" height="0.0"/>
+                        <rect key="frame" x="56" y="115" width="250" height="0.0"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XQt-Od-80z">
-                                <rect key="frame" x="0.0" y="0.0" width="145.5" height="0.0"/>
+                                <rect key="frame" x="0.0" y="0.0" width="122.5" height="0.0"/>
                                 <state key="normal" title="DECLINE">
                                     <color key="titleColor" red="0.23921568627450979" green="0.69019607843137254" blue="0.73333333333333328" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -53,7 +60,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ET-2i-gnO">
-                                <rect key="frame" x="150.5" y="0.0" width="145.5" height="0.0"/>
+                                <rect key="frame" x="127.5" y="0.0" width="122.5" height="0.0"/>
                                 <state key="normal" title="ACCEPT">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -76,18 +83,18 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqq-83-kxc">
-                        <rect key="frame" x="8" y="10" width="30" height="30"/>
+                        <rect key="frame" x="8" y="43" width="40" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="30" id="oFa-Nz-oVT"/>
-                            <constraint firstAttribute="height" constant="30" id="x64-cu-gZy"/>
+                            <constraint firstAttribute="width" constant="40" id="oFa-Nz-oVT"/>
+                            <constraint firstAttribute="height" constant="40" id="x64-cu-gZy"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="14"/>
+                        <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="14"/>
                         <color key="textColor" red="0.23529411764705882" green="0.792156862745098" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfT-ar-iww">
-                        <rect key="frame" x="286" y="15" width="20" height="20"/>
-                        <color key="backgroundColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="286" y="33.5" width="20" height="20"/>
+                        <color key="backgroundColor" red="0.23529411764705882" green="0.792156862745098" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="HE1-PV-yS2"/>
                             <constraint firstAttribute="width" constant="20" id="pDO-ox-M6S"/>
@@ -96,20 +103,29 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient Preet Praveen has sent You an authorization request" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7F-Ze-OoQ">
+                        <rect key="frame" x="56" y="58" width="230" height="13.5"/>
+                        <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="12"/>
+                        <color key="textColor" red="0.73725490196078436" green="0.74509803921568629" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="uqq-83-kxc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="0mX-1h-eT4"/>
                     <constraint firstAttribute="trailing" secondItem="DfT-ar-iww" secondAttribute="trailing" constant="8" id="5gD-2O-Zva"/>
                     <constraint firstAttribute="trailing" secondItem="LUq-9q-RLp" secondAttribute="trailing" constant="8" id="7xb-Xu-Bir"/>
                     <constraint firstItem="LUq-9q-RLp" firstAttribute="leading" secondItem="zNZ-f7-ocl" secondAttribute="leading" id="AaV-Yt-e1i"/>
-                    <constraint firstItem="zNZ-f7-ocl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="GR3-et-Gal"/>
-                    <constraint firstItem="uqq-83-kxc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="KVU-lD-OgY"/>
+                    <constraint firstItem="43g-Jt-1cY" firstAttribute="top" secondItem="uqq-83-kxc" secondAttribute="top" constant="-10" id="Gdp-OG-6jO"/>
+                    <constraint firstItem="m7F-Ze-OoQ" firstAttribute="top" secondItem="43g-Jt-1cY" secondAttribute="bottom" constant="4" id="PII-x8-Vrg"/>
                     <constraint firstItem="LUq-9q-RLp" firstAttribute="top" secondItem="zNZ-f7-ocl" secondAttribute="bottom" constant="10" id="QeZ-ZK-1zm"/>
-                    <constraint firstItem="43g-Jt-1cY" firstAttribute="centerY" secondItem="uqq-83-kxc" secondAttribute="centerY" id="axF-xt-tmP"/>
-                    <constraint firstItem="DfT-ar-iww" firstAttribute="centerY" secondItem="uqq-83-kxc" secondAttribute="centerY" id="mG8-FJ-wiN"/>
+                    <constraint firstItem="43g-Jt-1cY" firstAttribute="leading" secondItem="uqq-83-kxc" secondAttribute="trailing" constant="8" id="Swu-Kh-LeW"/>
+                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="m7F-Ze-OoQ" secondAttribute="trailing" constant="20" id="VOK-as-HeW"/>
+                    <constraint firstItem="uqq-83-kxc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ly3-7j-Aag"/>
                     <constraint firstAttribute="right" relation="greaterThanOrEqual" secondItem="zNZ-f7-ocl" secondAttribute="right" constant="10" id="nwN-8s-WF2"/>
-                    <constraint firstItem="43g-Jt-1cY" firstAttribute="leading" secondItem="uqq-83-kxc" secondAttribute="trailing" constant="8" id="ocD-5z-Myu"/>
-                    <constraint firstItem="zNZ-f7-ocl" firstAttribute="top" secondItem="43g-Jt-1cY" secondAttribute="bottom" constant="8" id="uP6-tz-Y1V"/>
+                    <constraint firstItem="zNZ-f7-ocl" firstAttribute="leading" secondItem="m7F-Ze-OoQ" secondAttribute="leading" id="oLz-uW-xOs"/>
+                    <constraint firstItem="DfT-ar-iww" firstAttribute="centerY" secondItem="43g-Jt-1cY" secondAttribute="centerY" id="pcU-Q6-fOg"/>
+                    <constraint firstItem="m7F-Ze-OoQ" firstAttribute="leading" secondItem="43g-Jt-1cY" secondAttribute="leading" id="qgX-7i-uak"/>
+                    <constraint firstItem="zNZ-f7-ocl" firstAttribute="top" secondItem="m7F-Ze-OoQ" secondAttribute="bottom" constant="4" id="v73-kk-3Xz"/>
                     <constraint firstItem="DfT-ar-iww" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="43g-Jt-1cY" secondAttribute="trailing" constant="8" id="zRN-pC-7zN"/>
                 </constraints>
             </tableViewCellContentView>
@@ -122,8 +138,9 @@
                 <outlet property="descriptionLabel" destination="zNZ-f7-ocl" id="sNl-eu-eYh"/>
                 <outlet property="initial" destination="uqq-83-kxc" id="pdu-7W-Nak"/>
                 <outlet property="name" destination="43g-Jt-1cY" id="kz2-vd-zwN"/>
+                <outlet property="parentName" destination="m7F-Ze-OoQ" id="ywH-hj-0WM"/>
             </connections>
-            <point key="canvasLocation" x="59" y="53"/>
+            <point key="canvasLocation" x="59" y="66"/>
         </tableViewCell>
     </objects>
 </document>

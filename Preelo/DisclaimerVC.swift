@@ -66,7 +66,7 @@ extension DisclaimerVC {
         
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 10
-        let attributes = [NSParagraphStyleAttributeName : style]
+        let attributes = [NSParagraphStyleAttributeName : style, NSFontAttributeName : UIFont(name: "Ubuntu-Light", size: 15)!, NSForegroundColorAttributeName: UIColor.colorWithHex(0x939598)]
         descriptionLabel.attributedText = NSAttributedString(string: descriptionStr, attributes:attributes)
         descriptionLabel.scrollRangeToVisible(NSRange(location:0, length:0))
     }

@@ -108,7 +108,7 @@ extension ChatVC {
             
             if !isPatient_DocFlow {
                 
-                id = StaticContentFile.isDoctorLogIn() ? channelDetail.patientId : channelDetail.doctorId
+                id = StaticContentFile.isDoctorLogIn() ? channelDetail.parentId : channelDetail.doctorId
             }
             
             StaticContentFile.saveMessage(recentMessage, id: id)
@@ -224,7 +224,7 @@ extension ChatVC {
                     
                     for msg in result {
                         
-                        StaticContentFile.saveMessage(msg, id: self.channelDetail.patientId)
+                        StaticContentFile.saveMessage(msg, id: self.channelDetail.parentId)
                     }
                     
                     self.tableview.reloadData()
@@ -380,7 +380,7 @@ extension ChatVC : SelectedImagesVCDelegate {
         
         if !isPatient_DocFlow {
             
-            id = StaticContentFile.isDoctorLogIn() ? channelDetail.patientId : channelDetail.doctorId
+            id = StaticContentFile.isDoctorLogIn() ? channelDetail.parentId : channelDetail.doctorId
         }
         
         StaticContentFile.saveMessage(recentMessage, id: id)
@@ -393,7 +393,7 @@ extension ChatVC : SelectedImagesVCDelegate {
         
         var url = URL(string: NetworkURL.baseUrl)!
         
-        url = url.appendingPathComponent(NetworkURL.sendText)
+        url = url.appendingPathComponent(NetworkURL.sendImage)
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         
@@ -413,7 +413,7 @@ extension ChatVC : SelectedImagesVCDelegate {
             
             for image in self.images {
                 
-                if let imgData = UIImageJPEGRepresentation(image, 0.2) {
+                if let imgData = UIImageJPEGRepresentation(image, 1.0) {
                     
                     MultipartFormData.append(imgData, withName: "image", fileName: "image", mimeType: "image/jpg")
                 }

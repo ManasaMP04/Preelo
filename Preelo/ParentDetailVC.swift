@@ -61,7 +61,7 @@ class ParentDetailVC: UIViewController {
     }
     
     @IBAction func gestureTapped(_ sender: Any) {
-    
+        
         self.view.endEditing(true)
     }
     
@@ -75,6 +75,26 @@ class ParentDetailVC: UIViewController {
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         
+        addParent()
+    }
+    
+    fileprivate func getList(_ list: PatientList, family: FamilyList) -> PatientList {
+        
+        if selectedIndex >= 0 {
+            
+            list.family.remove(at: selectedIndex)
+            list.family.insert(family, at: selectedIndex)
+        } else  {
+            
+            list.family.append(family)
+        }
+        
+        return list
+    }
+    
+    fileprivate func addParent() {
+        
+        self.view.endEditing(true)
         if let fname = firstName.text, fname.characters.count > 0,
             let lname = lastName.text, lname.characters.count > 0,
             let email = email.text, StaticContentFile.isValidEmail(email),
@@ -98,20 +118,7 @@ class ParentDetailVC: UIViewController {
             
             view.showToast(message: "Please enter the required fields")
         }
-    }
-    
-    fileprivate func getList(_ list: PatientList, family: FamilyList) -> PatientList {
         
-        if selectedIndex >= 0 {
-            
-            list.family.remove(at: selectedIndex)
-            list.family.insert(family, at: selectedIndex)
-        } else  {
-            
-            list.family.append(family)
-        }
-        
-        return list
     }
     
     fileprivate func setup() {
@@ -220,7 +227,7 @@ extension ParentDetailVC : PreeloTextFieldDelegate {
             email.becomeFirstResponder()
         } else {
             
-            view.endEditing(true)
+            addParent()
         }
     }
 }

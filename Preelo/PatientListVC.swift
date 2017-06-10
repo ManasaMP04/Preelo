@@ -117,19 +117,6 @@ extension PatientListVC: CustomNavigationBarDelegate {
     }
 }
 
-//MARK:-  SelectChildrenVCDelegate
-
-extension PatientListVC: SelectChildrenVCDelegate {
-    
-    func selectChildrenVC(_ vc: SelectChildrenVC, list: Any, index: Int) {
-        
-        if let detail  = patientDetail as? Patients {
-            
-            callAPIToSelectDocOrPatient(list, index: index, id: detail.doctorid)
-        }
-    }
-}
-
 //MARK:-  private methods
 
 extension PatientListVC {

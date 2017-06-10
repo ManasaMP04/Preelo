@@ -85,6 +85,6 @@ extension ForgotPasswordVC : PreeloTextFieldDelegate {
     
     func textFieldReturned(_ textField: PreeloTextField) {
         
-        continueButtonTapped(nil)
+        continueButtonTapped(textField)
     }
 }

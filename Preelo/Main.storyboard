@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4et-Wg-mun">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4et-Wg-mun">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -398,10 +398,10 @@
                                         <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="11"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="MESSAGES">
-                                            <color key="titleColor" red="0.25098039220000001" green="0.66666666669999997" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.65490196078431373" green="0.66274509803921566" blue="0.67450980392156867" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <state key="selected">
-                                            <color key="titleColor" red="0.65490196079999996" green="0.66274509800000003" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.25098039215686274" green="0.66666666666666663" blue="0.73333333333333328" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="messageButtonTapped:" destination="fAo-Np-iZa" eventType="touchUpInside" id="9OH-3S-EC1"/>
@@ -413,10 +413,10 @@
                                         <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="11"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="AUTHORIZATION REQUESTS">
-                                            <color key="titleColor" red="0.25098039215686274" green="0.66666666666666663" blue="0.73333333333333328" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.65490196078431373" green="0.66274509803921566" blue="0.67450980392156867" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <state key="selected">
-                                            <color key="titleColor" red="0.65490196078431373" green="0.66274509803921566" blue="0.67450980392156867" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.25098039220000001" green="0.66666666669999997" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="authorizationButtonTapped:" destination="fAo-Np-iZa" eventType="touchUpInside" id="SCj-Oi-gCt"/>
@@ -424,7 +424,7 @@
                                     </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="66n-w8-Nku">
                                         <rect key="frame" x="294" y="12" width="21" height="21"/>
-                                        <color key="backgroundColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.23529411764705882" green="0.792156862745098" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="PIM-4Z-S9C"/>
                                             <constraint firstAttribute="width" constant="21" id="VZx-lK-XIC"/>
@@ -700,6 +700,7 @@
                         <outlet property="profileSetting" destination="emh-ft-5xm" id="e6u-QB-KIt"/>
                         <outlet property="settings" destination="6Qh-P6-RtW" id="br2-Zt-9Iq"/>
                         <outlet property="slideButton" destination="rNR-cB-OaH" id="06o-II-5Rp"/>
+                        <outlet property="titleLabel" destination="5gA-k0-QPo" id="Qsh-vo-05z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gqq-aM-9sx" userLabel="First Responder" sceneMemberID="firstResponder"/>

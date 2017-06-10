@@ -90,7 +90,7 @@ extension LoginDetailVC : PreeloTextFieldDelegate {
             password.becomeFirstResponder()
         } else {
         
-           loginButtonTapped(nil)
+           loginButtonTapped(textField)
         }
     }
 }
@@ -168,8 +168,12 @@ extension LoginDetailVC {
                     self.activityIndicator?.stopAnimating()
                     self.alertMessage("Verify", message: result.message)
                     
-                } else {
+                } else if let result = response.result.value {
                     
+                    self.activityIndicator?.stopAnimating()
+                    self.view.showToast(message: result.message)
+                } else {
+                
                     self.activityIndicator?.stopAnimating()
                     self.view.showToast(message: "Login failed")
                 }
