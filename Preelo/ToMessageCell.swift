@@ -13,6 +13,7 @@ class ToMessageCell: UITableViewCell {
     @IBOutlet fileprivate weak var cardView         : UIView!
     @IBOutlet fileprivate weak var nameLabel        : UILabel!
     @IBOutlet fileprivate weak var descriptionLabel : UILabel!
+    @IBOutlet fileprivate weak var timeStamp        : UILabel!
     
     static let cellId = "ToMessageCell"
     
@@ -33,5 +34,6 @@ class ToMessageCell: UITableViewCell {
         
         descriptionLabel.text = message.message_text
         nameLabel.text = name
+        timeStamp.text = Date.dateDiff(dateStr: message.message_date)
     }
 }

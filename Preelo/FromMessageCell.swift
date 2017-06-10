@@ -13,6 +13,7 @@ class FromMessageCell: UITableViewCell {
     @IBOutlet fileprivate weak var cardView             : UIView!
     @IBOutlet fileprivate weak var descriptionLabel     : UILabel!
     @IBOutlet fileprivate weak var messageImageView     : UIImageView!
+    @IBOutlet fileprivate weak var timeStamp            : UILabel!
     
     static let cellId = "FromMessageCell"
     
@@ -32,6 +33,7 @@ class FromMessageCell: UITableViewCell {
     func showMessage(_ message: RecentMessages) {
         
         descriptionLabel.text = message.message_text
+        timeStamp.text = Date.dateDiff(dateStr: message.message_date)
     }
     
     func showImage(_ status: String) {
