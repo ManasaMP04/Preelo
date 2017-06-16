@@ -68,6 +68,10 @@ class ChannelDetail: Mappable {
         
     }
     
+    init() {
+        
+    }
+    
     func mapping(map: Map) {
         
         channel_id          <- map["channel_id"]

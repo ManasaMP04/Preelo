@@ -117,7 +117,6 @@ extension ChatVC {
             let recentMessage = RecentMessages("text", text: text, senderId: "you")
             messageList.append(recentMessage)
             tableview.reloadData()
-            saveMessage (recentMessage)
             callAPIToSendText(text)
         }
     }
@@ -140,18 +139,6 @@ extension ChatVC {
 //MARK:- Private Methods
 
 extension ChatVC {
-    
-    fileprivate func saveMessage (_ recentMessage: RecentMessages) {
-        
-        var id = parentOrDocId
-        
-        if !isPatient_DocFlow {
-            
-           id = StaticContentFile.isDoctorLogIn() ? channelDetail.parentId : channelDetail.doctorId
-        }
-        
-        StaticContentFile.saveMessage(recentMessage, id: id)
-    }
     
     fileprivate func setup() {
         
@@ -269,6 +256,9 @@ extension ChatVC {
                 
                 if let result = response.result.value {
                     
+                    let plist = PlistManager()
+                    plist.deleteObject(forKey: "\(id)", inFile: .message)
+                    
                     self.callapiToMarkedRead()
                     self.messageList = result
                     
@@ -276,7 +266,7 @@ extension ChatVC {
                     
                     for msg in result {
                         
-                        StaticContentFile.saveMessage(msg, id: id, lastMessageId: msg.message_id, removeArray: removeArray)
+                        StaticContentFile.saveMessage(msg, id: id, lastMessageId: msg.message_id, removeArray: removeArray, channelDetail: self.channelDetail)
                         self.channelDetail.lastMsgId = msg.message_id
                         removeArray = false
                     }
@@ -284,10 +274,6 @@ extension ChatVC {
                     self.activityIndicator?.stopAnimating()
                     self.footerActivityIndicator?.stopAnimating()
                     self.delegate?.chatVCDelegateToRefresh(self)
-                    if let vc = self.navigationController?.viewControllerWithClass(MessageVC.self) as? MessageVC {
-                        
-                        vc.refresh()
-                    }
                 } else {
                     
                     self.activityIndicator?.stopAnimating()
@@ -431,9 +417,6 @@ extension ChatVC : SelectedImagesVCDelegate {
         let recentMessage = RecentMessages("IMAGE", text: "Photos", senderId: "you")
         recentMessage.image_url = imageList
         messageList.append(recentMessage)
-        tableview.reloadData()
-        
-        saveMessage (recentMessage)
         tableview.reloadData()
     }
     

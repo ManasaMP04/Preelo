@@ -212,7 +212,7 @@ extension StaticContentFile {
 
 extension StaticContentFile {
     
-    static func saveMessage(_ message: RecentMessages, id: Int, lastMessageId: Int = 0, removeArray: Bool = false) {
+    static func saveMessage(_ message: RecentMessages, id: Int, lastMessageId: Int = 0, removeArray: Bool = false, channelDetail: ChannelDetail) {
         
         var dict = [String: Any]()
         
@@ -243,7 +243,12 @@ extension StaticContentFile {
             
         } else {
             
-            dict["\(id)"] =  message.modelToDict()
+            var messageObject1 = channelDetail.modelToDict()
+            messageObject1["recent_message"] = [message.modelToDict()]
+            messageObject1["unread_count"] = 0
+            messageObject1["lastMsgId"] = lastMessageId
+            
+            dict["\(id)"] =  messageObject1
         }
         
         plistStorageManager.setObject(dict, forKey: "\(id)", inFile: .message)

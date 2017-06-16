@@ -51,11 +51,6 @@ class MessageVC: UIViewController {
         }
     }
     
-    func refresh() {
-        
-        authorizationButtonSelected(false)
-    }
-    
     @IBAction func authorizationButtonTapped(_ sender: Any) {
         
         authorizationButtonSelected(true)
@@ -285,7 +280,7 @@ extension MessageVC: ChatVCDelegate {
     
     func chatVCDelegateToCallApi(_ vc: ChatVC) {
     
-        refresh()
+        self.callChannelAPI()
     }
 }
 
