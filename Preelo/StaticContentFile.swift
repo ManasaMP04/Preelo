@@ -83,7 +83,7 @@ extension StaticContentFile {
     }
     
     static func deleteMessagePlist() {
-    
+        
         let fileManager = FileManager.default
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         guard let dirPath = paths.first else {
@@ -128,7 +128,7 @@ extension StaticContentFile {
         
         return ""
     }
-
+    
     static func getId() -> Int {
         
         return defaults.integer(forKey: "id")
@@ -212,18 +212,33 @@ extension StaticContentFile {
 
 extension StaticContentFile {
     
-    static func saveMessage(_ message: RecentMessages, id: Int) {
+    static func saveMessage(_ message: RecentMessages, id: Int, lastMessageId: Int = 0, removeArray: Bool = false) {
         
         var dict = [String: Any]()
         
-        if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any], let messageList =  messageObject["\(id)"] as? [String: Any], let messages = messageList["recent_message"] as? [[String: Any]] {
+        if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any],
+            let messageList =  messageObject["\(id)"] as? [String: Any],
+            let messages = messageList["recent_message"] as? [[String: Any]] {
             
             var messageObject1 = messageList
             var list = messages
+            
+            if removeArray {
+                
+                for (index, item) in messages.enumerated() {
+                    
+                    if let id = item["message_id"] as? Int ,
+                        id == message.message_id {
+                        
+                        list.removeLast(messages.count - index)
+                    }
+                }
+            }
+            
             list.append(message.modelToDict())
             messageObject1["recent_message"] = list
             messageObject1["unread_count"] = 0
-            messageObject1["isFirstTime"] = false
+            messageObject1["lastMsgId"] = lastMessageId
             dict["\(id)"] = messageObject1
             
         } else {
@@ -232,7 +247,6 @@ extension StaticContentFile {
         }
         
         plistStorageManager.setObject(dict, forKey: "\(id)", inFile: .message)
-        
     }
     
     static func saveMessage(_ detail: ChannelDetail) {
@@ -240,7 +254,8 @@ extension StaticContentFile {
         var dict =  [String: Any]()
         let id = StaticContentFile.isDoctorLogIn() ? detail.parentId : detail.doctorId
         
-        if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any], let msgDetail =  messageObject["\(detail.channel_id)"] as? [String: Any] {
+        if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any],
+            let msgDetail =  messageObject["\(id)"] as? [String: Any] {
             
             if let messages = msgDetail["recent_message"] as? [[String: Any]] {
                 

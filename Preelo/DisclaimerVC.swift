@@ -127,6 +127,7 @@ extension DisclaimerVC: AlertVCDelegate {
         
         if let vc = navigationController?.viewControllerWithClass(ChatVC.self) as?  ChatVC {
             
+            vc.hideAuthRequest()
             _ = navigationController?.popToViewController(vc, animated: true)
         }
     }

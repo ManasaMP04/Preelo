@@ -62,7 +62,7 @@ class ChannelDetail: Mappable {
     var patientId           = 0
     var auth_status         = false
     var doctor_user_id      = 0
-    var isFirstTime         = true
+    var lastMsgId           = -1
     
     required init?(map: Map) {
         
@@ -82,7 +82,7 @@ class ChannelDetail: Mappable {
         patientId           <- map["patient_id"]
         auth_status         <- map["auth_status"]
         doctor_user_id      <- map["doctor_user_id"]
-        isFirstTime         <- map["isFirstTime"]
+        lastMsgId           <- map["lastMsgId"]
         parentname          <- map["parentname"]
     }
     
@@ -110,7 +110,7 @@ class ChannelDetail: Mappable {
         dict["patient_id"] = patientId
         dict["auth_status"] = auth_status
         dict["doctor_user_id"] = doctor_user_id
-        dict["isFirstTime"]  = isFirstTime
+        dict["lastMsgId"]  = lastMsgId
         
         return dict
     }

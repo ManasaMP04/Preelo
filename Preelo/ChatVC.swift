@@ -10,6 +10,11 @@ import UIKit
 import AlamofireObjectMapper
 import Alamofire
 
+protocol ChatVCDelegate: class {
+    
+    func chatVCDelegateToRefresh(_ vc: ChatVC)
+    func chatVCDelegateToCallApi(_ vc: ChatVC)
+}
 class ChatVC: UIViewController {
     
     enum Selection:Int {
@@ -29,12 +34,15 @@ class ChatVC: UIViewController {
     
     fileprivate var messageList         = [RecentMessages]()
     fileprivate var activityIndicator   : UIActivityIndicatorView?
+    fileprivate var footerActivityIndicator   : UIActivityIndicatorView?
     fileprivate var channelDetail       : ChannelDetail!
     fileprivate var images              = [UIImage]()
     fileprivate var selection:Selection = .camera
     fileprivate var isPatient_DocFlow   = false
-    fileprivate var patientOrDocId      = 0
+    fileprivate var parentOrDocId      = 0
     fileprivate var name                = ""
+    
+    weak var delegate: ChatVCDelegate?
     
     fileprivate var scrollViewBottomInset : CGFloat! {
         
@@ -57,7 +65,7 @@ class ChatVC: UIViewController {
     
     init (_ Id: Int, name: String) {
         
-        self.patientOrDocId = Id
+        self.parentOrDocId = Id
         self.isPatient_DocFlow = true
         self.name = name
         
@@ -78,6 +86,12 @@ class ChatVC: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
+    }
+    
+    func hideAuthRequest() {
+        
+        requestAuthorizationViewHeight.constant = 0
+        authorizationView.isHidden = true
     }
 }
 
@@ -100,18 +114,10 @@ extension ChatVC {
         
         if let text = messageTF.text, text.characters.count > 0 {
             
-            let recentMessage = RecentMessages("text", text: text, senderId: StaticContentFile.getId())
+            let recentMessage = RecentMessages("text", text: text, senderId: "you")
             messageList.append(recentMessage)
             tableview.reloadData()
-            
-            var id = patientOrDocId
-            
-            if !isPatient_DocFlow {
-                
-                id = StaticContentFile.isDoctorLogIn() ? channelDetail.parentId : channelDetail.doctorId
-            }
-            
-            StaticContentFile.saveMessage(recentMessage, id: id)
+            saveMessage (recentMessage)
             callAPIToSendText(text)
         }
     }
@@ -135,7 +141,24 @@ extension ChatVC {
 
 extension ChatVC {
     
+    fileprivate func saveMessage (_ recentMessage: RecentMessages) {
+        
+        var id = parentOrDocId
+        
+        if !isPatient_DocFlow {
+            
+           id = StaticContentFile.isDoctorLogIn() ? channelDetail.parentId : channelDetail.doctorId
+        }
+        
+        StaticContentFile.saveMessage(recentMessage, id: id)
+    }
+    
     fileprivate func setup() {
+        
+        messageList.removeAll()
+        
+        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(self.view)
+        createFooter ()
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -154,15 +177,32 @@ extension ChatVC {
         
         if  !isPatient_DocFlow {
             
-            self.messageList = channelDetail.recent_message
-            
-            if let recentMessage = channelDetail.recent_message.last, (channelDetail.unread_count > 0 || channelDetail.isFirstTime) {
+            if let recentMessage = channelDetail.recent_message.last {
                 
-                callApiToGetMessages(recentMessage.message_id)
+                if channelDetail.lastMsgId != recentMessage.message_id {
+                    
+                    if channelDetail.lastMsgId == -1 {
+                        
+                        activityIndicator?.startAnimating()
+                        callApiToGetMessages(channelDetail.lastMsgId)
+                    } else if channelDetail.lastMsgId < recentMessage.message_id {
+                        
+                        self.messageList = channelDetail.recent_message
+                        self.tableview.reloadData()
+                        footerActivityIndicator?.startAnimating()
+                        callApiToGetMessages(channelDetail.lastMsgId)
+                    } else {
+                    
+                        self.messageList = channelDetail.recent_message
+                        self.tableview.reloadData()
+                    }
+                } else {
+                    
+                    self.messageList = channelDetail.recent_message
+                    self.tableview.reloadData()
+                }
             }
         }
-        
-        self.tableview.reloadData()
         
         if !StaticContentFile.isDoctorLogIn(), !channelDetail.auth_status {
             
@@ -178,6 +218,17 @@ extension ChatVC {
         
         tableview.estimatedRowHeight = 20
         tableview.rowHeight  = UITableViewAutomaticDimension
+    }
+    
+    fileprivate func createFooter () {
+        
+        let footer                          = UIView(frame: CGRect(x: 0, y: 0, width: StaticContentFile.screenWidth, height: 50))
+        footerActivityIndicator                      = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        
+        footer.addSubview(footerActivityIndicator!)
+        footerActivityIndicator?.center              = footer.center
+        
+        tableview.tableFooterView           = footer
     }
     
     fileprivate func selectImages() {
@@ -198,7 +249,8 @@ extension ChatVC {
             .responseObject { (response: DataResponse<SuccessStatus>) in
                 
                 if let _ = response.result.value {
-                    
+                  
+                    self.delegate?.chatVCDelegateToCallApi(self)
                 } else {
                     
                     self.view.showToast(message: "Send Message Failed")
@@ -210,26 +262,28 @@ extension ChatVC {
     
     fileprivate func callApiToGetMessages(_ messageId: Int) {
         
-        Alamofire.request(SendTextMessageRouter.get(channelDetail, messageId))
+         let id = StaticContentFile.isDoctorLogIn() ? channelDetail.parentId : channelDetail.doctorId
+        
+        Alamofire.request(SendTextMessageRouter.get(channelDetail))
             .responseArray(keyPath: "data") {(response: DataResponse<[RecentMessages]>) in
-                
-                let plistStorageManager = PlistManager()
-                
-                plistStorageManager.deleteObject(forKey: "\(self.channelDetail.channel_id)", inFile: .message)
                 
                 if let result = response.result.value {
                     
                     self.callapiToMarkedRead()
                     self.messageList = result
                     
+                    var removeArray = true
+                    
                     for msg in result {
                         
-                        StaticContentFile.saveMessage(msg, id: self.channelDetail.parentId)
+                        StaticContentFile.saveMessage(msg, id: id, lastMessageId: msg.message_id, removeArray: removeArray)
+                        self.channelDetail.lastMsgId = msg.message_id
+                        removeArray = false
                     }
-                    
                     self.tableview.reloadData()
                     self.activityIndicator?.stopAnimating()
-                    
+                    self.footerActivityIndicator?.stopAnimating()
+                    self.delegate?.chatVCDelegateToRefresh(self)
                     if let vc = self.navigationController?.viewControllerWithClass(MessageVC.self) as? MessageVC {
                         
                         vc.refresh()
@@ -237,6 +291,7 @@ extension ChatVC {
                 } else {
                     
                     self.activityIndicator?.stopAnimating()
+                    self.footerActivityIndicator?.stopAnimating()
                     self.view.showToast(message: "Please try again something went wrong")
                 }}
     }
@@ -303,7 +358,9 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
             
         }
         
-        if message.senderId == StaticContentFile.getId() {
+        let str = message.senderId.lowercased()
+        
+        if str == "you" {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: FromMessageCell.cellId, for: indexPath) as! FromMessageCell
             cell.showMessage(message)
@@ -370,20 +427,13 @@ extension ChatVC : SelectedImagesVCDelegate {
         
         self.images = imageList
         uploadImage ()
-
-        let recentMessage = RecentMessages("IMAGE", text: "Photos", senderId: StaticContentFile.getId())
+        
+        let recentMessage = RecentMessages("IMAGE", text: "Photos", senderId: "you")
         recentMessage.image_url = imageList
         messageList.append(recentMessage)
         tableview.reloadData()
         
-        var id = patientOrDocId
-        
-        if !isPatient_DocFlow {
-            
-            id = StaticContentFile.isDoctorLogIn() ? channelDetail.parentId : channelDetail.doctorId
-        }
-        
-        StaticContentFile.saveMessage(recentMessage, id: id)
+        saveMessage (recentMessage)
         tableview.reloadData()
     }
     
@@ -423,6 +473,8 @@ extension ChatVC : SelectedImagesVCDelegate {
             switch encodingResult {
                 
             case .success(let upload, _, _):
+                
+                self.delegate?.chatVCDelegateToCallApi(self)
                 
                 upload.responseJSON { response in
                     

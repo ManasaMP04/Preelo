@@ -85,7 +85,7 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
             let detail  = patientDetail as? Patients,
             patient.family.count > 0 {
             
-            callAPIToSelectDocOrPatient(patient, index: 0, id: detail.doctorid)
+            callAPIToSelectDocOrPatient(patient, index: 0, doctorId: detail.doctorid)
         }
     }
 }
@@ -121,18 +121,18 @@ extension PatientListVC: CustomNavigationBarDelegate {
 
 extension PatientListVC {
     
-    fileprivate func callAPIToSelectDocOrPatient(_ data : Any, index: Int, id: Int) {
+    fileprivate func callAPIToSelectDocOrPatient(_ data : Any, index: Int, doctorId: Int) {
         
         if let data1 = data as? PatientList {
             
             let family = data1.family[index]
-            callAPIToSelect(SelectRouter.patient_select_post(family.patientid, family.id, id), id: family.patientid, name: data1.firstname)
+            callAPIToSelect(SelectRouter.patient_select_post(family.patientid, family.id, doctorId), name: data1.firstname, parentId: family.id)
         } else if let _ = data as? DoctorList {
             
         }
     }
     
-    fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible, id: Int, name: String) {
+    fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible, name: String, parentId: Int) {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
@@ -144,7 +144,7 @@ extension PatientListVC {
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    let vc = ChatVC(id, name: name)
+                    let vc = ChatVC(parentId, name: name)
                     self.navigationController?.pushViewController(vc, animated: true)
                 }}
     }

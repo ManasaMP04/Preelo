@@ -13,7 +13,7 @@ enum SendTextMessageRouter:  URLRequestConvertible {
     
     case post(String)
     
-    case get(ChannelDetail, Int)
+    case get(ChannelDetail)
     
     case post_msgRead(Int)
     
@@ -43,7 +43,7 @@ enum SendTextMessageRouter:  URLRequestConvertible {
                 
                 relativePath = NetworkURL.sendText
                 
-            case .get(_,_):
+            case .get(_):
                 
                 relativePath = NetworkURL.getMessages
                 
@@ -66,11 +66,11 @@ enum SendTextMessageRouter:  URLRequestConvertible {
                 
                 return dict
                 
-            case .get(let channelDetail, let messageId):
+            case .get(let channelDetail):
                 
                 let dict: [String: Any] = ["token" : StaticContentFile.getToken(),
                             "channel_id"  : channelDetail.channel_id,
-                            "message_id"  : messageId]
+                            "message_id"  : channelDetail.lastMsgId]
                 
                 return dict
                 

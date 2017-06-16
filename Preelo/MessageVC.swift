@@ -149,6 +149,7 @@ extension MessageVC {
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     let chatVC = ChatVC(data)
+                    chatVC.delegate = self
                     self.navigationController?.pushViewController(chatVC, animated: true)
                 }}
     }
@@ -272,6 +273,19 @@ extension MessageVC{
                     self.tableview.reloadData()
                     StaticContentFile.saveAuthRequest(result)
                 }}
+    }
+}
+
+extension MessageVC: ChatVCDelegate {
+    
+    func chatVCDelegateToRefresh(_ vc: ChatVC) {
+        
+        authorizationButtonSelected(false)
+    }
+    
+    func chatVCDelegateToCallApi(_ vc: ChatVC) {
+    
+        refresh()
     }
 }
 
