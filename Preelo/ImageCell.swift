@@ -19,19 +19,31 @@ class ImageCell: UICollectionViewCell {
         
     }
     
-    func showImage(_ imageName: Any) {
+    func showImage(_ msg: RecentMessages, showFullImage: Bool) {
         
-        if let name = imageName as? UIImage {
+        if !showFullImage {
             
-            imageView.image   = name
+            showImage(msg.thumb_Url)
+        } else {
+        
+            showImage(msg.image_url)
         }
-        //        let urlString    = imageName
-        //        let imageUrl     = URL(string: urlString)
-        //        imageView.sd_setImage(with: imageUrl, completed: nil)
     }
     
     func showImageWithName(_ imageName: UIImage) {
         
         imageView.image        = imageName
+    }
+    
+    fileprivate func showImage(_ image: Any?) {
+    
+        if let name = image as? UIImage {
+            
+            imageView.image   = name
+        } else if let name = image as? String {
+            
+            let imageUrl     = URL(string: name)
+            imageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "Image Placeholder_Fill"))
+        }
     }
 }

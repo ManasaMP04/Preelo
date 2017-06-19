@@ -14,10 +14,10 @@ class CompleteImageVC: UIViewController {
     @IBOutlet fileprivate weak var collectionView    : UICollectionView!
     @IBOutlet fileprivate weak var customeNavigation : CustomNavigationBar!
     
-    fileprivate var imageList = [Any]()
+    fileprivate var imageList = [RecentMessages]()
     fileprivate var name = ""
     
-    init (_ imageList: [Any], name: String) {
+    init (_ imageList: [RecentMessages], name: String) {
         
         self.imageList = imageList
         self.name      = name
@@ -63,7 +63,7 @@ extension CompleteImageVC: UICollectionViewDelegate, UICollectionViewDataSource,
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.cellId, for: indexPath) as! ImageCell
         
-        cell.showImage(imageList[indexPath.row])
+        cell.showImage(imageList[indexPath.row], showFullImage: true)
         
         return cell
     }

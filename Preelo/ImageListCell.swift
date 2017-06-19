@@ -10,16 +10,18 @@ import UIKit
 
 protocol ImageListCellDelegate: class {
     
-    func imageListCell(_ cell: ImageListCell, imageList: [Any], index: Int)
+    func imageListCell(_ cell: ImageListCell, imageList: [RecentMessages], index: Int)
 }
 
 class ImageListCell: UITableViewCell {
     
-    @IBOutlet fileprivate weak var nameLabel        : UILabel!
+    @IBOutlet fileprivate weak var toNameLabel        : UILabel!
     @IBOutlet fileprivate weak var cardView         : UIView!
     @IBOutlet fileprivate weak var collectionView   : UICollectionView!
+    @IBOutlet fileprivate weak var fromNameLabel    : UILabel!
     
-    var imageList = [Any]()
+    var imageList = [RecentMessages]()
+    var name      = ""
     
     weak var delegate: ImageListCellDelegate?
     static let cellId = "ImageListCell"
@@ -45,9 +47,10 @@ class ImageListCell: UITableViewCell {
         collectionView.register(UINib(nibName: "ImageCell", bundle: nil), forCellWithReuseIdentifier: ImageCell.cellId)
     }
     
-    func showImages(_ recentMessage: RecentMessages) {
-    
-        imageList = recentMessage.image_url
+    func showImages(_ recentMessage: RecentMessages, name: String) {
+        
+        self.name = name
+        imageList = [recentMessage]
         collectionView.reloadData()
     }
 }
@@ -63,8 +66,25 @@ extension ImageListCell: UICollectionViewDelegate, UICollectionViewDataSource, U
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.cellId, for: indexPath) as! ImageCell
         
-        cell.showImage(imageList[indexPath.row])
-
+        let msg = imageList[indexPath.row]
+        let str = msg.senderId.lowercased()
+        
+        if str == "you" {
+            
+            fromNameLabel.text =   "Me"
+            fromNameLabel.isHidden = false
+            toNameLabel.isHidden = true
+            collectionView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        } else {
+            
+            fromNameLabel.isHidden = true
+            toNameLabel.text = name
+            toNameLabel.isHidden   = false
+            collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
+        }
+        
+        cell.showImage(msg, showFullImage: false)
+        
         return cell
     }
     

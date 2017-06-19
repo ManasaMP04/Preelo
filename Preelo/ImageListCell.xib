@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -19,16 +20,17 @@
             <rect key="frame" x="0.0" y="0.0" width="335" height="166"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gQF-pF-tqs" id="pZj-r6-jl0">
-                <rect key="frame" x="0.0" y="0.0" width="335" height="165"/>
+                <rect key="frame" x="0.0" y="0.0" width="335" height="165.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lAK-5a-YnY">
                         <rect key="frame" x="8" y="30" width="319" height="127"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Opa-j4-7RM">
-                                <rect key="frame" x="8" y="5" width="303" height="117"/>
+                                <rect key="frame" x="9.5" y="5" width="300" height="117"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="L3J-Ov-W7V"/>
                                     <constraint firstAttribute="height" constant="117" id="ixa-fZ-t2X"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FBX-sv-dl8">
@@ -41,32 +43,41 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Opa-j4-7RM" secondAttribute="trailing" constant="8" id="B9g-Db-c1g"/>
-                            <constraint firstItem="Opa-j4-7RM" firstAttribute="leading" secondItem="lAK-5a-YnY" secondAttribute="leading" constant="8" id="GY7-bB-eX7"/>
                             <constraint firstItem="Opa-j4-7RM" firstAttribute="top" secondItem="lAK-5a-YnY" secondAttribute="top" constant="5" id="aqe-DQ-MDD"/>
                             <constraint firstAttribute="bottom" secondItem="Opa-j4-7RM" secondAttribute="bottom" constant="5" id="iJD-tm-2mn"/>
+                            <constraint firstItem="Opa-j4-7RM" firstAttribute="leading" secondItem="lAK-5a-YnY" secondAttribute="leading" constant="9.5" id="kIj-Zn-4TI"/>
+                            <constraint firstAttribute="trailing" secondItem="Opa-j4-7RM" secondAttribute="trailing" constant="9.5" id="vw0-RA-p6I"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xIZ-Of-bTb">
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xIZ-Of-bTb">
                         <rect key="frame" x="16" y="8" width="22" height="17"/>
                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="15"/>
                         <color key="textColor" red="0.25490196079999999" green="0.25098039220000001" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2L-uh-on3">
+                        <rect key="frame" x="290" y="8" width="22" height="17"/>
+                        <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="15"/>
+                        <color key="textColor" red="0.13725490196078433" green="0.70980392156862748" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="xIZ-Of-bTb" firstAttribute="leading" secondItem="pZj-r6-jl0" secondAttribute="leading" constant="16" id="0yC-UT-5oT"/>
+                    <constraint firstItem="y2L-uh-on3" firstAttribute="top" secondItem="xIZ-Of-bTb" secondAttribute="top" id="46Q-2W-ecU"/>
                     <constraint firstItem="lAK-5a-YnY" firstAttribute="leading" secondItem="pZj-r6-jl0" secondAttribute="leading" constant="8" id="IGg-0n-1e5"/>
                     <constraint firstAttribute="bottom" secondItem="lAK-5a-YnY" secondAttribute="bottom" constant="8" id="Nk5-7u-vNM"/>
                     <constraint firstAttribute="trailing" secondItem="lAK-5a-YnY" secondAttribute="trailing" constant="8" id="XsA-N0-sIH"/>
                     <constraint firstItem="xIZ-Of-bTb" firstAttribute="top" secondItem="pZj-r6-jl0" secondAttribute="top" constant="8" id="bjL-lS-yKL"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="y2L-uh-on3" secondAttribute="trailing" constant="15" id="krF-8m-BBq"/>
                     <constraint firstItem="lAK-5a-YnY" firstAttribute="top" secondItem="pZj-r6-jl0" secondAttribute="top" constant="30" id="spq-se-9fX"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="cardView" destination="lAK-5a-YnY" id="0lt-Wk-05J"/>
                 <outlet property="collectionView" destination="Opa-j4-7RM" id="eq6-a6-nS5"/>
-                <outlet property="nameLabel" destination="xIZ-Of-bTb" id="Phd-bp-evO"/>
+                <outlet property="fromNameLabel" destination="y2L-uh-on3" id="gaf-CQ-8fy"/>
+                <outlet property="toNameLabel" destination="xIZ-Of-bTb" id="pyr-Ej-ye7"/>
             </connections>
             <point key="canvasLocation" x="68.5" y="225"/>
         </tableViewCell>

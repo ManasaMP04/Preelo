@@ -114,7 +114,7 @@ extension ChatVC {
         
         if let text = messageTF.text, text.characters.count > 0 {
             
-            let recentMessage = RecentMessages("text", text: text, senderId: "you")
+            let recentMessage = RecentMessages("text", text: text,image: nil, senderId: "you")
             messageList.append(recentMessage)
             tableview.reloadData()
             callAPIToSendText(text)
@@ -179,7 +179,7 @@ extension ChatVC {
                         footerActivityIndicator?.startAnimating()
                         callApiToGetMessages(channelDetail.lastMsgId)
                     } else {
-                    
+                        
                         self.messageList = channelDetail.recent_message
                         self.tableview.reloadData()
                     }
@@ -236,7 +236,7 @@ extension ChatVC {
             .responseObject { (response: DataResponse<SuccessStatus>) in
                 
                 if let _ = response.result.value {
-                  
+                    
                     self.delegate?.chatVCDelegateToCallApi(self)
                 } else {
                     
@@ -249,7 +249,7 @@ extension ChatVC {
     
     fileprivate func callApiToGetMessages(_ messageId: Int) {
         
-         let id = StaticContentFile.isDoctorLogIn() ? channelDetail.parentId : channelDetail.doctorId
+        let id = StaticContentFile.isDoctorLogIn() ? channelDetail.parentId : channelDetail.doctorId
         
         Alamofire.request(SendTextMessageRouter.get(channelDetail))
             .responseArray(keyPath: "data") {(response: DataResponse<[RecentMessages]>) in
@@ -334,11 +334,11 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
         
         let message = messageList[indexPath.row]
         
-        if message.message_type == "IMAGE" {
+        if message.message_type.lowercased() != "simple" {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: ImageListCell.cellId, for: indexPath) as! ImageListCell
             cell.delegate = self
-            cell.showImages(message)
+            cell.showImages(message, name: name)
             
             return cell
             
@@ -365,7 +365,7 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
 
 extension ChatVC: ImageListCellDelegate {
     
-    func imageListCell(_ cell: ImageListCell, imageList: [Any], index: Int) {
+    func imageListCell(_ cell: ImageListCell, imageList: [RecentMessages], index: Int) {
         
         let vc = CompleteImageVC(imageList, name: channelDetail.patientname)
         self.navigationController?.pushViewController(vc, animated: true)
@@ -412,11 +412,14 @@ extension ChatVC : SelectedImagesVCDelegate {
     func sendButtonTapped(_ vc: SelectedImagesVC, imageList: [UIImage]) {
         
         self.images = imageList
-        uploadImage ()
         
-        let recentMessage = RecentMessages("IMAGE", text: "Photos", senderId: "you")
-        recentMessage.image_url = imageList
-        messageList.append(recentMessage)
+        for image in imageList {
+            
+            let recentMessage = RecentMessages("IMAGE", text: "Photos",image: image, senderId: "you")
+             messageList.append(recentMessage)
+        }
+       
+        uploadImage ()
         tableview.reloadData()
     }
     
@@ -424,57 +427,50 @@ extension ChatVC : SelectedImagesVCDelegate {
     
     func uploadImage () {
         
-        var url = URL(string: NetworkURL.baseUrl)!
-        
-        url = url.appendingPathComponent(NetworkURL.sendImage)
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "POST"
-        
-        let parameters = ["token": StaticContentFile.getToken(),
-                          "message_text": "Photos"]
-        
-        do {
-            urlRequest.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
-        } catch {
-            print(error)
-        }
-        
-        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        urlRequest.setValue("Authorization", forHTTPHeaderField: StaticContentFile.getToken())
-        
-        Alamofire.upload(multipartFormData: { MultipartFormData in
+        for image in images {
             
-            for image in self.images {
+            var url = URL(string: NetworkURL.baseUrl)!
+            
+            url = url.appendingPathComponent(NetworkURL.sendImage)
+            var urlRequest = URLRequest(url: url)
+            urlRequest.httpMethod = "POST"
+            
+            let parameters = ["token": StaticContentFile.getToken(),
+                              "message_text": "Photos"]
+            
+            do {
+                urlRequest.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+            } catch {
+                print(error)
+            }
+            
+            urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            urlRequest.setValue("Authorization", forHTTPHeaderField: StaticContentFile.getToken())
+            
+            Alamofire.upload(multipartFormData: { MultipartFormData in
                 
                 if let imgData = UIImageJPEGRepresentation(image, 1.0) {
                     
                     MultipartFormData.append(imgData, withName: "image", fileName: "image", mimeType: "image/jpg")
                 }
-            }
-        },with: urlRequest,encodingCompletion: { encodingResult in
-            
-            switch encodingResult {
+            },with: urlRequest,encodingCompletion: { encodingResult in
                 
-            case .success(let upload, _, _):
-                
-                self.delegate?.chatVCDelegateToCallApi(self)
-                
-                upload.responseJSON { response in
+                switch encodingResult {
                     
-                    if let info = response.result.value as? Dictionary<String, AnyObject> {
+                case .success(let upload, _, _):
+                    
+                    self.delegate?.chatVCDelegateToCallApi(self)
+                    
+                    upload.responseString { response in
                         
-                        if let links = info["links"] as? Dictionary<String, AnyObject> {
-                            
-                            if let imgLink = links["image_link"] as? String {
-                                print("LINK: \(imgLink)")
-                            }
+                        if let JSON = response.result.value {
+                            print("JSON: \(JSON)")
                         }
-                    }
-                    
-                } case .failure(let error):
-                    print(error)
-            }
-        })
+                    } case .failure(let error):
+                        print(error)
+                }
+            })
+        }
     }
 }
 

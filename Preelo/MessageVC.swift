@@ -245,6 +245,8 @@ extension MessageVC{
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
+                    StaticContentFile.deleteMessagePlist()
+                    
                     self.list = result.data
                     self.tableview.reloadData()
                     for detail in result.data {
