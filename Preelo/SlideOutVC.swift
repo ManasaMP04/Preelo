@@ -45,7 +45,6 @@ class SlideOutVC: UIViewController {
     
     @IBAction func settingsButtonTapped(_ sender: Any) {
         
-        
     }
     
     @IBAction func logoutButtonTapped(_ sender: Any) {

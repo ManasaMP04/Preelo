@@ -91,6 +91,12 @@
 		62E3AB9A1EA114340061802F /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB901EA112C40061802F /* Ubuntu-R.ttf */; };
 		62E3AB9B1EA114340061802F /* UbuntuMono-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB921EA112C40061802F /* UbuntuMono-B.ttf */; };
 		62E3AB9C1EA114340061802F /* UbuntuMono-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB941EA112C40061802F /* UbuntuMono-R.ttf */; };
+		86B5F74C1F16926400D29697 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5F74B1F16926400D29697 /* SettingsViewController.swift */; };
+		86B5F74F1F1693EE00D29697 /* AccountSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5F74E1F1693EE00D29697 /* AccountSettingsVC.swift */; };
+		86B5F7511F169B7B00D29697 /* TermAndConditionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5F7501F169B7B00D29697 /* TermAndConditionVC.swift */; };
+		86B5F7531F16A53600D29697 /* FeedBackSupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5F7521F16A53600D29697 /* FeedBackSupportVC.swift */; };
+		86B5F7561F16A96B00D29697 /* DeletAccountAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5F7541F16A96B00D29697 /* DeletAccountAlert.swift */; };
+		86B5F7571F16A96B00D29697 /* DeletAccountAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86B5F7551F16A96B00D29697 /* DeletAccountAlert.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,6 +208,12 @@
 		62E3AB921EA112C40061802F /* UbuntuMono-B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UbuntuMono-B.ttf"; sourceTree = "<group>"; };
 		62E3AB941EA112C40061802F /* UbuntuMono-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UbuntuMono-R.ttf"; sourceTree = "<group>"; };
 		841BFB6489E27734BA4F917F /* Pods-Preelo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preelo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Preelo/Pods-Preelo.release.xcconfig"; sourceTree = "<group>"; };
+		86B5F74B1F16926400D29697 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		86B5F74E1F1693EE00D29697 /* AccountSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsVC.swift; sourceTree = "<group>"; };
+		86B5F7501F169B7B00D29697 /* TermAndConditionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermAndConditionVC.swift; sourceTree = "<group>"; };
+		86B5F7521F16A53600D29697 /* FeedBackSupportVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedBackSupportVC.swift; sourceTree = "<group>"; };
+		86B5F7541F16A96B00D29697 /* DeletAccountAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeletAccountAlert.swift; sourceTree = "<group>"; };
+		86B5F7551F16A96B00D29697 /* DeletAccountAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeletAccountAlert.xib; sourceTree = "<group>"; };
 		A609B1C2189643CD7DF9756B /* Pods_Preelo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Preelo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B609595407FF0E67B98510E1 /* Pods-Preelo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preelo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Preelo/Pods-Preelo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -268,6 +280,7 @@
 				623D5EDE1EA0C4D000389481 /* MessageVC */,
 				623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */,
 				622A8FB41E9D3A1200B34B56 /* ReminderVC.swift */,
+				86B5F74D1F16926F00D29697 /* SettingsVC */,
 				62DAC9E41EABEECA005BB0FF /* selectChildren */,
 				62E3AB7F1EA106CF0061802F /* ChatVC */,
 				62ACD5061EA1292A000B0EDE /* Network */,
@@ -458,6 +471,19 @@
 			name = CustomFont;
 			sourceTree = "<group>";
 		};
+		86B5F74D1F16926F00D29697 /* SettingsVC */ = {
+			isa = PBXGroup;
+			children = (
+				86B5F74B1F16926400D29697 /* SettingsViewController.swift */,
+				86B5F74E1F1693EE00D29697 /* AccountSettingsVC.swift */,
+				86B5F7501F169B7B00D29697 /* TermAndConditionVC.swift */,
+				86B5F7521F16A53600D29697 /* FeedBackSupportVC.swift */,
+				86B5F7541F16A96B00D29697 /* DeletAccountAlert.swift */,
+				86B5F7551F16A96B00D29697 /* DeletAccountAlert.xib */,
+			);
+			name = SettingsVC;
+			sourceTree = "<group>";
+		};
 		9A70AC1F04C3E9FF45C91C49 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -595,6 +621,7 @@
 				62B729EF1EC84387006057DB /* ImageListCell.xib in Resources */,
 				62B729FD1EC862C5006057DB /* SelectedImagesVC.xib in Resources */,
 				62DAC9EC1EABEF04005BB0FF /* SelectChildrenVC.xib in Resources */,
+				86B5F7571F16A96B00D29697 /* DeletAccountAlert.xib in Resources */,
 				62E3AB991EA114340061802F /* Ubuntu-M.ttf in Resources */,
 				62E3AB9A1EA114340061802F /* Ubuntu-R.ttf in Resources */,
 				62E3AB9B1EA114340061802F /* UbuntuMono-B.ttf in Resources */,
@@ -689,6 +716,7 @@
 				629E4E8B1EA29C8800F280AD /* LogInDetail.swift in Sources */,
 				626AB1431EA36461001271D3 /* ChildrenDetail.swift in Sources */,
 				62D064941EA3EEB4007A503F /* addPatient.swift in Sources */,
+				86B5F74C1F16926400D29697 /* SettingsViewController.swift in Sources */,
 				626160F71EC43146002CCCA8 /* RecentMessages.swift in Sources */,
 				622A8FBD1E9D3A1200B34B56 /* ForgotPasswordVC.swift in Sources */,
 				62C6F7F91EB87BCA00D5160A /* RelationPickerView.swift in Sources */,
@@ -699,10 +727,12 @@
 				626AB1451EA365FE001271D3 /* DoctorListRouter.swift in Sources */,
 				622A8FBA1E9D3A1200B34B56 /* CustomNavigationBar.swift in Sources */,
 				622A8FC41E9D3A1200B34B56 /* PatientListVC.swift in Sources */,
+				86B5F7511F169B7B00D29697 /* TermAndConditionVC.swift in Sources */,
 				629E4E931EA2AABB00F280AD /* Patients.swift in Sources */,
 				624B44561EAE79410014D2A2 /* AuthorizationRequestListRouter.swift in Sources */,
 				62B729F91EC8538A006057DB /* SuccessStatus.swift in Sources */,
 				62B729E51EC83E63006057DB /* FromMessageCell.swift in Sources */,
+				86B5F7531F16A53600D29697 /* FeedBackSupportVC.swift in Sources */,
 				626AB13F1EA36350001271D3 /* DoctorList.swift in Sources */,
 				622A8FBF1E9D3A1200B34B56 /* LoginVC.swift in Sources */,
 				62D027DD1EB12E0500A6ACF3 /* SendTextMessageRouter.swift in Sources */,
@@ -717,6 +747,7 @@
 				629E4E891EA29C1600F280AD /* logIn.swift in Sources */,
 				622A8FB91E9D3A1200B34B56 /* AutoLayoutHelper.swift in Sources */,
 				622A8FC81E9D3A1200B34B56 /* ReminderVC.swift in Sources */,
+				86B5F7561F16A96B00D29697 /* DeletAccountAlert.swift in Sources */,
 				622A8FD71E9D6B3800B34B56 /* AlertVC.swift in Sources */,
 				629E4E8F1EA2A41C00F280AD /* ForgotPassword.swift in Sources */,
 				62DAC9EB1EABEF04005BB0FF /* SelectChildrenVC.swift in Sources */,
@@ -724,6 +755,7 @@
 				62B729F21EC84575006057DB /* ImageCell.swift in Sources */,
 				623D5EDD1EA0BAA200389481 /* SlideOutVC.swift in Sources */,
 				622A8FC21E9D3A1200B34B56 /* ParentDetailVC.swift in Sources */,
+				86B5F74F1F1693EE00D29697 /* AccountSettingsVC.swift in Sources */,
 				62B729E91EC83E74006057DB /* ToMessageCell.swift in Sources */,
 				62B729FC1EC862C5006057DB /* SelectedImagesVC.swift in Sources */,
 				62D064961EA3EF00007A503F /* addFamily.swift in Sources */,

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-R.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DeletAccountAlert" customModule="Preelo" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="666"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AkE-ie-2wU" customClass="CustomNavigationBar" customModule="Preelo" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="Ts5-6K-4c8"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myo-bb-dhh">
+                    <rect key="frame" x="30" y="132" width="260" height="140"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P8n-no-oFP">
+                            <rect key="frame" x="34.5" y="90" width="190" height="40"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3sg-UZ-1Di">
+                                    <rect key="frame" x="0.0" y="0.0" width="86.5" height="40"/>
+                                    <color key="backgroundColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <state key="normal" title="YES">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojq-hl-8ux">
+                                    <rect key="frame" x="103.5" y="0.0" width="86.5" height="40"/>
+                                    <color key="backgroundColor" red="0.13725490200000001" green="0.63137254899999995" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <state key="normal" title="NO">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="3sg-UZ-1Di" secondAttribute="bottom" id="LCc-tA-kXA"/>
+                                <constraint firstItem="3sg-UZ-1Di" firstAttribute="leading" secondItem="P8n-no-oFP" secondAttribute="leading" id="R8q-mp-2ek"/>
+                                <constraint firstAttribute="bottom" secondItem="ojq-hl-8ux" secondAttribute="bottom" id="XJ5-kc-fNR"/>
+                                <constraint firstAttribute="trailing" secondItem="ojq-hl-8ux" secondAttribute="trailing" id="bgN-gh-7sN"/>
+                                <constraint firstItem="ojq-hl-8ux" firstAttribute="leading" secondItem="3sg-UZ-1Di" secondAttribute="trailing" constant="17" id="cCT-3B-w5x"/>
+                                <constraint firstItem="3sg-UZ-1Di" firstAttribute="top" secondItem="P8n-no-oFP" secondAttribute="top" id="cbM-tr-usp"/>
+                                <constraint firstItem="ojq-hl-8ux" firstAttribute="height" secondItem="3sg-UZ-1Di" secondAttribute="height" id="jIJ-2z-Ywi"/>
+                                <constraint firstAttribute="height" constant="40" id="k0u-Zx-XRw"/>
+                                <constraint firstItem="ojq-hl-8ux" firstAttribute="top" secondItem="P8n-no-oFP" secondAttribute="top" id="khz-sg-3sJ"/>
+                                <constraint firstAttribute="width" constant="190" id="rzH-Qg-5Ge"/>
+                                <constraint firstItem="ojq-hl-8ux" firstAttribute="width" secondItem="3sg-UZ-1Di" secondAttribute="width" id="yl8-tY-EfF"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsF-nl-B3C">
+                            <rect key="frame" x="65" y="8" width="130" height="20"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mdj-Cg-l4s">
+                                    <rect key="frame" x="23" y="2" width="107" height="16"/>
+                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Delete" translatesAutoresizingMaskIntoConstraints="NO" id="gbI-mn-Ybe">
+                                    <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="18" id="cQq-zP-ewl"/>
+                                        <constraint firstAttribute="width" constant="18" id="mOt-9C-EeP"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="gbI-mn-Ybe" firstAttribute="top" secondItem="wsF-nl-B3C" secondAttribute="top" id="6Rm-ht-a5x"/>
+                                <constraint firstAttribute="height" constant="20" id="96P-Ad-tLz"/>
+                                <constraint firstAttribute="trailing" secondItem="Mdj-Cg-l4s" secondAttribute="trailing" id="AiS-y9-Phx"/>
+                                <constraint firstItem="Mdj-Cg-l4s" firstAttribute="top" secondItem="wsF-nl-B3C" secondAttribute="top" constant="2" id="Cnd-6l-RDQ"/>
+                                <constraint firstItem="Mdj-Cg-l4s" firstAttribute="leading" secondItem="gbI-mn-Ybe" secondAttribute="trailing" constant="5" id="Eyb-zq-kT2"/>
+                                <constraint firstAttribute="bottom" secondItem="Mdj-Cg-l4s" secondAttribute="bottom" constant="2" id="YCa-BR-s1Q"/>
+                                <constraint firstItem="gbI-mn-Ybe" firstAttribute="leading" secondItem="wsF-nl-B3C" secondAttribute="leading" id="pP1-ec-31j"/>
+                                <constraint firstAttribute="width" constant="130" id="vhH-pv-GRH"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure that you want to delet your account. You will lose all your data" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SpR-PL-z7n">
+                            <rect key="frame" x="23" y="43" width="214" height="27"/>
+                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="wsF-nl-B3C" firstAttribute="top" secondItem="myo-bb-dhh" secondAttribute="top" constant="8" id="2K7-jw-UiR"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SpR-PL-z7n" secondAttribute="trailing" constant="21" id="5RU-Hc-gBw"/>
+                        <constraint firstAttribute="height" constant="140" id="8cw-c5-myQ"/>
+                        <constraint firstItem="wsF-nl-B3C" firstAttribute="centerX" secondItem="myo-bb-dhh" secondAttribute="centerX" id="Lge-mq-sq4"/>
+                        <constraint firstItem="SpR-PL-z7n" firstAttribute="top" secondItem="wsF-nl-B3C" secondAttribute="bottom" constant="15" id="T8F-pu-MGu"/>
+                        <constraint firstAttribute="width" constant="260" id="UKN-Rb-bmJ"/>
+                        <constraint firstItem="P8n-no-oFP" firstAttribute="centerX" secondItem="myo-bb-dhh" secondAttribute="centerX" id="eEk-1g-ohe"/>
+                        <constraint firstItem="SpR-PL-z7n" firstAttribute="centerX" secondItem="myo-bb-dhh" secondAttribute="centerX" id="k52-oY-JyF"/>
+                        <constraint firstAttribute="bottom" secondItem="P8n-no-oFP" secondAttribute="bottom" constant="10" id="nsh-ep-q8L"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                            <real key="value" value="7"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="point" keyPath="shadowOffset">
+                            <point key="value" x="8" y="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                            <real key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="AkE-ie-2wU" secondAttribute="trailing" id="1dH-ri-Plj"/>
+                <constraint firstItem="myo-bb-dhh" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="2b0-jU-2FT"/>
+                <constraint firstItem="myo-bb-dhh" firstAttribute="top" secondItem="AkE-ie-2wU" secondAttribute="bottom" constant="72" id="5cP-SD-Bkg"/>
+                <constraint firstItem="AkE-ie-2wU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="CLo-Hc-1OQ"/>
+                <constraint firstItem="AkE-ie-2wU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lBU-Hg-6vn"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="7" y="54"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Delete" width="25" height="25"/>
+    </resources>
+</document>
