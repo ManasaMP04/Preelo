@@ -288,7 +288,6 @@ extension AddPatientVC: CustomNavigationBarDelegate {
 extension AddPatientVC: AlertVCDelegate {
     
     func tappedDoneButton(_ alertVC: AlertVC) {
-        
         dismiss(animated: false, completion: nil)
         
         if let vc = navigationController?.viewControllerWithClass(PatientListVC.self) as?  PatientListVC, let data = patientList {

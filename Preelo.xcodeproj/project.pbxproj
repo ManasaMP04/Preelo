@@ -91,6 +91,7 @@
 		62E3AB9A1EA114340061802F /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB901EA112C40061802F /* Ubuntu-R.ttf */; };
 		62E3AB9B1EA114340061802F /* UbuntuMono-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB921EA112C40061802F /* UbuntuMono-B.ttf */; };
 		62E3AB9C1EA114340061802F /* UbuntuMono-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB941EA112C40061802F /* UbuntuMono-R.ttf */; };
+		862B8BAA1F17FE1100CF7527 /* EditChildNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862B8BA91F17FE1100CF7527 /* EditChildNameVC.swift */; };
 		86B5F74C1F16926400D29697 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5F74B1F16926400D29697 /* SettingsViewController.swift */; };
 		86B5F74F1F1693EE00D29697 /* AccountSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5F74E1F1693EE00D29697 /* AccountSettingsVC.swift */; };
 		86B5F7511F169B7B00D29697 /* TermAndConditionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5F7501F169B7B00D29697 /* TermAndConditionVC.swift */; };
@@ -208,6 +209,7 @@
 		62E3AB921EA112C40061802F /* UbuntuMono-B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UbuntuMono-B.ttf"; sourceTree = "<group>"; };
 		62E3AB941EA112C40061802F /* UbuntuMono-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UbuntuMono-R.ttf"; sourceTree = "<group>"; };
 		841BFB6489E27734BA4F917F /* Pods-Preelo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preelo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Preelo/Pods-Preelo.release.xcconfig"; sourceTree = "<group>"; };
+		862B8BA91F17FE1100CF7527 /* EditChildNameVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditChildNameVC.swift; sourceTree = "<group>"; };
 		86B5F74B1F16926400D29697 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		86B5F74E1F1693EE00D29697 /* AccountSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsVC.swift; sourceTree = "<group>"; };
 		86B5F7501F169B7B00D29697 /* TermAndConditionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermAndConditionVC.swift; sourceTree = "<group>"; };
@@ -475,6 +477,7 @@
 			isa = PBXGroup;
 			children = (
 				86B5F74B1F16926400D29697 /* SettingsViewController.swift */,
+				862B8BA91F17FE1100CF7527 /* EditChildNameVC.swift */,
 				86B5F74E1F1693EE00D29697 /* AccountSettingsVC.swift */,
 				86B5F7501F169B7B00D29697 /* TermAndConditionVC.swift */,
 				86B5F7521F16A53600D29697 /* FeedBackSupportVC.swift */,
@@ -767,6 +770,7 @@
 				62D432811EA3C08F005FA616 /* LogoutRouter.swift in Sources */,
 				622A8FCA1E9D3A1200B34B56 /* TextValidator.swift in Sources */,
 				626160F51EC42E82002CCCA8 /* ChannelDetail.swift in Sources */,
+				862B8BAA1F17FE1100CF7527 /* EditChildNameVC.swift in Sources */,
 				62ACD5081EA129BF000B0EDE /* LogInRouter.swift in Sources */,
 				629E4E951EA2AB7300F280AD /* PatientList.swift in Sources */,
 				62DAC9F01EABFD58005BB0FF /* AuthorizeRequest.swift in Sources */,

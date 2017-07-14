@@ -39,6 +39,20 @@ class StaticContentFile: NSObject {
         }
     }
     
+    static func setButtonBordeandFont(_ button: UIButton, borderNeeded: Bool = true){
+    
+        button.layer.borderColor = UIColor.colorWithHex(0x3CCACC).cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = button.frame.size.width / 14
+    
+    }
+    
+    
+    
+    
+    
+    
+    
     static func setFontForTF(_ tf: UITextField, autoCaps: Bool = true) {
         
         tf.textColor              = UIColor(white: 0.2, alpha: 1.0)

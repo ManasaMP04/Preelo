@@ -15,11 +15,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DeletAccountAlert" customModule="Preelo" customModuleProvider="target">
             <connections>
+                <outlet property="noButton" destination="ojq-hl-8ux" id="Dzj-a6-F3Z"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="yesButton" destination="3sg-UZ-1Di" id="e9z-Zd-zv2"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+        <view clearsContextBeforeDrawing="NO" alpha="0.90000000000000002" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="666"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -31,10 +33,10 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myo-bb-dhh">
-                    <rect key="frame" x="30" y="132" width="260" height="140"/>
+                    <rect key="frame" x="20" y="132" width="280" height="160"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P8n-no-oFP">
-                            <rect key="frame" x="34.5" y="90" width="190" height="40"/>
+                            <rect key="frame" x="44.5" y="110" width="190" height="40"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3sg-UZ-1Di">
                                     <rect key="frame" x="0.0" y="0.0" width="86.5" height="40"/>
@@ -43,6 +45,9 @@
                                     <state key="normal" title="YES">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="yssButtonAction:" destination="-1" eventType="touchUpInside" id="Tsi-1S-wj2"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojq-hl-8ux">
                                     <rect key="frame" x="103.5" y="0.0" width="86.5" height="40"/>
@@ -51,6 +56,9 @@
                                     <state key="normal" title="NO">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="noButtonAction:" destination="-1" eventType="touchUpInside" id="121-D0-9QP"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -69,7 +77,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsF-nl-B3C">
-                            <rect key="frame" x="65" y="8" width="130" height="20"/>
+                            <rect key="frame" x="75" y="8" width="130" height="20"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mdj-Cg-l4s">
                                     <rect key="frame" x="23" y="2" width="107" height="16"/>
@@ -98,7 +106,7 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure that you want to delet your account. You will lose all your data" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SpR-PL-z7n">
-                            <rect key="frame" x="23" y="43" width="214" height="27"/>
+                            <rect key="frame" x="29" y="48" width="223" height="27"/>
                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -108,10 +116,10 @@
                     <constraints>
                         <constraint firstItem="wsF-nl-B3C" firstAttribute="top" secondItem="myo-bb-dhh" secondAttribute="top" constant="8" id="2K7-jw-UiR"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SpR-PL-z7n" secondAttribute="trailing" constant="21" id="5RU-Hc-gBw"/>
-                        <constraint firstAttribute="height" constant="140" id="8cw-c5-myQ"/>
+                        <constraint firstAttribute="height" constant="160" id="8cw-c5-myQ"/>
                         <constraint firstItem="wsF-nl-B3C" firstAttribute="centerX" secondItem="myo-bb-dhh" secondAttribute="centerX" id="Lge-mq-sq4"/>
-                        <constraint firstItem="SpR-PL-z7n" firstAttribute="top" secondItem="wsF-nl-B3C" secondAttribute="bottom" constant="15" id="T8F-pu-MGu"/>
-                        <constraint firstAttribute="width" constant="260" id="UKN-Rb-bmJ"/>
+                        <constraint firstItem="SpR-PL-z7n" firstAttribute="top" secondItem="wsF-nl-B3C" secondAttribute="bottom" constant="20" id="T8F-pu-MGu"/>
+                        <constraint firstAttribute="width" constant="280" id="UKN-Rb-bmJ"/>
                         <constraint firstItem="P8n-no-oFP" firstAttribute="centerX" secondItem="myo-bb-dhh" secondAttribute="centerX" id="eEk-1g-ohe"/>
                         <constraint firstItem="SpR-PL-z7n" firstAttribute="centerX" secondItem="myo-bb-dhh" secondAttribute="centerX" id="k52-oY-JyF"/>
                         <constraint firstAttribute="bottom" secondItem="P8n-no-oFP" secondAttribute="bottom" constant="10" id="nsh-ep-q8L"/>
@@ -132,7 +140,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59903169014084512" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="AkE-ie-2wU" secondAttribute="trailing" id="1dH-ri-Plj"/>
                 <constraint firstItem="myo-bb-dhh" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="2b0-jU-2FT"/>

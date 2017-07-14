@@ -53,6 +53,7 @@ class LoginDetailVC: UIViewController {
         
         _ = navigationController?.popViewController(animated: true)
     }
+    
     @IBAction func gestureIsTapped(_ sender: Any) {
     
         view.endEditing(true)

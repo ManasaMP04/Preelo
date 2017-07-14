@@ -12,12 +12,14 @@ class TermAndConditionVC: UIViewController {
 
     
     @IBOutlet weak fileprivate var customNavigation: CustomNavigationBar!
-    
+    @IBOutlet weak var goBackButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    self.setup()
+    
+        StaticContentFile.setButtonFont(goBackButton, backgroundColorNeeed: false)
+        self.setup()
     }
 
     override func didReceiveMemoryWarning() {

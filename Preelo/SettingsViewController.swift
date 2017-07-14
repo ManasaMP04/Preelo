@@ -10,10 +10,26 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    
+    @IBOutlet weak fileprivate var customNavigationBar: CustomNavigationBar!
+    
+    @IBOutlet weak var deletAccountButton: UIButton!
+    @IBOutlet weak var feedBackSupportButton: UIButton!
+    @IBOutlet weak var termAndConditionButton: UIButton!
+    
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    
+        // Do any additional setup after loading the view.
+        StaticContentFile.setButtonFont(deletAccountButton)
+        StaticContentFile.setButtonFont(feedBackSupportButton, backgroundColorNeeed: false)
+        StaticContentFile.setButtonFont(termAndConditionButton, backgroundColorNeeed: false)
+        
+        self.setup()
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,5 +47,51 @@ class SettingsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    @IBAction func feedBackSupportButtonAction(_ sender: Any) {
+        
+    }
+    
+    
+    @IBAction func termAndConditionButtonAction(_ sender: Any) {
+    }
+    
+    @IBAction func deleteMyAccountButtonAction(_ sender: Any) {
+        
+        let deletAccount = DeletAccountAlert("test")
+        deletAccount.delegate = self
+        deletAccount.modalPresentationStyle=UIModalPresentationStyle.overCurrentContext
+        self.present(deletAccount, animated: true, completion: nil)
+    }
+    
+    
+    
+    
+    fileprivate func setup(){
+        
+        customNavigationBar.setTitle("Settings")
+        
+    }
 }
+
+
+
+
+
+
+
+//MARK:- AddPatientVCDelegate
+
+extension SettingsViewController:DeletAccountDelegate  {
+
+    func tappedNoButton(_ deletAccountVC: DeletAccountAlert){
+        
+        
+        dismiss(animated: false, completion: nil)
+        
+    
+    }
+}
+
+
+

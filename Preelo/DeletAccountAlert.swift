@@ -8,8 +8,28 @@
 
 import UIKit
 
+
+protocol DeletAccountDelegate:class{
+
+    func tappedNoButton(_ deletAccountVC: DeletAccountAlert)
+}
+
+
 class DeletAccountAlert: UIViewController {
 
+    @IBOutlet weak var yesButton: UIButton!
+    @IBOutlet weak var noButton: UIButton!
+   
+    weak var delegate:DeletAccountDelegate?
+    
+    required init?(coder aDecoder:NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    init (_ title: String) {
+        super.init(nibName: "DeletAccountAlert", bundle: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,5 +51,19 @@ class DeletAccountAlert: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    @IBAction func yssButtonAction(_ sender: Any) {
+   
+    
+    }
+
+    @IBAction func noButtonAction(_ sender: Any) {
+    delegate?.tappedNoButton(self)
+    
+    }
+
+
+
+
+
 
 }

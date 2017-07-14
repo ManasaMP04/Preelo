@@ -13,12 +13,14 @@ class FeedBackSupportVC: UIViewController {
     
     @IBOutlet weak fileprivate var customNavigationBar: CustomNavigationBar!
 
+    @IBOutlet weak var sendButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    self.setup()
+    StaticContentFile.setButtonFont(sendButton)
+        self.setup()
     
     }
 

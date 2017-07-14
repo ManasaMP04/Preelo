@@ -10,16 +10,31 @@ import UIKit
 
 class AccountSettingsVC: UIViewController {
 
-   
-    @IBOutlet weak fileprivate var customNavigationBar: CustomNavigationBar!
+    enum Selection: Int {
+        
+        case personalInfo = 0
+        case childrenListInfo
+    }
+
     
+    
+    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var discardChangeButton: UIButton!
+    @IBOutlet weak var personalInfoButton: UIButton!
+    @IBOutlet weak var childrenInfoButton: UIButton!
+    fileprivate var selection: Selection = .childrenListInfo
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    self.setup()
+  StaticContentFile.setButtonFont(saveButton)
+        StaticContentFile.setButtonFont(discardChangeButton, backgroundColorNeeed: false)
+        
+        
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,43 +54,39 @@ class AccountSettingsVC: UIViewController {
     */
 
 
-    @IBAction func feedBackSupportButtonAction(_ sender: Any) {
-    
+    @IBAction func PersonalBUttonAction(_ sender: Any) {
+    self.personalButtonSelected(true)
     }
+   
+    @IBAction func childernListInfoButtonAction(_ sender: Any) {
+        self.personalButtonSelected(false)
 
-
-    @IBAction func termAndConditionButtonAction(_ sender: Any) {
-    }
-
-    @IBAction func deleteMyAccountButtonAction(_ sender: Any) {
-    }
-
-
-    
-    
-    fileprivate func setup(){
-    
-    customNavigationBar.setTitle("Account Settings")
-    
     }
     
     
-
-}
-
-
-
-
-extension AccountSettingsVC{
-
     
+    
+    
+    fileprivate func personalButtonSelected(_ status: Bool) {
+        
+        personalInfoButton.isSelected = status
+        childrenInfoButton.isSelected       = !status
+        selection = status ? .personalInfo : .childrenListInfo
+        personalInfoButton.backgroundColor =  status ? UIColor.clear : UIColor.colorWithHex(0xE6FAFE)
+        childrenInfoButton.backgroundColor = status ? UIColor.colorWithHex(0xE6FAFE) : UIColor.clear
+        childrenInfoButton.titleLabel?.textColor = status ? UIColor.colorWithHex(0xA7A9AC) : UIColor.colorWithHex(0x40AABB)
+        personalInfoButton.titleLabel?.textColor = status ? UIColor.colorWithHex(0x40AABB) : UIColor.colorWithHex(0xA7A9AC)
+        childrenInfoButton.titleLabel?.font = status ? UIFont(name: "Ubuntu", size: 12)! : UIFont(name: "Ubuntu-Bold", size: 12)!
+        personalInfoButton.titleLabel?.font = status ? UIFont(name: "Ubuntu-Bold", size: 12)! : UIFont(name: "Ubuntu", size: 12)!
+        
+           }
+
 
 
 
 
 
 }
-
 
 
 
