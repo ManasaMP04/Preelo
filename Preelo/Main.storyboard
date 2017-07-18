@@ -11,6 +11,9 @@
         <array key="Ubuntu-B.ttf">
             <string>Ubuntu-Bold</string>
         </array>
+        <array key="Ubuntu-L.ttf">
+            <string>Ubuntu-Light</string>
+        </array>
         <array key="Ubuntu-M.ttf">
             <string>Ubuntu-Medium</string>
         </array>
@@ -1067,7 +1070,7 @@
                                 </state>
                                 <connections>
                                     <action selector="termAndConditionButtonAction:" destination="Phg-2b-vcH" eventType="touchUpInside" id="OZI-Ke-rVy"/>
-                                    <segue destination="kaj-h6-P09" kind="show" id="Bjy-qW-1DG"/>
+                                    <segue destination="kaj-h6-P09" kind="show" id="2Mo-6m-BLu"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1197,7 +1200,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sp9-p9-oqb">
-                                <rect key="frame" x="30" y="355" width="260" height="45"/>
+                                <rect key="frame" x="30" y="385" width="260" height="45"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="peP-rJ-2u9"/>
@@ -1209,24 +1212,27 @@
                                     <action selector="goBackButtonTapped:" destination="kaj-h6-P09" eventType="touchUpInside" id="Vzg-38-3Yf"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="A7a-i8-hNA">
-                                <rect key="frame" x="30" y="90" width="260" height="235"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kh0-hk-fd5">
+                                <rect key="frame" x="16" y="74" width="288" height="297"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <string key="text">The messages shared and the images uploaded in this app may not be immediately available to the doctor for review. Please understand the doctors might be attending other patients and this messages could possibly read at later time (24-48 hours), if
+this is an important message and need urgent response, send the message and call the doctor to inform about the message. This app is mainly focussed on delivering the images so that the doctor can review and provide initial feedback. This app is not
+intended for diagnosis or prescription. Please agree to the above terms to continue </string>
+                                <color key="textColor" red="0.57647058819999997" green="0.58431372550000005" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="L7j-Dx-6q1" secondAttribute="trailing" id="5UT-EO-KxN"/>
-                            <constraint firstItem="sp9-p9-oqb" firstAttribute="top" secondItem="A7a-i8-hNA" secondAttribute="bottom" constant="30" id="9WV-D0-mdN"/>
-                            <constraint firstItem="vhl-NC-Sg8" firstAttribute="top" secondItem="sp9-p9-oqb" secondAttribute="bottom" constant="80" id="AbJ-QT-cFI"/>
-                            <constraint firstItem="A7a-i8-hNA" firstAttribute="top" secondItem="L7j-Dx-6q1" secondAttribute="bottom" constant="30" id="CXJ-g9-Txf"/>
-                            <constraint firstItem="A7a-i8-hNA" firstAttribute="leading" secondItem="gEj-g0-IO8" secondAttribute="leading" constant="30" id="QXJ-vK-Zbx"/>
-                            <constraint firstAttribute="trailing" secondItem="A7a-i8-hNA" secondAttribute="trailing" constant="30" id="WwB-zZ-xZT"/>
+                            <constraint firstItem="vhl-NC-Sg8" firstAttribute="top" secondItem="sp9-p9-oqb" secondAttribute="bottom" constant="50" id="AbJ-QT-cFI"/>
+                            <constraint firstItem="kh0-hk-fd5" firstAttribute="leading" secondItem="gEj-g0-IO8" secondAttribute="leading" constant="16" id="M2f-4Z-axF"/>
+                            <constraint firstItem="kh0-hk-fd5" firstAttribute="top" secondItem="L7j-Dx-6q1" secondAttribute="bottom" constant="14" id="Rv1-nB-K7d"/>
+                            <constraint firstItem="sp9-p9-oqb" firstAttribute="top" secondItem="kh0-hk-fd5" secondAttribute="bottom" constant="14" id="Su9-e2-MWP"/>
                             <constraint firstAttribute="trailing" secondItem="sp9-p9-oqb" secondAttribute="trailing" constant="30" id="bzf-oi-HFS"/>
                             <constraint firstItem="sp9-p9-oqb" firstAttribute="leading" secondItem="gEj-g0-IO8" secondAttribute="leading" constant="30" id="cmk-6p-v4C"/>
+                            <constraint firstAttribute="trailing" secondItem="kh0-hk-fd5" secondAttribute="trailing" constant="16" id="pte-S5-Bya"/>
                             <constraint firstItem="L7j-Dx-6q1" firstAttribute="top" secondItem="gEj-g0-IO8" secondAttribute="top" id="r1e-En-2kb"/>
                             <constraint firstItem="L7j-Dx-6q1" firstAttribute="leading" secondItem="gEj-g0-IO8" secondAttribute="leading" id="uaM-XZ-Vcz"/>
                         </constraints>
@@ -1238,7 +1244,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gyi-Jk-eHO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5057" y="-1031"/>
+            <point key="canvasLocation" x="5056.875" y="-1031.25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0ig-aa-N4D">

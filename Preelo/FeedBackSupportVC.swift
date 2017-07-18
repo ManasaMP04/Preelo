@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+
 
 class FeedBackSupportVC: UIViewController {
     
@@ -31,15 +33,19 @@ class FeedBackSupportVC: UIViewController {
     
     @IBAction func sendButtonAction(_ sender: Any) {
     
-    
+        let subject = self.subject.text
+        let message = self.message.text
+        Alamofire.request(SettingRouter.post_feedbackSupport(subject!, message!))
+            .responseObject { (response: DataResponse<SuccessStatus>) in
+                if let result = response.result.value, result.status == "SUCCESS" {
+                }
+        }
+
+        
+        
     
     
     }
-  
-    
-    
-    
-    
     
     fileprivate func setup(){
         

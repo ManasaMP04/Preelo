@@ -41,7 +41,7 @@ class SettingsViewController: UIViewController {
     
     @IBAction func termAndConditionButtonAction(_ sender: Any) {
     
-    
+       
     }
     
     @IBAction func deleteMyAccountButtonAction(_ sender: Any) {

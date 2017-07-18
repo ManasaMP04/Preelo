@@ -49,7 +49,7 @@ class DeletAccountAlert: UIViewController {
     @IBAction func yssButtonAction(_ sender: Any) {
         
         activityIndicator?.startAnimating()
-        Alamofire.request(AccounrDeleteRouter.post())
+        Alamofire.request(SettingRouter.post_accountDelet())
             .responseObject { (response: DataResponse<SuccessStatus>) in
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
