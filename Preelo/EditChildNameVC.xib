@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-B.ttf">
+            <string>Ubuntu-Bold</string>
+        </array>
+        <array key="Ubuntu-R.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditChildNameVC" customModule="Preelo" customModuleProvider="target">
+            <connections>
+                <outlet property="cancelButton" destination="ZSk-dJ-NgX" id="vwf-zH-2Jy"/>
+                <outlet property="childrenFirstName" destination="L0a-Ih-ZOL" id="0sF-Cb-Zyw"/>
+                <outlet property="childrenLastName" destination="YQO-fn-KQj" id="J4u-bP-nZl"/>
+                <outlet property="confirmChangeButton" destination="4iA-ew-y5U" id="FEv-FP-I4x"/>
+                <outlet property="customNavigation" destination="4Zg-eI-Rzo" id="1Qn-eb-w9n"/>
+                <outlet property="scrollView" destination="8M3-qg-kn4" id="tER-Td-eKk"/>
+                <outlet property="view" destination="Nve-25-DaK" id="MUs-8j-fub"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Nve-25-DaK">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Zg-eI-Rzo" customClass="CustomNavigationBar" customModule="Preelo" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="TDa-ze-H8y"/>
+                    </constraints>
+                </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8M3-qg-kn4">
+                    <rect key="frame" x="0.0" y="60" width="375" height="607"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q9W-cZ-41v">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4iA-ew-y5U">
+                                    <rect key="frame" x="30" y="429" width="315" height="45"/>
+                                    <color key="backgroundColor" red="0.81389047489999999" green="0.82780064170000001" blue="0.87997895079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="45" id="jpL-Vw-ly7"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="11"/>
+                                    <state key="normal" title="CONFIRM CHANGE">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="confirmChangesButtonTapped:" destination="-1" eventType="touchUpInside" id="vfY-cg-t09"/>
+                                    </connections>
+                                </button>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="CHILDEREN FRIST NAME" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="L0a-Ih-ZOL" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
+                                    <rect key="frame" x="30" y="30" width="315" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="noi-ej-mlo"/>
+                                    </constraints>
+                                    <color key="textColor" red="0.50196078430000002" green="0.50980392159999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
+                                </textField>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="CHILDEREN LAST NAME" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="YQO-fn-KQj" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
+                                    <rect key="frame" x="30" y="86" width="315" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="4W8-RB-gCV"/>
+                                    </constraints>
+                                    <color key="textColor" red="0.50196078430000002" green="0.50980392159999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZSk-dJ-NgX">
+                                    <rect key="frame" x="30" y="494" width="315" height="45"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="45" id="lAx-t5-aup"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="11"/>
+                                    <state key="normal" title="CANCEL">
+                                        <color key="titleColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="cancelButtonTapped:" destination="-1" eventType="touchUpInside" id="5GX-Lz-cag"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstItem="ZSk-dJ-NgX" firstAttribute="top" secondItem="4iA-ew-y5U" secondAttribute="bottom" constant="20" id="8qt-p7-o6u"/>
+                                <constraint firstItem="YQO-fn-KQj" firstAttribute="top" secondItem="L0a-Ih-ZOL" secondAttribute="bottom" constant="16" id="BW8-my-Wfm"/>
+                                <constraint firstItem="ZSk-dJ-NgX" firstAttribute="leading" secondItem="Q9W-cZ-41v" secondAttribute="leading" constant="30" id="Fjd-XM-40h"/>
+                                <constraint firstItem="4iA-ew-y5U" firstAttribute="leading" secondItem="Q9W-cZ-41v" secondAttribute="leading" constant="30" id="W25-Lj-0kx"/>
+                                <constraint firstAttribute="trailing" secondItem="L0a-Ih-ZOL" secondAttribute="trailing" constant="30" id="WYg-e0-2g9"/>
+                                <constraint firstAttribute="trailing" secondItem="4iA-ew-y5U" secondAttribute="trailing" constant="30" id="XJS-id-FT8"/>
+                                <constraint firstItem="L0a-Ih-ZOL" firstAttribute="leading" secondItem="Q9W-cZ-41v" secondAttribute="leading" constant="30" id="hlR-ZD-Ugi"/>
+                                <constraint firstAttribute="trailing" secondItem="ZSk-dJ-NgX" secondAttribute="trailing" constant="30" id="nSH-Fr-m4A"/>
+                                <constraint firstItem="YQO-fn-KQj" firstAttribute="leading" secondItem="Q9W-cZ-41v" secondAttribute="leading" constant="30" id="s6p-Qy-6NY"/>
+                                <constraint firstAttribute="trailing" secondItem="YQO-fn-KQj" secondAttribute="trailing" constant="30" id="wEP-n6-LAV"/>
+                                <constraint firstAttribute="bottom" secondItem="ZSk-dJ-NgX" secondAttribute="bottom" constant="68" id="wQv-DI-xkZ"/>
+                                <constraint firstItem="L0a-Ih-ZOL" firstAttribute="top" secondItem="Q9W-cZ-41v" secondAttribute="top" constant="30" id="zJo-LR-hex"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Q9W-cZ-41v" firstAttribute="height" secondItem="8M3-qg-kn4" secondAttribute="height" priority="999" id="9rg-4U-9U5"/>
+                        <constraint firstItem="Q9W-cZ-41v" firstAttribute="leading" secondItem="8M3-qg-kn4" secondAttribute="leading" id="CzO-Vn-goq"/>
+                        <constraint firstAttribute="bottom" secondItem="Q9W-cZ-41v" secondAttribute="bottom" id="ekL-Ea-rve"/>
+                        <constraint firstItem="Q9W-cZ-41v" firstAttribute="top" secondItem="8M3-qg-kn4" secondAttribute="top" id="er1-nS-Fkj"/>
+                        <constraint firstItem="Q9W-cZ-41v" firstAttribute="width" secondItem="8M3-qg-kn4" secondAttribute="width" id="kQg-AX-h6K"/>
+                        <constraint firstAttribute="trailing" secondItem="Q9W-cZ-41v" secondAttribute="trailing" id="kdJ-fb-35h"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="8M3-qg-kn4" secondAttribute="trailing" id="2uk-mI-NmF"/>
+                <constraint firstAttribute="trailing" secondItem="4Zg-eI-Rzo" secondAttribute="trailing" id="Aqj-Hw-52R"/>
+                <constraint firstItem="8M3-qg-kn4" firstAttribute="leading" secondItem="Nve-25-DaK" secondAttribute="leading" id="HIT-60-5AF"/>
+                <constraint firstItem="4Zg-eI-Rzo" firstAttribute="leading" secondItem="Nve-25-DaK" secondAttribute="leading" id="OFY-I2-cLg"/>
+                <constraint firstItem="4Zg-eI-Rzo" firstAttribute="top" secondItem="Nve-25-DaK" secondAttribute="top" id="iZF-Zm-3nc"/>
+                <constraint firstItem="8M3-qg-kn4" firstAttribute="top" secondItem="4Zg-eI-Rzo" secondAttribute="bottom" id="pZf-aa-j92"/>
+                <constraint firstAttribute="bottom" secondItem="8M3-qg-kn4" secondAttribute="bottom" id="tFK-nH-2jX"/>
+            </constraints>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="ZzR-HT-sJv" appends="YES" id="Xld-3L-AfV"/>
+                <outletCollection property="gestureRecognizers" destination="ZzR-HT-sJv" appends="YES" id="XhL-nE-dIy"/>
+            </connections>
+        </view>
+        <tapGestureRecognizer cancelsTouchesInView="NO" id="ZzR-HT-sJv">
+            <connections>
+                <action selector="gestureIsTapped:" destination="-1" id="HqI-XK-uXm"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+</document>

@@ -18,7 +18,7 @@ class StaticContentFile: NSObject {
     static let screenHeight     = screenBounds.size.height
     static let plistStorageManager = PlistManager()
     
-    static func setButtonFont(_ button: UIButton, backgroundColorNeeed: Bool = true, borderNeeded: Bool = true) {
+    static func setButtonFont(_ button: UIButton, backgroundColorNeeed: Bool = true, borderNeeded: Bool = true, shadowNeeded: Bool = true) {
         
         button.backgroundColor = backgroundColorNeeed ? UIColor.colorWithHex(0x3DB0BB) : UIColor.clear
         
@@ -34,24 +34,14 @@ class StaticContentFile: NSObject {
         
         if backgroundColorNeeed {
             
-            button.addShadowWithColor(UIColor.black, offset: CGSize(width: 0, height: 4), opacity: 0.4, radius: 5)
+            if shadowNeeded {
+                
+                button.addShadowWithColor(UIColor.black, offset: CGSize(width: 0, height: 4), opacity: 0.4, radius: 5)
+            }
+            
             button.titleLabel?.textColor = UIColor.white
         }
     }
-    
-    static func setButtonBordeandFont(_ button: UIButton, borderNeeded: Bool = true){
-    
-        button.layer.borderColor = UIColor.colorWithHex(0x3CCACC).cgColor
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = button.frame.size.width / 14
-    
-    }
-    
-    
-    
-    
-    
-    
     
     static func setFontForTF(_ tf: UITextField, autoCaps: Bool = true) {
         

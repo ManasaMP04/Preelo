@@ -184,7 +184,15 @@ extension PatientListVC {
     
     fileprivate func setup() {
         
-        view.bringSubview(toFront: addPatientButton)
+        if StaticContentFile.isDoctorLogIn() {
+            
+            view.bringSubview(toFront: addPatientButton)
+             addPatientButton.isHidden = false
+        } else {
+        
+            addPatientButton.isHidden = true
+        }
+        
         StaticContentFile.isDoctorLogIn() ? customNavigationBar.setTitle("Patients") : customNavigationBar.setTitle("Doctors")
         customNavigationBar.delegate = self
         navigationController?.navigationBar.isHidden = true

@@ -9,15 +9,26 @@
 import UIKit
 
 class EditChildNameVC: UIViewController {
-
+    
     @IBOutlet weak var confirmChangeButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var childrenFirstName: FloatingTextField!
     @IBOutlet weak var childrenLastName: FloatingTextField!
     @IBOutlet weak var scrollView: UIScrollView!
-
     @IBOutlet weak var customNavigation: CustomNavigationBar!
     
+    fileprivate var childDetail : Any?
+    
+    init (_ childDetail: Any) {
+        
+        self.childDetail = childDetail
+        
+        super.init(nibName: "EditChildNameVC", bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     fileprivate var scrollViewBottomInset : CGFloat! {
         
@@ -29,43 +40,43 @@ class EditChildNameVC: UIViewController {
         }
     }
     
-
-    
     override func viewDidLoad() {
         
-    super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    self.setup()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        super.viewDidLoad()
+        
+        self.setup()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
     }
-    */
-
+    
     @IBAction func gestureIsTapped(_ sender: Any) {
         
         view.endEditing(true)
     }
-
-
-
+    
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+    
+        view.endEditing(true)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func confirmChangesButtonTapped(_ sender: Any) {
+        
+        view.endEditing(true)
+        
+        if let vc = navigationController?.viewControllerWithClass(AccountSettingsVC.self) as?  AccountSettingsVC {
+        
+            vc.refresh()
+        }
+    }
 }
 
 extension EditChildNameVC{
     fileprivate func setup() {
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
@@ -74,24 +85,16 @@ extension EditChildNameVC{
         
         
         customNavigation.setTitle("Edit Child Name")
-
-        childrenFirstName.textFieldDelegate = self as? PreeloTextFieldDelegate
-        childrenLastName.textFieldDelegate = self as? PreeloTextFieldDelegate
-       // childrenFirstName.setLeftViewIcon("UserName")
-       // childrenLastName.setLeftViewIcon("Password")
+        customNavigation.delegate = self
+        childrenFirstName.textFieldDelegate = self
+        childrenLastName.textFieldDelegate = self
         StaticContentFile.setFontForTF(childrenFirstName, autoCaps: false)
         StaticContentFile.setFontForTF(childrenLastName, autoCaps: false)
         StaticContentFile.setButtonFont(confirmChangeButton)
         StaticContentFile.setButtonFont(cancelButton, backgroundColorNeeed: false)
-       
-    
-    
-    
-    
     }
-
+    
 }
-
 
 //MARK:- KeyBoard delegate methods
 
@@ -109,13 +112,26 @@ extension EditChildNameVC {
         }
     }
     
+    @objc fileprivate func keyboardWillHide(_ notification: Notification) {
         
-        @objc fileprivate func keyboardWillHide(_ notification: Notification) {
-            
-            self.scrollViewBottomInset = 0
-        }
+        self.scrollViewBottomInset = 0
+    }
 }
 
+extension EditChildNameVC:CustomNavigationBarDelegate  {
+    
+    func tappedBackButtonFromVC(_ customView: CustomNavigationBar){
+        
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+
+extension EditChildNameVC: PreeloTextFieldDelegate {
+
+
+
+
+}
 
 
 

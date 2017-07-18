@@ -31,4 +31,12 @@ enum NetworkURL {
     static let patientAuthRequest           = "doctor/authRequests"
     static let getMessages                  = "messages"
     static let markedRead                   = "messages/markread"
+    static let feedback                     = "user/feedback"
+    static let partentdelet                 = "parent/account/delete"
+    static let patientedit                  = "patient/edit"
+    static let doctorunlock                 = "doctor/unblock"
+    static let doctorblock                  = "doctor/block"
+    
+    
+    
 }

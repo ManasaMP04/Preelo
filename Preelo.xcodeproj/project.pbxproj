@@ -29,7 +29,6 @@
 		622A8FC21E9D3A1200B34B56 /* ParentDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FAE1E9D3A1200B34B56 /* ParentDetailVC.swift */; };
 		622A8FC41E9D3A1200B34B56 /* PatientListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB01E9D3A1200B34B56 /* PatientListVC.swift */; };
 		622A8FC71E9D3A1200B34B56 /* PreeloTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB31E9D3A1200B34B56 /* PreeloTextField.swift */; };
-		622A8FC81E9D3A1200B34B56 /* ReminderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB41E9D3A1200B34B56 /* ReminderVC.swift */; };
 		622A8FC91E9D3A1200B34B56 /* StaticContentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB51E9D3A1200B34B56 /* StaticContentFile.swift */; };
 		622A8FCA1E9D3A1200B34B56 /* TextValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FB61E9D3A1200B34B56 /* TextValidator.swift */; };
 		622A8FCD1E9D500C00B34B56 /* ParentDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A8FCB1E9D500C00B34B56 /* ParentDetailCell.swift */; };
@@ -91,7 +90,9 @@
 		62E3AB9A1EA114340061802F /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB901EA112C40061802F /* Ubuntu-R.ttf */; };
 		62E3AB9B1EA114340061802F /* UbuntuMono-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB921EA112C40061802F /* UbuntuMono-B.ttf */; };
 		62E3AB9C1EA114340061802F /* UbuntuMono-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB941EA112C40061802F /* UbuntuMono-R.ttf */; };
+		8624AF421F1A203500E2FEFD /* EditChildNameVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8624AF411F1A203500E2FEFD /* EditChildNameVC.xib */; };
 		862B8BAA1F17FE1100CF7527 /* EditChildNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862B8BA91F17FE1100CF7527 /* EditChildNameVC.swift */; };
+		865933E21F1E57050088064F /* AccountDeleteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865933E11F1E57050088064F /* AccountDeleteRouter.swift */; };
 		86B5F74C1F16926400D29697 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5F74B1F16926400D29697 /* SettingsViewController.swift */; };
 		86B5F74F1F1693EE00D29697 /* AccountSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5F74E1F1693EE00D29697 /* AccountSettingsVC.swift */; };
 		86B5F7511F169B7B00D29697 /* TermAndConditionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5F7501F169B7B00D29697 /* TermAndConditionVC.swift */; };
@@ -145,7 +146,6 @@
 		622A8FAE1E9D3A1200B34B56 /* ParentDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentDetailVC.swift; sourceTree = "<group>"; };
 		622A8FB01E9D3A1200B34B56 /* PatientListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientListVC.swift; sourceTree = "<group>"; };
 		622A8FB31E9D3A1200B34B56 /* PreeloTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreeloTextField.swift; sourceTree = "<group>"; };
-		622A8FB41E9D3A1200B34B56 /* ReminderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderVC.swift; sourceTree = "<group>"; };
 		622A8FB51E9D3A1200B34B56 /* StaticContentFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticContentFile.swift; sourceTree = "<group>"; };
 		622A8FB61E9D3A1200B34B56 /* TextValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextValidator.swift; sourceTree = "<group>"; };
 		622A8FCB1E9D500C00B34B56 /* ParentDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentDetailCell.swift; sourceTree = "<group>"; };
@@ -209,7 +209,9 @@
 		62E3AB921EA112C40061802F /* UbuntuMono-B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UbuntuMono-B.ttf"; sourceTree = "<group>"; };
 		62E3AB941EA112C40061802F /* UbuntuMono-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UbuntuMono-R.ttf"; sourceTree = "<group>"; };
 		841BFB6489E27734BA4F917F /* Pods-Preelo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preelo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Preelo/Pods-Preelo.release.xcconfig"; sourceTree = "<group>"; };
+		8624AF411F1A203500E2FEFD /* EditChildNameVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditChildNameVC.xib; sourceTree = "<group>"; };
 		862B8BA91F17FE1100CF7527 /* EditChildNameVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditChildNameVC.swift; sourceTree = "<group>"; };
+		865933E11F1E57050088064F /* AccountDeleteRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDeleteRouter.swift; sourceTree = "<group>"; };
 		86B5F74B1F16926400D29697 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		86B5F74E1F1693EE00D29697 /* AccountSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsVC.swift; sourceTree = "<group>"; };
 		86B5F7501F169B7B00D29697 /* TermAndConditionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermAndConditionVC.swift; sourceTree = "<group>"; };
@@ -281,7 +283,6 @@
 				622A8FD21E9D547E00B34B56 /* parentVC */,
 				623D5EDE1EA0C4D000389481 /* MessageVC */,
 				623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */,
-				622A8FB41E9D3A1200B34B56 /* ReminderVC.swift */,
 				86B5F74D1F16926F00D29697 /* SettingsVC */,
 				62DAC9E41EABEECA005BB0FF /* selectChildren */,
 				62E3AB7F1EA106CF0061802F /* ChatVC */,
@@ -406,6 +407,7 @@
 				62DAC9ED1EABF897005BB0FF /* AuthorizeRouter.swift */,
 				624B44551EAE79410014D2A2 /* AuthorizationRequestListRouter.swift */,
 				62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */,
+				865933E11F1E57050088064F /* AccountDeleteRouter.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -478,6 +480,7 @@
 			children = (
 				86B5F74B1F16926400D29697 /* SettingsViewController.swift */,
 				862B8BA91F17FE1100CF7527 /* EditChildNameVC.swift */,
+				8624AF411F1A203500E2FEFD /* EditChildNameVC.xib */,
 				86B5F74E1F1693EE00D29697 /* AccountSettingsVC.swift */,
 				86B5F7501F169B7B00D29697 /* TermAndConditionVC.swift */,
 				86B5F7521F16A53600D29697 /* FeedBackSupportVC.swift */,
@@ -617,6 +620,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8624AF421F1A203500E2FEFD /* EditChildNameVC.xib in Resources */,
 				62E3AB961EA114340061802F /* Ubuntu-B.ttf in Resources */,
 				62E3AB971EA114340061802F /* Ubuntu-C.ttf in Resources */,
 				62E3AB981EA114340061802F /* Ubuntu-L.ttf in Resources */,
@@ -739,6 +743,7 @@
 				626AB13F1EA36350001271D3 /* DoctorList.swift in Sources */,
 				622A8FBF1E9D3A1200B34B56 /* LoginVC.swift in Sources */,
 				62D027DD1EB12E0500A6ACF3 /* SendTextMessageRouter.swift in Sources */,
+				865933E21F1E57050088064F /* AccountDeleteRouter.swift in Sources */,
 				624B44541EAE76FD0014D2A2 /* DocAuthorizationRequest.swift in Sources */,
 				62E3AB861EA10C140061802F /* ChatVC.swift in Sources */,
 				62E3AB7D1EA101410061802F /* ChatCell.swift in Sources */,
@@ -749,7 +754,6 @@
 				622A8FCD1E9D500C00B34B56 /* ParentDetailCell.swift in Sources */,
 				629E4E891EA29C1600F280AD /* logIn.swift in Sources */,
 				622A8FB91E9D3A1200B34B56 /* AutoLayoutHelper.swift in Sources */,
-				622A8FC81E9D3A1200B34B56 /* ReminderVC.swift in Sources */,
 				86B5F7561F16A96B00D29697 /* DeletAccountAlert.swift in Sources */,
 				622A8FD71E9D6B3800B34B56 /* AlertVC.swift in Sources */,
 				629E4E8F1EA2A41C00F280AD /* ForgotPassword.swift in Sources */,

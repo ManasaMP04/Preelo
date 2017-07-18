@@ -45,8 +45,8 @@ class MessageVC: UIViewController {
         
         super.viewWillAppear(true)
         
-        if let tab = self.parent as? TabBarVC {
-            
+        if let navation = self.parent as? UINavigationController,
+            let tab = navation.self.parent as? TabBarVC {
             tab.changeTheItem()
         }
     }
@@ -94,6 +94,7 @@ extension MessageVC {
     
     fileprivate func setup() {
         
+        self.navigationController?.navigationBar.isHidden = true
         addPullToRefreshView()
         authorizationButtonSelected(false)
         notificationCount.layer.cornerRadius = 10.5

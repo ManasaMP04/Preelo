@@ -34,14 +34,14 @@ class TabBarVC: UITabBarController {
         
         if StaticContentFile.isDoctorLogIn() {
             
-            if let item = tabBar.items?[2] {
+            if let item = tabBar.items?[1] {
                 
                 item.selectedImage = UIImage(named: "Patient")
                 item.image         = UIImage(named: "Patient-Active")
             }
         } else {
             
-            if let item = tabBar.items?[2] {
+            if let item = tabBar.items?[1] {
                 
                 item.selectedImage = UIImage(named: "Doctors-list-icon-Active")
                 item.image         = UIImage(named: "Doctors-list-icon")
@@ -70,7 +70,6 @@ extension TabBarVC {
                 .responseObject(keyPath: "data") { (response: DataResponse<Patients>) in
                     
                     if let result = response.result.value {
-                        
                         self.isAPIFetched = true
                         self.list = result.patientList
                         self.patientDetail = result
@@ -86,6 +85,21 @@ extension TabBarVC {
                         self.isAPIFetched = true
                         self.list = result
                     }}}
+    }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        
+        if let nav = self.childViewControllers[0] as? UINavigationController,
+            let nav1 = self.childViewControllers[1] as? UINavigationController {
+        
+            if (self.presentedViewController != nil) {
+            
+                dismiss(animated: true, completion: nil)
+            }
+            
+            nav.popToRootViewController(animated: true)
+            nav1.popToRootViewController(animated: true)
+        }
     }
 }
 
