@@ -36,6 +36,7 @@ class AccountSettingsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        childrenList = ["1"]
         setup ()
     }
     
@@ -66,6 +67,7 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return childrenList.count
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

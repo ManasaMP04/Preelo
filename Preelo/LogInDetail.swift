@@ -30,4 +30,5 @@ class LogInDetail: Mappable {
         lastname       <- map["lastname"]
         doctorid       <- map["doctorid"]
     }
+    
 }

@@ -867,6 +867,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4H6-Sc-lMp">
                                 <rect key="frame" x="0.0" y="113" width="320" height="624"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="RVK-GT-Mon" id="Yzh-v0-u09"/>
+                                    <outlet property="delegate" destination="RVK-GT-Mon" id="QWh-dD-fNY"/>
+                                </connections>
                             </tableView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aY8-vB-shl">
                                 <rect key="frame" x="0.0" y="113" width="320" height="624"/>
@@ -1212,7 +1216,7 @@
                                     <action selector="goBackButtonTapped:" destination="kaj-h6-P09" eventType="touchUpInside" id="Vzg-38-3Yf"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kh0-hk-fd5">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kh0-hk-fd5">
                                 <rect key="frame" x="16" y="74" width="288" height="297"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">The messages shared and the images uploaded in this app may not be immediately available to the doctor for review. Please understand the doctors might be attending other patients and this messages could possibly read at later time (24-48 hours), if
