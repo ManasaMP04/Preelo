@@ -34,6 +34,18 @@ class SlideOutVC: UIViewController {
         
     }
     
+    func popToLogin() {
+        
+        StaticContentFile.removeAllKeys()
+        
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            
+            let initialViewController = self.storyboard?.instantiateViewController(withIdentifier: "navigation")
+            
+            appDelegate.window?.rootViewController = initialViewController
+        }
+    }
+    
     @IBAction func slideOutButtonTapped(_ sender: Any) {
         
         _ = navigationController?.popViewController(animated: true)
@@ -58,17 +70,7 @@ class SlideOutVC: UIViewController {
                 
                 if let _ = response.result.value {
                     
-                    StaticContentFile.removeAllKeys()
-                    
-                    if let vc = self.navigationController?.viewControllerWithClass( LoginVC.self) as?  LoginVC {
-                        
-                        _ = self.navigationController?.popToViewController(vc, animated: true)
-                    } else if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                        
-                        let initialViewController = self.storyboard?.instantiateViewController(withIdentifier: "navigation")
-                        
-                        appDelegate.window?.rootViewController = initialViewController
-                    }
+                    self.popToLogin()
                 }}
     }
 }

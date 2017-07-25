@@ -91,7 +91,7 @@ extension EditChildNameVC{
         StaticContentFile.setFontForTF(childrenFirstName, autoCaps: false)
         StaticContentFile.setFontForTF(childrenLastName, autoCaps: false)
         StaticContentFile.setButtonFont(confirmChangeButton)
-        StaticContentFile.setButtonFont(cancelButton, backgroundColorNeeed: false)
+        StaticContentFile.setButtonFont(cancelButton, backgroundColorNeeed: false, shadowNeeded: false)
     }
     
 }

@@ -23,8 +23,8 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         
         StaticContentFile.setButtonFont(deletAccountButton)
-        StaticContentFile.setButtonFont(feedBackSupportButton, backgroundColorNeeed: false)
-        StaticContentFile.setButtonFont(termAndConditionButton, backgroundColorNeeed: false)
+        StaticContentFile.setButtonFont(feedBackSupportButton, backgroundColorNeeed: false, shadowNeeded: false)
+        StaticContentFile.setButtonFont(termAndConditionButton, backgroundColorNeeed: false, shadowNeeded: false)
         
         self.setup()
     }
@@ -34,20 +34,9 @@ class SettingsViewController: UIViewController {
        
     }
     
-    @IBAction func feedBackSupportButtonAction(_ sender: Any) {
-        
-    }
-    
-    
-    @IBAction func termAndConditionButtonAction(_ sender: Any) {
-    
-       
-    }
-    
     @IBAction func deleteMyAccountButtonAction(_ sender: Any) {
         
         let deletAccount = DeletAccountAlert("test")
-        deletAccount.delegate = self
         deletAccount.modalPresentationStyle=UIModalPresentationStyle.overCurrentContext
         self.present(deletAccount, animated: true, completion: nil)
     }
@@ -56,27 +45,8 @@ class SettingsViewController: UIViewController {
         
         customNavigationBar.setTitle("Settings")
         customNavigationBar.delegate = self
-        
-        
     }
 }
-
-
-
-
-
-
-
-//MARK:- AddPatientVCDelegate
-
-extension SettingsViewController:DeletAccountDelegate  {
-    
-    func tappedNoButton(_ deletAccountVC: DeletAccountAlert){
-        
-        dismiss(animated: true, completion: nil)
-    }
-}
-
 
 extension SettingsViewController:CustomNavigationBarDelegate  {
     

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4et-Wg-mun">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4et-Wg-mun">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -536,7 +536,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Wn-U5-0MI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1802" y="708"/>
+            <point key="canvasLocation" x="1802" y="783"/>
         </scene>
         <!--Tab BarVC-->
         <scene sceneID="nPZ-3f-q9C">
@@ -1046,7 +1046,6 @@
                                     <color key="titleColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="feedBackSupportButtonAction:" destination="Phg-2b-vcH" eventType="touchUpInside" id="rO1-rS-79o"/>
                                     <segue destination="Ynx-kc-DJ0" kind="show" id="i6R-1I-Bva"/>
                                 </connections>
                             </button>
@@ -1073,7 +1072,6 @@
                                     <color key="titleColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="termAndConditionButtonAction:" destination="Phg-2b-vcH" eventType="touchUpInside" id="OZI-Ke-rVy"/>
                                     <segue destination="kaj-h6-P09" kind="show" id="2Mo-6m-BLu"/>
                                 </connections>
                             </button>
@@ -1120,10 +1118,11 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GzE-77-zeK">
                                 <rect key="frame" x="30" y="355" width="260" height="45"/>
-                                <color key="backgroundColor" red="0.6588235294117647" green="0.66666666666666663" blue="0.67843137254901964" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="fUL-Ot-aZ7"/>
                                 </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="SEND">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1145,7 +1144,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="MESSAGE" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fix-ho-shE" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
                                 <rect key="frame" x="16" y="150" width="288" height="40"/>
@@ -1154,10 +1153,11 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="iVf-Gt-vDP" firstAttribute="top" secondItem="GzE-77-zeK" secondAttribute="bottom" constant="80" id="6t7-P4-7sh"/>
                             <constraint firstAttribute="trailing" secondItem="GzE-77-zeK" secondAttribute="trailing" constant="30" id="8LP-Eg-wot"/>
@@ -1172,6 +1172,9 @@
                             <constraint firstItem="fix-ho-shE" firstAttribute="top" secondItem="n0k-2b-NLy" secondAttribute="bottom" constant="20" id="YwV-jz-y6C"/>
                             <constraint firstItem="n0k-2b-NLy" firstAttribute="leading" secondItem="6sb-GI-r5s" secondAttribute="leading" constant="16" id="wuK-7q-A8m"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="yyR-jw-U0g" appends="YES" id="mcQ-Ez-31f"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="customNavigationBar" destination="z4R-wH-RmW" id="Rpm-K3-9lI"/>
@@ -1181,6 +1184,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P7P-XF-So9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="yyR-jw-U0g">
+                    <connections>
+                        <action selector="gestureTapped:" destination="Ynx-kc-DJ0" id="gTp-MB-tH1"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="5057" y="-1730"/>
         </scene>
@@ -1216,14 +1224,14 @@
                                     <action selector="goBackButtonTapped:" destination="kaj-h6-P09" eventType="touchUpInside" id="Vzg-38-3Yf"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kh0-hk-fd5">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="kh0-hk-fd5">
                                 <rect key="frame" x="16" y="74" width="288" height="297"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">The messages shared and the images uploaded in this app may not be immediately available to the doctor for review. Please understand the doctors might be attending other patients and this messages could possibly read at later time (24-48 hours), if
 this is an important message and need urgent response, send the message and call the doctor to inform about the message. This app is mainly focussed on delivering the images so that the doctor can review and provide initial feedback. This app is not
 intended for diagnosis or prescription. Please agree to the above terms to continue </string>
                                 <color key="textColor" red="0.57647058819999997" green="0.58431372550000005" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
@@ -1243,6 +1251,7 @@ intended for diagnosis or prescription. Please agree to the above terms to conti
                     </view>
                     <connections>
                         <outlet property="customNavigation" destination="L7j-Dx-6q1" id="Tki-Fe-dMz"/>
+                        <outlet property="feedback" destination="kh0-hk-fd5" id="YOp-Z4-aHn"/>
                         <outlet property="goBackButton" destination="sp9-p9-oqb" id="HOx-Zy-vCj"/>
                     </connections>
                 </viewController>

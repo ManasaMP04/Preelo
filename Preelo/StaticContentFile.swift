@@ -23,7 +23,7 @@ class StaticContentFile: NSObject {
         button.backgroundColor = backgroundColorNeeed ? UIColor.colorWithHex(0x3DB0BB) : UIColor.clear
         
         button.titleLabel?.font = UIFont(name: "Ubuntu-Bold", size: 12)!
-        button.titleLabel?.textColor = UIColor.colorWithHex(0x3DB0BB)
+        button.titleLabel?.textColor = backgroundColorNeeed ?  UIColor.white: UIColor.colorWithHex(0x3DB0BB)
         
         if borderNeeded {
             
@@ -32,14 +32,9 @@ class StaticContentFile: NSObject {
             button.layer.cornerRadius = button.frame.size.width / 14
         }
         
-        if backgroundColorNeeed {
+        if shadowNeeded {
             
-            if shadowNeeded {
-                
-                button.addShadowWithColor(UIColor.black, offset: CGSize(width: 0, height: 4), opacity: 0.4, radius: 5)
-            }
-            
-            button.titleLabel?.textColor = UIColor.white
+            button.addShadowWithColor(UIColor.black, offset: CGSize(width: 0, height: 4), opacity: 0.4, radius: 5)
         }
     }
     

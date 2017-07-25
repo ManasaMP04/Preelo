@@ -130,7 +130,7 @@ extension AccountSettingsVC {
         tableView.register(UINib(nibName: "ParentDetailCell", bundle: nil), forCellReuseIdentifier: ParentDetailCell.cellId)
         
         StaticContentFile.setButtonFont(saveButton, shadowNeeded: false)
-        StaticContentFile.setButtonFont(discardChangeButton, backgroundColorNeeed: false)
+        StaticContentFile.setButtonFont(discardChangeButton, backgroundColorNeeed: false, shadowNeeded: false)
         customNavigation.setTitle("Account Settings")
         customNavigation.delegate = self
         firstName.isCompleteBoarder = true

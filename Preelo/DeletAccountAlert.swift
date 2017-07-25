@@ -9,19 +9,12 @@
 import UIKit
 import Alamofire
 
-protocol DeletAccountDelegate:class{
-    
-    func tappedNoButton(_ deletAccountVC: DeletAccountAlert)
-}
-
 class DeletAccountAlert: UIViewController {
     
     @IBOutlet fileprivate weak var yesButton            : UIButton!
     @IBOutlet fileprivate weak var noButton             : UIButton!
     @IBOutlet fileprivate weak var customNavigationBar  : CustomNavigationBar!
     fileprivate var activityIndicator: UIActivityIndicatorView?
-    
-    weak var delegate:DeletAccountDelegate?
     
     required init?(coder aDecoder:NSCoder) {
         super.init(coder: aDecoder)
@@ -49,19 +42,34 @@ class DeletAccountAlert: UIViewController {
     @IBAction func yssButtonAction(_ sender: Any) {
         
         activityIndicator?.startAnimating()
+        
         Alamofire.request(SettingRouter.post_accountDelet())
             .responseObject { (response: DataResponse<SuccessStatus>) in
+                
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
-                    self.dismiss(animated: true) {
-                    }
+                    
+                    UIView.animate(withDuration: 0.4, animations: {
+                        
+                        self.view.showToast(message: result.message)
+                    }, completion: { (status) in
+                        
+                        if let vc = self.navigationController?.viewControllerWithClass(SlideOutVC.self) as? SlideOutVC {
+                        
+                            vc.popToLogin()
+                        }
+                    })
+            
+                } else {
+                
+                    self.view.showToast(message: "Filed to delete the account")
                 }
         }
     }
     
     @IBAction func noButtonAction(_ sender: Any) {
         
-        delegate?.tappedNoButton(self)
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -81,7 +89,7 @@ extension DeletAccountAlert{
 }
 
 extension DeletAccountAlert: CustomNavigationBarDelegate  {
-
+    
     func tappedBackButtonFromVC(_ customView: CustomNavigationBar){
         self.dismiss(animated: true, completion: nil)
     }

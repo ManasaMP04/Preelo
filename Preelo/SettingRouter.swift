@@ -55,7 +55,8 @@ enum SettingRouter:  URLRequestConvertible {
 
             case .post_feedbackSupport(let subject, let message):
                 
-                let dict : [String: Any] = ["subject": subject, "message": message]
+                let dict : [String: Any] = ["subject": subject, "message": message,
+                                            "token" : StaticContentFile.getToken()]
                 return dict
             
             }

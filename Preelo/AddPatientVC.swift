@@ -157,7 +157,7 @@ extension AddPatientVC {
         
         tableview.register(UINib(nibName: "ParentDetailCell", bundle: nil), forCellReuseIdentifier: ParentDetailCell.cellId)
         
-        StaticContentFile.setButtonFont(addPatientButton, backgroundColorNeeed: false)
+        StaticContentFile.setButtonFont(addPatientButton, backgroundColorNeeed: false, shadowNeeded: false)
         StaticContentFile.setButtonFont(doneButton)
         firstName.isCompleteBoarder = true
         lastName.isCompleteBoarder  = true

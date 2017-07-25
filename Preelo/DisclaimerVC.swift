@@ -62,7 +62,7 @@ extension DisclaimerVC {
         customeNavigation.setTitle("DISCLAIMER")
         customeNavigation.delegate = self
         StaticContentFile.setButtonFont(agreeButton)
-        StaticContentFile.setButtonFont(dontAgreeButton, backgroundColorNeeed: false, borderNeeded: false)
+        StaticContentFile.setButtonFont(dontAgreeButton, backgroundColorNeeed: false, borderNeeded: false, shadowNeeded: false)
         
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 10
