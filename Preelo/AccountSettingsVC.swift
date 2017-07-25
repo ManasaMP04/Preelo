@@ -241,7 +241,9 @@ extension AccountSettingsVC {
             phone.characters.count > 0,
             let email = self.emailAddress.text,
             email.characters.count > 0, let pass = password.text,
-            let confirmPassword = confirmPassword.text {
+            pass.characters.count > 0,
+            let confirmPassword = confirmPassword.text,
+            confirmPassword.characters.count > 0{
             
             activityIndicator?.startAnimating()
             

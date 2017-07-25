@@ -7,15 +7,16 @@
 //
 
 import UIKit
+import Alamofire
 
 class SettingsViewController: UIViewController {
     
-    
     @IBOutlet weak fileprivate var customNavigationBar: CustomNavigationBar!
-    
     @IBOutlet weak var deletAccountButton: UIButton!
     @IBOutlet weak var feedBackSupportButton: UIButton!
     @IBOutlet weak var termAndConditionButton: UIButton!
+    
+    fileprivate var activityIndicator: UIActivityIndicatorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +30,14 @@ class SettingsViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-       
+        
     }
     
     @IBAction func deleteMyAccountButtonAction(_ sender: Any) {
         
-        let deletAccount = DeletAccountAlert("test")
+        let deletAccount = DeletAccountAlert.init("Settings", description: NSMutableAttributedString(string: "Are you sure that you want to delete your account. You will lose all your data. "), notificationTitle: "Delete Account", image: "Delete")
         deletAccount.modalPresentationStyle=UIModalPresentationStyle.overCurrentContext
+        deletAccount.delegate = self
         self.present(deletAccount, animated: true, completion: nil)
     }
     
@@ -54,4 +56,36 @@ extension SettingsViewController:CustomNavigationBarDelegate  {
     }
 }
 
+extension SettingsViewController: DeletAccountAlertDelegate{
+    
+    func tappedYesButton(_ vc: DeletAccountAlert, data:Any?) {
+        
+        let activityIndicator = UIActivityIndicatorView.activityIndicatorToView(vc.view)
+        
+        activityIndicator.startAnimating()
+        
+        Alamofire.request(SettingRouter.post_accountDelet())
+            .responseObject { (response: DataResponse<SuccessStatus>) in
+                
+                activityIndicator.stopAnimating()
+                if let result = response.result.value, result.status == "SUCCESS" {
+                    
+                    UIView.animate(withDuration: 0.4, animations: {
+                        
+                        self.view.showToast(message: result.message)
+                    }, completion: { (status) in
+                        
+                        if let vc = self.navigationController?.viewControllerWithClass(SlideOutVC.self) as? SlideOutVC {
+                            
+                            vc.popToLogin()
+                        }
+                    })
+                    
+                } else {
+                    
+                    vc.view.showToast(message: "Filed to delete the account")
+                }
+        }
+    }
+}
 

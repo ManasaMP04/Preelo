@@ -9,28 +9,49 @@
 import UIKit
 import Alamofire
 
+protocol DeletAccountAlertDelegate: class {
+    
+    func tappedYesButton(_ vc: DeletAccountAlert, data:Any?)
+}
+
 class DeletAccountAlert: UIViewController {
     
     @IBOutlet fileprivate weak var yesButton            : UIButton!
     @IBOutlet fileprivate weak var noButton             : UIButton!
     @IBOutlet fileprivate weak var customNavigationBar  : CustomNavigationBar!
-    fileprivate var activityIndicator: UIActivityIndicatorView?
+    @IBOutlet weak var notificationDetail: UILabel!
+    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var notificationTitle: UILabel!
+    
+    fileprivate var titleValue = ""
+    fileprivate var descriptionString: NSAttributedString?
+    fileprivate var notificationString = ""
+    fileprivate var image = ""
+    fileprivate var data : Any?
+    
+    weak var delegate : DeletAccountAlertDelegate?
     
     required init?(coder aDecoder:NSCoder) {
         super.init(coder: aDecoder)
+    
     }
     
-    init (_ title: String) {
+    init (_ title: String, description: NSAttributedString, notificationTitle: String, image: String, data: Any? = nil) {
+        
+        self.titleValue = title
+        self.descriptionString = description
+        self.notificationString = notificationTitle
+        self.image = image
+        self.data = data
         
         super.init(nibName: "DeletAccountAlert", bundle: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         
         self.setup()
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,30 +62,7 @@ class DeletAccountAlert: UIViewController {
     
     @IBAction func yssButtonAction(_ sender: Any) {
         
-        activityIndicator?.startAnimating()
-        
-        Alamofire.request(SettingRouter.post_accountDelet())
-            .responseObject { (response: DataResponse<SuccessStatus>) in
-                
-                self.activityIndicator?.stopAnimating()
-                if let result = response.result.value, result.status == "SUCCESS" {
-                    
-                    UIView.animate(withDuration: 0.4, animations: {
-                        
-                        self.view.showToast(message: result.message)
-                    }, completion: { (status) in
-                        
-                        if let vc = self.navigationController?.viewControllerWithClass(SlideOutVC.self) as? SlideOutVC {
-                        
-                            vc.popToLogin()
-                        }
-                    })
-            
-                } else {
-                
-                    self.view.showToast(message: "Filed to delete the account")
-                }
-        }
+        delegate?.tappedYesButton(self, data: data)
     }
     
     @IBAction func noButtonAction(_ sender: Any) {
@@ -83,7 +81,10 @@ extension DeletAccountAlert{
         
         yesButton.layer.cornerRadius = yesButton.frame.height / 1.9
         noButton.layer.cornerRadius  = noButton.frame.height / 1.9
-        customNavigationBar.setTitle("Delete Account")
+        customNavigationBar.setTitle(titleValue)
+        self.notificationTitle.text = notificationString
+        notificationDetail.attributedText = descriptionString
+        imageView.image = UIImage(named: image)
         customNavigationBar.delegate = self
     }
 }
@@ -91,6 +92,7 @@ extension DeletAccountAlert{
 extension DeletAccountAlert: CustomNavigationBarDelegate  {
     
     func tappedBackButtonFromVC(_ customView: CustomNavigationBar){
+        
         self.dismiss(animated: true, completion: nil)
     }
 }

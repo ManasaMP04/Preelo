@@ -35,7 +35,7 @@ class ParentDetailCell: UITableViewCell {
         
     }
     
-    func showParentName(_ name: String, showImage: Bool, showEdit: Bool = true) {
+    func showParentName(_ name: String, showImage: Bool, showEdit: Bool = true, image: String? = nil) {
         
         parentName.text = name
         
@@ -48,10 +48,19 @@ class ParentDetailCell: UITableViewCell {
         }
         
         editButton.isHidden = !showEdit
+        
+        if let img = image {
+         
+            editButton.setImage(UIImage(named: img), for: .normal)
+        } else {
+        
+            editButton.setTitle("Edit", for: .normal)
+        }
     }
     
     @IBAction func editButtonTapped(_ sender: Any) {
         
+        editButton.setImage(UIImage(named: "minus"), for: .normal)
         delegate?.parentDetailCell(self)
     }
 }

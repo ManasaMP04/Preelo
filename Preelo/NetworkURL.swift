@@ -35,11 +35,9 @@ enum NetworkURL {
     static let partentdelet                 = "parent/account/delete"
     static let childUpdate                  = "parent/children/update"
     static let updateProfile                = "user/update"
-    
-    static let patientedit                  = "patient/edit"
-    static let doctorunlock                 = "doctor/unblock"
+    static let doctorunblock                = "doctor/unblock"
     static let doctorblock                  = "doctor/block"
     
     
-    
+     static let patientedit                  = "patient/edit"
 }

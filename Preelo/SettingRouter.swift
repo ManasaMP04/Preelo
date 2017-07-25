@@ -15,6 +15,8 @@ enum SettingRouter:  URLRequestConvertible {
     case post_feedbackSupport(String,String)
     case post_updateChildren(String,String, Int)
     case post_updateProfile(String,String, String, String, String,String)
+    case post_doctBlock(Int)
+    case pos_docUnBlock(Int)
     
     public func asURLRequest() throws -> URLRequest {
         
@@ -45,6 +47,14 @@ enum SettingRouter:  URLRequestConvertible {
             case .post_updateProfile:
                 
                 relativePath = NetworkURL.updateProfile
+                
+            case .post_doctBlock:
+                
+                relativePath = NetworkURL.doctorblock
+                
+            case .pos_docUnBlock:
+                
+                relativePath = NetworkURL.doctorunblock
             }
             
             url = url.appendingPathComponent(relativePath)
@@ -82,8 +92,14 @@ enum SettingRouter:  URLRequestConvertible {
                                             "token" : StaticContentFile.getToken(),
                                             "phonenumber": phone,
                                             "email" : email,
-                                            "password" : email,
-                                            "confirm_password" : email]
+                                            "password" : password,
+                                            "confirm_password" : conPassword]
+                return dict
+                
+            case .pos_docUnBlock(let Id), .post_doctBlock(let Id):
+                
+                let dict : [String: Any] = ["doctorid": Id,
+                                            "token" : StaticContentFile.getToken()]
                 return dict
             }
         }()
