@@ -23,6 +23,7 @@ class MessageVC: UIViewController {
     @IBOutlet fileprivate weak var messagesButton       : UIButton!
     @IBOutlet fileprivate weak var authorizationRequest : UIButton!
     @IBOutlet fileprivate weak var tableview            : UITableView!
+    @IBOutlet weak var cardView: UIView!
     
     fileprivate var selection: Selection = .authentication
     fileprivate var activityIndicator    : UIActivityIndicatorView?
@@ -66,19 +67,24 @@ class MessageVC: UIViewController {
         authorizationRequest.isSelected = status
         messagesButton.isSelected       = !status
         selection = status ? .authentication : .message
-        authorizationRequest.backgroundColor =  status ? UIColor.clear : UIColor.colorWithHex(0xE6FAFE)
-        messagesButton.backgroundColor = status ? UIColor.colorWithHex(0xE6FAFE) : UIColor.clear
+        authorizationRequest.backgroundColor =  status ? UIColor.white : UIColor.colorWithHex(0xE6FAFE)
+        messagesButton.backgroundColor = status ? UIColor.colorWithHex(0xE6FAFE) : UIColor.white
         messagesButton.titleLabel?.textColor = status ? UIColor.colorWithHex(0xA7A9AC) : UIColor.colorWithHex(0x40AABB)
         authorizationRequest.titleLabel?.textColor = status ? UIColor.colorWithHex(0x40AABB) : UIColor.colorWithHex(0xA7A9AC)
         messagesButton.titleLabel?.font = status ? UIFont(name: "Ubuntu", size: 12)! : UIFont(name: "Ubuntu-Bold", size: 12)!
         authorizationRequest.titleLabel?.font = status ? UIFont(name: "Ubuntu-Bold", size: 12)! : UIFont(name: "Ubuntu", size: 12)!
         
         list.removeAll()
+        
+        if let _ = StaticContentFile.getAuthRequest() {
+            
+            notificationCount.text = "\(list.count)"
+            notificationCount.isHidden = list.count == 0
+        }
+        
         if status, let request = StaticContentFile.getAuthRequest() {
             
             list = request.authRequest
-            notificationCount.text = "\(list.count)"
-            notificationCount.isHidden = list.count == 0
         } else if !status {
             
             list = StaticContentFile.getChannel()
@@ -94,6 +100,7 @@ extension MessageVC {
     
     fileprivate func setup() {
         
+        cardView.addShadowWithColor(UIColor.colorWithHex(0x23B5B9) , offset: CGSize.zero, opacity: 0.3, radius: 4)
         self.navigationController?.navigationBar.isHidden = true
         addPullToRefreshView()
         authorizationButtonSelected(false)
@@ -187,7 +194,7 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource {
         
         if StaticContentFile.isDoctorLogIn() && selection == .authentication {
             
-            return 125
+            return 158
         }
         
         return 90

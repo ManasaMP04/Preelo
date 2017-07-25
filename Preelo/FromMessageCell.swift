@@ -21,7 +21,7 @@ class FromMessageCell: UITableViewCell {
         super.awakeFromNib()
        
         cardView.layer.cornerRadius = 5
-        cardView.addShadowWithColor(UIColor.colorWithHex(0x7c7c7c) , offset: CGSize.zero, opacity: 0.5, radius: 4)
+        cardView.addShadowWithColor(UIColor.colorWithHex(0x7c7c7c) , offset: CGSize.zero, opacity: 0.4, radius: 4)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -32,12 +32,8 @@ class FromMessageCell: UITableViewCell {
     
     func showMessage(_ message: RecentMessages) {
         
+        let str = Date.dateDiff(dateStr: message.message_date)
+        timeStamp.text = str
         descriptionLabel.text = message.message_text
-        timeStamp.text = Date.dateDiff(dateStr: message.message_date)
-    }
-    
-    func showImage(_ status: String) {
-    
-        
     }
 }

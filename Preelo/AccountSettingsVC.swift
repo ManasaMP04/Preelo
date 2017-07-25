@@ -152,6 +152,8 @@ extension AccountSettingsVC {
     
     fileprivate func setup () {
         
+        childrenInfoButton.isHidden = StaticContentFile.isDoctorLogIn()
+    
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         
         tableView.register(UINib(nibName: "ParentDetailCell", bundle: nil), forCellReuseIdentifier: ParentDetailCell.cellId)

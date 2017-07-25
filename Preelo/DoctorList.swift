@@ -16,7 +16,7 @@ class DoctorList: Mappable {
     var doctor_firstname  = ""
     var id                = ""
     var children          = [ChildrenDetail]()
-    var blocked           = false
+    var blocked           = ""
     
     required init?(map: Map) {
         
@@ -29,6 +29,6 @@ class DoctorList: Mappable {
         doctor_firstname  <- map["doctor_firstname"]
         id                <- map["id"]
         children          <- map["children"]
-        blocked           <- map["blocked"]
+        blocked           <- map["block_flag"]
     }
 }

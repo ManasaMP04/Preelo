@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -91,6 +91,7 @@ authorization to send messages</string>
                                     <connections>
                                         <outlet property="dataSource" destination="-1" id="Ad3-E7-YIp"/>
                                         <outlet property="delegate" destination="-1" id="0Ku-Fa-RuI"/>
+                                        <outletCollection property="gestureRecognizers" destination="u3u-xt-mTy" appends="YES" id="REq-jy-Pkp"/>
                                     </connections>
                                 </tableView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oxm-pz-0QZ">
@@ -190,9 +191,6 @@ authorization to send messages</string>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
-            <connections>
-                <outletCollection property="gestureRecognizers" destination="u3u-xt-mTy" appends="YES" id="3vk-8S-Tfn"/>
-            </connections>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
         <tapGestureRecognizer cancelsTouchesInView="NO" id="u3u-xt-mTy">

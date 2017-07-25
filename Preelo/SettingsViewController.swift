@@ -35,17 +35,23 @@ class SettingsViewController: UIViewController {
     
     @IBAction func deleteMyAccountButtonAction(_ sender: Any) {
         
-        let deletAccount = DeletAccountAlert.init("Settings", description: NSMutableAttributedString(string: "Are you sure that you want to delete your account. You will lose all your data. "), notificationTitle: "Delete Account", image: "Delete")
-        deletAccount.modalPresentationStyle=UIModalPresentationStyle.overCurrentContext
-        deletAccount.delegate = self
-        self.present(deletAccount, animated: true, completion: nil)
+        if StaticContentFile.isDoctorLogIn() {
+            
+            self.view.showToast(message: "Please contact Helpdesk to delete your account")
+        } else {
+            
+            let deletAccount = DeletAccountAlert.init("Settings", description: NSMutableAttributedString(string: "Are you sure that you want to delete your account. You will lose all your data. "), notificationTitle: "Delete Account", image: "Delete")
+            deletAccount.modalPresentationStyle=UIModalPresentationStyle.overCurrentContext
+            deletAccount.delegate = self
+            self.present(deletAccount, animated: true, completion: nil)
+        }
     }
     
     fileprivate func setup(){
         
         customNavigationBar.setTitle("Settings")
         customNavigationBar.delegate = self
-    }
+        }
 }
 
 extension SettingsViewController:CustomNavigationBarDelegate  {

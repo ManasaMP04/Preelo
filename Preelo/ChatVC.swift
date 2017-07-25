@@ -58,7 +58,7 @@ class ChatVC: UIViewController {
         
         self.channelDetail = channelDetail
         self.isPatient_DocFlow = false
-        name =  StaticContentFile.isDoctorLogIn() ? channelDetail.patientname : channelDetail.doctorname
+        name =  StaticContentFile.isDoctorLogIn() ? "\(channelDetail.parentname) - \(channelDetail.relationship)" : channelDetail.doctorname
         
         super.init(nibName: "ChatVC", bundle: nil)
     }
@@ -113,8 +113,9 @@ extension ChatVC {
     @IBAction func sendButtonTapped(_ sender: Any) {
         
         if let text = messageTF.text, text.characters.count > 0 {
-            
-            let recentMessage = RecentMessages("text", text: text,image: nil, senderId: "you")
+        
+            let dateStr = Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A")
+            let recentMessage = RecentMessages("simple", text: text,image: nil, senderId: "you", timeInterval: dateStr)
             messageList.append(recentMessage)
             tableview.reloadData()
             callAPIToSendText(text)
@@ -191,11 +192,21 @@ extension ChatVC {
             }
         }
         
-        if !StaticContentFile.isDoctorLogIn(), !channelDetail.auth_status {
+        if !StaticContentFile.isDoctorLogIn(), channelDetail.auth_status.lowercased() != "t" {
             
             requestAuthorizationViewHeight.constant = 144
             authorizationView.isHidden = false
-            toolbarView.isUserInteractionEnabled = false
+            //toolbarView.isUserInteractionEnabled = false
+            
+            let str = channelDetail.auth_status.lowercased() == "p" ? "AUTHORIZATION PENDING" : "REQUEST AUTHORIZATION"
+            requestAuthButton.setTitle(str, for: .normal)
+            requestAuthButton.isUserInteractionEnabled = channelDetail.auth_status.lowercased() != "p"
+            
+            if channelDetail.auth_status.lowercased() == "p" {
+                
+                requestAuthButton.backgroundColor = UIColor.lightGray
+                requestAuthButton.layer.borderColor = UIColor.lightGray.cgColor
+            }
         }
         
         customeNavigation.delegate = self
@@ -384,7 +395,7 @@ extension ChatVC {
             
             let kbSize = (dictionary.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
             
-            self.scrollViewBottomInset = kbSize.height + 10
+            self.scrollViewBottomInset = kbSize.height - (StaticContentFile.screenHeight * 0.10)
         }
     }
     
@@ -415,10 +426,12 @@ extension ChatVC : SelectedImagesVCDelegate {
         
         for image in imageList {
             
-            let recentMessage = RecentMessages("IMAGE", text: "Photos",image: image, senderId: "you")
-             messageList.append(recentMessage)
+            let dateStr = Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A")
+            
+            let recentMessage = RecentMessages("IMAGE", text: "Photos",image: image, senderId: "you", timeInterval: dateStr)
+            messageList.append(recentMessage)
         }
-       
+        
         uploadImage ()
         tableview.reloadData()
     }

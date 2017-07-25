@@ -67,7 +67,7 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
             cell.showParentName(data.firstname, showImage: false)
         } else  if let list = list[indexPath.row] as? DoctorList  {
             
-            let image = doctorData.blocked ? "Tick Green 2x" : "minus"
+            let image = list.blocked.lowercased() == "y" ? "Tick Green 2x" : "minus"
             
             cell.showParentName(list.doctor_firstname , showImage: false, showEdit: true, image: image)
         }
@@ -106,8 +106,8 @@ extension PatientListVC: ParentDetailCellDelegate {
             
             let doctorData = docList[indexpath.row]
             
-            let text = doctorData.blocked ? "Unblock Doctor" : "Block the doctor"
-            let image = doctorData.blocked ? "Tick Green 2x" : "minus"
+            let text = doctorData.blocked.lowercased() == "y" ? "Unblock Doctor" : "Block the doctor"
+            let image = doctorData.blocked.lowercased() == "y" ? "Tick Green 2x" : "minus"
             
             let deletAccount = DeletAccountAlert.init("Doctors", description: attributeText(withText: doctorData.doctor_firstname), notificationTitle: text, image: image, data: doctorData)
             deletAccount.modalPresentationStyle=UIModalPresentationStyle.overCurrentContext
@@ -258,7 +258,7 @@ extension PatientListVC: DeletAccountAlertDelegate{
             
             activityIndicator.startAnimating()
             
-            let urlRequest = detail.blocked ?  SettingRouter.pos_docUnBlock(detail.doctorid) : SettingRouter.post_doctBlock(detail.doctorid)
+            let urlRequest = detail.blocked.lowercased() == "y" ?  SettingRouter.pos_docUnBlock(detail.doctorid) : SettingRouter.post_doctBlock(detail.doctorid)
             
             Alamofire.request(urlRequest)
                 .responseObject { (response: DataResponse<SuccessStatus>) in

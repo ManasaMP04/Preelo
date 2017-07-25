@@ -21,7 +21,7 @@ class ToMessageCell: UITableViewCell {
         super.awakeFromNib()
         
         cardView.layer.cornerRadius = 5
-        cardView.addShadowWithColor(UIColor.colorWithHex(0x7c7c7c) , offset: CGSize.zero, opacity: 0.5, radius: 4)
+        cardView.addShadowWithColor(UIColor.colorWithHex(0x7c7c7c) , offset: CGSize.zero, opacity: 0.4, radius: 4)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

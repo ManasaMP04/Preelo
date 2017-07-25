@@ -178,12 +178,10 @@ extension Date {
                 let min = dateComponents.minute,
                 let sec = dateComponents.second {
                 
-                if (sec > 0){
-                    if (sec > 1) {
-                        timeAgo = "\(sec) Seconds Ago"
-                    } else {
-                        timeAgo = "\(sec) Second Ago"
-                    }
+                if (sec > 1) {
+                    timeAgo = "\(sec) Seconds Ago"
+                } else {
+                    timeAgo = "\(sec) Second Ago"
                 }
                 
                 if (min > 0){
@@ -220,9 +218,9 @@ extension Date {
                 
                 if(month > 0){
                     if (month > 1) {
-                        timeAgo = "\(year) Months Ago"
+                        timeAgo = "\(month) Months Ago"
                     } else {
-                        timeAgo = "\(year) Month Ago"
+                        timeAgo = "\(month) Month Ago"
                     }
                 }
                 

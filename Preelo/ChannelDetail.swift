@@ -60,7 +60,7 @@ class ChannelDetail: Mappable {
     var doctorId            = 0
     var parentId            = 0
     var patientId           = 0
-    var auth_status         = false
+    var auth_status         = ""
     var doctor_user_id      = 0
     var lastMsgId           = -1
     

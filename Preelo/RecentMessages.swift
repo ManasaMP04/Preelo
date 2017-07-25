@@ -20,7 +20,7 @@ class RecentMessages: Mappable {
     var image_upload_status  = ""
     var status               = "u"
     
-    init(_ type: String, text: String = "", image: UIImage?, senderId: String = "") {
+    init(_ type: String, text: String = "", image: UIImage?, senderId: String = "", timeInterval: String) {
         
         message_type = type
         message_text = text
@@ -31,6 +31,7 @@ class RecentMessages: Mappable {
             thumb_Url = img
         }
         
+        self.message_date = timeInterval
         self.senderId  = senderId
     }
     
