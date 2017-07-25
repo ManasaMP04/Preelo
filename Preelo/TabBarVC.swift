@@ -12,7 +12,7 @@ import Alamofire
 
 class TabBarVC: UITabBarController {
     
-    fileprivate(set) var list = [Any]()
+    var list = [Any]()
     fileprivate(set) var patientDetail : Any!
     fileprivate(set) var isAPIFetched  = false
     fileprivate var activityIndicator  : UIActivityIndicatorView?

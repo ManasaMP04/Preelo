@@ -8,9 +8,10 @@
 
 import UIKit
 
-protocol ParentDetailCellDelegate: class {
+@objc protocol ParentDetailCellDelegate: class {
     
     func parentDetailCell(_ cell: ParentDetailCell)
+    @objc optional func parentDetailCellTappedLocation(_ cell: ParentDetailCell)
 }
 
 class ParentDetailCell: UITableViewCell {
@@ -20,14 +21,21 @@ class ParentDetailCell: UITableViewCell {
     @IBOutlet fileprivate weak var imageViewWidth    : NSLayoutConstraint!
     @IBOutlet fileprivate weak var imageViewTrailing : NSLayoutConstraint!
     @IBOutlet fileprivate weak var cardView          : UIView!
+    @IBOutlet weak var locationButton: UIButton!
+    @IBOutlet weak var locationButtonWidth: NSLayoutConstraint!
+    @IBOutlet weak var editButtonWidth: NSLayoutConstraint!
+    @IBOutlet weak var initial: UILabel!
+    @IBOutlet weak var initialWidth: NSLayoutConstraint!
     
+    @IBOutlet weak var imageView1: UIImageView!
+    @IBOutlet weak var nameLabelLeading: NSLayoutConstraint!
     weak var delegate: ParentDetailCellDelegate?
     
     static let cellId = "ParentDetailCell"
     
     override func awakeFromNib() {
-        super.awakeFromNib()
         
+        super.awakeFromNib()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -35,32 +43,42 @@ class ParentDetailCell: UITableViewCell {
         
     }
     
-    func showParentName(_ name: String, showImage: Bool, showEdit: Bool = true, image: String? = nil) {
+    func showParentName(_ name: String, showImage: Bool, showEdit: Bool = true, image: String? = nil, showLocation: Bool = false, font: UIFont = UIFont(name: "Ubuntu", size: 14)!, color: UIColor = UIColor.colorWithHex(0x414042), showInitial: Bool = false, initialText: String = "") {
         
+        parentName.font = font
+        parentName.textColor = color
         parentName.text = name
         
-        if !showImage {
-            
-            imageViewWidth.constant = 0
-        } else {
-            
-            imageViewWidth.constant = 28
-        }
+        initial.isHidden = !showInitial
+        initialWidth.constant = showInitial ? 28 : 0
+        imageViewWidth.constant = showImage ? 28 : 0
+        imageView1.isHidden = !showImage
+        initial.text = initialText
+        nameLabelLeading.constant = (showInitial || showImage) ? 53 : 10
         
         editButton.isHidden = !showEdit
+        editButtonWidth.constant = showEdit ? 45 : 0
         
         if let img = image {
          
             editButton.setImage(UIImage(named: img), for: .normal)
+            
         } else {
         
             editButton.setTitle("Edit", for: .normal)
         }
+        
+        locationButton.isHidden = !showLocation
+        locationButtonWidth.constant = showLocation ? 45 : 0
     }
     
     @IBAction func editButtonTapped(_ sender: Any) {
         
-        editButton.setImage(UIImage(named: "minus"), for: .normal)
         delegate?.parentDetailCell(self)
+    }
+    
+    @IBAction func tappedLocation(_ sender: Any) {
+    
+        delegate?.parentDetailCellTappedLocation?(self)
     }
 }

@@ -66,6 +66,8 @@
 		62B729F91EC8538A006057DB /* SuccessStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729F81EC8538A006057DB /* SuccessStatus.swift */; };
 		62B729FC1EC862C5006057DB /* SelectedImagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729FA1EC862C5006057DB /* SelectedImagesVC.swift */; };
 		62B729FD1EC862C5006057DB /* SelectedImagesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B729FB1EC862C5006057DB /* SelectedImagesVC.xib */; };
+		62C5BC471F27D023002FBFFA /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C5BC461F27D023002FBFFA /* Locations.swift */; };
+		62C5BC491F27D044002FBFFA /* DoctorPhoneNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C5BC481F27D044002FBFFA /* DoctorPhoneNumbers.swift */; };
 		62C6F7F91EB87BCA00D5160A /* RelationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */; };
 		62CDDBDD1ECA3354000A2AC7 /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDDBDC1ECA3354000A2AC7 /* PlistManager.swift */; };
 		62D027DD1EB12E0500A6ACF3 /* SendTextMessageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */; };
@@ -183,6 +185,8 @@
 		62B729F81EC8538A006057DB /* SuccessStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessStatus.swift; sourceTree = "<group>"; };
 		62B729FA1EC862C5006057DB /* SelectedImagesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedImagesVC.swift; sourceTree = "<group>"; };
 		62B729FB1EC862C5006057DB /* SelectedImagesVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectedImagesVC.xib; sourceTree = "<group>"; };
+		62C5BC461F27D023002FBFFA /* Locations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
+		62C5BC481F27D044002FBFFA /* DoctorPhoneNumbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoctorPhoneNumbers.swift; sourceTree = "<group>"; };
 		62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationPickerView.swift; sourceTree = "<group>"; };
 		62C6F7FA1EB8811D00D5160A /* Preelo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Preelo-Bridging-Header.h"; sourceTree = "<group>"; };
 		62CDDBDC1ECA3354000A2AC7 /* PlistManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
@@ -384,6 +388,8 @@
 				629E4E941EA2AB7300F280AD /* PatientList.swift */,
 				629E4E961EA2AB7F00F280AD /* FamilyList.swift */,
 				626AB13E1EA36350001271D3 /* DoctorList.swift */,
+				62C5BC461F27D023002FBFFA /* Locations.swift */,
+				62C5BC481F27D044002FBFFA /* DoctorPhoneNumbers.swift */,
 				626AB1421EA36461001271D3 /* ChildrenDetail.swift */,
 				62DAC9EF1EABFD58005BB0FF /* AuthorizeRequest.swift */,
 				624B44531EAE76FD0014D2A2 /* DocAuthorizationRequest.swift */,
@@ -764,11 +770,13 @@
 				622A8FC21E9D3A1200B34B56 /* ParentDetailVC.swift in Sources */,
 				86B5F74F1F1693EE00D29697 /* AccountSettingsVC.swift in Sources */,
 				62B729E91EC83E74006057DB /* ToMessageCell.swift in Sources */,
+				62C5BC471F27D023002FBFFA /* Locations.swift in Sources */,
 				62B729FC1EC862C5006057DB /* SelectedImagesVC.swift in Sources */,
 				62D064961EA3EF00007A503F /* addFamily.swift in Sources */,
 				629E4E8D1EA29FD200F280AD /* PatientRouter.swift in Sources */,
 				622A8FB71E9D3A1200B34B56 /* AddPatientVC.swift in Sources */,
 				624C63081EADDF8A00934D3E /* SelectRouter.swift in Sources */,
+				62C5BC491F27D044002FBFFA /* DoctorPhoneNumbers.swift in Sources */,
 				62ACD5051EA125D1000B0EDE /* NetworkURL.swift in Sources */,
 				62DAC9EE1EABF897005BB0FF /* AuthorizeRouter.swift in Sources */,
 				62D432811EA3C08F005FA616 /* LogoutRouter.swift in Sources */,

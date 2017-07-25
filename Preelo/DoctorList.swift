@@ -10,13 +10,12 @@ import ObjectMapper
 
 class DoctorList: Mappable {
     
-    var status            = ""
     var parent_id         = 0
     var doctorid          = 0
     var doctor_firstname  = ""
-    var id                = ""
-    var children          = [ChildrenDetail]()
+    var doctor_lastname                = ""
     var blocked           = ""
+    var locations          = [Locations]()
     
     required init?(map: Map) {
         
@@ -27,8 +26,8 @@ class DoctorList: Mappable {
         parent_id         <- map["parent_id"]
         doctorid          <- map["doctorid"]
         doctor_firstname  <- map["doctor_firstname"]
-        id                <- map["id"]
-        children          <- map["children"]
+        doctor_lastname   <- map["doctor_lastname"]
         blocked           <- map["block_flag"]
+        locations         <- map["locations"]
     }
 }

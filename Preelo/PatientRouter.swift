@@ -13,7 +13,7 @@ enum PatientRouter:  URLRequestConvertible {
     
     case get()
     case post(PatientList)
-    case put(PatientList)
+    case editPatient(PatientList)
     
     public func asURLRequest() throws -> URLRequest {
         
@@ -22,9 +22,6 @@ enum PatientRouter:  URLRequestConvertible {
             switch self {
             case .get:
                 return .get
-                
-            case .put:
-                return .put
                 
             default:
                 return .post
@@ -40,7 +37,7 @@ enum PatientRouter:  URLRequestConvertible {
             case .get:
                 relativePath = NetworkURL.patientList
                
-            case .put:
+            case .editPatient:
                 
                  relativePath = NetworkURL.editPatient
                 
@@ -79,7 +76,29 @@ enum PatientRouter:  URLRequestConvertible {
                 }
                 
                 dict["family"] = families
+              
+            case .editPatient(let list):
                 
+                dict = ["firstname" : list.firstname,
+                        "lastname" : list.lastname,
+                        "token" : StaticContentFile.getToken()]
+                
+                var families = [[String: Any]]()
+                
+                for family in list.family {
+                    
+                    let familyDict = ["firstname" : family.firstname,
+                                      "lastname" : family.lastname,
+                                      "relationship": family.relationship,
+                                      "phonenumber": family.phone,
+                                      "email" : family.email]
+                    
+                    families.append(familyDict)
+                    
+                    dict["patientid"] = family.patientid
+                }
+                
+                dict["family"] = families
                 
             default: dict = [:]
             }

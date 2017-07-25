@@ -11,7 +11,7 @@ import Alamofire
 
 protocol DeletAccountAlertDelegate: class {
     
-    func tappedYesButton(_ vc: DeletAccountAlert, data:Any?)
+    func tappedYesButton(_ vc: DeletAccountAlert, index:Int?)
 }
 
 class DeletAccountAlert: UIViewController {
@@ -28,7 +28,7 @@ class DeletAccountAlert: UIViewController {
     fileprivate var descriptionString: NSAttributedString?
     fileprivate var notificationString = ""
     fileprivate var image = ""
-    fileprivate var data : Any?
+    fileprivate var index : Int?
     
     weak var delegate : DeletAccountAlertDelegate?
     
@@ -37,13 +37,13 @@ class DeletAccountAlert: UIViewController {
     
     }
     
-    init (_ title: String, description: NSAttributedString, notificationTitle: String, image: String, data: Any? = nil) {
+    init (_ title: String, description: NSAttributedString, notificationTitle: String, image: String, index: Int? = nil) {
         
         self.titleValue = title
         self.descriptionString = description
         self.notificationString = notificationTitle
         self.image = image
-        self.data = data
+        self.index = index
         
         super.init(nibName: "DeletAccountAlert", bundle: nil)
     }
@@ -62,7 +62,7 @@ class DeletAccountAlert: UIViewController {
     
     @IBAction func yssButtonAction(_ sender: Any) {
         
-        delegate?.tappedYesButton(self, data: data)
+        delegate?.tappedYesButton(self, index: index)
     }
     
     @IBAction func noButtonAction(_ sender: Any) {

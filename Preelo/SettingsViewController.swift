@@ -64,7 +64,7 @@ extension SettingsViewController:CustomNavigationBarDelegate  {
 
 extension SettingsViewController: DeletAccountAlertDelegate{
     
-    func tappedYesButton(_ vc: DeletAccountAlert, data:Any?) {
+    func tappedYesButton(_ vc: DeletAccountAlert, index:Int?) {
         
         let activityIndicator = UIActivityIndicatorView.activityIndicatorToView(vc.view)
         

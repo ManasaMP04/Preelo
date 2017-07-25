@@ -196,7 +196,7 @@ extension ChatVC {
             
             requestAuthorizationViewHeight.constant = 144
             authorizationView.isHidden = false
-            //toolbarView.isUserInteractionEnabled = false
+            toolbarView.isUserInteractionEnabled = false
             
             let str = channelDetail.auth_status.lowercased() == "p" ? "AUTHORIZATION PENDING" : "REQUEST AUTHORIZATION"
             requestAuthButton.setTitle(str, for: .normal)

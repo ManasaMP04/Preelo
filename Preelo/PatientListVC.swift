@@ -21,7 +21,10 @@ class PatientListVC: UIViewController {
     
     fileprivate var activityIndicator: UIActivityIndicatorView?
     fileprivate var list = [Any]()
+    fileprivate var docDetail = [Any]()
     fileprivate var patientDetail : Any!
+    
+    fileprivate var selectedIndex: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,9 +55,21 @@ class PatientListVC: UIViewController {
 
 extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int  {
         
         return list.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        var row = 1
+        
+        if let path = selectedIndex, path.section == section {
+            
+            row += docDetail.count
+        }
+        
+        return row
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,14 +77,23 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ParentDetailCell.cellId, for: indexPath) as! ParentDetailCell
         cell.delegate = self
         
-        if let data = list[indexPath.row] as? PatientList {
+        if let data = list[indexPath.section] as? PatientList {
             
             cell.showParentName(data.firstname, showImage: false)
-        } else  if let list = list[indexPath.row] as? DoctorList  {
+        } else  if let list = list[indexPath.section] as? DoctorList  {
             
-            let image = list.blocked.lowercased() == "y" ? "Tick Green 2x" : "minus"
-            
-            cell.showParentName(list.doctor_firstname , showImage: false, showEdit: true, image: image)
+            if indexPath.row == 0 {
+                
+                let image = list.blocked.lowercased() == "y" ? "Tick Green 2x" : "minus"
+                cell.showParentName(list.doctor_firstname , showImage: false, showEdit: true, image: image, showLocation: true, font: UIFont(name: "Ubuntu", size: 16)!, color: UIColor.colorWithHex(0x414042), showInitial: true, initialText: String(list.doctor_firstname.characters.prefix(1)))
+            } else if let detail = docDetail[indexPath.row - 1] as? Locations {
+                
+                let address = detail.address1 + " " + detail.address2
+                cell.showParentName(address , showImage: false, showEdit: false, image: nil, showLocation: false, font: UIFont(name: "Ubuntu-Medium", size: 12)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
+            } else if let detail = docDetail[indexPath.row - 1] as? DoctorPhoneNumbers {
+                
+                cell.showParentName(detail.phone_number , showImage: false, showEdit: false, image: "phone", showLocation: false, font: UIFont(name: "Ubuntu-Light", size: 14)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
+            }
         }
         
         return cell
@@ -83,7 +107,7 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if StaticContentFile.isDoctorLogIn(),
-            let patient = list[indexPath.row] as? PatientList,
+            let patient = list[indexPath.section] as? PatientList,
             let detail  = patientDetail as? Patients,
             patient.family.count > 0 {
             
@@ -100,19 +124,44 @@ extension PatientListVC: ParentDetailCellDelegate {
         
         if let indexpath = tableView.indexPath(for: cell), let patientList = list as? [PatientList] {
             
-            let addPatientVC = AddPatientVC(patientList[indexpath.row])
+            let addPatientVC = AddPatientVC(patientList[indexpath.section])
             self.navigationController?.pushViewController(addPatientVC, animated: true)
         } else if let indexpath = tableView.indexPath(for: cell), let docList = list as? [DoctorList] {
             
-            let doctorData = docList[indexpath.row]
+            let doctorData = docList[indexpath.section]
             
             let text = doctorData.blocked.lowercased() == "y" ? "Unblock Doctor" : "Block the doctor"
             let image = doctorData.blocked.lowercased() == "y" ? "Tick Green 2x" : "minus"
             
-            let deletAccount = DeletAccountAlert.init("Doctors", description: attributeText(withText: doctorData.doctor_firstname), notificationTitle: text, image: image, data: doctorData)
+            let deletAccount = DeletAccountAlert.init("Doctors", description: attributeText(withText: doctorData.doctor_firstname), notificationTitle: text, image: image, index: indexpath.section)
             deletAccount.modalPresentationStyle=UIModalPresentationStyle.overCurrentContext
             deletAccount.delegate = self
             self.present(deletAccount, animated: true, completion: nil)
+        }
+    }
+    
+    func parentDetailCellTappedLocation(_ cell: ParentDetailCell) {
+        
+        if let indexpath = tableView.indexPath(for: cell) {
+            
+            selectedIndex = (indexpath == selectedIndex ? nil : indexpath)
+            docDetail.removeAll()
+            
+            if selectedIndex != nil,
+                let docList = list[indexpath.section] as? DoctorList {
+                
+                for loc in docList.locations {
+                    
+                    docDetail.append(loc)
+                    
+                    for phone in loc.phones {
+                        
+                        docDetail.append(phone)
+                    }
+                }
+            }
+            
+            tableView.reloadData()
         }
     }
     
@@ -182,7 +231,7 @@ extension PatientListVC {
                 }}
     }
     
-    fileprivate func callApi() {
+    func callApi() {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
@@ -198,6 +247,12 @@ extension PatientListVC {
                         
                         self.patientDetail = result
                         self.list = result.patientList
+                        
+                        if let nav = self.parent as? UINavigationController, let tab =  nav.parent as? TabBarVC {
+                            
+                            tab.list = self.list
+                        }
+                        
                         self.tableView.reloadData()
                     }}
         } else {
@@ -250,9 +305,10 @@ extension PatientListVC {
 
 extension PatientListVC: DeletAccountAlertDelegate{
     
-    func tappedYesButton(_ vc: DeletAccountAlert, data:Any?) {
+    func tappedYesButton(_ vc: DeletAccountAlert, index:Int?) {
         
-        if let detail = data as? DoctorList {
+        if let ind = index,
+            let detail = list[ind] as? DoctorList {
             
             let activityIndicator = UIActivityIndicatorView.activityIndicatorToView(vc.view)
             
@@ -268,7 +324,17 @@ extension PatientListVC: DeletAccountAlertDelegate{
                         
                         UIView.animate(withDuration: 0.4, animations: {
                             
+                            let docDetail = detail
+                            docDetail.blocked = "y"
+                            
+                            self.list[ind] = docDetail
                             vc.view.showToast(message: result.message)
+                            self.tableView.reloadData()
+                            
+                            if let nav = self.parent as? UINavigationController, let tab =  nav.parent as? TabBarVC {
+                                
+                                tab.list = self.list
+                            }
                         }, completion: { (status) in
                             
                             vc.dismiss(animated: true, completion: nil)
