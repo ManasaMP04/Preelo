@@ -30,6 +30,8 @@ class AccountSettingsVC: UIViewController {
     @IBOutlet fileprivate weak var phoneNumber: FloatingTextField!
     @IBOutlet fileprivate weak var tableView: UITableView!
     @IBOutlet fileprivate weak var scrollView: UIScrollView!
+    @IBOutlet fileprivate weak var password: FloatingTextField!
+    @IBOutlet fileprivate weak var confirmPassword: FloatingTextField!
     
     fileprivate var selection: Selection = .childrenListInfo
     fileprivate var userProfile    : LogInDetail?
@@ -164,16 +166,27 @@ extension AccountSettingsVC {
         StaticContentFile.setButtonFont(discardChangeButton, backgroundColorNeeed: false, shadowNeeded: false)
         customNavigation.setTitle("Account Settings")
         customNavigation.delegate = self
+        
         firstName.isCompleteBoarder = true
+        password.isCompleteBoarder = true
+        confirmPassword.isCompleteBoarder = true
         lastName.isCompleteBoarder = true
         emailAddress.isCompleteBoarder = true
         phoneNumber.isCompleteBoarder = true
+        
         tableView.tableFooterView = UIView()
+        
         
         firstName.textFieldDelegate = self
         lastName.textFieldDelegate = self
         firstName.validateForInputType(.generic, andNotifyDelegate: self)
         lastName.validateForInputType(.generic, andNotifyDelegate: self)
+        
+        password.textFieldDelegate = self
+        confirmPassword.textFieldDelegate = self
+        password.validateForInputType(.generic, andNotifyDelegate: self)
+        confirmPassword.validateForInputType(.generic, andNotifyDelegate: self)
+        
         emailAddress.textFieldDelegate = self
         phoneNumber.textFieldDelegate = self
         emailAddress.validateForInputType(.email, andNotifyDelegate: self)
@@ -227,11 +240,12 @@ extension AccountSettingsVC {
             let phone = self.phoneNumber.text,
             phone.characters.count > 0,
             let email = self.emailAddress.text,
-            email.characters.count > 0 {
+            email.characters.count > 0, let pass = password.text,
+            let confirmPassword = confirmPassword.text {
             
             activityIndicator?.startAnimating()
             
-            Alamofire.request(SettingRouter.post_updateProfile(fName, lName, phone, email))
+            Alamofire.request(SettingRouter.post_updateProfile(fName, lName, phone, email, pass, confirmPassword))
                 .responseObject { (response: DataResponse<SuccessStatus>) in
                     
                     if let result = response.result.value {

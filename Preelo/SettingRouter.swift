@@ -14,7 +14,7 @@ enum SettingRouter:  URLRequestConvertible {
     case post_accountDelet()
     case post_feedbackSupport(String,String)
     case post_updateChildren(String,String, Int)
-    case post_updateProfile(String,String, String, String)
+    case post_updateProfile(String,String, String, String, String,String)
     
     public func asURLRequest() throws -> URLRequest {
         
@@ -76,12 +76,14 @@ enum SettingRouter:  URLRequestConvertible {
                                             "patientid": Id]
                 return dict
                 
-            case .post_updateProfile(let firstName, let lastName, let phone, let email):
+            case .post_updateProfile(let firstName, let lastName, let phone, let email, let password, let conPassword):
                 
                 let dict : [String: Any] = ["firstname": firstName, "lastname": lastName,
                                             "token" : StaticContentFile.getToken(),
                                             "phonenumber": phone,
-                                            "email" : email]
+                                            "email" : email,
+                                            "password" : email,
+                                            "confirm_password" : email]
                 return dict
             }
         }()
