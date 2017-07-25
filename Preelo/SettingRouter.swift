@@ -13,11 +13,13 @@ enum SettingRouter:  URLRequestConvertible {
     
     case post_accountDelet()
     case post_feedbackSupport(String,String)
+    case post_updateChildren(String,String, Int)
+    case post_updateProfile(String,String, String, String)
     
     public func asURLRequest() throws -> URLRequest {
         
         var method: HTTPMethod {
-
+            
             return .post
         }
         
@@ -27,14 +29,22 @@ enum SettingRouter:  URLRequestConvertible {
             var relativePath: String
             
             switch self{
-            
+                
             case .post_accountDelet:
                 
                 relativePath = NetworkURL.partentdelet
-            
+                
             case .post_feedbackSupport:
-
+                
                 relativePath = NetworkURL.feedback
+                
+            case .post_updateChildren:
+                
+                relativePath = NetworkURL.childUpdate
+                
+            case .post_updateProfile:
+                
+                relativePath = NetworkURL.updateProfile
             }
             
             url = url.appendingPathComponent(relativePath)
@@ -46,21 +56,34 @@ enum SettingRouter:  URLRequestConvertible {
         let params: [String: Any] = {
             
             switch self{
-            
+                
             case .post_accountDelet:
                 
                 var dict : [String: Any]
                 dict = ["token" : StaticContentFile.getToken()]
                 return dict
-
+                
             case .post_feedbackSupport(let subject, let message):
                 
                 let dict : [String: Any] = ["subject": subject, "message": message,
                                             "token" : StaticContentFile.getToken()]
                 return dict
-            
+                
+            case .post_updateChildren(let firstName, let lastName, let Id):
+                
+                let dict : [String: Any] = ["firstname": firstName, "lastname": lastName,
+                                            "token" : StaticContentFile.getToken(),
+                                            "patientid": Id]
+                return dict
+                
+            case .post_updateProfile(let firstName, let lastName, let phone, let email):
+                
+                let dict : [String: Any] = ["firstname": firstName, "lastname": lastName,
+                                            "token" : StaticContentFile.getToken(),
+                                            "phonenumber": phone,
+                                            "email" : email]
+                return dict
             }
-            
         }()
         
         var urlRequest = URLRequest(url: url)

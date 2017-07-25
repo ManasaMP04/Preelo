@@ -155,14 +155,19 @@ extension LoginDetailVC {
                 StaticContentFile.removeAllKeys()
                 
                 if let result = response.result.value, result.status == "SUCCESS",
-                    let loginDetail = result.loginDetail {
+                    let detail = result.loginDetail {
                     
                     self.loginDetail = result
                     
                     self.defaults.set(result.token, forKey: "token")
-                    self.isDoctorLogIn ? self.defaults.set(loginDetail.doctorid, forKey: "id") : self.defaults.set(loginDetail.id, forKey: "id")
-                    self.defaults.set(loginDetail.firstname, forKey: "name")
+                    self.isDoctorLogIn ? self.defaults.set(detail.doctorid, forKey: "id") : self.defaults.set(detail.id, forKey: "id")
+                    self.defaults.set(detail.firstname, forKey: "name")
                     self.defaults.set(self.isDoctorLogIn, forKey: "isDoctorLogIn")
+                    
+                    let encodedData = NSKeyedArchiver.archivedData(withRootObject: detail)
+                    self.defaults.set(encodedData, forKey: "userProfile")
+                    self.defaults.synchronize()
+                    
                     self.callChannelAPI()
                 } else if let result = response.result.value, result.status == "VERIFY" {
                     

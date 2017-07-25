@@ -78,6 +78,7 @@ extension StaticContentFile {
         defaults.removeObject(forKey: "id")
         defaults.removeObject(forKey: "name")
         defaults.set(false, forKey: "isLoggedIn")
+        defaults.removeObject(forKey: "userProfile")
         StaticContentFile.deleteMessagePlist()
     }
     
@@ -131,6 +132,17 @@ extension StaticContentFile {
     static func getId() -> Int {
         
         return defaults.integer(forKey: "id")
+    }
+    
+    static func getUserProfile() -> LogInDetail? {
+        
+        if let decoded  = defaults.object(forKey: "userProfile") as? Data,
+            let profile = NSKeyedUnarchiver.unarchiveObject(with: decoded) as? LogInDetail {
+            
+            return profile
+        }
+        
+        return nil
     }
 }
 

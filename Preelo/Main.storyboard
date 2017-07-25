@@ -864,7 +864,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4H6-Sc-lMp">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4H6-Sc-lMp">
                                 <rect key="frame" x="0.0" y="113" width="320" height="624"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -996,6 +996,9 @@
                             <constraint firstItem="cUt-Wp-sIu" firstAttribute="top" secondItem="4H6-Sc-lMp" secondAttribute="bottom" id="yGg-xC-fU5"/>
                             <constraint firstItem="T0E-XH-3WA" firstAttribute="top" secondItem="c5q-cs-7UZ" secondAttribute="bottom" id="zvq-Nc-oQq"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="TFY-sN-ASc" appends="YES" id="Dc2-ch-c75"/>
+                        </connections>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="737"/>
@@ -1014,6 +1017,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="knh-F1-Ok5" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer cancelsTouchesInView="NO" id="TFY-sN-ASc">
+                    <connections>
+                        <action selector="gestureTapped:" destination="RVK-GT-Mon" id="br4-B8-sQv"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4556.25" y="-138.125"/>
         </scene>

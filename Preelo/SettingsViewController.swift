@@ -17,8 +17,6 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var feedBackSupportButton: UIButton!
     @IBOutlet weak var termAndConditionButton: UIButton!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

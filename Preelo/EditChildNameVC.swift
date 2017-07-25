@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class EditChildNameVC: UIViewController {
     
@@ -17,11 +18,16 @@ class EditChildNameVC: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var customNavigation: CustomNavigationBar!
     
-    fileprivate var childDetail : Any?
+    fileprivate var activityIndicator: UIActivityIndicatorView?
+    fileprivate var childDetail : ChildrenDetail!
+    fileprivate var selectedIndex = 0
+    fileprivate var userProfile : LogInDetail!
     
-    init (_ childDetail: Any) {
+    init (_ index: Int, userProfile: LogInDetail) {
         
-        self.childDetail = childDetail
+        self.childDetail = userProfile.children[index]
+        self.selectedIndex = index
+        self.userProfile = userProfile
         
         super.init(nibName: "EditChildNameVC", bundle: nil)
     }
@@ -58,7 +64,7 @@ class EditChildNameVC: UIViewController {
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
-    
+        
         view.endEditing(true)
         navigationController?.popViewController(animated: true)
     }
@@ -67,15 +73,15 @@ class EditChildNameVC: UIViewController {
         
         view.endEditing(true)
         
-        if let vc = navigationController?.viewControllerWithClass(AccountSettingsVC.self) as?  AccountSettingsVC {
-        
-            vc.refresh()
-        }
+        callAPI()
     }
 }
 
-extension EditChildNameVC{
+extension EditChildNameVC {
+    
     fileprivate func setup() {
+        
+        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -83,17 +89,65 @@ extension EditChildNameVC{
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        
+        childrenFirstName.validateForInputType(.generic, andNotifyDelegate: self)
+        childrenLastName.validateForInputType(.generic, andNotifyDelegate: self)
         customNavigation.setTitle("Edit Child Name")
         customNavigation.delegate = self
         childrenFirstName.textFieldDelegate = self
         childrenLastName.textFieldDelegate = self
-        StaticContentFile.setFontForTF(childrenFirstName, autoCaps: false)
-        StaticContentFile.setFontForTF(childrenLastName, autoCaps: false)
+        StaticContentFile.setFontForTF(childrenFirstName, autoCaps: true)
+        StaticContentFile.setFontForTF(childrenLastName, autoCaps: true)
         StaticContentFile.setButtonFont(confirmChangeButton)
         StaticContentFile.setButtonFont(cancelButton, backgroundColorNeeed: false, shadowNeeded: false)
+        
+        childrenFirstName.isCompleteBoarder = true
+        childrenLastName.isCompleteBoarder = true
+        
+        childrenFirstName.text = childDetail.child_firstname
+        childrenLastName.text = childDetail.child_lastname
     }
     
+    fileprivate func callAPI() {
+        
+        if let fName = self.childrenFirstName.text,
+            fName.characters.count > 0,
+            let lName = self.childrenLastName.text,
+            lName.characters.count > 0 {
+            
+            activityIndicator?.startAnimating()
+            
+            Alamofire.request(SettingRouter.post_updateChildren(fName, lName, childDetail.patientid))
+                .responseObject { (response: DataResponse<SuccessStatus>) in
+                    
+                    if let result = response.result.value {
+                        
+                        self.childDetail.child_firstname = fName
+                        self.childDetail.child_lastname  = lName
+                        self.userProfile.children[self.selectedIndex] = self.childDetail
+                        
+                        let defaults = UserDefaults.standard
+                        let encodedData = NSKeyedArchiver.archivedData(withRootObject: self.userProfile)
+                        defaults.set(encodedData, forKey: "userProfile")
+                        defaults.synchronize()
+
+                        if let vc = self.navigationController?.viewControllerWithClass(AccountSettingsVC.self) as?  AccountSettingsVC {
+                            
+                            vc.refresh()
+                        }
+                        
+                        self.activityIndicator?.stopAnimating()
+                        self.view.showToast(message: result.message)
+                    } else {
+                        
+                        self.activityIndicator?.stopAnimating()
+                        self.view.showToast(message: "Failed to send the feedback")
+                    }
+            }
+        } else {
+            
+            self.view.showToast(message: "Please enter the required field")
+        }
+    }
 }
 
 //MARK:- KeyBoard delegate methods
@@ -127,10 +181,18 @@ extension EditChildNameVC:CustomNavigationBarDelegate  {
 }
 
 extension EditChildNameVC: PreeloTextFieldDelegate {
-
-
-
-
+    
+    func textFieldReturned(_ textField: PreeloTextField) {
+        
+        if childrenFirstName.isFirstResponder {
+            
+            childrenLastName.becomeFirstResponder()
+        } else if childrenLastName.isFirstResponder {
+            
+            self.view.endEditing(true)
+            callAPI()
+        }
+    }
 }
 
 

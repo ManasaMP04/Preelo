@@ -9,10 +9,8 @@
 import UIKit
 import Alamofire
 
-
 class FeedBackSupportVC: UIViewController {
-    
-    
+
     @IBOutlet weak fileprivate var customNavigationBar: CustomNavigationBar!
     
     @IBOutlet fileprivate weak var sendButton: UIButton!
