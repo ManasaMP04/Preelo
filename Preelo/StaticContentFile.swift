@@ -224,80 +224,72 @@ extension StaticContentFile {
 
 extension StaticContentFile {
     
-    static func saveMessage(_ message: RecentMessages, id: Int, lastMessageId: Int = 0, removeArray: Bool = false, channelDetail: ChannelDetail) {
+    static func saveMessage(_ message: RecentMessages, channelDetail: ChannelDetail) {
         
         var dict = [String: Any]()
         
-        if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any],
-            let messageList =  messageObject["\(id)"] as? [String: Any],
-            let messages = messageList["recent_message"] as? [[String: Any]] {
+        if let messageObject = plistStorageManager.objectForKey("\(channelDetail.channel_id)", inFile: .message) as? [String: Any],
+            let obj = messageObject["\(channelDetail.channel_id)"] as? [String: Any],
+            let messagesList = obj["recent_message"] as? [[String: Any]] {
             
-            var messageObject1 = messageList
-            var list = messages
+            var messageObject1 = obj
+            var list = messagesList
             
-            if removeArray {
+            if message.message_id >= channelDetail.lastMsgId {
                 
-                for (index, item) in messages.enumerated() {
+                for (index, item) in list.enumerated() {
                     
                     if let id = item["message_id"] as? Int ,
                         id == message.message_id {
                         
-                        list.removeLast(messages.count - index)
+                        list.remove(at: index)
+                        
+                        break
                     }
-                }
-            }
+                }}
             
             list.append(message.modelToDict())
             messageObject1["recent_message"] = list
             messageObject1["unread_count"] = 0
-            messageObject1["lastMsgId"] = lastMessageId
-            dict["\(id)"] = messageObject1
+            messageObject1["lastMsgId"] = message.message_id
+            dict["\(channelDetail.channel_id)"] = messageObject1
             
-        } else {
-            
-            var messageObject1 = channelDetail.modelToDict()
-            messageObject1["recent_message"] = [message.modelToDict()]
-            messageObject1["unread_count"] = 0
-            messageObject1["lastMsgId"] = lastMessageId
-            
-            dict["\(id)"] =  messageObject1
+            plistStorageManager.setObject(dict, forKey: "\(channelDetail.channel_id)", inFile: .message)
         }
-        
-        plistStorageManager.setObject(dict, forKey: "\(id)", inFile: .message)
     }
     
     static func saveMessage(_ detail: ChannelDetail) {
         
         var dict =  [String: Any]()
-        let id = StaticContentFile.isDoctorLogIn() ? detail.parentId : detail.doctorId
         
-        if let messageObject = plistStorageManager.objectForKey("\(id)", inFile: .message) as? [String: Any],
-            let msgDetail =  messageObject["\(id)"] as? [String: Any] {
+        if let messageObject = plistStorageManager.objectForKey("\(detail.channel_id)", inFile: .message) as? [String: Any],
+            let obj = messageObject["\(detail.channel_id)"] as? [String: Any] {
             
-            if let messages = msgDetail["recent_message"] as? [[String: Any]] {
+            var channelObject = obj
+            
+            if let msgs = messageObject["recent_message"] as? [[String: Any]] {
                 
-                var msgList = msgDetail
-                var list = messages
+                var list = msgs
                 
                 for message in detail.recent_message {
                     
                     list.append(message.modelToDict())
                 }
                 
-                msgList["recent_message"] = list
-                msgList["unread_count"] = detail.unread_count
-                dict["\(id)"] = msgList
+                channelObject["recent_message"] = list
+                channelObject["unread_count"] = detail.unread_count
+                dict["\(detail.channel_id)"] = channelObject
             } else {
                 
-                dict["\(id)"] =  detail.modelToDict()
+                dict["\(detail.channel_id)"] =  detail.modelToDict()
             }
             
         } else {
             
-            dict["\(id)"] =  detail.modelToDict()
+            dict["\(detail.channel_id)"] =  detail.modelToDict()
         }
         
-        plistStorageManager.setObject(dict as Any , forKey: "\(id)", inFile: .message)
+        plistStorageManager.setObject(dict as Any , forKey: "\(detail.channel_id)", inFile: .message)
     }
     
     static func getChannel() -> [ChannelDetail] {
@@ -308,7 +300,8 @@ extension StaticContentFile {
             
             for key in keys {
                 
-                if let object = plistStorageManager.objectForKey("\(key)", inFile: .message) as? [String: Any], let obj = object["\(key)"]  {
+                if let object = plistStorageManager.objectForKey("\(key)", inFile: .message) as? [String: Any],
+                    let obj = object["\(key)"] as? [String: Any] {
                     
                     do {
                         let jsonData = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)

@@ -166,31 +166,21 @@ extension ChatVC {
         customeNavigation.setTitle(name)
         
         if  !isPatient_DocFlow {
-            
-            if let recentMessage = channelDetail.recent_message.last {
+        
+            if channelDetail.lastMsgId == 0 {
                 
-                if channelDetail.lastMsgId != recentMessage.message_id {
-                    
-                    if channelDetail.lastMsgId == -1 {
-                        
-                        activityIndicator?.startAnimating()
-                        callApiToGetMessages(channelDetail.lastMsgId)
-                    } else if channelDetail.lastMsgId < recentMessage.message_id {
-                        
-                        self.messageList = channelDetail.recent_message
-                        self.tableview.reloadData()
-                        footerActivityIndicator?.startAnimating()
-                        callApiToGetMessages(channelDetail.lastMsgId)
-                    } else {
-                        
-                        self.messageList = channelDetail.recent_message
-                        self.tableview.reloadData()
-                    }
-                } else {
-                    
-                    self.messageList = channelDetail.recent_message
-                    self.tableview.reloadData()
-                }
+                activityIndicator?.startAnimating()
+                callApiToGetMessages()
+            } else if channelDetail.unread_count > 0 {
+                
+                self.messageList = channelDetail.recent_message
+                self.tableview.reloadData()
+                footerActivityIndicator?.startAnimating()
+                callApiToGetMessages()
+            } else {
+                
+                self.messageList = channelDetail.recent_message
+                self.tableview.reloadData()
             }
         }
         
@@ -262,29 +252,22 @@ extension ChatVC {
         }
     }
     
-    fileprivate func callApiToGetMessages(_ messageId: Int) {
-        
-        let id = StaticContentFile.isDoctorLogIn() ? channelDetail.parentId : channelDetail.doctorId
+    fileprivate func callApiToGetMessages() {
         
         Alamofire.request(SendTextMessageRouter.get(channelDetail))
             .responseArray(keyPath: "data") {(response: DataResponse<[RecentMessages]>) in
                 
                 if let result = response.result.value {
                     
-                    let plist = PlistManager()
-                    plist.deleteObject(forKey: "\(id)", inFile: .message)
-                    
                     self.callapiToMarkedRead()
-                    self.messageList = result
-                    
-                    var removeArray = true
+                    self.messageList.append(contentsOf: result)
                     
                     for msg in result {
                         
-                        StaticContentFile.saveMessage(msg, id: id, lastMessageId: msg.message_id, removeArray: removeArray, channelDetail: self.channelDetail)
+                        StaticContentFile.saveMessage(msg, channelDetail: self.channelDetail)
                         self.channelDetail.lastMsgId = msg.message_id
-                        removeArray = false
                     }
+                    
                     self.tableview.reloadData()
                     self.activityIndicator?.stopAnimating()
                     self.footerActivityIndicator?.stopAnimating()

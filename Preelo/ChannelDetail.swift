@@ -62,7 +62,7 @@ class ChannelDetail: Mappable {
     var patientId           = 0
     var auth_status         = ""
     var doctor_user_id      = 0
-    var lastMsgId           = -1
+    var lastMsgId           = 0
     
     required init?(map: Map) {
         
