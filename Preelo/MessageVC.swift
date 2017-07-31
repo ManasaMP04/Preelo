@@ -35,7 +35,6 @@ class MessageVC: UIViewController {
     fileprivate let defaults  = UserDefaults.standard
     var webSocket = [SocketIOClient]()
     
-    
     fileprivate var list = [Any]()
     
     override func viewDidLoad() {
@@ -106,6 +105,8 @@ class MessageVC: UIViewController {
 extension MessageVC {
     
     fileprivate func setup() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotification), name: Notification.Name("NotificationIdentifier"), object: nil)
         
         cardView.addShadowWithColor(UIColor.colorWithHex(0x23B5B9) , offset: CGSize.zero, opacity: 0.3, radius: 4)
         self.navigationController?.navigationBar.isHidden = true
@@ -329,8 +330,7 @@ extension MessageVC {
                                 self.saveChannelDataFromSocket(dict)
                             }
                             
-                            self.list = StaticContentFile.getChannel()
-                            self.tableview?.reloadData()
+                            NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: nil, userInfo: nil)
                         }
                     })
                     skt.connect()
@@ -345,6 +345,12 @@ extension MessageVC {
             
             skt.disconnect()
         }
+    }
+    
+    @objc fileprivate func handleNotification() {
+    
+        self.list = StaticContentFile.getChannel()
+        self.tableview?.reloadData()
     }
     
     fileprivate func showAlert() {
@@ -369,6 +375,7 @@ extension MessageVC {
             let channel = ChannelDetail()
             channel.channel_id = id
             channel.channel_name = name
+            channel.unread_count = 1
             
             if msgType == "simple",
                 let message = event["message"] as? String {
