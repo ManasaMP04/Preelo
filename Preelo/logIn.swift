@@ -12,6 +12,7 @@ class logIn: Mappable {
     
     var message         = ""
     var status          = ""
+    var socketServers   = [socketServer]()
     var token           = ""
     var loginDetail     : LogInDetail?
     var notifications   = [String: String]()
@@ -27,6 +28,21 @@ class logIn: Mappable {
         token               <- map["token"]
         loginDetail         <- map["data"]
         notifications       <- map["notifications"]
+        socketServers       <- map["socketservers"]
+    }
+}
+
+class socketServer: Mappable {
+    
+    var address         = ""
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        
+        address             <- map["address"]
     }
 }
 

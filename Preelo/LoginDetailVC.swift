@@ -160,6 +160,7 @@ extension LoginDetailVC {
                     self.loginDetail = result
                     
                     self.defaults.set(result.token, forKey: "token")
+                    self.defaults.set(result.socketServers, forKey: "socketServers")
                     self.isDoctorLogIn ? self.defaults.set(detail.doctorid, forKey: "id") : self.defaults.set(detail.id, forKey: "id")
                     self.defaults.set(detail.firstname, forKey: "name")
                     self.defaults.set(self.isDoctorLogIn, forKey: "isDoctorLogIn")
