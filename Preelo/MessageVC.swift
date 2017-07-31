@@ -9,6 +9,8 @@
 import UIKit
 import AlamofireObjectMapper
 import Alamofire
+import SocketIO
+import ObjectMapper
 
 class MessageVC: UIViewController {
     
@@ -28,6 +30,11 @@ class MessageVC: UIViewController {
     fileprivate var selection: Selection = .authentication
     fileprivate var activityIndicator    : UIActivityIndicatorView?
     fileprivate var pullToRefreshControl : UIRefreshControl!
+    
+    static let sharedInstance = MessageVC()
+    fileprivate let defaults  = UserDefaults.standard
+    var webSocket = [SocketIOClient]()
+    
     
     fileprivate var list = [Any]()
     
@@ -287,8 +294,98 @@ extension MessageVC: ChatVCDelegate {
     }
     
     func chatVCDelegateToCallApi(_ vc: ChatVC) {
-    
+        
         self.callChannelAPI()
+    }
+}
+
+//MARK:- Establishment of Socket
+
+extension MessageVC {
+    
+    func establishConnection() {
+        
+        if let servers = defaults.value(forKey: "socketServers") as? [[String: Any]] {
+            
+            for dict in servers {
+                
+                if let url = dict["address"] as? String,
+                    let UrlForSocket = URL(string: url + "/") {
+                    
+                    let skt = SocketIOClient( socketURL: UrlForSocket, config: [.connectParams(["token": StaticContentFile.getToken()])])
+                    
+                    webSocket.append(skt)
+                    
+                    skt.onAny({ (event) in
+                        
+                        if event.event == "error" {
+                            
+                            self.showAlert()
+                        } else  if (event.event == "chat message" || event.event == "image"),
+                            let data = event.items as? [[String: Any]] {
+                            
+                            for dict in data {
+                                
+                                self.saveChannelDataFromSocket(dict)
+                            }
+                            
+                            self.list = StaticContentFile.getChannel()
+                            self.tableview?.reloadData()
+                        }
+                    })
+                    skt.connect()
+                }
+            }
+        }
+    }
+    
+    func closeConnection() {
+        
+        for skt in webSocket {
+            
+            skt.disconnect()
+        }
+    }
+    
+    fileprivate func showAlert() {
+        
+        let refreshAlert = UIAlertController(title: "Error", message: "Sorry, there seems to be an issue with the connection!", preferredStyle: .alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            
+            refreshAlert.dismiss(animated: true, completion: nil)
+        }))
+        
+        present(refreshAlert, animated: true, completion: nil)
+    }
+    
+    fileprivate func saveChannelDataFromSocket(_ event: [String: Any]) {
+        
+        if let id = event["channel_id"] as? Int,
+            let name = event["channel_name"] as? String,
+            let msgType = event["message_type"] as? String,
+            let msgId = event["message_id"] as? Int {
+            
+            let channel = ChannelDetail()
+            channel.channel_id = id
+            channel.channel_name = name
+            
+            if msgType == "simple",
+                let message = event["message"] as? String {
+                
+                let recentMsg = RecentMessages(msgType, text: message, image: nil, senderId: "", timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
+                recentMsg.message_id = msgId
+                channel.recent_message = [recentMsg]
+            } else if let message = event["message"] as? String,
+                let image = event["image_url"] as? String {
+                
+                let recentMsg = RecentMessages(msgType, text: message, image: image, senderId: "", timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
+                recentMsg.message_id = msgId
+                channel.recent_message = [recentMsg]
+            }
+            
+            StaticContentFile.saveMessage(channel)
+        }
     }
 }
 

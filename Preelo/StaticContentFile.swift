@@ -81,6 +81,7 @@ extension StaticContentFile {
         defaults.removeObject(forKey: "userProfile")
         defaults.removeObject(forKey: "socketServers")
         StaticContentFile.deleteMessagePlist()
+        MessageVC.sharedInstance.closeConnection()
     }
     
     static func deleteMessagePlist() {
@@ -267,7 +268,7 @@ extension StaticContentFile {
             
             var channelObject = obj
             
-            if let msgs = messageObject["recent_message"] as? [[String: Any]] {
+            if let msgs = obj["recent_message"] as? [[String: Any]] {
                 
                 var list = msgs
                 
@@ -277,7 +278,12 @@ extension StaticContentFile {
                 }
                 
                 channelObject["recent_message"] = list
-                channelObject["unread_count"] = detail.unread_count
+                
+                if let unreadCount = channelObject["unread_count"] as? Int {
+                    
+                    channelObject["unread_count"] = unreadCount + detail.unread_count
+                }
+                
                 dict["\(detail.channel_id)"] = channelObject
             } else {
                 

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C9437AA9533277DCD5BEF5ACC128F3B5"
-               BuildableName = "Pods_Preelo.framework"
-               BlueprintName = "Pods-Preelo"
+               BlueprintIdentifier = "FA9F2B9B43960750271E7E165879F790"
+               BuildableName = "SocketIO.framework"
+               BlueprintName = "Socket.IO-Client-Swift"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C9437AA9533277DCD5BEF5ACC128F3B5"
-            BuildableName = "Pods_Preelo.framework"
-            BlueprintName = "Pods-Preelo"
+            BlueprintIdentifier = "FA9F2B9B43960750271E7E165879F790"
+            BuildableName = "SocketIO.framework"
+            BlueprintName = "Socket.IO-Client-Swift"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

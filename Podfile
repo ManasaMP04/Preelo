@@ -9,7 +9,8 @@ use_frameworks!
     pod 'SDWebImage', '~> 3.8'
     pod 'AlamofireObjectMapper', '~> 4.0.0' 
     pod "DXPopover"
-    pod "BSImagePicker", "~> 2.4"   
+    pod "BSImagePicker", "~> 2.4" 
+    pod 'Socket.IO-Client-Swift'  
 
     post_install do |installer|
       installer.pods_project.targets.each do |target|

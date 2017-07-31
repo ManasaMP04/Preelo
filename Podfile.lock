@@ -12,6 +12,7 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - Socket.IO-Client-Swift (10.2.0)
   - UIImageViewModeScaleAspect (1.5)
 
 DEPENDENCIES:
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - BSImagePicker (~> 2.4)
   - DXPopover
   - SDWebImage (~> 3.8)
+  - Socket.IO-Client-Swift
 
 SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
@@ -28,8 +30,9 @@ SPEC CHECKSUMS:
   DXPopover: 13e6bbd1a0da4e62b2190de51f43a94850769e0f
   ObjectMapper: 4060d739febae11ab0c6af8d786f98667c82e1bd
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  Socket.IO-Client-Swift: ecd7fe4d2746a7557e71c2d6e95e23e3be31ddd1
   UIImageViewModeScaleAspect: 11a790a0b9d248a13dc63e3a78991f1463b6d84e
 
-PODFILE CHECKSUM: 82c4518b1eb06c0f04ca5dbaf79301d4a28825a6
+PODFILE CHECKSUM: 68e44c3b63dd28eea795944d0926b8b363559f17
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1
