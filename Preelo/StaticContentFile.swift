@@ -79,6 +79,7 @@ extension StaticContentFile {
         defaults.removeObject(forKey: "name")
         defaults.set(false, forKey: "isLoggedIn")
         defaults.removeObject(forKey: "userProfile")
+        defaults.removeObject(forKey: "socketServers")
         StaticContentFile.deleteMessagePlist()
     }
     
