@@ -31,6 +31,8 @@ class ChatVC: UIViewController {
     @IBOutlet fileprivate weak var requestAuthorizationViewHeight : NSLayoutConstraint!
     @IBOutlet fileprivate weak var requestAuthButton    : UIButton!
     @IBOutlet fileprivate weak var messageTF            : UITextField!
+    @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    
     
     fileprivate var messageList         = [RecentMessages]()
     fileprivate var activityIndicator   : UIActivityIndicatorView?
@@ -113,7 +115,7 @@ extension ChatVC {
     @IBAction func sendButtonTapped(_ sender: Any) {
         
         if let text = messageTF.text, text.characters.count > 0 {
-        
+            
             let dateStr = Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A")
             let recentMessage = RecentMessages("simple", text: text,image: nil, senderId: "you", timeInterval: dateStr)
             messageList.append(recentMessage)
@@ -216,6 +218,8 @@ extension ChatVC {
         
         tableview.estimatedRowHeight = 20
         tableview.rowHeight  = UITableViewAutomaticDimension
+        
+        tableViewHeight.constant = StaticContentFile.screenHeight - 170 - requestAuthorizationViewHeight.constant
     }
     
     fileprivate func createFooter () {
@@ -395,11 +399,22 @@ extension ChatVC {
             
             let kbSize = (dictionary.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
             
-            self.scrollViewBottomInset = kbSize.height - (StaticContentFile.screenHeight * 0.10)
+            tableViewHeight.constant = StaticContentFile.screenHeight - kbSize.height - 100
+            
+            if messageList.count > 0 {
+                
+                tableview.scrollToRow(at: IndexPath(row: messageList.count-1, section: 0), at: .top, animated: true)
+                
+                view.layoutIfNeeded()
+            }
+            
+            self.scrollViewBottomInset = kbSize.height - 40
         }
     }
     
     @objc fileprivate func keyboardWillHide(_ notification: Notification) {
+        
+        tableViewHeight.constant = StaticContentFile.screenHeight - 170 - requestAuthorizationViewHeight.constant
         
         self.scrollViewBottomInset = 0
     }
