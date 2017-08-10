@@ -87,11 +87,16 @@ enum PatientRouter:  URLRequestConvertible {
                 
                 for family in list.family {
                     
-                    let familyDict = ["firstname" : family.firstname,
+                    var familyDict :[String:Any] = ["firstname" : family.firstname,
                                       "lastname" : family.lastname,
                                       "relationship": family.relationship,
                                       "phonenumber": family.phone,
                                       "email" : family.email]
+                    
+                    if family.parentid > 0 {
+                    
+                        familyDict["parentid"] = family.parentid
+                    }
                     
                     families.append(familyDict)
                     

@@ -259,6 +259,41 @@ extension StaticContentFile {
         }
     }
     
+    static func updateChannelDetail(_ detail: ChannelDetail) {
+    
+        var dict =  [String: Any]()
+        
+        if let messageObject = plistStorageManager.objectForKey("\(detail.channel_id)", inFile: .message) as? [String: Any],
+            let obj = messageObject["\(detail.channel_id)"] as? [String: Any] {
+            
+            var channelObject = obj
+            channelObject["auth_status"] = detail.auth_status
+            dict["\(detail.channel_id)"] = channelObject
+            
+             plistStorageManager.setObject(dict as Any , forKey: "\(detail.channel_id)", inFile: .message)
+        }
+    }
+    
+    static func getChannelDetail(_ detail: ChannelDetail) -> ChannelDetail? {
+        
+        if let messageObject = plistStorageManager.objectForKey("\(detail.channel_id)", inFile: .message) as? [String: Any],
+            let obj = messageObject["\(detail.channel_id)"] as? [String: Any] {
+            
+             
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
+                    if let jsonString = String.init(data: jsonData, encoding: .utf8),
+                        let result = Mapper<ChannelDetail>().map(JSONString: jsonString) {
+                        
+                        return result
+                    }} catch {}
+            
+            return nil
+        }
+        
+         return nil
+    }
+    
     static func saveMessage(_ detail: ChannelDetail) {
         
         var dict =  [String: Any]()
@@ -271,6 +306,14 @@ extension StaticContentFile {
             if let msgs = obj["recent_message"] as? [[String: Any]] {
                 
                 var list = msgs
+                
+                for (i,msg) in msgs.enumerated() {
+                
+                    if let id = msg["channel_id"] as? Int, let lastId = msg["lastMsgId"] as? Int,  id == -1 || id > lastId  {
+                      
+                        list.remove(at: i)
+                    }
+                }
                 
                 for message in detail.recent_message {
                     
@@ -319,5 +362,4 @@ extension StaticContentFile {
                 }}}
         return array
     }
-    
 }

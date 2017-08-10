@@ -84,7 +84,7 @@
                                     <rect key="frame" x="20" y="211" width="335" height="0.0"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buM-FQ-aP7">
-                                            <rect key="frame" x="0.0" y="278" width="335" height="45"/>
+                                            <rect key="frame" x="0.0" y="277.5" width="335" height="45"/>
                                             <color key="backgroundColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="45" id="vZ7-Dh-LN6"/>
@@ -97,13 +97,13 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PARENTS INFORMATION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSs-3g-aig">
-                                            <rect key="frame" x="0.0" y="35" width="131" height="13"/>
+                                            <rect key="frame" x="0.0" y="35" width="131" height="12.5"/>
                                             <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="11"/>
                                             <color key="textColor" red="0.73725490196078436" green="0.74509803921568629" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a5o-8G-56d">
-                                            <rect key="frame" x="0.0" y="58" width="335" height="200"/>
+                                            <rect key="frame" x="0.0" y="57.5" width="335" height="200"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="200" id="aOg-bI-oXO"/>
@@ -137,6 +137,7 @@
                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="p7P-Bs-yzI" secondAttribute="bottom" constant="10" id="MRv-tL-rmF"/>
                                 <constraint firstItem="OLx-Jc-nAO" firstAttribute="trailing" secondItem="8rX-3j-COY" secondAttribute="trailing" id="XlK-UG-Cpv"/>
                                 <constraint firstItem="OLx-Jc-nAO" firstAttribute="top" secondItem="8rX-3j-COY" secondAttribute="bottom" constant="25" id="adT-sM-guz"/>
+                                <constraint firstItem="A2A-h8-50m" firstAttribute="top" secondItem="sYf-RW-uN2" secondAttribute="top" constant="45" id="cQL-4J-Lx5"/>
                                 <constraint firstAttribute="trailing" secondItem="A2A-h8-50m" secondAttribute="trailing" constant="20" id="cpy-th-zbI"/>
                                 <constraint firstItem="OLx-Jc-nAO" firstAttribute="leading" secondItem="8rX-3j-COY" secondAttribute="leading" id="iT5-KI-EgO"/>
                                 <constraint firstItem="8rX-3j-COY" firstAttribute="leading" secondItem="A2A-h8-50m" secondAttribute="leading" id="kbd-MK-mYP"/>
@@ -161,7 +162,6 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="lfu-U1-PeA" secondAttribute="bottom" id="8NM-8S-3R9"/>
                 <constraint firstAttribute="trailing" secondItem="2Ac-Ot-VQj" secondAttribute="trailing" id="FhO-Xx-7pr"/>
-                <constraint firstItem="A2A-h8-50m" firstAttribute="top" secondItem="2Ac-Ot-VQj" secondAttribute="bottom" constant="45" id="Jv1-Ac-aTB"/>
                 <constraint firstItem="lfu-U1-PeA" firstAttribute="leading" secondItem="nuI-4f-fDy" secondAttribute="leading" id="O58-Ah-oyP"/>
                 <constraint firstItem="2Ac-Ot-VQj" firstAttribute="top" secondItem="nuI-4f-fDy" secondAttribute="top" id="OzN-7Z-aof"/>
                 <constraint firstItem="lfu-U1-PeA" firstAttribute="top" secondItem="2Ac-Ot-VQj" secondAttribute="bottom" id="Pw6-G1-cgq"/>

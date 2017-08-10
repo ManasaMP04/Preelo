@@ -19,7 +19,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatVC" customModule="Preelo" customModuleProvider="target">
             <connections>
                 <outlet property="authorizationView" destination="lTA-JT-YDU" id="NwA-bG-bCN"/>
+                <outlet property="cameraButton" destination="S23-Yt-seN" id="C9h-Er-Evz"/>
                 <outlet property="customeNavigation" destination="tDf-nw-scH" id="SD6-CN-TfP"/>
+                <outlet property="galleryButton" destination="WLu-iP-TRf" id="l9F-CR-vr9"/>
                 <outlet property="messageTF" destination="PBg-pE-klS" id="NxR-CM-ek7"/>
                 <outlet property="requestAuthButton" destination="9xN-2L-JeE" id="Xhy-ex-5Cf"/>
                 <outlet property="requestAuthorizationViewHeight" destination="xsS-eV-WSn" id="YKc-UU-gNK"/>
@@ -106,7 +108,7 @@ authorization to send messages</string>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="45" id="MHR-xW-7ac"/>
                                             </constraints>
-                                            <state key="normal" image="Camera"/>
+                                            <state key="normal" image="Camera_Inactive"/>
                                             <connections>
                                                 <action selector="cameraButtonTapped:" destination="-1" eventType="touchUpInside" id="d86-u4-nHg"/>
                                             </connections>
@@ -116,7 +118,7 @@ authorization to send messages</string>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="45" id="gAY-RA-sST"/>
                                             </constraints>
-                                            <state key="normal" image="Gallery"/>
+                                            <state key="normal" image="Gallery-Icon"/>
                                             <connections>
                                                 <action selector="galleryButtonTapped:" destination="-1" eventType="touchUpInside" id="KQt-Ch-ig3"/>
                                             </connections>
@@ -127,12 +129,12 @@ authorization to send messages</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xAF-hp-Svp">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xAF-hp-Svp">
                                             <rect key="frame" x="322" y="0.0" width="45" height="45"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="45" id="NTP-XC-uWF"/>
                                             </constraints>
-                                            <state key="normal" title="Send"/>
+                                            <state key="normal" image="Send-Icon"/>
                                             <connections>
                                                 <action selector="sendButtonTapped:" destination="-1" eventType="touchUpInside" id="v4Z-os-Jrf"/>
                                             </connections>
@@ -204,7 +206,8 @@ authorization to send messages</string>
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="Camera" width="25" height="19"/>
-        <image name="Gallery" width="24" height="19"/>
+        <image name="Camera_Inactive" width="29" height="29"/>
+        <image name="Gallery-Icon" width="29" height="29"/>
+        <image name="Send-Icon" width="40" height="40"/>
     </resources>
 </document>

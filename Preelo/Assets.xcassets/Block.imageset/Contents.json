@@ -6,11 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "minus.png",
+      "filename" : "Block.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Block-1.png",
       "scale" : "3x"
     }
   ],

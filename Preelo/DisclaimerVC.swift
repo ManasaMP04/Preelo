@@ -88,7 +88,11 @@ extension DisclaimerVC {
                     alertVC.definesPresentationContext = true;
                     alertVC.modalPresentationStyle=UIModalPresentationStyle.overCurrentContext
                     self.present(alertVC, animated: true, completion: nil)
-                }}
+                } else {
+                
+                    self.view.showToast(message: "Failed to send authentication request")
+                }
+        }
     }
     
     fileprivate func attributeText(withText text: String) -> NSMutableAttributedString {
@@ -127,7 +131,7 @@ extension DisclaimerVC: AlertVCDelegate {
         
         if let vc = navigationController?.viewControllerWithClass(ChatVC.self) as?  ChatVC {
             
-            vc.hideAuthRequest()
+            vc.changeAuthRequestToPending()
             _ = navigationController?.popToViewController(vc, animated: true)
         }
     }

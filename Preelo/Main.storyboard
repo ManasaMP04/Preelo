@@ -842,31 +842,20 @@
                                     <constraint firstAttribute="trailing" secondItem="KfV-sY-kr1" secondAttribute="trailing" id="lPD-1I-y9Y"/>
                                     <constraint firstItem="DB9-SP-AUY" firstAttribute="leading" secondItem="c5q-cs-7UZ" secondAttribute="leading" id="lmE-Fb-8IQ"/>
                                 </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T0E-XH-3WA">
-                                <rect key="frame" x="0.0" y="111" width="320" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="gsk-N9-xsh"/>
-                                </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="point" keyPath="shadowOffset">
-                                        <point key="value" x="11" y="8"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" red="0.13725490200000001" green="0.70980392160000005" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                        <color key="value" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <real key="value" value="0.29999999999999999"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                        <real key="value" value="11"/>
+                                        <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4H6-Sc-lMp">
-                                <rect key="frame" x="0.0" y="113" width="320" height="624"/>
+                                <rect key="frame" x="0.0" y="116" width="320" height="621"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="RVK-GT-Mon" id="Yzh-v0-u09"/>
@@ -874,13 +863,13 @@
                                 </connections>
                             </tableView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aY8-vB-shl">
-                                <rect key="frame" x="0.0" y="113" width="320" height="624"/>
+                                <rect key="frame" x="0.0" y="116" width="320" height="621"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gdm-ds-CUP">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="624"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="621"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="FIRST NAME" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="q3Z-UH-Uyy" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="30" width="260" height="40"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="FIRST NAME" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="q3Z-UH-Uyy" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
+                                                <rect key="frame" x="30" y="20" width="260" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="pFO-Ah-RHM"/>
                                                 </constraints>
@@ -888,8 +877,8 @@
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="LAST NAME" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-R5-4bH" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="90" width="260" height="40"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="LAST NAME" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-R5-4bH" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
+                                                <rect key="frame" x="30" y="80" width="260" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="Zbd-qO-2qS"/>
                                                 </constraints>
@@ -897,8 +886,8 @@
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="PHONE NUMBER" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="uSj-WG-M0D" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="150" width="260" height="40"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="PHONE NUMBER" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="uSj-WG-M0D" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
+                                                <rect key="frame" x="30" y="140" width="260" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="7Zf-MG-cHF"/>
                                                 </constraints>
@@ -906,8 +895,8 @@
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad" returnKeyType="next"/>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="EMAIL ADDRESS" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qMl-S0-JZy" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="210" width="260" height="40"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="EMAIL ADDRESS" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qMl-S0-JZy" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
+                                                <rect key="frame" x="30" y="200" width="260" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="PI7-ea-7qk"/>
                                                 </constraints>
@@ -916,7 +905,7 @@
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOe-uV-uVa">
-                                                <rect key="frame" x="30" y="464" width="260" height="45"/>
+                                                <rect key="frame" x="30" y="461" width="260" height="45"/>
                                                 <color key="backgroundColor" red="0.81389047489999999" green="0.82780064170000001" blue="0.87997895079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="HMR-9V-mVc"/>
@@ -930,7 +919,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ep-9f-OnK">
-                                                <rect key="frame" x="30" y="529" width="260" height="45"/>
+                                                <rect key="frame" x="30" y="526" width="260" height="45"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="NKb-YZ-C1V"/>
@@ -943,8 +932,8 @@
                                                     <action selector="discardChanges:" destination="RVK-GT-Mon" eventType="touchUpInside" id="9es-vc-siD"/>
                                                 </connections>
                                             </button>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="NEW PASSWORD" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gb7-TS-hNP" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="270" width="260" height="40"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="NEW PASSWORD" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gb7-TS-hNP" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
+                                                <rect key="frame" x="30" y="260" width="260" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="71w-uP-FhT"/>
                                                 </constraints>
@@ -952,14 +941,14 @@
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" secureTextEntry="YES"/>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="CONFIRM PASSWORD" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="83l-Ut-dkh" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="330" width="260" height="40"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="CONFIRM PASSWORD" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="83l-Ut-dkh" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
+                                                <rect key="frame" x="30" y="320" width="260" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="vXN-Jf-ffc"/>
                                                 </constraints>
                                                 <color key="textColor" red="0.50196078430000002" green="0.50980392159999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES"/>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -976,7 +965,7 @@
                                             <constraint firstItem="uSj-WG-M0D" firstAttribute="trailing" secondItem="Dcb-R5-4bH" secondAttribute="trailing" id="OZF-Na-Iac"/>
                                             <constraint firstItem="qMl-S0-JZy" firstAttribute="leading" secondItem="uSj-WG-M0D" secondAttribute="leading" id="QCn-G0-pk1"/>
                                             <constraint firstItem="gb7-TS-hNP" firstAttribute="trailing" secondItem="qMl-S0-JZy" secondAttribute="trailing" id="QrV-sv-tqW"/>
-                                            <constraint firstItem="q3Z-UH-Uyy" firstAttribute="top" secondItem="Gdm-ds-CUP" secondAttribute="top" constant="30" id="TAb-QL-8yq"/>
+                                            <constraint firstItem="q3Z-UH-Uyy" firstAttribute="top" secondItem="Gdm-ds-CUP" secondAttribute="top" constant="20" id="TAb-QL-8yq"/>
                                             <constraint firstItem="gb7-TS-hNP" firstAttribute="top" secondItem="qMl-S0-JZy" secondAttribute="bottom" constant="20" id="UFn-7v-SOr"/>
                                             <constraint firstItem="Dcb-R5-4bH" firstAttribute="leading" secondItem="q3Z-UH-Uyy" secondAttribute="leading" id="bCr-3H-Sqh"/>
                                             <constraint firstItem="83l-Ut-dkh" firstAttribute="top" secondItem="gb7-TS-hNP" secondAttribute="bottom" constant="20" id="btN-ke-wef"/>
@@ -1007,20 +996,17 @@
                             <constraint firstAttribute="trailing" secondItem="4H6-Sc-lMp" secondAttribute="trailing" id="2cf-5A-Dcv"/>
                             <constraint firstAttribute="trailing" secondItem="c5q-cs-7UZ" secondAttribute="trailing" id="3M4-bH-INh"/>
                             <constraint firstAttribute="trailing" secondItem="aY8-vB-shl" secondAttribute="trailing" id="CKe-Ig-wbl"/>
-                            <constraint firstItem="T0E-XH-3WA" firstAttribute="leading" secondItem="ASb-hs-z9a" secondAttribute="leading" id="PCw-7r-jc2"/>
                             <constraint firstItem="c5q-cs-7UZ" firstAttribute="top" secondItem="w8N-CA-8Ml" secondAttribute="bottom" id="PWw-iy-fHg"/>
                             <constraint firstItem="w8N-CA-8Ml" firstAttribute="top" secondItem="ASb-hs-z9a" secondAttribute="top" id="PoI-tx-mPU"/>
                             <constraint firstItem="c5q-cs-7UZ" firstAttribute="leading" secondItem="ASb-hs-z9a" secondAttribute="leading" id="Qzc-pR-IJj"/>
                             <constraint firstItem="w8N-CA-8Ml" firstAttribute="leading" secondItem="ASb-hs-z9a" secondAttribute="leading" id="S4V-m5-v5V"/>
                             <constraint firstItem="4H6-Sc-lMp" firstAttribute="leading" secondItem="ASb-hs-z9a" secondAttribute="leading" id="aEu-92-0yU"/>
-                            <constraint firstAttribute="trailing" secondItem="T0E-XH-3WA" secondAttribute="trailing" id="dma-6e-gT4"/>
                             <constraint firstItem="aY8-vB-shl" firstAttribute="leading" secondItem="ASb-hs-z9a" secondAttribute="leading" id="hHt-6Y-BbV"/>
                             <constraint firstItem="cUt-Wp-sIu" firstAttribute="top" secondItem="aY8-vB-shl" secondAttribute="bottom" id="hpa-4k-Bm6"/>
-                            <constraint firstItem="4H6-Sc-lMp" firstAttribute="top" secondItem="T0E-XH-3WA" secondAttribute="bottom" constant="1" id="iSx-mY-A96"/>
                             <constraint firstAttribute="trailing" secondItem="w8N-CA-8Ml" secondAttribute="trailing" id="kmx-no-8WP"/>
-                            <constraint firstItem="aY8-vB-shl" firstAttribute="top" secondItem="T0E-XH-3WA" secondAttribute="bottom" constant="1" id="pep-S8-ImD"/>
+                            <constraint firstItem="4H6-Sc-lMp" firstAttribute="top" secondItem="c5q-cs-7UZ" secondAttribute="bottom" constant="5" id="loP-iO-MGc"/>
+                            <constraint firstItem="aY8-vB-shl" firstAttribute="top" secondItem="c5q-cs-7UZ" secondAttribute="bottom" constant="5" id="wxR-Yg-ddc"/>
                             <constraint firstItem="cUt-Wp-sIu" firstAttribute="top" secondItem="4H6-Sc-lMp" secondAttribute="bottom" id="yGg-xC-fU5"/>
-                            <constraint firstItem="T0E-XH-3WA" firstAttribute="top" secondItem="c5q-cs-7UZ" secondAttribute="bottom" id="zvq-Nc-oQq"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="TFY-sN-ASc" appends="YES" id="Dc2-ch-c75"/>

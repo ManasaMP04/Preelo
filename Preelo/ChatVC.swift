@@ -12,8 +12,7 @@ import Alamofire
 
 protocol ChatVCDelegate: class {
     
-    func chatVCDelegateToRefresh(_ vc: ChatVC)
-    func chatVCDelegateToCallApi(_ vc: ChatVC)
+    func chatVCDelegateToRefresh(_ vc: ChatVC, isAuthRequest: Bool)
 }
 class ChatVC: UIViewController {
     
@@ -33,16 +32,19 @@ class ChatVC: UIViewController {
     @IBOutlet fileprivate weak var messageTF            : UITextField!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var galleryButton: UIButton!
     
     fileprivate var messageList         = [RecentMessages]()
     fileprivate var activityIndicator   : UIActivityIndicatorView?
     fileprivate var footerActivityIndicator   : UIActivityIndicatorView?
-    fileprivate var channelDetail       : ChannelDetail!
     fileprivate var images              = [UIImage]()
     fileprivate var selection:Selection = .camera
     fileprivate var isPatient_DocFlow   = false
     fileprivate var parentOrDocId      = 0
     fileprivate var name                = ""
+    
+    var channelDetail       : ChannelDetail!
     
     weak var delegate: ChatVCDelegate?
     
@@ -90,10 +92,12 @@ class ChatVC: UIViewController {
         
     }
     
-    func hideAuthRequest() {
+    func changeAuthRequestToPending() {
         
-        requestAuthorizationViewHeight.constant = 0
-        authorizationView.isHidden = true
+        channelDetail.auth_status = "p"
+        showTheAuthRequestButton()
+        StaticContentFile.updateChannelDetail(channelDetail)
+        self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: true)
     }
 }
 
@@ -116,10 +120,6 @@ extension ChatVC {
         
         if let text = messageTF.text, text.characters.count > 0 {
             
-            let dateStr = Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A")
-            let recentMessage = RecentMessages("simple", text: text,image: nil, senderId: "you", timeInterval: dateStr)
-            messageList.append(recentMessage)
-            tableview.reloadData()
             callAPIToSendText(text)
         }
     }
@@ -162,33 +162,55 @@ extension ChatVC {
         requestAuthorizationViewHeight.constant = 0
         authorizationView.isHidden = true
         toolbarView.isUserInteractionEnabled = true
-        
         customeNavigation.setTitle(name)
+        customeNavigation.delegate = self
+        tableview.register(UINib(nibName: "FromMessageCell", bundle: nil), forCellReuseIdentifier: FromMessageCell.cellId)
+        tableview.register(UINib(nibName: "ToMessageCell", bundle: nil), forCellReuseIdentifier: ToMessageCell.cellId)
+        tableview.register(UINib(nibName: "ImageListCell", bundle: nil), forCellReuseIdentifier: ImageListCell.cellId)
+        
+        tableview.estimatedRowHeight = 20
+        tableview.rowHeight  = UITableViewAutomaticDimension
+        
+        refresh()
+        tableViewHeight.constant = StaticContentFile.screenHeight - 170 - requestAuthorizationViewHeight.constant
+    }
+    
+    func refresh() {
         
         if  !isPatient_DocFlow {
-        
-            if channelDetail.lastMsgId == 0 {
+            
+            if channelDetail.lastMsgId == -1 {
                 
                 activityIndicator?.startAnimating()
                 callApiToGetMessages()
             } else if channelDetail.unread_count > 0 {
                 
                 self.messageList = channelDetail.recent_message
+                self.messageList.removeLast()
                 self.tableview.reloadData()
+                scrollToButtom()
                 footerActivityIndicator?.startAnimating()
                 callApiToGetMessages()
             } else {
                 
                 self.messageList = channelDetail.recent_message
                 self.tableview.reloadData()
+                scrollToButtom()
             }
         }
+        
+        showTheAuthRequestButton()
+    }
+    
+    fileprivate func showTheAuthRequestButton() {
         
         if !StaticContentFile.isDoctorLogIn(), channelDetail.auth_status.lowercased() != "t" {
             
             requestAuthorizationViewHeight.constant = 144
             authorizationView.isHidden = false
             toolbarView.isUserInteractionEnabled = false
+            cameraButton.setImage(UIImage(named: "Camera_Inactive"), for: .normal)
+            galleryButton.setImage(UIImage(named: "Gallery-Icon"), for: .normal)
             
             let str = channelDetail.auth_status.lowercased() == "p" ? "AUTHORIZATION PENDING" : "REQUEST AUTHORIZATION"
             requestAuthButton.setTitle(str, for: .normal)
@@ -199,17 +221,18 @@ extension ChatVC {
                 requestAuthButton.backgroundColor = UIColor.lightGray
                 requestAuthButton.layer.borderColor = UIColor.lightGray.cgColor
             }
+        } else {
+            
+            cameraButton.setImage(UIImage(named: "camera-Active"), for: .normal)
+            galleryButton.setImage(UIImage(named: "Gallery-Icon Active"), for: .normal)
         }
+    }
+    
+    fileprivate func scrollToButtom() {
         
-        customeNavigation.delegate = self
-        tableview.register(UINib(nibName: "FromMessageCell", bundle: nil), forCellReuseIdentifier: FromMessageCell.cellId)
-        tableview.register(UINib(nibName: "ToMessageCell", bundle: nil), forCellReuseIdentifier: ToMessageCell.cellId)
-        tableview.register(UINib(nibName: "ImageListCell", bundle: nil), forCellReuseIdentifier: ImageListCell.cellId)
-        
-        tableview.estimatedRowHeight = 20
-        tableview.rowHeight  = UITableViewAutomaticDimension
-        
-        tableViewHeight.constant = StaticContentFile.screenHeight - 170 - requestAuthorizationViewHeight.constant
+        self.view.layoutIfNeeded()
+        let indexPath = IndexPath(row: self.messageList.count - 1, section: 0)
+        self.tableview.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
     
     fileprivate func createFooter () {
@@ -240,9 +263,18 @@ extension ChatVC {
         Alamofire.request(SendTextMessageRouter.post(text))
             .responseObject { (response: DataResponse<SuccessStatus>) in
                 
-                if let _ = response.result.value {
+                if let result = response.result.value {
                     
-                    self.delegate?.chatVCDelegateToCallApi(self)
+                    let dateStr = Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A")
+                    let recentMessage = RecentMessages("simple", text: text,image: nil, senderId: "you", timeInterval: dateStr)
+                    recentMessage.message_id = result.message_id
+                    
+                    StaticContentFile.saveMessage(recentMessage, channelDetail: self.channelDetail)
+                    self.messageList.append(recentMessage)
+                    self.tableview.reloadData()
+                    self.scrollToButtom()
+                    
+                    self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
                 } else {
                     
                     self.view.showToast(message: "Send Message Failed")
@@ -260,18 +292,23 @@ extension ChatVC {
                 if let result = response.result.value {
                     
                     self.callapiToMarkedRead()
-                    self.messageList.append(contentsOf: result)
                     
                     for msg in result {
                         
                         StaticContentFile.saveMessage(msg, channelDetail: self.channelDetail)
                         self.channelDetail.lastMsgId = msg.message_id
                     }
+                    self.messageList.removeAll()
+                    if let data = StaticContentFile.getChannelDetail(self.channelDetail) {
+                        
+                        self.messageList = data.recent_message
+                    }
                     
                     self.tableview.reloadData()
                     self.activityIndicator?.stopAnimating()
                     self.footerActivityIndicator?.stopAnimating()
-                    self.delegate?.chatVCDelegateToRefresh(self)
+                    self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
+                    self.scrollToButtom()
                 } else {
                     
                     self.activityIndicator?.stopAnimating()
@@ -386,12 +423,12 @@ extension ChatVC {
             
             if messageList.count > 0 {
                 
-                tableview.scrollToRow(at: IndexPath(row: messageList.count-1, section: 0), at: .top, animated: true)
+                tableview.scrollToRow(at: IndexPath(row: messageList.count-1, section: 0), at: .bottom, animated: true)
                 
                 view.layoutIfNeeded()
             }
             
-            self.scrollViewBottomInset = kbSize.height - 40
+            self.scrollViewBottomInset = kbSize.height + 10
         }
     }
     
@@ -421,17 +458,9 @@ extension ChatVC : SelectedImagesVCDelegate {
     func sendButtonTapped(_ vc: SelectedImagesVC, imageList: [UIImage]) {
         
         self.images = imageList
-        
-        for image in imageList {
-            
-            let dateStr = Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A")
-            
-            let recentMessage = RecentMessages("IMAGE", text: "Photos",image: image, senderId: "you", timeInterval: dateStr)
-            messageList.append(recentMessage)
-        }
-        
         uploadImage ()
         tableview.reloadData()
+        scrollToButtom()
     }
     
     //MARK:- upload image
@@ -470,7 +499,15 @@ extension ChatVC : SelectedImagesVCDelegate {
                     
                 case .success(let upload, _, _):
                     
-                    self.delegate?.chatVCDelegateToCallApi(self)
+                    let dateStr = Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A")
+                    
+                    let recentMessage = RecentMessages("IMAGE", text: "Photos",image: image, senderId: "you", timeInterval: dateStr)
+                    
+                    StaticContentFile.saveMessage(recentMessage, channelDetail: self.channelDetail)
+                    self.messageList.append(recentMessage)
+                    self.tableview.reloadData()
+                    self.scrollToButtom()
+                    self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
                     
                     upload.responseString { response in
                         

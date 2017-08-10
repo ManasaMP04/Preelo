@@ -34,6 +34,7 @@ class MessageVC: UIViewController {
     static let sharedInstance = MessageVC()
     fileprivate let defaults  = UserDefaults.standard
     var webSocket = [SocketIOClient]()
+    fileprivate var selectedChannelId = 0
     
     fileprivate var list = [Any]()
     
@@ -82,10 +83,10 @@ class MessageVC: UIViewController {
         
         list.removeAll()
         
-        if let _ = StaticContentFile.getAuthRequest() {
+        if let data = StaticContentFile.getAuthRequest() {
             
-            notificationCount.text = "\(list.count)"
-            notificationCount.isHidden = list.count == 0
+            notificationCount.text = "\(data.authRequest.count)"
+            notificationCount.isHidden = data.authRequest.count == 0
         }
         
         if status, let request = StaticContentFile.getAuthRequest() {
@@ -162,7 +163,11 @@ extension MessageVC {
                     let chatVC = ChatVC(data)
                     chatVC.delegate = self
                     self.navigationController?.pushViewController(chatVC, animated: true)
-                }}
+                } else if let result = response.result.value {
+                
+                    self.view.showToast(message: result.message)
+                }
+        }
     }
 }
 
@@ -212,6 +217,7 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource {
         
         if selection == .message, let data = list[indexPath.row] as? ChannelDetail {
             
+            selectedChannelId = data.channel_id
             callAPIToSelectDocOrPatient(data)
         }
     }
@@ -254,6 +260,8 @@ extension MessageVC{
     
     fileprivate func callChannelAPI() {
         
+        StaticContentFile.deleteMessagePlist()
+        
         Alamofire.request(AuthorizationRequestListRouter.channel_get())
             .responseObject {(response: DataResponse<ChannelObject>) in
                 
@@ -264,6 +272,8 @@ extension MessageVC{
                     self.list = result.data
                     self.tableview.reloadData()
                     
+                    self.notificationCount.text = "\(self.list.count)"
+                    self.notificationCount.isHidden = self.list.count == 0
                     for detail in result.data {
                         
                         StaticContentFile.saveMessage(detail)
@@ -273,6 +283,8 @@ extension MessageVC{
     
     fileprivate func callAPIToGetAuthRequest() {
         
+        let plistStorageManager = PlistManager()
+        plistStorageManager.deleteObject(forKey: "\(StaticContentFile.getId())", inFile: .authRequest)
         Alamofire.request(AuthorizationRequestListRouter.get())
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
@@ -289,14 +301,9 @@ extension MessageVC{
 
 extension MessageVC: ChatVCDelegate {
     
-    func chatVCDelegateToRefresh(_ vc: ChatVC) {
+    func chatVCDelegateToRefresh(_ vc: ChatVC, isAuthRequest: Bool) {
         
-        authorizationButtonSelected(false)
-    }
-    
-    func chatVCDelegateToCallApi(_ vc: ChatVC) {
-        
-        self.callChannelAPI()
+        authorizationButtonSelected(isAuthRequest)
     }
 }
 
@@ -351,6 +358,19 @@ extension MessageVC {
     
         self.list = StaticContentFile.getChannel()
         self.tableview?.reloadData()
+        
+        if let vc = self.navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC, let details = list as? [ChannelDetail] {
+        
+            for data in details {
+            
+                if data.channel_id == selectedChannelId {
+                
+                    vc.channelDetail = data
+                    vc.refresh()
+                    return
+                }
+            }
+        }
     }
     
     fileprivate func showAlert() {

@@ -58,8 +58,8 @@
                         <color key="textColor" red="0.13725490196078433" green="0.70980392156862748" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Sec ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPy-nz-Ihz">
-                        <rect key="frame" x="16" y="8" width="63.5" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPy-nz-Ihz">
+                        <rect key="frame" x="16" y="8" width="0.0" height="0.0"/>
                         <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="15"/>
                         <color key="textColor" red="0.73725490196078436" green="0.74509803921568629" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>

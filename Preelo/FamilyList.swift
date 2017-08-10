@@ -18,6 +18,7 @@ class FamilyList: Mappable {
     var email             = ""
     var phone             = ""
     var patientid         = 0
+    var parentid          = 0
     
     init(_ fName: String, lName: String, email: String, phone: String, relation: String) {
         
@@ -42,5 +43,6 @@ class FamilyList: Mappable {
         email              <- map["email"]
         phone              <- map["phonenumber"]
         patientid          <- map["patientid"]
+        parentid           <- map["parentid"]
     }
 }

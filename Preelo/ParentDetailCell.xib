@@ -47,7 +47,7 @@
                                     <constraint firstAttribute="width" constant="45" id="qaI-YZ-asj"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="minus">
+                                <state key="normal" image="Block">
                                     <color key="titleColor" red="0.13725490196078433" green="0.70980392156862748" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -60,7 +60,7 @@
                                     <constraint firstAttribute="width" constant="45" id="iqe-eo-r5g"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="location">
+                                <state key="normal" image="Location">
                                     <color key="titleColor" red="0.13725490200000001" green="0.70980392160000005" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -121,8 +121,8 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="Block" width="12" height="12"/>
+        <image name="Location" width="12" height="12"/>
         <image name="Man-Icon" width="28" height="28"/>
-        <image name="location" width="18" height="18"/>
-        <image name="minus" width="16" height="16"/>
     </resources>
 </document>

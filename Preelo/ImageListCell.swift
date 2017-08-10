@@ -80,7 +80,7 @@ extension ImageListCell: UICollectionViewDelegate, UICollectionViewDataSource, U
             fromNameLabel.isHidden = true
             toNameLabel.text = name
             toNameLabel.isHidden   = false
-            collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
+            collectionView.transform = CGAffineTransform(scaleX: 1, y: 1)
         }
         
         cell.showImage(msg, showFullImage: false)

@@ -79,12 +79,12 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
         
         if let data = list[indexPath.section] as? PatientList {
             
-            cell.showParentName(data.firstname, showImage: false)
+            cell.showParentName(data.firstname + " " + data.lastname, showImage: false)
         } else  if let list = list[indexPath.section] as? DoctorList  {
             
             if indexPath.row == 0 {
                 
-                let image = list.blocked.lowercased() == "y" ? "Tick Green 2x" : "minus"
+                let image = list.blocked.lowercased() == "y" ? "Unblock" : "Block"
                 cell.showParentName(list.doctor_firstname , showImage: false, showEdit: true, image: image, showLocation: true, font: UIFont(name: "Ubuntu", size: 16)!, color: UIColor.colorWithHex(0x414042), showInitial: true, initialText: String(list.doctor_firstname.characters.prefix(1)))
             } else if let detail = docDetail[indexPath.row - 1] as? Locations {
                 
@@ -131,7 +131,7 @@ extension PatientListVC: ParentDetailCellDelegate {
             let doctorData = docList[indexpath.section]
             
             let text = doctorData.blocked.lowercased() == "y" ? "Unblock Doctor" : "Block the doctor"
-            let image = doctorData.blocked.lowercased() == "y" ? "Tick Green 2x" : "minus"
+            let image = doctorData.blocked.lowercased() == "y" ? "Unblock" : "Block"
             
             let deletAccount = DeletAccountAlert.init("Doctors", description: attributeText(withText: doctorData.doctor_firstname), notificationTitle: text, image: image, index: indexpath.section)
             deletAccount.modalPresentationStyle=UIModalPresentationStyle.overCurrentContext

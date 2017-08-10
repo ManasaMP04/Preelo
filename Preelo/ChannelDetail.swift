@@ -47,7 +47,7 @@ class ChannelObject: Mappable {
 class ChannelDetail: Mappable {
     
     var channel_name        = ""
-    var channel_id          = 0
+    var channel_id          = -1
     var relationship        = ""
     var patientname         = ""
     var doctorname          = ""
@@ -62,7 +62,7 @@ class ChannelDetail: Mappable {
     var patientId           = 0
     var auth_status         = ""
     var doctor_user_id      = 0
-    var lastMsgId           = 0
+    var lastMsgId           = -1
     
     required init?(map: Map) {
         

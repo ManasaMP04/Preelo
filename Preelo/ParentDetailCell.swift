@@ -65,6 +65,7 @@ class ParentDetailCell: UITableViewCell {
             
         } else {
         
+            editButton.setImage(nil, for: .normal)
             editButton.setTitle("Edit", for: .normal)
         }
         

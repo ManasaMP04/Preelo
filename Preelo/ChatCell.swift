@@ -42,7 +42,7 @@ class ChatCell: UITableViewCell {
     
     fileprivate func setup() {
         
-        StaticContentFile.setButtonFont(declineButton, backgroundColorNeeed: false)
+        StaticContentFile.setButtonFont(declineButton, backgroundColorNeeed: false, shadowNeeded: false)
         StaticContentFile.setButtonFont(acceptButton)
         declineButton.layer.cornerRadius = 18
         acceptButton.layer.cornerRadius  = 18

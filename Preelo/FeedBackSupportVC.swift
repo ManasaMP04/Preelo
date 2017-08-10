@@ -74,6 +74,8 @@ class FeedBackSupportVC: UIViewController {
         subject.isCompleteBoarder = true
         message.isCompleteBoarder = true
         subject.textFieldDelegate = self
+        subject.validateForInputType(.generic, andNotifyDelegate: self)
+        message.validateForInputType(.generic, andNotifyDelegate: self)
         message.textFieldDelegate = self
         StaticContentFile.setButtonFont(sendButton, backgroundColorNeeed: false, shadowNeeded: false)
         sendButton.layer.borderColor = UIColor.lightGray.cgColor
