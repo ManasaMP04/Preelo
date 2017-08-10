@@ -10,7 +10,7 @@ import UIKit
 import AlamofireObjectMapper
 import Alamofire
 
-fileprivate let cellHeight = CGFloat(45)
+fileprivate let cellHeight = CGFloat(60)
 
 class PatientListVC: UIViewController {
     
@@ -25,6 +25,7 @@ class PatientListVC: UIViewController {
     fileprivate var patientDetail : Any!
     
     fileprivate var selectedIndex: IndexPath?
+    fileprivate var editedPatienIndex : IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,7 @@ class PatientListVC: UIViewController {
     
     @IBAction func addPatient(_ sender: Any) {
         
+        editedPatienIndex = nil
         let addPatientVC = AddPatientVC(nil)
         
         self.navigationController?.pushViewController(addPatientVC, animated: true)
@@ -46,7 +48,19 @@ class PatientListVC: UIViewController {
     
     func refreshTableview(_ data: PatientList) {
         
-        list.append(data)
+        if let index = editedPatienIndex {
+            
+            list[index.row] = data
+        } else {
+            
+            list.append(data)
+        }
+        
+        if let nav = self.parent as? UINavigationController, let tab =  nav.parent as? TabBarVC {
+            
+            tab.list = list
+        }
+        
         tableView.reloadData()
     }
 }
@@ -124,6 +138,7 @@ extension PatientListVC: ParentDetailCellDelegate {
         
         if let indexpath = tableView.indexPath(for: cell), let patientList = list as? [PatientList] {
             
+            editedPatienIndex = indexpath
             let addPatientVC = AddPatientVC(patientList[indexpath.section])
             self.navigationController?.pushViewController(addPatientVC, animated: true)
         } else if let indexpath = tableView.indexPath(for: cell), let docList = list as? [DoctorList] {
@@ -133,7 +148,7 @@ extension PatientListVC: ParentDetailCellDelegate {
             let text = doctorData.blocked.lowercased() == "y" ? "Unblock Doctor" : "Block the doctor"
             let image = doctorData.blocked.lowercased() == "y" ? "Unblock" : "Block"
             
-            let deletAccount = DeletAccountAlert.init("Doctors", description: attributeText(withText: doctorData.doctor_firstname), notificationTitle: text, image: image, index: indexpath.section)
+            let deletAccount = DeletAccountAlert.init("Doctors", description: attributeText(withText: doctorData.doctor_firstname, block: doctorData.blocked.lowercased() == "n"), notificationTitle: text, image: image, index: indexpath.section)
             deletAccount.modalPresentationStyle=UIModalPresentationStyle.overCurrentContext
             deletAccount.delegate = self
             self.present(deletAccount, animated: true, completion: nil)
@@ -165,9 +180,9 @@ extension PatientListVC: ParentDetailCellDelegate {
         }
     }
     
-    fileprivate func attributeText(withText text: String) -> NSMutableAttributedString {
+    fileprivate func attributeText(withText text: String, block: Bool) -> NSMutableAttributedString {
         
-        let output      = NSMutableAttributedString(string: "Are you sure that you want to unblock ")
+        let output      =  block ? NSMutableAttributedString(string: "Are you sure that you want to block ") : NSMutableAttributedString(string: "Are you sure that you want to unblock ")
         
         let opt = NSMutableAttributedString(string: text)
         
@@ -322,7 +337,7 @@ extension PatientListVC: DeletAccountAlertDelegate{
                     activityIndicator.stopAnimating()
                     if let result = response.result.value, result.status == "SUCCESS" {
                         
-                        UIView.animate(withDuration: 0.4, animations: {
+                        UIView.animate(withDuration: 0.5, animations: {
                             
                             let docDetail = detail
                             docDetail.blocked = "y"
@@ -342,7 +357,7 @@ extension PatientListVC: DeletAccountAlertDelegate{
                         
                     } else {
                         
-                        vc.view.showToast(message: "Filed to delete the account")
+                        vc.view.showToast(message: "Filed to block or unblock the doctor")
                     }
             }
         } else {

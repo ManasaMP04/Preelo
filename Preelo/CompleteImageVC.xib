@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -18,6 +18,7 @@
                 <outlet property="collectionView" destination="Ven-2D-Hyp" id="pIl-tW-i1v"/>
                 <outlet property="customeNavigation" destination="b9L-DL-5b2" id="BPb-FQ-q09"/>
                 <outlet property="numberOfImages" destination="dbQ-Zt-lTX" id="Bfa-vp-Mqq"/>
+                <outlet property="saveImage" destination="9MV-2I-SLL" id="xlK-qv-sZw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -27,7 +28,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" pagingEnabled="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Ven-2D-Hyp">
-                    <rect key="frame" x="0.0" y="60" width="375" height="597"/>
+                    <rect key="frame" x="0.0" y="60" width="375" height="522"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mNB-aj-y76">
                         <size key="itemSize" width="50" height="50"/>
@@ -57,17 +58,48 @@
                         <constraint firstAttribute="height" constant="60" id="b7R-Df-3KJ"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9MV-2I-SLL">
+                    <rect key="frame" x="47" y="602" width="280" height="45"/>
+                    <color key="backgroundColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="sWw-Ej-0RW"/>
+                    </constraints>
+                    <state key="normal" title="Save">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                            <real key="value" value="0.40000000000000002"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                            <real key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="point" keyPath="shadowOffset">
+                            <point key="value" x="0.0" y="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="saveImageButtonTapped:" destination="-1" eventType="touchUpInside" id="oPF-oV-C8N"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Ven-2D-Hyp" secondAttribute="trailing" id="1RY-jY-5V3"/>
+                <constraint firstItem="9MV-2I-SLL" firstAttribute="top" secondItem="Ven-2D-Hyp" secondAttribute="bottom" constant="20" id="4bN-sg-XC4"/>
+                <constraint firstAttribute="bottom" secondItem="9MV-2I-SLL" secondAttribute="bottom" constant="20" id="G1e-Fb-bkb"/>
                 <constraint firstItem="b9L-DL-5b2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="LJf-kf-2bd"/>
                 <constraint firstAttribute="trailing" secondItem="b9L-DL-5b2" secondAttribute="trailing" id="RoY-Qt-1QU"/>
+                <constraint firstItem="9MV-2I-SLL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="47" id="X5y-Zb-x1X"/>
                 <constraint firstItem="Ven-2D-Hyp" firstAttribute="top" secondItem="b9L-DL-5b2" secondAttribute="bottom" id="ZfH-Lm-15W"/>
                 <constraint firstItem="b9L-DL-5b2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="aDS-Oa-GnD"/>
                 <constraint firstItem="Ven-2D-Hyp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="dXL-8C-oBN"/>
-                <constraint firstAttribute="bottom" secondItem="Ven-2D-Hyp" secondAttribute="bottom" constant="10" id="hlQ-j4-7Xd"/>
+                <constraint firstAttribute="trailing" secondItem="9MV-2I-SLL" secondAttribute="trailing" constant="48" id="nJ4-yd-DV5"/>
             </constraints>
+            <point key="canvasLocation" x="80.5" y="84.5"/>
         </view>
     </objects>
 </document>

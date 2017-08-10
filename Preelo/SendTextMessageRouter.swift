@@ -17,6 +17,8 @@ enum SendTextMessageRouter:  URLRequestConvertible {
     
     case post_msgRead(Int)
     
+    case post_markdelivered()
+    
     public func asURLRequest() throws -> URLRequest {
         
         var method: HTTPMethod {
@@ -26,7 +28,7 @@ enum SendTextMessageRouter:  URLRequestConvertible {
             case .get:
                 return .get
                 
-            case .post, .post_msgRead:
+            case .post, .post_msgRead, .post_markdelivered:
                 return .post
             }
         }
@@ -49,6 +51,10 @@ enum SendTextMessageRouter:  URLRequestConvertible {
                 
             case .post_msgRead(_):
                 relativePath = NetworkURL.markedRead
+                
+            case .post_markdelivered:
+                
+                relativePath = NetworkURL.markdelivered
             }
             
             url = url.appendingPathComponent(relativePath)
@@ -80,6 +86,14 @@ enum SendTextMessageRouter:  URLRequestConvertible {
                                            "channel_id"    : id]
                 
                 return dict
+                
+                case .post_markdelivered:
+                
+                    let dict: [String: Any] = ["token"         : StaticContentFile.getToken(),
+                                               "mode"    : "all"]
+                    
+                    return dict
+                
             }
         }()
         

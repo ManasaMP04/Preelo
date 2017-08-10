@@ -71,6 +71,12 @@ class SlideOutVC: UIViewController {
                 if let _ = response.result.value {
                     
                     self.popToLogin()
+                } else if let result = response.result.value {
+                
+                    self.view.showToast(message: result.message)
+                } else {
+                
+                    self.view.showToast(message: "please try again")
                 }}
     }
 }

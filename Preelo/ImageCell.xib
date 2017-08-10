@@ -17,20 +17,37 @@
                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ODI-uX-9QX">
+                    <scrollView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UiP-yE-Jbi">
                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                    </imageView>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image Placeholder_Fill" translatesAutoresizingMaskIntoConstraints="NO" id="ODI-uX-9QX">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="ODI-uX-9QX" firstAttribute="leading" secondItem="UiP-yE-Jbi" secondAttribute="leading" id="5FQ-I1-2PK"/>
+                            <constraint firstItem="ODI-uX-9QX" firstAttribute="centerX" secondItem="UiP-yE-Jbi" secondAttribute="centerX" id="Gf0-g0-OFk"/>
+                            <constraint firstItem="ODI-uX-9QX" firstAttribute="centerY" secondItem="UiP-yE-Jbi" secondAttribute="centerY" id="J6z-Ew-N2C"/>
+                            <constraint firstItem="ODI-uX-9QX" firstAttribute="top" secondItem="UiP-yE-Jbi" secondAttribute="top" id="Pdf-It-Rgf"/>
+                            <constraint firstAttribute="trailing" secondItem="ODI-uX-9QX" secondAttribute="trailing" id="odU-Yp-tf5"/>
+                            <constraint firstAttribute="bottom" secondItem="ODI-uX-9QX" secondAttribute="bottom" id="xki-g8-dKG"/>
+                        </constraints>
+                    </scrollView>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="ODI-uX-9QX" secondAttribute="trailing" id="1OJ-jQ-v5d"/>
-                <constraint firstItem="ODI-uX-9QX" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="26C-as-UD5"/>
-                <constraint firstItem="ODI-uX-9QX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="RMO-fD-XWT"/>
-                <constraint firstAttribute="bottom" secondItem="ODI-uX-9QX" secondAttribute="bottom" id="w6V-87-eDs"/>
+                <constraint firstItem="UiP-yE-Jbi" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="D0w-Cf-GU0"/>
+                <constraint firstAttribute="bottom" secondItem="UiP-yE-Jbi" secondAttribute="bottom" id="N2g-Ah-KV0"/>
+                <constraint firstAttribute="trailing" secondItem="UiP-yE-Jbi" secondAttribute="trailing" id="Wzc-9g-hL0"/>
+                <constraint firstItem="UiP-yE-Jbi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="gcn-Z3-6id"/>
             </constraints>
             <connections>
                 <outlet property="imageView" destination="ODI-uX-9QX" id="eLT-23-aFf"/>
+                <outlet property="scrollview" destination="UiP-yE-Jbi" id="ioF-Sc-v4R"/>
             </connections>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="Image Placeholder_Fill" width="15" height="11"/>
+    </resources>
 </document>

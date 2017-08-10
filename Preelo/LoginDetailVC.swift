@@ -200,15 +200,7 @@ extension LoginDetailVC {
                         StaticContentFile.saveMessage(detail)
                     }
                     
-                    if self.isDoctorLogIn {
-                        
-                        self.callAPIToGetAuthRequest()
-                    } else {
-                        
-                        self.activityIndicator?.stopAnimating()
-                        self.performSegue(withIdentifier: "loginSuccess", sender: nil)
-                        self.defaults.set(true, forKey: "isLoggedIn")
-                    }
+                    StaticContentFile.isDoctorLogIn() ? self.callAPIToGetAuthRequest() : self.callAPIToGetPatientAuthRequest()
                 } else {
                     
                     self.activityIndicator?.stopAnimating()
@@ -240,10 +232,10 @@ extension LoginDetailVC {
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
                 self.activityIndicator?.stopAnimating()
-                if let result = response.result.value, result.status == "SUCCESS" {
+                if let result = response.result.value {
                     
-                    let dict1   = result.modelToDict()
-                    self.defaults.setValue(dict1, forKeyPath: "authRequest")
+                    self.defaults.set(true, forKey: "isLoggedIn")
+                    StaticContentFile.saveAuthRequest(result)
                     
                     self.performSegue(withIdentifier: "loginSuccess", sender: nil)
                 }else {

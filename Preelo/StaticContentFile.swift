@@ -182,9 +182,18 @@ extension StaticContentFile {
             var authArray = array
             var authObject1 = authObject
             
-            for auth in result.authRequest {
-                
-                authArray.append(auth.modelToDict())
+            if StaticContentFile.isDoctorLogIn() {
+            
+                for auth in result.authRequest {
+                    
+                    authArray.append(auth.modelToDict())
+                }
+            } else {
+            
+                for auth in result.authRequest {
+                    
+                    authArray.append(auth.modelToDictForParent())
+                }
             }
             
             authObject1["data"] = authArray
@@ -192,7 +201,13 @@ extension StaticContentFile {
             
         } else {
             
-            dict =  result.modelToDict()
+            if StaticContentFile.isDoctorLogIn() {
+                
+                dict =  result.modelToDict()
+            } else {
+                
+                dict =  result.modelToDictForParent()
+            }
         }
         
         plistStorageManager.setObject(dict, forKey: "\(StaticContentFile.getId())", inFile: .authRequest)

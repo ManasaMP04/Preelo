@@ -38,6 +38,7 @@
 		624B44541EAE76FD0014D2A2 /* DocAuthorizationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624B44531EAE76FD0014D2A2 /* DocAuthorizationRequest.swift */; };
 		624B44561EAE79410014D2A2 /* AuthorizationRequestListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624B44551EAE79410014D2A2 /* AuthorizationRequestListRouter.swift */; };
 		624C63081EADDF8A00934D3E /* SelectRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624C63071EADDF8A00934D3E /* SelectRouter.swift */; };
+		6255C47E1F3C50D3007BC986 /* ParentAuthRequestResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6255C47D1F3C50D3007BC986 /* ParentAuthRequestResponse.swift */; };
 		626160F51EC42E82002CCCA8 /* ChannelDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626160F41EC42E82002CCCA8 /* ChannelDetail.swift */; };
 		626160F71EC43146002CCCA8 /* RecentMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626160F61EC43146002CCCA8 /* RecentMessages.swift */; };
 		626AB13D1EA35FD2001271D3 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626AB13C1EA35FD2001271D3 /* TabBarVC.swift */; };
@@ -157,6 +158,7 @@
 		624B44531EAE76FD0014D2A2 /* DocAuthorizationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocAuthorizationRequest.swift; sourceTree = "<group>"; };
 		624B44551EAE79410014D2A2 /* AuthorizationRequestListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationRequestListRouter.swift; sourceTree = "<group>"; };
 		624C63071EADDF8A00934D3E /* SelectRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectRouter.swift; sourceTree = "<group>"; };
+		6255C47D1F3C50D3007BC986 /* ParentAuthRequestResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentAuthRequestResponse.swift; sourceTree = "<group>"; };
 		626160F41EC42E82002CCCA8 /* ChannelDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelDetail.swift; sourceTree = "<group>"; };
 		626160F61EC43146002CCCA8 /* RecentMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentMessages.swift; sourceTree = "<group>"; };
 		626AB13C1EA35FD2001271D3 /* TabBarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				626160F41EC42E82002CCCA8 /* ChannelDetail.swift */,
 				626160F61EC43146002CCCA8 /* RecentMessages.swift */,
 				62B729F81EC8538A006057DB /* SuccessStatus.swift */,
+				6255C47D1F3C50D3007BC986 /* ParentAuthRequestResponse.swift */,
 				62D064921EA3EE91007A503F /* AddPatient */,
 			);
 			name = Models;
@@ -753,6 +756,7 @@
 				624B44541EAE76FD0014D2A2 /* DocAuthorizationRequest.swift in Sources */,
 				62E3AB861EA10C140061802F /* ChatVC.swift in Sources */,
 				62E3AB7D1EA101410061802F /* ChatCell.swift in Sources */,
+				6255C47E1F3C50D3007BC986 /* ParentAuthRequestResponse.swift in Sources */,
 				626AB13D1EA35FD2001271D3 /* TabBarVC.swift in Sources */,
 				622A8FC11E9D3A1200B34B56 /* MessageVC.swift in Sources */,
 				62B729F61EC84800006057DB /* CompleteImageVC.swift in Sources */,

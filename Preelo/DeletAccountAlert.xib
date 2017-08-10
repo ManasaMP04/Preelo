@@ -8,9 +8,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Ubuntu-L.ttf">
-            <string>Ubuntu-Light</string>
-        </array>
         <array key="Ubuntu-R.ttf">
             <string>Ubuntu</string>
         </array>
@@ -18,6 +15,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DeletAccountAlert" customModule="Preelo" customModuleProvider="target">
             <connections>
+                <outlet property="cardView" destination="myo-bb-dhh" id="FUV-47-q7G"/>
                 <outlet property="customNavigationBar" destination="AkE-ie-2wU" id="gEd-we-KZm"/>
                 <outlet property="imageView" destination="gbI-mn-Ybe" id="k5c-vm-z7M"/>
                 <outlet property="noButton" destination="ojq-hl-8ux" id="Dzj-a6-F3Z"/>
@@ -40,13 +38,13 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myo-bb-dhh">
-                    <rect key="frame" x="20" y="132" width="280" height="160"/>
+                    <rect key="frame" x="30" y="110" width="260" height="185"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P8n-no-oFP">
-                            <rect key="frame" x="40" y="115" width="200" height="35"/>
+                            <rect key="frame" x="40" y="125" width="180" height="35"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3sg-UZ-1Di">
-                                    <rect key="frame" x="0.0" y="0.0" width="95" height="35"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="85" height="35"/>
                                     <color key="backgroundColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <state key="normal" title="YES">
@@ -57,7 +55,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojq-hl-8ux">
-                                    <rect key="frame" x="105" y="0.0" width="95" height="35"/>
+                                    <rect key="frame" x="95" y="0.0" width="85" height="35"/>
                                     <color key="backgroundColor" red="0.13725490200000001" green="0.63137254899999995" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <state key="normal" title="NO">
@@ -85,11 +83,11 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsF-nl-B3C">
-                            <rect key="frame" x="75" y="8" width="130" height="20"/>
+                            <rect key="frame" x="62.5" y="25" width="135" height="20"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mdj-Cg-l4s">
-                                    <rect key="frame" x="23" y="2" width="107" height="16"/>
-                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                    <rect key="frame" x="23" y="2" width="112" height="16"/>
+                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                     <color key="textColor" red="0.34509803921568627" green="0.34901960784313724" blue="0.35686274509803922" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -110,28 +108,26 @@
                                 <constraint firstItem="Mdj-Cg-l4s" firstAttribute="leading" secondItem="gbI-mn-Ybe" secondAttribute="trailing" constant="5" id="Eyb-zq-kT2"/>
                                 <constraint firstAttribute="bottom" secondItem="Mdj-Cg-l4s" secondAttribute="bottom" constant="2" id="YCa-BR-s1Q"/>
                                 <constraint firstItem="gbI-mn-Ybe" firstAttribute="leading" secondItem="wsF-nl-B3C" secondAttribute="leading" id="pP1-ec-31j"/>
-                                <constraint firstAttribute="width" constant="130" id="vhH-pv-GRH"/>
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure that you want to delet your account. You will lose all your data" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SpR-PL-z7n">
-                            <rect key="frame" x="31.5" y="48" width="218" height="27"/>
-                            <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="12"/>
-                            <nil key="textColor"/>
+                            <rect key="frame" x="23" y="70" width="214" height="27"/>
+                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
+                            <color key="textColor" red="0.57647058823529407" green="0.58431372549019611" blue="0.59607843137254901" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="wsF-nl-B3C" firstAttribute="top" secondItem="myo-bb-dhh" secondAttribute="top" constant="8" id="2K7-jw-UiR"/>
+                        <constraint firstItem="wsF-nl-B3C" firstAttribute="top" secondItem="myo-bb-dhh" secondAttribute="top" constant="25" id="2K7-jw-UiR"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SpR-PL-z7n" secondAttribute="trailing" constant="21" id="5RU-Hc-gBw"/>
-                        <constraint firstAttribute="height" constant="160" id="8cw-c5-myQ"/>
+                        <constraint firstAttribute="height" constant="185" id="8cw-c5-myQ"/>
                         <constraint firstItem="P8n-no-oFP" firstAttribute="leading" secondItem="myo-bb-dhh" secondAttribute="leading" constant="40" id="DTK-kI-cPQ"/>
                         <constraint firstItem="wsF-nl-B3C" firstAttribute="centerX" secondItem="myo-bb-dhh" secondAttribute="centerX" id="Lge-mq-sq4"/>
                         <constraint firstAttribute="trailing" secondItem="P8n-no-oFP" secondAttribute="trailing" constant="40" id="SkG-VS-KGq"/>
-                        <constraint firstItem="SpR-PL-z7n" firstAttribute="top" secondItem="wsF-nl-B3C" secondAttribute="bottom" constant="20" id="T8F-pu-MGu"/>
-                        <constraint firstAttribute="width" constant="280" id="UKN-Rb-bmJ"/>
+                        <constraint firstItem="SpR-PL-z7n" firstAttribute="top" secondItem="wsF-nl-B3C" secondAttribute="bottom" constant="25" id="T8F-pu-MGu"/>
                         <constraint firstItem="SpR-PL-z7n" firstAttribute="centerX" secondItem="myo-bb-dhh" secondAttribute="centerX" id="k52-oY-JyF"/>
-                        <constraint firstAttribute="bottom" secondItem="P8n-no-oFP" secondAttribute="bottom" constant="10" id="nsh-ep-q8L"/>
+                        <constraint firstAttribute="bottom" secondItem="P8n-no-oFP" secondAttribute="bottom" constant="25" id="nsh-ep-q8L"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
@@ -141,7 +137,7 @@
                             <real key="value" value="5"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                            <real key="value" value="5"/>
+                            <real key="value" value="3"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
@@ -149,10 +145,10 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="AkE-ie-2wU" secondAttribute="trailing" id="1dH-ri-Plj"/>
-                <constraint firstItem="myo-bb-dhh" firstAttribute="top" secondItem="AkE-ie-2wU" secondAttribute="bottom" constant="72" id="5cP-SD-Bkg"/>
-                <constraint firstAttribute="trailing" secondItem="myo-bb-dhh" secondAttribute="trailing" constant="20" id="6Be-Mq-rxa"/>
+                <constraint firstItem="myo-bb-dhh" firstAttribute="top" secondItem="AkE-ie-2wU" secondAttribute="bottom" constant="50" id="5cP-SD-Bkg"/>
+                <constraint firstAttribute="trailing" secondItem="myo-bb-dhh" secondAttribute="trailing" constant="30" id="6Be-Mq-rxa"/>
                 <constraint firstItem="AkE-ie-2wU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="CLo-Hc-1OQ"/>
-                <constraint firstItem="myo-bb-dhh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="Zty-Uv-rI4"/>
+                <constraint firstItem="myo-bb-dhh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="Zty-Uv-rI4"/>
                 <constraint firstItem="AkE-ie-2wU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lBU-Hg-6vn"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

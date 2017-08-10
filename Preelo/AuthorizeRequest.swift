@@ -41,4 +41,18 @@ class AuthorizeRequest: Mappable {
         
         return dict
     }
+    
+    func modelToDictForParent() -> [String : Any] {
+        
+        var dict = [String : Any]()
+        
+        var array = [Any]()
+        for request in authRequest {
+            
+            array.append(request.modelToDict())
+        }
+        dict["data"] = array
+        
+        return dict
+    }
 }

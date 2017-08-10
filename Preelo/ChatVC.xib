@@ -158,7 +158,7 @@ authorization to send messages</string>
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="oxm-pz-0QZ" secondAttribute="bottom" constant="40" id="3pR-JV-kNk"/>
                                 <constraint firstAttribute="trailing" secondItem="oxm-pz-0QZ" secondAttribute="trailing" id="5N3-ff-xbb"/>
@@ -173,6 +173,7 @@ authorization to send messages</string>
                             </constraints>
                         </view>
                     </subviews>
+                    <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="xUv-Ng-3SV" firstAttribute="height" secondItem="WAt-Pe-tRq" secondAttribute="height" priority="999" id="Owh-cl-Ctw"/>
@@ -184,7 +185,7 @@ authorization to send messages</string>
                     </constraints>
                 </scrollView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="WAt-Pe-tRq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4VC-ZH-03x"/>
                 <constraint firstItem="WAt-Pe-tRq" firstAttribute="top" secondItem="tDf-nw-scH" secondAttribute="bottom" id="Fxv-8M-rVT"/>

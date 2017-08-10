@@ -11,6 +11,9 @@
         <array key="Ubuntu-B.ttf">
             <string>Ubuntu-Bold</string>
         </array>
+        <array key="Ubuntu-M.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
         <array key="Ubuntu-R.ttf">
             <string>Ubuntu</string>
         </array>
@@ -26,36 +29,37 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEN-8n-elh">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="42.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Man-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="wfQ-OD-CbL">
-                                <rect key="frame" x="8" y="7.5" width="28" height="28"/>
+                                <rect key="frame" x="15" y="8" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="8Wh-YL-gtR"/>
                                     <constraint firstAttribute="width" constant="28" id="d8M-7G-dk0"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBY-GP-FNy">
-                                <rect key="frame" x="53" y="13.5" width="34.5" height="16"/>
-                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                <rect key="frame" x="68" y="12.5" width="42" height="19.5"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
                                 <color key="textColor" red="0.25490196078431371" green="0.25098039215686274" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRw-PW-mMI">
-                                <rect key="frame" x="275" y="0.0" width="45" height="42.5"/>
+                                <rect key="frame" x="269" y="0.0" width="45" height="43.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="qaI-YZ-asj"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="13"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="Block">
-                                    <color key="titleColor" red="0.13725490196078433" green="0.70980392156862748" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.23529411764705882" green="0.792156862745098" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="editButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Gbq-s4-VAR"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q7m-1X-Kb3">
-                                <rect key="frame" x="222" y="0.0" width="45" height="42.5"/>
+                                <rect key="frame" x="216" y="0.0" width="45" height="43.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="iqe-eo-r5g"/>
                                 </constraints>
@@ -68,7 +72,7 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D4M-rj-nYu">
-                                <rect key="frame" x="8" y="8" width="28" height="28"/>
+                                <rect key="frame" x="15" y="8.5" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="luS-e1-H0q"/>
                                 </constraints>
@@ -76,22 +80,32 @@
                                 <color key="textColor" red="0.13725490200000001" green="0.70980392160000005" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y6z-Z1-Qos">
+                                <rect key="frame" x="25" y="43" width="280" height="1"/>
+                                <color key="backgroundColor" red="0.90196078431372551" green="0.90588235294117647" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="NM7-WB-1pt"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="D4M-rj-nYu" firstAttribute="bottom" secondItem="wfQ-OD-CbL" secondAttribute="bottom" id="08T-vz-LCV"/>
-                            <constraint firstItem="CBY-GP-FNy" firstAttribute="leading" secondItem="gEN-8n-elh" secondAttribute="leading" constant="53" id="5Jq-Kr-sjK"/>
                             <constraint firstItem="wfQ-OD-CbL" firstAttribute="centerY" secondItem="CBY-GP-FNy" secondAttribute="centerY" id="AlM-J3-KLB"/>
-                            <constraint firstAttribute="right" secondItem="iRw-PW-mMI" secondAttribute="right" id="I9Q-6Q-46s"/>
+                            <constraint firstAttribute="bottom" secondItem="y6z-Z1-Qos" secondAttribute="bottom" id="HUg-NM-jwB"/>
+                            <constraint firstAttribute="right" secondItem="iRw-PW-mMI" secondAttribute="right" constant="6" id="I9Q-6Q-46s"/>
                             <constraint firstItem="CBY-GP-FNy" firstAttribute="centerY" secondItem="gEN-8n-elh" secondAttribute="centerY" id="JDY-ai-hdi"/>
+                            <constraint firstAttribute="trailing" secondItem="y6z-Z1-Qos" secondAttribute="trailing" constant="15" id="Kvh-Cr-WPC"/>
                             <constraint firstItem="Q7m-1X-Kb3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CBY-GP-FNy" secondAttribute="trailing" constant="8" id="LuV-it-4uG"/>
                             <constraint firstItem="iRw-PW-mMI" firstAttribute="leading" secondItem="Q7m-1X-Kb3" secondAttribute="trailing" constant="8" id="Tuf-fj-JNP"/>
-                            <constraint firstItem="wfQ-OD-CbL" firstAttribute="left" secondItem="gEN-8n-elh" secondAttribute="left" constant="8" id="ZR7-0w-pr6"/>
-                            <constraint firstItem="D4M-rj-nYu" firstAttribute="leading" secondItem="gEN-8n-elh" secondAttribute="leading" constant="8" id="dT9-rK-J8Y"/>
+                            <constraint firstItem="wfQ-OD-CbL" firstAttribute="left" secondItem="gEN-8n-elh" secondAttribute="left" constant="15" id="ZR7-0w-pr6"/>
+                            <constraint firstItem="y6z-Z1-Qos" firstAttribute="leading" secondItem="gEN-8n-elh" secondAttribute="leading" constant="25" id="bxy-sf-Q3d"/>
+                            <constraint firstItem="D4M-rj-nYu" firstAttribute="leading" secondItem="gEN-8n-elh" secondAttribute="leading" constant="15" id="dT9-rK-J8Y"/>
                             <constraint firstItem="D4M-rj-nYu" firstAttribute="top" secondItem="wfQ-OD-CbL" secondAttribute="top" id="egs-B9-heG"/>
                             <constraint firstItem="Q7m-1X-Kb3" firstAttribute="top" secondItem="iRw-PW-mMI" secondAttribute="top" id="gdI-zX-mQY"/>
                             <constraint firstAttribute="bottom" secondItem="iRw-PW-mMI" secondAttribute="bottom" id="jhT-UU-EL8"/>
                             <constraint firstItem="iRw-PW-mMI" firstAttribute="top" secondItem="gEN-8n-elh" secondAttribute="top" id="pYn-dN-lh8"/>
+                            <constraint firstItem="CBY-GP-FNy" firstAttribute="leading" secondItem="D4M-rj-nYu" secondAttribute="trailing" constant="25" id="rA8-9X-Yt0"/>
                             <constraint firstItem="Q7m-1X-Kb3" firstAttribute="bottom" secondItem="iRw-PW-mMI" secondAttribute="bottom" id="uUm-GL-jJB"/>
                         </constraints>
                     </view>
@@ -101,13 +115,14 @@
                     <constraint firstItem="gEN-8n-elh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="CBb-UU-P8I"/>
                     <constraint firstAttribute="trailing" secondItem="gEN-8n-elh" secondAttribute="trailing" id="I2t-gP-Dfw"/>
                     <constraint firstItem="gEN-8n-elh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="c0c-OB-WTX"/>
-                    <constraint firstAttribute="bottom" secondItem="gEN-8n-elh" secondAttribute="bottom" constant="1" id="yyQ-9K-s20"/>
+                    <constraint firstAttribute="bottom" secondItem="gEN-8n-elh" secondAttribute="bottom" id="yyQ-9K-s20"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="cardView" destination="gEN-8n-elh" id="6wf-3m-Qkg"/>
                 <outlet property="editButton" destination="iRw-PW-mMI" id="dHx-ef-wZf"/>
                 <outlet property="editButtonWidth" destination="qaI-YZ-asj" id="bvi-TU-yFB"/>
+                <outlet property="editTrailing" destination="I9Q-6Q-46s" id="I8o-hl-RRW"/>
                 <outlet property="imageView1" destination="wfQ-OD-CbL" id="ZR8-XG-mmU"/>
                 <outlet property="imageViewTrailing" destination="ZR7-0w-pr6" id="N6x-Jd-c8j"/>
                 <outlet property="imageViewWidth" destination="d8M-7G-dk0" id="HKM-i4-Zze"/>
@@ -115,8 +130,9 @@
                 <outlet property="initialWidth" destination="luS-e1-H0q" id="Q6x-TF-9y8"/>
                 <outlet property="locationButton" destination="Q7m-1X-Kb3" id="kUp-Xe-stY"/>
                 <outlet property="locationButtonWidth" destination="iqe-eo-r5g" id="M4E-P0-nEH"/>
-                <outlet property="nameLabelLeading" destination="5Jq-Kr-sjK" id="ddc-cQ-3zI"/>
+                <outlet property="nameLabelLeading" destination="bxy-sf-Q3d" id="P1B-Bf-2Sf"/>
                 <outlet property="parentName" destination="CBY-GP-FNy" id="YbY-IA-uCb"/>
+                <outlet property="separatorTrailing" destination="Kvh-Cr-WPC" id="Mza-kn-cAf"/>
             </connections>
         </tableViewCell>
     </objects>

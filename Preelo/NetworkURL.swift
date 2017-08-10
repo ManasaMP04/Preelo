@@ -37,7 +37,7 @@ enum NetworkURL {
     static let updateProfile                = "user/update"
     static let doctorunblock                = "doctor/unblock"
     static let doctorblock                  = "doctor/block"
-    
-    
-     static let patientedit                  = "patient/edit"
+    static let markdelivered                = "messages/markdelivered"
+    static let patientedit                  = "patient/edit"
+    static let cancelAuthRequest            = "doctor/cancelauthrequests"
 }

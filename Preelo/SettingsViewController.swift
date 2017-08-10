@@ -51,7 +51,7 @@ class SettingsViewController: UIViewController {
         
         customNavigationBar.setTitle("Settings")
         customNavigationBar.delegate = self
-        }
+    }
 }
 
 extension SettingsViewController:CustomNavigationBarDelegate  {
@@ -76,17 +76,10 @@ extension SettingsViewController: DeletAccountAlertDelegate{
                 activityIndicator.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    UIView.animate(withDuration: 0.4, animations: {
+                    if let vc = self.navigationController?.viewControllerWithClass(SlideOutVC.self) as? SlideOutVC {
                         
-                        self.view.showToast(message: result.message)
-                    }, completion: { (status) in
-                        
-                        if let vc = self.navigationController?.viewControllerWithClass(SlideOutVC.self) as? SlideOutVC {
-                            
-                            vc.popToLogin()
-                        }
-                    })
-                    
+                        vc.popToLogin()
+                    }
                 } else {
                     
                     vc.view.showToast(message: "Filed to delete the account")

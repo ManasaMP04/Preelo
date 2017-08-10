@@ -21,11 +21,12 @@ class DeletAccountAlert: UIViewController {
     @IBOutlet fileprivate weak var customNavigationBar  : CustomNavigationBar!
     @IBOutlet weak var notificationDetail: UILabel!
     
+    @IBOutlet weak var cardView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var notificationTitle: UILabel!
     
     fileprivate var titleValue = ""
-    fileprivate var descriptionString: NSAttributedString?
+    fileprivate var descriptionString: NSMutableAttributedString!
     fileprivate var notificationString = ""
     fileprivate var image = ""
     fileprivate var index : Int?
@@ -37,7 +38,7 @@ class DeletAccountAlert: UIViewController {
     
     }
     
-    init (_ title: String, description: NSAttributedString, notificationTitle: String, image: String, index: Int? = nil) {
+    init (_ title: String, description: NSMutableAttributedString, notificationTitle: String, image: String, index: Int? = nil) {
         
         self.titleValue = title
         self.descriptionString = description
@@ -76,6 +77,9 @@ extension DeletAccountAlert{
     
     fileprivate func setup() {
         
+        cardView.layer.cornerRadius = 5
+        cardView.layer.borderWidth = 0.3
+        cardView.layer.borderColor = UIColor.lightGray.cgColor
         StaticContentFile.setButtonFont(yesButton, backgroundColorNeeed: true, borderNeeded: false, shadowNeeded:  false)
         StaticContentFile.setButtonFont(noButton, backgroundColorNeeed: false, borderNeeded: true, shadowNeeded:  false)
         
@@ -83,6 +87,11 @@ extension DeletAccountAlert{
         noButton.layer.cornerRadius  = noButton.frame.height / 1.9
         customNavigationBar.setTitle(titleValue)
         self.notificationTitle.text = notificationString
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 5
+        descriptionString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, descriptionString.length))
+        
         notificationDetail.attributedText = descriptionString
         imageView.image = UIImage(named: image)
         customNavigationBar.delegate = self

@@ -170,12 +170,12 @@ extension ChatVC {
         
         tableview.estimatedRowHeight = 20
         tableview.rowHeight  = UITableViewAutomaticDimension
-        
-        refresh()
         tableViewHeight.constant = StaticContentFile.screenHeight - 170 - requestAuthorizationViewHeight.constant
+        
+         refresh()
     }
     
-    func refresh() {
+    func refresh(_ scrollDirectlyToBottom: Bool = false) {
         
         if  !isPatient_DocFlow {
             
@@ -186,15 +186,24 @@ extension ChatVC {
             } else if channelDetail.unread_count > 0 {
                 
                 self.messageList = channelDetail.recent_message
-                self.messageList.removeLast()
-                self.tableview.reloadData()
-                scrollToButtom()
-                footerActivityIndicator?.startAnimating()
-                callApiToGetMessages()
+                
+                if scrollDirectlyToBottom {
+                    
+                    callApiToGetMessages()
+                    self.messageList.removeLast()
+                } else {
+                    
+                    self.tableview.reloadData()
+                    scrollToButtom()
+                    footerActivityIndicator?.startAnimating()
+                    callApiToGetMessages()
+                    self.messageList.removeLast()
+                }
             } else {
                 
                 self.messageList = channelDetail.recent_message
                 self.tableview.reloadData()
+                self.view.layoutIfNeeded()
                 scrollToButtom()
             }
         }
@@ -263,18 +272,14 @@ extension ChatVC {
         Alamofire.request(SendTextMessageRouter.post(text))
             .responseObject { (response: DataResponse<SuccessStatus>) in
                 
-                if let result = response.result.value {
+                if let result = response.result.value, result.status == "SUCCESS" {
                     
                     let dateStr = Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A")
                     let recentMessage = RecentMessages("simple", text: text,image: nil, senderId: "you", timeInterval: dateStr)
                     recentMessage.message_id = result.message_id
                     
-                    StaticContentFile.saveMessage(recentMessage, channelDetail: self.channelDetail)
                     self.messageList.append(recentMessage)
                     self.tableview.reloadData()
-                    self.scrollToButtom()
-                    
-                    self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
                 } else {
                     
                     self.view.showToast(message: "Send Message Failed")
@@ -288,6 +293,9 @@ extension ChatVC {
         
         Alamofire.request(SendTextMessageRouter.get(channelDetail))
             .responseArray(keyPath: "data") {(response: DataResponse<[RecentMessages]>) in
+                
+                self.activityIndicator?.stopAnimating()
+                self.footerActivityIndicator?.stopAnimating()
                 
                 if let result = response.result.value {
                     
@@ -305,14 +313,10 @@ extension ChatVC {
                     }
                     
                     self.tableview.reloadData()
-                    self.activityIndicator?.stopAnimating()
-                    self.footerActivityIndicator?.stopAnimating()
                     self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
                     self.scrollToButtom()
                 } else {
                     
-                    self.activityIndicator?.stopAnimating()
-                    self.footerActivityIndicator?.stopAnimating()
                     self.view.showToast(message: "Please try again something went wrong")
                 }}
     }
@@ -322,10 +326,14 @@ extension ChatVC {
         Alamofire.request(SendTextMessageRouter.post_msgRead(channelDetail.channel_id))
             .responseObject { (response: DataResponse<SuccessStatus>) in
                 
-                if let result = response.result.value, result.status == "SUCCESS" {
-                    
-                    
-                }}
+                self.callapiToDeliver()
+        }
+    }
+    
+    fileprivate func callapiToDeliver() {
+        
+        Alamofire.request(SendTextMessageRouter.post_markdelivered())
+            .responseObject { (response: DataResponse<SuccessStatus>) in}
     }
 }
 
@@ -396,6 +404,11 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        cell.backgroundColor = UIColor.colorWithHex(0xFAFAFA)
+    }
 }
 
 extension ChatVC: ImageListCellDelegate {
@@ -460,7 +473,6 @@ extension ChatVC : SelectedImagesVCDelegate {
         self.images = imageList
         uploadImage ()
         tableview.reloadData()
-        scrollToButtom()
     }
     
     //MARK:- upload image
@@ -506,7 +518,6 @@ extension ChatVC : SelectedImagesVCDelegate {
                     StaticContentFile.saveMessage(recentMessage, channelDetail: self.channelDetail)
                     self.messageList.append(recentMessage)
                     self.tableview.reloadData()
-                    self.scrollToButtom()
                     self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
                     
                     upload.responseString { response in

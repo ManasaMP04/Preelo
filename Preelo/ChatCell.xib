@@ -26,14 +26,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="158" id="fk6-B8-dTA" customClass="ChatCell" customModule="Preelo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="292" height="158"/>
+            <rect key="frame" x="0.0" y="0.0" width="292" height="165"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fk6-B8-dTA" id="oRA-Qv-wmG">
-                <rect key="frame" x="0.0" y="0.0" width="292" height="157.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="292" height="164.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulM-1S-903">
-                        <rect key="frame" x="56" y="15" width="35.5" height="21"/>
+                        <rect key="frame" x="56" y="22" width="35.5" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="3ve-r2-pQK"/>
                         </constraints>
@@ -42,13 +42,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient Preet Praveen has sent You an authorization request" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rup-Ka-hfh">
-                        <rect key="frame" x="56" y="58" width="226" height="29.5"/>
+                        <rect key="frame" x="56" y="65" width="225.5" height="29.5"/>
                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="13"/>
                         <color key="textColor" red="0.65490196079999996" green="0.66274509800000003" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1JV-5M-iT5">
-                        <rect key="frame" x="56" y="97.5" width="228" height="35"/>
+                        <rect key="frame" x="56" y="104.5" width="228" height="35"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rky-fZ-wqu">
                                 <rect key="frame" x="0.0" y="0.0" width="111.5" height="35"/>
@@ -83,7 +83,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOE-Zt-fRe">
-                        <rect key="frame" x="8" y="25" width="40" height="40"/>
+                        <rect key="frame" x="8" y="32" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="iiw-bK-97F"/>
                             <constraint firstAttribute="height" constant="40" id="v7B-aN-YfD"/>
@@ -93,7 +93,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1C-hy-KqR">
-                        <rect key="frame" x="264" y="15.5" width="20" height="20"/>
+                        <rect key="frame" x="264" y="22.5" width="20" height="20"/>
                         <color key="backgroundColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="TZZ-ml-FIE"/>
@@ -104,7 +104,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient Preet Praveen has sent You an authorization request" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oYd-1o-pxF">
-                        <rect key="frame" x="56" y="40" width="208" height="14"/>
+                        <rect key="frame" x="56" y="47" width="208" height="14"/>
                         <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="12"/>
                         <color key="textColor" red="0.73725490199999999" green="0.74509803919999995" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -125,7 +125,7 @@
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="oYd-1o-pxF" secondAttribute="trailing" constant="20" id="aC6-Pj-jEL"/>
                     <constraint firstAttribute="trailing" secondItem="1JV-5M-iT5" secondAttribute="trailing" constant="8" id="ask-ck-1eO"/>
                     <constraint firstItem="Q1C-hy-KqR" firstAttribute="centerY" secondItem="ulM-1S-903" secondAttribute="centerY" id="ibx-cE-yOa"/>
-                    <constraint firstItem="MOE-Zt-fRe" firstAttribute="top" secondItem="oRA-Qv-wmG" secondAttribute="top" constant="25" id="pce-mx-jFi"/>
+                    <constraint firstItem="MOE-Zt-fRe" firstAttribute="top" secondItem="oRA-Qv-wmG" secondAttribute="top" constant="32" id="pce-mx-jFi"/>
                     <constraint firstItem="rup-Ka-hfh" firstAttribute="leading" secondItem="oYd-1o-pxF" secondAttribute="leading" id="sO9-ka-FjU"/>
                 </constraints>
             </tableViewCellContentView>
@@ -140,7 +140,7 @@
                 <outlet property="name" destination="ulM-1S-903" id="5Jd-f8-acJ"/>
                 <outlet property="parentName" destination="oYd-1o-pxF" id="zpf-yX-RWP"/>
             </connections>
-            <point key="canvasLocation" x="48" y="82"/>
+            <point key="canvasLocation" x="48" y="81.5"/>
         </tableViewCell>
     </objects>
 </document>

@@ -10,6 +10,7 @@ import UIKit
 
 class ImageCell: UICollectionViewCell {
     
+    @IBOutlet weak var scrollview: UIScrollView!
     @IBOutlet fileprivate weak var imageView : UIImageView!
     
     static let cellId = "ImageCell"
@@ -17,15 +18,22 @@ class ImageCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        scrollview.minimumZoomScale = 1.0
+        scrollview.maximumZoomScale = 6.0
+        scrollview.delegate = self
     }
     
     func showImage(_ msg: RecentMessages, showFullImage: Bool) {
         
         if !showFullImage {
             
+            scrollview.isUserInteractionEnabled = false
+            imageView.isUserInteractionEnabled = false
             showImage(msg.thumb_Url)
         } else {
             
+            scrollview.isUserInteractionEnabled = true
+            imageView.isUserInteractionEnabled = true
             showImage(msg.image_url)
         }
     }
@@ -40,35 +48,23 @@ class ImageCell: UICollectionViewCell {
         if let name = image as? UIImage {
             
             imageView.image   = name
-        } else if let name = image as? String {
-            
-            let imageUrl     = URL(string: name)
-            
-            let fileManager = FileManager.default
-            
-            let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("preelo")
-            var path = name.replacingOccurrences(of: "https://api.preelo.com/api/image/get?token=", with: "")
-            path = path.replacingOccurrences(of: "/", with: "")
-            let imagePath = paths.appendingFormat("/%@", path)
-            
-            if !fileManager.fileExists(atPath: paths) {
-                
-                try! fileManager.createDirectory(atPath: paths, withIntermediateDirectories: true, attributes: nil)
-            }
-            
-            if !fileManager.fileExists(atPath: imagePath) {
-                
-                imageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "Image Placeholder_Fill"), options:.refreshCached, completed: { (image, error, none, url) in
-                    
-                    if let img = self.imageView.image, let imageData = UIImageJPEGRepresentation(img, 1.0) {
-                        
-                        fileManager.createFile(atPath: imagePath as String, contents: imageData, attributes: nil)
-                    }
-                })
-            } else  {
-                
-                imageView.image = UIImage(contentsOfFile: imagePath)
+        } else if let name = image as? String,
+            let imageUrl     = URL(string: name) {
+
+            do {
+                let data = try Data.init(contentsOf: imageUrl)
+                imageView.image = UIImage.sd_image(with: data)
+            } catch let error as NSError {
+                print(error.debugDescription)
             }
         }
+    }
+}
+
+extension ImageCell: UIScrollViewDelegate {
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        
+        return imageView
     }
 }

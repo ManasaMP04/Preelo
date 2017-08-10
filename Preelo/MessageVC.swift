@@ -109,7 +109,7 @@ extension MessageVC {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotification), name: Notification.Name("NotificationIdentifier"), object: nil)
         
-        cardView.addShadowWithColor(UIColor.colorWithHex(0x23B5B9) , offset: CGSize.zero, opacity: 0.3, radius: 4)
+        cardView?.addShadowWithColor(UIColor.colorWithHex(0x23B5B9) , offset: CGSize.zero, opacity: 0.3, radius: 4)
         self.navigationController?.navigationBar.isHidden = true
         addPullToRefreshView()
         authorizationButtonSelected(false)
@@ -136,10 +136,17 @@ extension MessageVC {
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
+                    self.view.showToast(message: result.message)
                     self.list.remove(at: indexPath.row)
                     self.notificationCount.isHidden = self.list.count == 0
                     self.notificationCount.text = "\(self.list.count)"
                     self.tableview.deleteRows(at: [indexPath], with: .automatic)
+                } else if let result = response.result.value {
+                    
+                    self.view.showToast(message:  result.message)
+                } else {
+                
+                    self.view.showToast(message:  "please try again later")
                 }}
     }
     
@@ -164,8 +171,11 @@ extension MessageVC {
                     chatVC.delegate = self
                     self.navigationController?.pushViewController(chatVC, animated: true)
                 } else if let result = response.result.value {
-                
-                    self.view.showToast(message: result.message)
+                    
+                    self.view.showToast(message:  result.message)
+                } else {
+                    
+                    self.view.showToast(message:  "please try again later")
                 }
         }
     }
@@ -197,20 +207,18 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ChatCell.cellId, for: indexPath) as! ChatCell
         cell.delegate = self
         
-        let status = selection == .authentication && StaticContentFile.isDoctorLogIn()
-        
-        cell.showData(list[indexPath.row], isdeclineRequestViewShow: status)
+        cell.showData(list[indexPath.row], isdeclineRequestViewShow: selection == .authentication )
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if StaticContentFile.isDoctorLogIn() && selection == .authentication {
+        if selection == .authentication {
             
-            return 158
+            return 175
         }
         
-        return 90
+        return 100
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -231,7 +239,13 @@ extension MessageVC: ChatCellDelegate {
         
         if let indexPath = tableview.indexPath(for: cell), let data = list[indexPath.row] as? DocAuthorizationRequest {
             
-            isAuthAccepted ? callAPIForAcceptAuth( AuthorizationRequestListRouter.approveAuth_post(data.patientid, data.parentid), indexPath: indexPath, data: data) : callAPIForAcceptAuth( AuthorizationRequestListRouter.rejectAuth_post(data.patientid, data.parentid), indexPath: indexPath, data: data)
+            if isAuthAccepted {
+                
+                callAPIForAcceptAuth( AuthorizationRequestListRouter.approveAuth_post(data.patientid, data.parentid), indexPath: indexPath, data: data)
+            } else {
+                
+                StaticContentFile.isDoctorLogIn() ? callAPIForAcceptAuth( AuthorizationRequestListRouter.rejectAuth_post(data.patientid, data.parentid), indexPath: indexPath, data: data) : callAPIForAcceptAuth( AuthorizationRequestListRouter.cancel_AuthRequest(data.patientid, data.doctorid), indexPath: indexPath, data: data)
+            }
         }
     }
 }
@@ -245,7 +259,7 @@ extension MessageVC{
         pullToRefreshControl = UIRefreshControl()
         pullToRefreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("Sync detail", comment:"Advice"))
         pullToRefreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
-        tableview.addSubview(pullToRefreshControl!)
+        tableview?.addSubview(pullToRefreshControl)
     }
     
     func refresh(_ sender: UIRefreshControl) {
@@ -254,7 +268,7 @@ extension MessageVC{
             
             self.callChannelAPI()
         } else {
-            self.callAPIToGetAuthRequest()
+            StaticContentFile.isDoctorLogIn() ? self.callAPIToGetAuthRequest() : self.callAPIToGetPatientAuthRequest()
         }
     }
     
@@ -295,6 +309,35 @@ extension MessageVC{
                     self.list = result.authRequest
                     self.tableview.reloadData()
                     StaticContentFile.saveAuthRequest(result)
+                }else if let result = response.result.value {
+                    
+                    self.view.showToast(message:  result.message)
+                } else {
+                    
+                    self.view.showToast(message:  "please try again later")
+                }}
+    }
+    
+    fileprivate func callAPIToGetPatientAuthRequest() {
+        
+        let plistStorageManager = PlistManager()
+        plistStorageManager.deleteObject(forKey: "\(StaticContentFile.getId())", inFile: .authRequest)
+        
+        Alamofire.request(AuthorizationRequestListRouter.get_patient_AuthRequest())
+            .responseObject { (response: DataResponse<AuthorizeRequest>) in
+                
+                self.pullToRefreshControl?.endRefreshing()
+                if let result = response.result.value, result.status == "SUCCESS" {
+                    
+                    self.list = result.authRequest
+                    self.tableview.reloadData()
+                    StaticContentFile.saveAuthRequest(result)
+                }else if let result = response.result.value {
+                    
+                    self.view.showToast(message:  result.message)
+                } else {
+                    
+                    self.view.showToast(message:  "please try again later")
                 }}
     }
 }
@@ -355,18 +398,18 @@ extension MessageVC {
     }
     
     @objc fileprivate func handleNotification() {
-    
+        
         self.list = StaticContentFile.getChannel()
         self.tableview?.reloadData()
         
         if let vc = self.navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC, let details = list as? [ChannelDetail] {
-        
-            for data in details {
             
-                if data.channel_id == selectedChannelId {
+            for data in details {
                 
+                if data.channel_id == selectedChannelId {
+                    
                     vc.channelDetail = data
-                    vc.refresh()
+                    vc.refresh(true)
                     return
                 }
             }

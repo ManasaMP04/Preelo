@@ -26,10 +26,11 @@ class ParentDetailCell: UITableViewCell {
     @IBOutlet weak var editButtonWidth: NSLayoutConstraint!
     @IBOutlet weak var initial: UILabel!
     @IBOutlet weak var initialWidth: NSLayoutConstraint!
-    
+    @IBOutlet weak var editTrailing: NSLayoutConstraint!
     @IBOutlet weak var imageView1: UIImageView!
     @IBOutlet weak var nameLabelLeading: NSLayoutConstraint!
     weak var delegate: ParentDetailCellDelegate?
+    @IBOutlet weak var separatorTrailing: NSLayoutConstraint!
     
     static let cellId = "ParentDetailCell"
     
@@ -54,11 +55,12 @@ class ParentDetailCell: UITableViewCell {
         imageViewWidth.constant = showImage ? 28 : 0
         imageView1.isHidden = !showImage
         initial.text = initialText
-        nameLabelLeading.constant = (showInitial || showImage) ? 53 : 10
-        
+        nameLabelLeading.constant = (showImage || showInitial) ? 20 : 37
+        editTrailing.constant = StaticContentFile.isDoctorLogIn() ? 30 : 10
         editButton.isHidden = !showEdit
         editButtonWidth.constant = showEdit ? 45 : 0
-        
+        separatorTrailing.constant = !StaticContentFile.isDoctorLogIn() ? 20 : 35
+    
         if let img = image {
          
             editButton.setImage(UIImage(named: img), for: .normal)

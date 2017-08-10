@@ -28,6 +28,7 @@ class AddPatientVC: UIViewController {
     fileprivate var activityIndicator   : UIActivityIndicatorView?
     fileprivate var patientList         : PatientList?
     fileprivate var isEditPatient       = false
+    fileprivate var edited              = false
     
     init (_ patientList: PatientList?) {
         
@@ -61,13 +62,13 @@ class AddPatientVC: UIViewController {
     }
     
     @IBAction func tapGestureTapped(_ sender: Any) {
-    
+        
         view.endEditing(true)
     }
     
     @IBAction func addPatientButtonTapped(_ sender: Any) {
         
-       addPatient ()
+        addPatient ()
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
@@ -80,6 +81,7 @@ class AddPatientVC: UIViewController {
     
     func showParentDetailView(_ list: PatientList) {
         
+        edited = true
         patientList = list
         tableview.reloadData()
         
@@ -134,7 +136,7 @@ extension AddPatientVC: ParentDetailCellDelegate {
 extension AddPatientVC {
     
     fileprivate func addPatient () {
-    
+        
         self.view.endEditing(true)
         if let fname = firstName.text, let lName = lastName.text,
             fname.characters.count > 0, lName.characters.count > 0  {
@@ -180,7 +182,7 @@ extension AddPatientVC {
             lastName.text  = list.lastname
             
             showParentDetailView(list)
-            
+            edited = false
             isEditPatient = true
             customNavigationBar.setTitle("Edit Patient")
         } else {
@@ -251,6 +253,13 @@ extension AddPatientVC {
     
     fileprivate func callAPIToEditPatient(_ patient: PatientList) {
         
+        if let fname = firstName.text,
+            let lname = lastName.text {
+            
+            patient.firstname = fname
+            patient.lastname  = lname
+        }
+        
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
         
@@ -282,7 +291,26 @@ extension AddPatientVC: CustomNavigationBarDelegate {
     
     func tappedBackButtonFromVC(_ customView: CustomNavigationBar) {
         
-        _ = navigationController?.popViewController(animated: true)
+        if edited {
+            
+            let alertVc = UIAlertController.init(title: "Alert", message: "You will loose unsaved data. Would you like to continue?", preferredStyle: .alert)
+            let okAlert = UIAlertAction.init(title: "YES", style: .default, handler: { (action) in
+                
+                alertVc.dismiss(animated: false, completion: nil)
+                _ = self.navigationController?.popViewController(animated: true)
+            })
+            
+            let noAlert = UIAlertAction.init(title: "NO", style: .default, handler: { (action) in
+                
+                alertVc.dismiss(animated: true, completion: nil)
+            })
+            
+            alertVc.addAction(okAlert)
+            alertVc.addAction(noAlert)
+            self.present(alertVc, animated: true, completion: nil)
+        } else {
+            _ = navigationController?.popViewController(animated: true)
+        }
     }
 }
 
@@ -294,7 +322,7 @@ extension AddPatientVC: AlertVCDelegate {
         dismiss(animated: false, completion: nil)
         
         if let vc = navigationController?.viewControllerWithClass(PatientListVC.self) as?  PatientListVC, let data = patientList {
-        
+            
             vc.refreshTableview(data)
             _ = navigationController?.popToViewController(vc, animated: true)
         }
@@ -312,8 +340,13 @@ extension AddPatientVC : PreeloTextFieldDelegate {
             lastName.becomeFirstResponder()
         } else if lastName.isFirstResponder {
             
-           addPatient ()
+            addPatient ()
         }
+    }
+    
+    func textFieldEditingChanged(_ textField: PreeloTextField) {
+        
+        edited = true
     }
 }
 

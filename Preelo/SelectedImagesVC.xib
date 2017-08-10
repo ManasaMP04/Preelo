@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,6 +15,7 @@
                 <outlet property="customNavigation" destination="eXW-Gi-KEN" id="WYT-fM-332"/>
                 <outlet property="deleteButton" destination="6dM-Yc-dJk" id="RvK-W5-5gb"/>
                 <outlet property="imageView" destination="gI2-B5-zeJ" id="P9h-ph-eyj"/>
+                <outlet property="scrollview" destination="vee-tU-dUD" id="n1d-rt-SNQ"/>
                 <outlet property="selectImageButton" destination="iDG-w4-W8s" id="gs6-hy-PIU"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -46,9 +47,25 @@
                         <constraint firstItem="6dM-Yc-dJk" firstAttribute="centerY" secondItem="eXW-Gi-KEN" secondAttribute="centerY" id="wqd-0v-CgK"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gI2-B5-zeJ">
-                    <rect key="frame" x="0.0" y="60" width="375" height="447"/>
-                </imageView>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vee-tU-dUD">
+                    <rect key="frame" x="0.0" y="60" width="375" height="512"/>
+                    <subviews>
+                        <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Add-Patient" translatesAutoresizingMaskIntoConstraints="NO" id="gI2-B5-zeJ">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="512"/>
+                        </imageView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="gI2-B5-zeJ" firstAttribute="leading" secondItem="vee-tU-dUD" secondAttribute="leading" id="Kd8-x8-Iwf"/>
+                        <constraint firstItem="gI2-B5-zeJ" firstAttribute="centerY" secondItem="vee-tU-dUD" secondAttribute="centerY" id="TpS-Pf-2u4"/>
+                        <constraint firstAttribute="bottom" secondItem="gI2-B5-zeJ" secondAttribute="bottom" id="dt2-2U-sjL"/>
+                        <constraint firstItem="gI2-B5-zeJ" firstAttribute="top" secondItem="vee-tU-dUD" secondAttribute="top" id="e7M-83-9YN"/>
+                        <constraint firstItem="gI2-B5-zeJ" firstAttribute="centerX" secondItem="vee-tU-dUD" secondAttribute="centerX" id="gHv-VH-GWv"/>
+                        <constraint firstAttribute="trailing" secondItem="gI2-B5-zeJ" secondAttribute="trailing" id="xhp-Kv-UKB"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="HT3-al-4Mf"/>
+                    </connections>
+                </scrollView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Lf-Yf-txV">
                     <rect key="frame" x="295" y="507" width="60" height="65"/>
                     <constraints>
@@ -91,17 +108,17 @@
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="gI2-B5-zeJ" secondAttribute="trailing" id="0h4-Dw-EJp"/>
+                <constraint firstItem="vee-tU-dUD" firstAttribute="bottom" secondItem="4Lf-Yf-txV" secondAttribute="bottom" id="0XH-VX-Qfp"/>
                 <constraint firstAttribute="trailing" secondItem="4Lf-Yf-txV" secondAttribute="trailing" constant="20" id="70w-ak-Y3u"/>
-                <constraint firstItem="4Lf-Yf-txV" firstAttribute="top" secondItem="gI2-B5-zeJ" secondAttribute="bottom" id="Etv-f0-sJO"/>
+                <constraint firstItem="vee-tU-dUD" firstAttribute="top" secondItem="eXW-Gi-KEN" secondAttribute="bottom" id="GLC-Ld-UTe"/>
                 <constraint firstAttribute="trailing" secondItem="Pnt-kn-BU5" secondAttribute="trailing" id="HEH-Gz-NXm"/>
                 <constraint firstItem="iDG-w4-W8s" firstAttribute="bottom" secondItem="4Lf-Yf-txV" secondAttribute="bottom" id="IVx-c6-LmC"/>
                 <constraint firstItem="Pnt-kn-BU5" firstAttribute="top" secondItem="4Lf-Yf-txV" secondAttribute="bottom" constant="35" id="LKb-hp-mUF"/>
-                <constraint firstItem="gI2-B5-zeJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="R7b-KC-Zdr"/>
+                <constraint firstItem="vee-tU-dUD" firstAttribute="trailing" secondItem="eXW-Gi-KEN" secondAttribute="trailing" id="dkz-Qb-ONg"/>
+                <constraint firstItem="vee-tU-dUD" firstAttribute="leading" secondItem="eXW-Gi-KEN" secondAttribute="leading" id="dod-3c-FaF"/>
                 <constraint firstItem="iDG-w4-W8s" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="fUQ-0z-reZ"/>
                 <constraint firstItem="Pnt-kn-BU5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hK9-P4-VQf"/>
                 <constraint firstItem="eXW-Gi-KEN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lLw-sL-PVI"/>
-                <constraint firstItem="gI2-B5-zeJ" firstAttribute="top" secondItem="eXW-Gi-KEN" secondAttribute="bottom" id="mvX-t5-kPu"/>
                 <constraint firstAttribute="bottom" secondItem="Pnt-kn-BU5" secondAttribute="bottom" id="rnL-TH-Rpw"/>
                 <constraint firstItem="eXW-Gi-KEN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="rzm-zD-d66"/>
                 <constraint firstAttribute="trailing" secondItem="eXW-Gi-KEN" secondAttribute="trailing" id="tMK-tk-vba"/>
@@ -110,6 +127,7 @@
         </view>
     </objects>
     <resources>
+        <image name="Add-Patient" width="33" height="33"/>
         <image name="Delete" width="25" height="25"/>
     </resources>
 </document>

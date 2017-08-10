@@ -24,7 +24,7 @@ class ParentDetailVC: UIViewController {
     fileprivate let popAnimator   = DXPopover()
     fileprivate var patientList   : PatientList?
     fileprivate var selectedIndex = -1
-    
+    fileprivate var edited = false
     
     fileprivate var scrollViewBottomInset : CGFloat! {
         
@@ -174,6 +174,7 @@ extension ParentDetailVC: RelationPickerViewDelegate {
     
     func relationPickerView(_ view: RelationPickerView, text: String) {
         
+        edited = true
         relationship.text = text
         popAnimator.dismiss()
     }
@@ -184,7 +185,26 @@ extension ParentDetailVC: CustomNavigationBarDelegate {
     
     func tappedBackButtonFromVC(_ customView: CustomNavigationBar) {
         
-        _ = navigationController?.popViewController(animated: true)
+        if edited {
+            
+            let alertVc = UIAlertController.init(title: "Alert", message: "You will loose unsaved data. Would you like to continue?", preferredStyle: .alert)
+            let okAlert = UIAlertAction.init(title: "YES", style: .default, handler: { (action) in
+                
+                alertVc.dismiss(animated: false, completion: nil)
+                 _ = self.navigationController?.popViewController(animated: true)
+            })
+            
+            let noAlert = UIAlertAction.init(title: "NO", style: .default, handler: { (action) in
+                
+                alertVc.dismiss(animated: true, completion: nil)
+            })
+            
+            alertVc.addAction(okAlert)
+            alertVc.addAction(noAlert)
+            self.present(alertVc, animated: true, completion: nil)
+        } else {
+            _ = navigationController?.popViewController(animated: true)
+        }
     }
 }
 
@@ -229,5 +249,10 @@ extension ParentDetailVC : PreeloTextFieldDelegate {
             
             addParent()
         }
+    }
+    
+    func textFieldEditingChanged(_ textField: PreeloTextField) {
+        
+        edited = true
     }
 }

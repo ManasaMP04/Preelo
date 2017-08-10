@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -26,10 +26,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hs5-L8-tez">
-                        <rect key="frame" x="8" y="30" width="305" height="41.5"/>
+                        <rect key="frame" x="8" y="38" width="130.5" height="33.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61s-ya-c7z">
-                                <rect key="frame" x="8" y="10" width="287" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cvfdszxfhgjhkfcg" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61s-ya-c7z">
+                                <rect key="frame" x="10" y="10" width="110.5" height="16"/>
                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="14"/>
                                 <color key="textColor" red="0.34509803919999998" green="0.34901960780000002" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -37,7 +37,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="61s-ya-c7z" firstAttribute="leading" secondItem="hs5-L8-tez" secondAttribute="leading" constant="8" id="05w-ev-MaR"/>
+                            <constraint firstItem="61s-ya-c7z" firstAttribute="leading" secondItem="hs5-L8-tez" secondAttribute="leading" constant="10" id="05w-ev-MaR"/>
                             <constraint firstItem="61s-ya-c7z" firstAttribute="top" secondItem="hs5-L8-tez" secondAttribute="top" constant="10" id="KCX-zR-G47"/>
                             <constraint firstAttribute="bottom" secondItem="61s-ya-c7z" secondAttribute="bottom" constant="7.5" id="z1b-YH-UvL"/>
                             <constraint firstAttribute="trailing" secondItem="61s-ya-c7z" secondAttribute="trailing" constant="10" id="zxd-ud-4Qe"/>
@@ -45,12 +45,18 @@
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmD-wY-pYa">
                         <rect key="frame" x="16" y="8" width="22" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="9sv-ej-yjc"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="15"/>
                         <color key="textColor" red="0.25490196078431371" green="0.25098039215686274" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UN7-XT-wGT">
-                        <rect key="frame" x="271" y="8" width="34" height="16"/>
+                        <rect key="frame" x="104.5" y="8" width="34" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="aRw-FW-SpV"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="14"/>
                         <color key="textColor" red="0.73725490199999999" green="0.74509803919999995" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -58,14 +64,14 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="hs5-L8-tez" firstAttribute="leading" secondItem="jEd-OM-tfA" secondAttribute="leading" constant="8" id="9SU-yI-tb4"/>
+                    <constraint firstItem="UN7-XT-wGT" firstAttribute="trailing" secondItem="hs5-L8-tez" secondAttribute="trailing" id="MdC-1g-bk9"/>
+                    <constraint firstItem="hs5-L8-tez" firstAttribute="top" secondItem="mmD-wY-pYa" secondAttribute="bottom" constant="13" id="VcT-dd-L2O"/>
                     <constraint firstItem="UN7-XT-wGT" firstAttribute="top" secondItem="mmD-wY-pYa" secondAttribute="top" id="dlJ-xR-zjJ"/>
                     <constraint firstItem="mmD-wY-pYa" firstAttribute="top" secondItem="jEd-OM-tfA" secondAttribute="top" constant="8" id="gHC-de-jTz"/>
-                    <constraint firstAttribute="trailing" secondItem="UN7-XT-wGT" secondAttribute="trailing" constant="16" id="gb6-SX-bYD"/>
                     <constraint firstItem="UN7-XT-wGT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mmD-wY-pYa" secondAttribute="trailing" constant="8" id="gyL-hp-obG"/>
-                    <constraint firstAttribute="trailing" secondItem="hs5-L8-tez" secondAttribute="trailing" constant="8" id="jba-4J-Jch"/>
                     <constraint firstItem="mmD-wY-pYa" firstAttribute="leading" secondItem="jEd-OM-tfA" secondAttribute="leading" constant="16" id="obZ-NN-se4"/>
                     <constraint firstAttribute="bottom" secondItem="hs5-L8-tez" secondAttribute="bottom" constant="8" id="pP9-wY-owK"/>
-                    <constraint firstItem="hs5-L8-tez" firstAttribute="top" secondItem="jEd-OM-tfA" secondAttribute="top" constant="30" id="vxt-uD-sZx"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hs5-L8-tez" secondAttribute="trailing" constant="10" id="vFv-h6-JTj"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

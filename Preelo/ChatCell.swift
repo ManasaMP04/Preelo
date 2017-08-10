@@ -42,8 +42,19 @@ class ChatCell: UITableViewCell {
     
     fileprivate func setup() {
         
-        StaticContentFile.setButtonFont(declineButton, backgroundColorNeeed: false, shadowNeeded: false)
+         StaticContentFile.setButtonFont(declineButton, backgroundColorNeeed: false, shadowNeeded: false)
         StaticContentFile.setButtonFont(acceptButton)
+        
+        if StaticContentFile.isDoctorLogIn() {
+            
+            declineButton.setTitle("DECLINE", for: .normal)
+            acceptButton.setTitle("ACCEPT", for: .normal)
+        } else {
+    
+            declineButton.setTitle("CANCEL", for: .normal)
+            acceptButton.setTitle("PENDING", for: .normal)
+            acceptButton.isUserInteractionEnabled = false
+        }
         declineButton.layer.cornerRadius = 18
         acceptButton.layer.cornerRadius  = 18
         initial.layer.cornerRadius = 20
@@ -58,7 +69,7 @@ class ChatCell: UITableViewCell {
         initial.isHidden = true
         countLabel.isHidden = true
         
-        if let auth = data as? DocAuthorizationRequest {
+        if let auth = data as? DocAuthorizationRequest, StaticContentFile.isDoctorLogIn(){
             
             self.name.text = auth.firstname
             descriptionLabel.text = String(format: "Patient %@ %@ has sent You an authorization request", auth.firstname, auth.lastname)
@@ -66,14 +77,20 @@ class ChatCell: UITableViewCell {
             initial.isHidden = false
             parentName.text = ""
             
-            if let  firstCh = auth.relationship.characters.first, StaticContentFile.isDoctorLogIn() {
+            if let  firstCh = auth.relationship.characters.first {
                 
                 let srt = "\(firstCh)"
                 initial.text = srt.uppercased()
-            } else if !StaticContentFile.isDoctorLogIn() {
-                
-                initial.text = "D"
             }
+        } else if let auth = data as? DocAuthorizationRequest, !StaticContentFile.isDoctorLogIn() {
+            
+            self.name.text = auth.doctor_firstname + " " + auth.doctor_lastname
+            descriptionLabel.text = String(format: "You have been invited by the Doctor %@ %@ to authorize yourself for sending images and messages.", auth.doctor_firstname, auth.doctor_lastname)
+            
+            initial.isHidden = false
+            parentName.text = ""
+            
+            initial.text = "D"
         } else if let channel = data as? ChannelDetail {
             
             if let message = channel.recent_message.last {

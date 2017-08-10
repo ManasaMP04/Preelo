@@ -20,8 +20,9 @@ class ToMessageCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        cardView.layer.cornerRadius = 5
-        cardView.addShadowWithColor(UIColor.colorWithHex(0x7c7c7c) , offset: CGSize.zero, opacity: 0.4, radius: 4)
+        cardView.layer.cornerRadius = 8
+        cardView.layer.borderColor = UIColor.colorWithHex(0xe6e7e8).cgColor
+        cardView.layer.borderWidth = 0.8
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
