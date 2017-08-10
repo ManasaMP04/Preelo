@@ -286,8 +286,6 @@ extension MessageVC{
                     self.list = result.data
                     self.tableview.reloadData()
                     
-                    self.notificationCount.text = "\(self.list.count)"
-                    self.notificationCount.isHidden = self.list.count == 0
                     for detail in result.data {
                         
                         StaticContentFile.saveMessage(detail)
