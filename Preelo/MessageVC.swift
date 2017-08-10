@@ -71,8 +71,8 @@ class MessageVC: UIViewController {
     
     fileprivate func authorizationButtonSelected(_ status: Bool) {
         
-        authorizationRequest.isSelected = status
-        messagesButton.isSelected       = !status
+        authorizationRequest?.isSelected = status
+        messagesButton?.isSelected       = !status
         selection = status ? .authentication : .message
         authorizationRequest.backgroundColor =  status ? UIColor.white : UIColor.colorWithHex(0xE6FAFE)
         messagesButton.backgroundColor = status ? UIColor.colorWithHex(0xE6FAFE) : UIColor.white

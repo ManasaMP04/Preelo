@@ -99,7 +99,7 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
             if indexPath.row == 0 {
                 
                 let image = list.blocked.lowercased() == "y" ? "Unblock" : "Block"
-                cell.showParentName(list.doctor_firstname , showImage: false, showEdit: true, image: image, showLocation: true, font: UIFont(name: "Ubuntu", size: 16)!, color: UIColor.colorWithHex(0x414042), showInitial: true, initialText: String(list.doctor_firstname.characters.prefix(1)))
+                cell.showParentName(list.doctor_firstname , showImage: false, showEdit: true, image: image, showLocation: true, font: UIFont(name: "Ubuntu", size: 16)!, color: UIColor.colorWithHex(0x414042), showInitial: true, initialText: String(list.doctor_firstname.characters.prefix(1)), enabledLocation: list.blocked.lowercased() != "y")
             } else if let detail = docDetail[indexPath.row - 1] as? Locations {
                 
                 let address = detail.address1 + " " + detail.address2
@@ -340,7 +340,7 @@ extension PatientListVC: DeletAccountAlertDelegate{
                         UIView.animate(withDuration: 0.5, animations: {
                             
                             let docDetail = detail
-                            docDetail.blocked = "y"
+                            docDetail.blocked = detail.blocked.lowercased() == "y" ? "n" : "y"
                             
                             self.list[ind] = docDetail
                             vc.view.showToast(message: result.message)

@@ -26,54 +26,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Preelo/MessageVC.swift"
-            timestampString = "524072682.988922"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "authorizationButtonSelected(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Preelo.MessageVC.(authorizationButtonSelected in _C744777799D66A97AFAEB8AAD0CABB60) (Swift.Bool) -&gt; ()"
-                  moduleName = "Preelo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/manasamp/Desktop/Preelo/Preelo/MessageVC.swift"
-                  timestampString = "524072683.20466"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "86"
-                  endingLineNumber = "86"
-                  offsetFromSymbolStart = "3392">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Preelo.MessageVC.(authorizationButtonSelected in _C744777799D66A97AFAEB8AAD0CABB60) (Swift.Bool) -&gt; ()"
-                  moduleName = "Preelo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/manasamp/Desktop/Preelo/Preelo/MessageVC.swift"
-                  timestampString = "524072683.206471"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "86"
-                  endingLineNumber = "86"
-                  offsetFromSymbolStart = "3441">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Preelo/MessageVC.swift"
             timestampString = "524072695.335304"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"

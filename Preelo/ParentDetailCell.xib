@@ -39,7 +39,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBY-GP-FNy">
-                                <rect key="frame" x="68" y="12.5" width="42" height="19.5"/>
+                                <rect key="frame" x="68" y="12.5" width="42" height="20"/>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
                                 <color key="textColor" red="0.25490196078431371" green="0.25098039215686274" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -67,6 +67,7 @@
                                 <state key="normal" image="Location">
                                     <color key="titleColor" red="0.13725490200000001" green="0.70980392160000005" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <state key="disabled" image="LocationDis"/>
                                 <connections>
                                     <action selector="tappedLocation:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ffG-c2-z8S"/>
                                 </connections>
@@ -137,8 +138,9 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Block" width="12" height="12"/>
-        <image name="Location" width="12" height="12"/>
+        <image name="Block" width="20" height="20"/>
+        <image name="Location" width="20" height="20"/>
+        <image name="LocationDis" width="20" height="27"/>
         <image name="Man-Icon" width="28" height="28"/>
     </resources>
 </document>
