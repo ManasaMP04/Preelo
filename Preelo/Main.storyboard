@@ -36,6 +36,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-with-shadow" translatesAutoresizingMaskIntoConstraints="NO" id="F4Z-PN-Y9Q">
                                 <rect key="frame" x="63" y="62.5" width="195" height="195"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="195" id="bXu-O0-Pq1"/>
                                     <constraint firstAttribute="height" constant="195" id="nd9-iJ-cMe"/>
@@ -609,8 +610,8 @@
                                     <constraint firstAttribute="width" constant="120" id="glj-3Q-Bst"/>
                                     <constraint firstAttribute="height" constant="70" id="nzh-Ov-18b"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="13"/>
-                                <inset key="titleEdgeInsets" minX="-45" minY="40" maxX="0.0" maxY="0.0"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="15"/>
+                                <inset key="titleEdgeInsets" minX="-45" minY="50" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="33" minY="0.0" maxX="0.0" maxY="20"/>
                                 <state key="normal" title="Settings" image="Settings"/>
                                 <connections>
@@ -638,8 +639,8 @@
                                     <constraint firstAttribute="height" constant="70" id="29e-4N-d6m"/>
                                     <constraint firstAttribute="width" constant="120" id="R23-mh-qvR"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="13"/>
-                                <inset key="titleEdgeInsets" minX="-45" minY="40" maxX="0.0" maxY="0.0"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="15"/>
+                                <inset key="titleEdgeInsets" minX="-45" minY="50" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="38" minY="0.0" maxX="0.0" maxY="20"/>
                                 <state key="normal" title="Profile Settings" image="Profile-settings-Icons"/>
                                 <connections>
@@ -1307,10 +1308,10 @@ intended for diagnosis or prescription. Please agree to the above terms to conti
         <image name="Delete-White" width="17" height="22"/>
         <image name="Logo-with-shadow" width="303" height="303"/>
         <image name="Msg" width="20" height="11"/>
-        <image name="Msg-Active" width="24" height="23"/>
+        <image name="Msg-Active" width="20" height="10"/>
         <image name="Open-Menu" width="20" height="27"/>
-        <image name="Profile-settings-Icons" width="20" height="15"/>
-        <image name="Settings" width="20" height="20"/>
+        <image name="Profile-settings-Icons" width="40" height="30"/>
+        <image name="Settings" width="40" height="40"/>
         <image name="button_pressed" width="16" height="16"/>
         <image name="imageView:act-Ok-ZTm:image" width="100" height="100">
             <mutableData key="keyedArchiveRepresentation">

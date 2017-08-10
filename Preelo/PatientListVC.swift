@@ -10,7 +10,7 @@ import UIKit
 import AlamofireObjectMapper
 import Alamofire
 
-fileprivate let cellHeight = CGFloat(60)
+fileprivate let cellHeight = CGFloat(70)
 
 class PatientListVC: UIViewController {
     
@@ -106,7 +106,7 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
                 cell.showParentName(address , showImage: false, showEdit: false, image: nil, showLocation: false, font: UIFont(name: "Ubuntu-Medium", size: 12)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
             } else if let detail = docDetail[indexPath.row - 1] as? DoctorPhoneNumbers {
                 
-                cell.showParentName(detail.phone_number , showImage: false, showEdit: false, image: "phone", showLocation: false, font: UIFont(name: "Ubuntu-Light", size: 14)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
+                cell.showParentName(detail.phone_number , showImage: false, showEdit: true, image: "phone", showLocation: false, font: UIFont(name: "Ubuntu-Light", size: 14)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
             }
         }
         

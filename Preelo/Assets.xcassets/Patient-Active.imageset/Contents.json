@@ -6,17 +6,20 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "Patient-Active.png",
+      "filename" : "shape22@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Patient-Active-1.png",
+      "filename" : "shape22@3x.png",
       "scale" : "3x"
     }
   ],
   "info" : {
     "version" : 1,
     "author" : "xcode"
+  },
+  "properties" : {
+    "template-rendering-intent" : "original"
   }
 }
