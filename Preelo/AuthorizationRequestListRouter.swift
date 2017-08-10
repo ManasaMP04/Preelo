@@ -17,6 +17,8 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
     case rejectAuth_post(Int, Int)
     case get_patient_AuthRequest()
     case cancel_AuthRequest(Int, Int)
+    case deAuthorize(Int, Int)
+    case authorize(Int, Int)
     
     public func asURLRequest() throws -> URLRequest {
         
@@ -60,6 +62,14 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
             case .cancel_AuthRequest(_, _):
                 
                 relativePath = NetworkURL.cancelAuthRequest
+                
+            case .deAuthorize(_, _):
+                
+                relativePath = NetworkURL.deauthorize
+                
+            case .authorize(_, _):
+                
+                relativePath = NetworkURL.authorize
             }
             
             url = url.appendingPathComponent(relativePath)
@@ -94,6 +104,13 @@ enum AuthorizationRequestListRouter:  URLRequestConvertible {
                 dict = ["token"         : StaticContentFile.getToken(),
                         "patientid"     : patientid,
                         "doctorid"      : doctorid]
+                
+            case .deAuthorize(let patientid, let parentid), .authorize(let patientid, let parentid):
+                
+                dict = ["token"         : StaticContentFile.getToken(),
+                        "patientid"     : patientid]
+                
+                dict["family"] = [["parentid":parentid]]
             }
             
             return dict

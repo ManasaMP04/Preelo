@@ -31,7 +31,7 @@ class ChatVC: UIViewController {
     @IBOutlet fileprivate weak var requestAuthButton    : UIButton!
     @IBOutlet fileprivate weak var messageTF            : UITextField!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
-    
+    @IBOutlet weak var deauthorizeButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var galleryButton: UIButton!
     
@@ -112,8 +112,14 @@ extension ChatVC {
     
     @IBAction func requestAuthorisationButtonTapped(_ sender: Any) {
         
-        let vc = DisclaimerVC(channelDetail)
-        navigationController?.pushViewController(vc, animated: true)
+        if StaticContentFile.isDoctorLogIn(), let _ = channelDetail {
+            
+            callApiToAuthorize()
+        } else {
+            
+            let vc = DisclaimerVC(channelDetail)
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
@@ -137,11 +143,59 @@ extension ChatVC {
         
         selectImages()
     }
+    
+    @IBAction func deauthorizeButtonTapped(_ sender: Any) {
+        
+        self.view.isUserInteractionEnabled = false
+        self.activityIndicator?.startAnimating()
+        Alamofire.request(AuthorizationRequestListRouter.deAuthorize(channelDetail.patientId, channelDetail.parentId))
+            .responseObject { (response: DataResponse<SuccessStatus>) in
+                
+                self.view.isUserInteractionEnabled = true
+                self.activityIndicator?.stopAnimating()
+                
+                if let result = response.result.value, result.status == "SUCCESS" {
+                    
+                    self.view.showToast(message: result.message)
+                    self.deauthorizeButton.isHidden = true
+                } else if let result = response.result.value {
+                    
+                    self.view.showToast(message: result.message)
+                } else {
+                    
+                    self.view.showToast(message: "Please try again later")
+                }}
+    }
 }
 
 //MARK:- Private Methods
 
 extension ChatVC {
+    
+    fileprivate func callApiToAuthorize() {
+    
+        self.activityIndicator?.startAnimating()
+        Alamofire.request(AuthorizationRequestListRouter.authorize(channelDetail.patientId, channelDetail.parentId))
+            .responseObject { (response: DataResponse<SuccessStatus>) in
+                
+                self.view.isUserInteractionEnabled = true
+                self.activityIndicator?.stopAnimating()
+                
+                if let result = response.result.value, result.status == "SUCCESS" {
+                    
+                    self.view.showToast(message: result.message)
+                    self.deauthorizeButton.isHidden = false
+                    self.requestAuthorizationViewHeight.constant = 0
+                    self.authorizationView.isHidden = true
+                } else if let result = response.result.value {
+                
+                    self.view.showToast(message: result.message)
+                } else {
+                
+                    self.view.showToast(message: "Please try again later")
+                }
+        }
+    }
     
     fileprivate func setup() {
         
@@ -170,9 +224,8 @@ extension ChatVC {
         
         tableview.estimatedRowHeight = 20
         tableview.rowHeight  = UITableViewAutomaticDimension
-        tableViewHeight.constant = StaticContentFile.screenHeight - 170 - requestAuthorizationViewHeight.constant
-        
-         refresh()
+    
+        refresh()
     }
     
     func refresh(_ scrollDirectlyToBottom: Bool = false) {
@@ -181,6 +234,7 @@ extension ChatVC {
             
             if channelDetail.lastMsgId == -1 {
                 
+                self.view.isUserInteractionEnabled = false
                 activityIndicator?.startAnimating()
                 callApiToGetMessages()
             } else if channelDetail.unread_count > 0 {
@@ -215,6 +269,7 @@ extension ChatVC {
         
         if !StaticContentFile.isDoctorLogIn(), channelDetail.auth_status.lowercased() != "t" {
             
+            deauthorizeButton.isHidden = false
             requestAuthorizationViewHeight.constant = 144
             authorizationView.isHidden = false
             toolbarView.isUserInteractionEnabled = false
@@ -232,9 +287,20 @@ extension ChatVC {
             }
         } else {
             
+            requestAuthorizationViewHeight.constant = channelDetail.auth_status.lowercased() != "t" ? 144 : 0
+            authorizationView.isHidden = channelDetail.auth_status.lowercased() == "t"
+            
+            if StaticContentFile.isDoctorLogIn() {
+                
+                requestAuthButton.setTitle("AUTHORIZE PARENT", for: .normal)
+                deauthorizeButton.isHidden = false
+            }
+            
             cameraButton.setImage(UIImage(named: "camera-Active"), for: .normal)
             galleryButton.setImage(UIImage(named: "Gallery-Icon Active"), for: .normal)
         }
+        
+        tableViewHeight.constant = StaticContentFile.screenHeight - 170 - requestAuthorizationViewHeight.constant
     }
     
     fileprivate func scrollToButtom() {
@@ -272,15 +338,7 @@ extension ChatVC {
         Alamofire.request(SendTextMessageRouter.post(text))
             .responseObject { (response: DataResponse<SuccessStatus>) in
                 
-                if let result = response.result.value, result.status == "SUCCESS" {
-                    
-                    let dateStr = Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A")
-                    let recentMessage = RecentMessages("simple", text: text,image: nil, senderId: "you", timeInterval: dateStr)
-                    recentMessage.message_id = result.message_id
-                    
-                    self.messageList.append(recentMessage)
-                    self.tableview.reloadData()
-                } else {
+                if let result = response.result.value, result.status == "SUCCESS" {} else {
                     
                     self.view.showToast(message: "Send Message Failed")
                 } } .responseString { (string) in
@@ -296,6 +354,7 @@ extension ChatVC {
                 
                 self.activityIndicator?.stopAnimating()
                 self.footerActivityIndicator?.stopAnimating()
+                self.view.isUserInteractionEnabled = true
                 
                 if let result = response.result.value {
                     
@@ -501,7 +560,7 @@ extension ChatVC : SelectedImagesVCDelegate {
             
             Alamofire.upload(multipartFormData: { MultipartFormData in
                 
-                if let imgData = UIImageJPEGRepresentation(image, 1.0) {
+                if let imgData = UIImageJPEGRepresentation(image, 0.5) {
                     
                     MultipartFormData.append(imgData, withName: "image", fileName: "image", mimeType: "image/jpg")
                 }
@@ -511,14 +570,14 @@ extension ChatVC : SelectedImagesVCDelegate {
                     
                 case .success(let upload, _, _):
                     
-                    let dateStr = Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A")
-                    
-                    let recentMessage = RecentMessages("IMAGE", text: "Photos",image: image, senderId: "you", timeInterval: dateStr)
-                    
-                    StaticContentFile.saveMessage(recentMessage, channelDetail: self.channelDetail)
-                    self.messageList.append(recentMessage)
-                    self.tableview.reloadData()
-                    self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
+//                    let dateStr = Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A")
+//                    
+//                    let recentMessage = RecentMessages("IMAGE", text: "Photos",image: image, senderId: "you", timeInterval: dateStr)
+//                    
+//                    self.messageList.append(recentMessage)
+//                    self.tableview.reloadData()
+//                    StaticContentFile.saveMessage(recentMessage, channelDetail: self.channelDetail)
+//                    self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
                     
                     upload.responseString { response in
                         

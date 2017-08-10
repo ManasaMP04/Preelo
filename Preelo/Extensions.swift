@@ -157,12 +157,17 @@ extension Date {
     static func dateDiff(dateStr:String) -> String {
         
         let f = DateFormatter()
-        f.timeZone = NSTimeZone.local
-        f.dateFormat = "yyyy-M-dd'T'HH:mm:ss.A"
+        f.locale = Locale(identifier: "en_US_POSIX")
+        f.timeZone = TimeZone(abbreviation: "EST")
         
+        f.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.A"
+        let strDate = f.date(from: dateStr)
+        
+        f.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let startString = f.string(from: strDate!)
         let now = f.string(from: Date())
-        let startDate = f.date(from: dateStr)
         let endDate = f.date(from: now)
+        let startDate = f.date(from: startString)
         
         var timeAgo = ""
         

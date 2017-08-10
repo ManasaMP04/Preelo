@@ -15,8 +15,9 @@ protocol ImageListCellDelegate: class {
 
 class ImageListCell: UITableViewCell {
     
+    @IBOutlet weak var toTime: UILabel!
+    @IBOutlet weak var fromTime: UILabel!
     @IBOutlet fileprivate weak var toNameLabel        : UILabel!
-    @IBOutlet fileprivate weak var cardView         : UIView!
     @IBOutlet fileprivate weak var collectionView   : UICollectionView!
     @IBOutlet fileprivate weak var fromNameLabel    : UILabel!
     
@@ -40,8 +41,6 @@ class ImageListCell: UITableViewCell {
     
     fileprivate func setup () {
         
-        cardView.layer.cornerRadius = 5
-        cardView.addShadowWithColor(UIColor.colorWithHex(0x7c7c7c) , offset: CGSize.zero, opacity: 0.4, radius: 4)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "ImageCell", bundle: nil), forCellWithReuseIdentifier: ImageCell.cellId)
@@ -68,18 +67,21 @@ extension ImageListCell: UICollectionViewDelegate, UICollectionViewDataSource, U
         
         let msg = imageList[indexPath.row]
         let str = msg.senderId.lowercased()
+        let time = Date.dateDiff(dateStr: msg.message_date)
         
         if str == "you" {
             
-            fromNameLabel.text =   "Me"
-            fromNameLabel.isHidden = false
-            toNameLabel.isHidden = true
+            fromNameLabel.text = "Me"
+            toNameLabel.text = ""
+            fromTime.text = time
+            toTime.text = ""
             collectionView.transform = CGAffineTransform(scaleX: -1, y: 1)
         } else {
             
-            fromNameLabel.isHidden = true
+            fromNameLabel.text = ""
             toNameLabel.text = name
-            toNameLabel.isHidden   = false
+            fromTime.text = ""
+            toTime.text = time
             collectionView.transform = CGAffineTransform(scaleX: 1, y: 1)
         }
         
@@ -96,5 +98,10 @@ extension ImageListCell: UICollectionViewDelegate, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return CGSize(width: collectionView.frame.width/2, height: 100)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    
+        cell.backgroundColor = UIColor.colorWithHex(0xFAFAFA)
     }
 }

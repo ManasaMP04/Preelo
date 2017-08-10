@@ -67,6 +67,7 @@
 		62B729F91EC8538A006057DB /* SuccessStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729F81EC8538A006057DB /* SuccessStatus.swift */; };
 		62B729FC1EC862C5006057DB /* SelectedImagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729FA1EC862C5006057DB /* SelectedImagesVC.swift */; };
 		62B729FD1EC862C5006057DB /* SelectedImagesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B729FB1EC862C5006057DB /* SelectedImagesVC.xib */; };
+		62B823891F3CF4CD00431893 /* SaveImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B823881F3CF4CD00431893 /* SaveImage.swift */; };
 		62C5BC471F27D023002FBFFA /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C5BC461F27D023002FBFFA /* Locations.swift */; };
 		62C5BC491F27D044002FBFFA /* DoctorPhoneNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C5BC481F27D044002FBFFA /* DoctorPhoneNumbers.swift */; };
 		62C6F7F91EB87BCA00D5160A /* RelationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */; };
@@ -187,6 +188,7 @@
 		62B729F81EC8538A006057DB /* SuccessStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessStatus.swift; sourceTree = "<group>"; };
 		62B729FA1EC862C5006057DB /* SelectedImagesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedImagesVC.swift; sourceTree = "<group>"; };
 		62B729FB1EC862C5006057DB /* SelectedImagesVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectedImagesVC.xib; sourceTree = "<group>"; };
+		62B823881F3CF4CD00431893 /* SaveImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveImage.swift; sourceTree = "<group>"; };
 		62C5BC461F27D023002FBFFA /* Locations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
 		62C5BC481F27D044002FBFFA /* DoctorPhoneNumbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoctorPhoneNumbers.swift; sourceTree = "<group>"; };
 		62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationPickerView.swift; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 		62B729EB1EC83E85006057DB /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				62B823881F3CF4CD00431893 /* SaveImage.swift */,
 				62B729E31EC83E63006057DB /* FromMessageCell.swift */,
 				62B729E41EC83E63006057DB /* FromMessageCell.xib */,
 				62B729E71EC83E74006057DB /* ToMessageCell.swift */,
@@ -733,6 +736,7 @@
 				626AB1431EA36461001271D3 /* ChildrenDetail.swift in Sources */,
 				62D064941EA3EEB4007A503F /* addPatient.swift in Sources */,
 				86B5F74C1F16926400D29697 /* SettingsViewController.swift in Sources */,
+				62B823891F3CF4CD00431893 /* SaveImage.swift in Sources */,
 				626160F71EC43146002CCCA8 /* RecentMessages.swift in Sources */,
 				622A8FBD1E9D3A1200B34B56 /* ForgotPasswordVC.swift in Sources */,
 				62C6F7F91EB87BCA00D5160A /* RelationPickerView.swift in Sources */,
@@ -949,7 +953,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Preelo/Preelo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -970,7 +974,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Preelo/Preelo-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

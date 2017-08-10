@@ -128,10 +128,12 @@ extension MessageVC {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
+        self.view.isUserInteractionEnabled = false
         
         Alamofire.request(request)
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
+                self.view.isUserInteractionEnabled = true
                 StaticContentFile.updateAuthRequest(data)
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
@@ -141,11 +143,12 @@ extension MessageVC {
                     self.notificationCount.isHidden = self.list.count == 0
                     self.notificationCount.text = "\(self.list.count)"
                     self.tableview.deleteRows(at: [indexPath], with: .automatic)
+                    self.view.showToast(message: result.message)
                 } else if let result = response.result.value {
                     
                     self.view.showToast(message:  result.message)
                 } else {
-                
+                    
                     self.view.showToast(message:  "please try again later")
                 }}
     }
@@ -157,12 +160,14 @@ extension MessageVC {
     
     fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible, data: ChannelDetail) {
         
+        self.view.isUserInteractionEnabled = false
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
         
         Alamofire.request(urlRequest)
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
+                self.view.isUserInteractionEnabled = true
                 self.activityIndicator?.stopAnimating()
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
@@ -301,7 +306,8 @@ extension MessageVC{
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
                 self.pullToRefreshControl?.endRefreshing()
-                
+                self.activityIndicator?.stopAnimating()
+                self.view.isUserInteractionEnabled = true
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     self.list = result.authRequest
@@ -325,6 +331,8 @@ extension MessageVC{
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
                 self.pullToRefreshControl?.endRefreshing()
+                self.activityIndicator?.stopAnimating()
+                self.view.isUserInteractionEnabled = true
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     self.list = result.authRequest
@@ -344,7 +352,14 @@ extension MessageVC: ChatVCDelegate {
     
     func chatVCDelegateToRefresh(_ vc: ChatVC, isAuthRequest: Bool) {
         
-        authorizationButtonSelected(isAuthRequest)
+        if isAuthRequest, !StaticContentFile.isDoctorLogIn() {
+            
+            self.view.isUserInteractionEnabled = false
+            self.activityIndicator?.startAnimating()
+            callAPIToGetPatientAuthRequest()
+        } else {
+            authorizationButtonSelected(isAuthRequest)
+        }
     }
 }
 

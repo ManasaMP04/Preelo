@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Ubuntu-L.ttf">
+            <string>Ubuntu-Light</string>
+        </array>
         <array key="Ubuntu-M.ttf">
             <string>Ubuntu-Medium</string>
         </array>
@@ -16,70 +19,82 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="166" id="gQF-pF-tqs" customClass="ImageListCell" customModule="Preelo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="335" height="166"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="149" id="gQF-pF-tqs" customClass="ImageListCell" customModule="Preelo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="333" height="149"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gQF-pF-tqs" id="pZj-r6-jl0">
-                <rect key="frame" x="0.0" y="0.0" width="335" height="165.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="333" height="148.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lAK-5a-YnY">
-                        <rect key="frame" x="8" y="30" width="319" height="127"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Opa-j4-7RM">
-                                <rect key="frame" x="9.5" y="5" width="300" height="117"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="L3J-Ov-W7V"/>
-                                    <constraint firstAttribute="height" constant="117" id="ixa-fZ-t2X"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FBX-sv-dl8">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                            </collectionView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Opa-j4-7RM" firstAttribute="top" secondItem="lAK-5a-YnY" secondAttribute="top" constant="5" id="aqe-DQ-MDD"/>
-                            <constraint firstAttribute="bottom" secondItem="Opa-j4-7RM" secondAttribute="bottom" constant="5" id="iJD-tm-2mn"/>
-                            <constraint firstItem="Opa-j4-7RM" firstAttribute="leading" secondItem="lAK-5a-YnY" secondAttribute="leading" constant="9.5" id="kIj-Zn-4TI"/>
-                            <constraint firstAttribute="trailing" secondItem="Opa-j4-7RM" secondAttribute="trailing" constant="9.5" id="vw0-RA-p6I"/>
-                        </constraints>
-                    </view>
-                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xIZ-Of-bTb">
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" text="Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xIZ-Of-bTb">
                         <rect key="frame" x="16" y="8" width="22" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="VIe-Ui-d2T"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="15"/>
                         <color key="textColor" red="0.25490196079999999" green="0.25098039220000001" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2L-uh-on3">
-                        <rect key="frame" x="290" y="8" width="22" height="17"/>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" text="Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2L-uh-on3">
+                        <rect key="frame" x="288" y="8" width="22" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="i27-hj-tJ7"/>
+                            <constraint firstAttribute="width" constant="22" id="lli-fr-K2L"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="15"/>
                         <color key="textColor" red="0.13725490196078433" green="0.70980392156862748" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Opa-j4-7RM">
+                        <rect key="frame" x="18" y="35" width="297" height="103.5"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="103.5" id="C8j-yk-3me"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FBX-sv-dl8">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ds-gH-4hn">
+                        <rect key="frame" x="234" y="8" width="34" height="16"/>
+                        <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="14"/>
+                        <color key="textColor" red="0.73725490199999999" green="0.74509803919999995" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nGQ-02-0Gu">
+                        <rect key="frame" x="58" y="8" width="34" height="16"/>
+                        <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="14"/>
+                        <color key="textColor" red="0.73725490199999999" green="0.74509803919999995" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
+                <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="xIZ-Of-bTb" firstAttribute="leading" secondItem="pZj-r6-jl0" secondAttribute="leading" constant="16" id="0yC-UT-5oT"/>
+                    <constraint firstItem="y2L-uh-on3" firstAttribute="leading" secondItem="8ds-gH-4hn" secondAttribute="trailing" constant="20" id="1SV-WI-cgs"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Opa-j4-7RM" secondAttribute="trailing" constant="10" id="2g2-gK-oX9"/>
                     <constraint firstItem="y2L-uh-on3" firstAttribute="top" secondItem="xIZ-Of-bTb" secondAttribute="top" id="46Q-2W-ecU"/>
-                    <constraint firstItem="lAK-5a-YnY" firstAttribute="leading" secondItem="pZj-r6-jl0" secondAttribute="leading" constant="8" id="IGg-0n-1e5"/>
-                    <constraint firstAttribute="bottom" secondItem="lAK-5a-YnY" secondAttribute="bottom" constant="8" id="Nk5-7u-vNM"/>
-                    <constraint firstAttribute="trailing" secondItem="lAK-5a-YnY" secondAttribute="trailing" constant="8" id="XsA-N0-sIH"/>
+                    <constraint firstItem="Opa-j4-7RM" firstAttribute="top" secondItem="y2L-uh-on3" secondAttribute="bottom" constant="10" id="YLm-Im-wbQ"/>
                     <constraint firstItem="xIZ-Of-bTb" firstAttribute="top" secondItem="pZj-r6-jl0" secondAttribute="top" constant="8" id="bjL-lS-yKL"/>
                     <constraint firstAttribute="trailingMargin" secondItem="y2L-uh-on3" secondAttribute="trailing" constant="15" id="krF-8m-BBq"/>
-                    <constraint firstItem="lAK-5a-YnY" firstAttribute="top" secondItem="pZj-r6-jl0" secondAttribute="top" constant="30" id="spq-se-9fX"/>
+                    <constraint firstAttribute="bottom" secondItem="Opa-j4-7RM" secondAttribute="bottom" constant="10" id="kwr-Te-7oQ"/>
+                    <constraint firstItem="nGQ-02-0Gu" firstAttribute="leading" secondItem="xIZ-Of-bTb" secondAttribute="trailing" constant="20" id="me9-nx-twJ"/>
+                    <constraint firstItem="Opa-j4-7RM" firstAttribute="leading" secondItem="pZj-r6-jl0" secondAttribute="leadingMargin" constant="10" id="tG6-xf-AzP"/>
+                    <constraint firstItem="nGQ-02-0Gu" firstAttribute="top" secondItem="xIZ-Of-bTb" secondAttribute="top" id="uOG-Xq-0FJ"/>
+                    <constraint firstItem="8ds-gH-4hn" firstAttribute="top" secondItem="y2L-uh-on3" secondAttribute="top" id="v0P-Pb-RGO"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="cardView" destination="lAK-5a-YnY" id="0lt-Wk-05J"/>
                 <outlet property="collectionView" destination="Opa-j4-7RM" id="eq6-a6-nS5"/>
                 <outlet property="fromNameLabel" destination="y2L-uh-on3" id="gaf-CQ-8fy"/>
+                <outlet property="fromTime" destination="8ds-gH-4hn" id="9P0-i0-bwB"/>
                 <outlet property="toNameLabel" destination="xIZ-Of-bTb" id="pyr-Ej-ye7"/>
+                <outlet property="toTime" destination="nGQ-02-0Gu" id="U9W-bZ-gsx"/>
             </connections>
-            <point key="canvasLocation" x="68.5" y="225"/>
+            <point key="canvasLocation" x="67.5" y="216.5"/>
         </tableViewCell>
     </objects>
 </document>

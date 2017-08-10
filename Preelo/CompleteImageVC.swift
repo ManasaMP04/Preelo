@@ -52,43 +52,21 @@ class CompleteImageVC: UIViewController {
         
         if let name = msg.image_url as? UIImage {
             
-            saveImageIntoLocal(name)
+            CustomPhotoAlbum.sharedInstance.save(image: name)
+            self.view.showToast(message: "Saved Successfully")
         } else if let name = msg.image_url as? String {
             
             if let imageUrl = URL(string: name) {
                 
-                do {
-                    let data = try Data.init(contentsOf: imageUrl)
-                    saveImageIntoLocal(UIImage.sd_image(with: data))
+                let imageView = UIImageView()
+                imageView.sd_setImage(with:imageUrl) { (img, error, cacheType, url) in
                     
-                } catch let error as NSError {
-                    print(error.debugDescription)
-                }
-            }}
-    }
-    
-    fileprivate func saveImageIntoLocal(_ image: UIImage) {
-        
-        let fileManager = FileManager.default
-        
-        let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("preelo")
-        let dateComponent = Date().stringWithDateFormat("MMddYYhhmm")
-        let imagePath = paths.appendingFormat("/%@", dateComponent)
-        
-        if !fileManager.fileExists(atPath: paths) {
-            
-            try! fileManager.createDirectory(atPath: paths, withIntermediateDirectories: true, attributes: nil)
-        }
-        
-        if !fileManager.fileExists(atPath: imagePath) {
-            
-            if let imageData = UIImageJPEGRepresentation(image, 1.0)  {
-                
-                fileManager.createFile(atPath: imagePath as String, contents: imageData, attributes: nil)
-            }
-        } else {
-            
-            self.view.showToast(message: "Image is already saved")
+                    if let image = img {
+                        
+                        CustomPhotoAlbum.sharedInstance.save(image: image)
+                        self.view.showToast(message: "Saved Successfully")
+                    }
+                }}
         }
     }
 }

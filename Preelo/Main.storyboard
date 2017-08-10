@@ -610,7 +610,7 @@
                                     <constraint firstAttribute="width" constant="120" id="glj-3Q-Bst"/>
                                     <constraint firstAttribute="height" constant="70" id="nzh-Ov-18b"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
                                 <inset key="titleEdgeInsets" minX="-45" minY="50" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="33" minY="0.0" maxX="0.0" maxY="20"/>
                                 <state key="normal" title="Settings" image="Settings"/>
@@ -639,7 +639,7 @@
                                     <constraint firstAttribute="height" constant="70" id="29e-4N-d6m"/>
                                     <constraint firstAttribute="width" constant="120" id="R23-mh-qvR"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
                                 <inset key="titleEdgeInsets" minX="-45" minY="50" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="38" minY="0.0" maxX="0.0" maxY="20"/>
                                 <state key="normal" title="Profile Settings" image="Profile-settings-Icons"/>

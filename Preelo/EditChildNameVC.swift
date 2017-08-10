@@ -115,6 +115,7 @@ extension EditChildNameVC {
             lName.characters.count > 0 {
             
             activityIndicator?.startAnimating()
+            self.view.isUserInteractionEnabled = false
             
             Alamofire.request(SettingRouter.post_updateChildren(fName, lName, childDetail.patientid))
                 .responseObject { (response: DataResponse<SuccessStatus>) in
@@ -135,10 +136,12 @@ extension EditChildNameVC {
                             vc.refresh()
                         }
                         
+                        self.view.isUserInteractionEnabled = true
                         self.activityIndicator?.stopAnimating()
                         self.view.showToast(message: result.message)
                     } else {
                         
+                        self.view.isUserInteractionEnabled = true
                         self.activityIndicator?.stopAnimating()
                         self.view.showToast(message: "Failed to send the feedback")
                     }

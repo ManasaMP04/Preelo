@@ -38,10 +38,12 @@ class ForgotPasswordVC: UIViewController {
         if let text = emailId.text, StaticContentFile.isValidEmail(text) {
             
             activityIndicator?.startAnimating()
+            self.view.isUserInteractionEnabled = false
             
             Alamofire.request(LogInRouter.forgotPassword(text))
                 .responseObject { (response: DataResponse<ForgotPassword>) in
                     
+                    self.view.isUserInteractionEnabled = true
                     self.activityIndicator?.stopAnimating()
                     
                     if let result = response.result.value, result.status == "SUCCESS" {
@@ -52,9 +54,6 @@ class ForgotPasswordVC: UIViewController {
                         }, completion: { (status) in
                             
                             _ = self.navigationController?.popViewController(animated: true)
-                        })
-                        UIView.animate(withDuration: 0.5, animations: {
-                            
                         })
                     }
                     else if let result = response.result.value {

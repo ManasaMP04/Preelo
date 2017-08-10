@@ -40,4 +40,6 @@ enum NetworkURL {
     static let markdelivered                = "messages/markdelivered"
     static let patientedit                  = "patient/edit"
     static let cancelAuthRequest            = "doctor/cancelauthrequests"
+    static let authorize                    = "patient/authorize"
+    static let deauthorize                  = "patient/deauthorize"
 }

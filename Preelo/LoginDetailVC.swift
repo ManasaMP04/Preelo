@@ -148,7 +148,7 @@ extension LoginDetailVC {
     fileprivate func callLogiApi(_ email: String, password: String,  urlRequest: URLRequestConvertible){
         
         activityIndicator?.startAnimating()
-        
+        self.view.isUserInteractionEnabled = false
         Alamofire.request(urlRequest)
             .responseObject { (response: DataResponse<logIn>) in
                 
@@ -173,15 +173,18 @@ extension LoginDetailVC {
                     self.callChannelAPI()
                 } else if let result = response.result.value, result.status == "VERIFY" {
                     
+                    self.view.isUserInteractionEnabled = true
                     self.activityIndicator?.stopAnimating()
                     self.alertMessage("Verify", message: result.message)
                     
                 } else if let result = response.result.value {
                     
+                    self.view.isUserInteractionEnabled = true
                     self.activityIndicator?.stopAnimating()
                     self.view.showToast(message: result.message)
                 } else {
                 
+                    self.view.isUserInteractionEnabled = true
                     self.activityIndicator?.stopAnimating()
                     self.view.showToast(message: "Login failed")
                 }
@@ -203,6 +206,7 @@ extension LoginDetailVC {
                     StaticContentFile.isDoctorLogIn() ? self.callAPIToGetAuthRequest() : self.callAPIToGetPatientAuthRequest()
                 } else {
                     
+                    self.view.isUserInteractionEnabled = true
                     self.activityIndicator?.stopAnimating()
                     self.view.showToast(message: "Please try again something went wrong")
                 }}
@@ -213,6 +217,7 @@ extension LoginDetailVC {
         Alamofire.request(AuthorizationRequestListRouter.get())
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
+                self.view.isUserInteractionEnabled = true
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
@@ -231,6 +236,7 @@ extension LoginDetailVC {
         Alamofire.request(AuthorizationRequestListRouter.get_patient_AuthRequest())
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
+                self.view.isUserInteractionEnabled = true
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value {
                     

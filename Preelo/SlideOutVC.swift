@@ -62,12 +62,13 @@ class SlideOutVC: UIViewController {
     @IBAction func logoutButtonTapped(_ sender: Any) {
         
         activityIndicator?.startAnimating()
+        self.view.isUserInteractionEnabled = false
         
         Alamofire.request(LogoutRouter.post())
             .responseObject { (response: DataResponse<logOut>) in
                 
                 self.activityIndicator?.stopAnimating()
-                
+                self.view.isUserInteractionEnabled = true
                 if let _ = response.result.value {
                     
                     self.popToLogin()

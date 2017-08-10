@@ -75,10 +75,12 @@ extension DisclaimerVC {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
+        self.view.isUserInteractionEnabled = false
         
         Alamofire.request(AuthorizeRouter.post(channelDetail))
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
+                self.view.isUserInteractionEnabled = true
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     

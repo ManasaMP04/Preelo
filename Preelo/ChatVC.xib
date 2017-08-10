@@ -21,6 +21,7 @@
                 <outlet property="authorizationView" destination="lTA-JT-YDU" id="NwA-bG-bCN"/>
                 <outlet property="cameraButton" destination="S23-Yt-seN" id="C9h-Er-Evz"/>
                 <outlet property="customeNavigation" destination="tDf-nw-scH" id="SD6-CN-TfP"/>
+                <outlet property="deauthorizeButton" destination="3q0-dA-zLT" id="izQ-rP-MP6"/>
                 <outlet property="galleryButton" destination="WLu-iP-TRf" id="l9F-CR-vr9"/>
                 <outlet property="messageTF" destination="PBg-pE-klS" id="NxR-CM-ek7"/>
                 <outlet property="requestAuthButton" destination="9xN-2L-JeE" id="Xhy-ex-5Cf"/>
@@ -39,8 +40,24 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDf-nw-scH" customClass="CustomNavigationBar" customModule="Preelo" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                    <subviews>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3q0-dA-zLT">
+                            <rect key="frame" x="325" y="0.0" width="50" height="60"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="MgS-gp-bpo"/>
+                            </constraints>
+                            <color key="tintColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" image="Patient-Active"/>
+                            <connections>
+                                <action selector="deauthorizeButtonTapped:" destination="-1" eventType="touchUpInside" id="u6G-u6-Uv5"/>
+                            </connections>
+                        </button>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="3q0-dA-zLT" firstAttribute="top" secondItem="tDf-nw-scH" secondAttribute="top" id="F6Z-Ab-xTl"/>
+                        <constraint firstAttribute="trailing" secondItem="3q0-dA-zLT" secondAttribute="trailing" id="Ycv-45-dDe"/>
+                        <constraint firstAttribute="bottom" secondItem="3q0-dA-zLT" secondAttribute="bottom" id="joD-RX-kOX"/>
                         <constraint firstAttribute="height" constant="60" id="xLW-3m-q8F"/>
                     </constraints>
                 </view>
@@ -90,7 +107,7 @@ authorization to send messages</string>
                                 </view>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wcp-gu-6Ue">
                                     <rect key="frame" x="0.0" y="322" width="375" height="200"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="200" id="JPB-ew-ake"/>
                                     </constraints>
@@ -209,6 +226,7 @@ authorization to send messages</string>
     <resources>
         <image name="Camera_Inactive" width="29" height="29"/>
         <image name="Gallery-Icon" width="29" height="29"/>
+        <image name="Patient-Active" width="20" height="14"/>
         <image name="Send-Icon" width="40" height="40"/>
     </resources>
 </document>

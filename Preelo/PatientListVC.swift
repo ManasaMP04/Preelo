@@ -233,29 +233,40 @@ extension PatientListVC {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
+        self.view.isUserInteractionEnabled = false
         
         Alamofire.request(urlRequest)
             .responseObject { (response: DataResponse<SuccessStatus>) in
                 
+                self.view.isUserInteractionEnabled = true
                 self.activityIndicator?.stopAnimating()
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     let vc = ChatVC(parentId, name: name)
                     self.navigationController?.pushViewController(vc, animated: true)
-                }}
+                } else if let result = response.result.value {
+                
+                    self.view.showToast(message: result.message)
+                } else {
+                
+                    self.view.showToast(message: "Please try again later")
+                }
+        }
     }
     
     func callApi() {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
+        self.view.isUserInteractionEnabled = false
         
         if StaticContentFile.isDoctorLogIn() {
             
             Alamofire.request(PatientRouter.get())
                 .responseObject(keyPath: "data") { (response: DataResponse<Patients>) in
                     
+                    self.view.isUserInteractionEnabled = true
                     self.activityIndicator?.stopAnimating()
                     
                     if let result = response.result.value {
@@ -275,6 +286,7 @@ extension PatientListVC {
             Alamofire.request(DoctorListRouter.get())
                 .responseArray(keyPath: "data") { (response: DataResponse<[DoctorList]>) in
                     
+                    self.view.isUserInteractionEnabled = true
                     self.activityIndicator?.stopAnimating()
                     
                     if let result = response.result.value {
@@ -337,6 +349,7 @@ extension PatientListVC: DeletAccountAlertDelegate{
                     activityIndicator.stopAnimating()
                     if let result = response.result.value, result.status == "SUCCESS" {
                         
+                        self.view.showToast(message: result.message)
                         UIView.animate(withDuration: 0.5, animations: {
                             
                             let docDetail = detail

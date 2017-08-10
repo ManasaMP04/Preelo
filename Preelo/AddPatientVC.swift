@@ -262,10 +262,11 @@ extension AddPatientVC {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
-        
+        self.view.isUserInteractionEnabled = false
         Alamofire.request(PatientRouter.editPatient(patient))
             .responseObject { (response: DataResponse<addPatient>) in
                 
+                self.view.isUserInteractionEnabled = true
                 self.activityIndicator?.stopAnimating()
                 if let _ = response.result.value {
                     

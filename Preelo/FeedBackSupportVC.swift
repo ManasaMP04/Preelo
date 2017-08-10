@@ -47,10 +47,12 @@ class FeedBackSupportVC: UIViewController {
             
             activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
             activityIndicator?.startAnimating()
+            self.view.isUserInteractionEnabled = false
             
             Alamofire.request(SettingRouter.post_feedbackSupport(subject, message))
                 .responseObject { (response: DataResponse<SuccessStatus>) in
                     
+                    self.view.isUserInteractionEnabled = true
                     self.activityIndicator?.stopAnimating()
                     
                     if let result = response.result.value {

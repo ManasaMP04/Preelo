@@ -51,12 +51,7 @@ class ImageCell: UICollectionViewCell {
         } else if let name = image as? String,
             let imageUrl     = URL(string: name) {
 
-            do {
-                let data = try Data.init(contentsOf: imageUrl)
-                imageView.image = UIImage.sd_image(with: data)
-            } catch let error as NSError {
-                print(error.debugDescription)
-            }
+           imageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "Image Placeholder_Fill"))
         }
     }
 }

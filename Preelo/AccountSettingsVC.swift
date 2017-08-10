@@ -247,6 +247,7 @@ extension AccountSettingsVC {
             let confirmPassword = confirmPassword.text,
             confirmPassword.characters.count > 0{
             
+            self.view.isUserInteractionEnabled = false
             activityIndicator?.startAnimating()
             
             Alamofire.request(SettingRouter.post_updateProfile(fName, lName, phone, email, pass, confirmPassword))
@@ -273,13 +274,14 @@ extension AccountSettingsVC {
                             vc.refresh()
                         }
                         
-                        self.activityIndicator?.stopAnimating()
                         self.view.showToast(message: result.message)
                     } else {
                         
-                        self.activityIndicator?.stopAnimating()
                         self.view.showToast(message: "Failed to send the feedback")
                     }
+                    
+                    self.view.isUserInteractionEnabled = true
+                    self.activityIndicator?.stopAnimating()
             }
         } else {
             
