@@ -156,86 +156,24 @@ extension Date {
     
     static func dateDiff(dateStr:String) -> String {
         
-        let f = DateFormatter()
-        f.locale = Locale(identifier: "en_US_POSIX")
-        f.timeZone = TimeZone(abbreviation: "EST")
-        
-        f.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.A"
-        let strDate = f.date(from: dateStr)
-        
-        f.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let startString = f.string(from: strDate!)
-        let now = f.string(from: Date())
-        let endDate = f.date(from: now)
-        let startDate = f.date(from: startString)
-        
         var timeAgo = ""
         
-        if let str = startDate, let end = endDate {
+        let f = DateFormatter()
+        f.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SS"
+        
+        let endDateStr = f.string(from: Date())
+        
+        if let endDate = f.date(from: endDateStr),
+            let startDate = f.date(from: dateStr) {
             
-            let dateComponents = Calendar.current.dateComponents([.month, .day, .hour, .minute, .second, .weekOfMonth, .month, .year], from: str, to: end)
+            let t = endDate.timeIntervalSince(startDate)
+            let formt = DateComponentsFormatter()
+            formt.unitsStyle = .full
+            let timeStr = formt.string(from: t)
             
-            if let weeks = dateComponents.weekOfMonth,
-                let month = dateComponents.month,
-                let year = dateComponents.year,
-                let days = dateComponents.day,
-                let hours = dateComponents.hour,
-                let min = dateComponents.minute,
-                let sec = dateComponents.second {
+            if let timeStrs = timeStr?.components(separatedBy: ", "), timeStrs.count > 0 {
                 
-                if (sec > 1) {
-                    timeAgo = "\(sec) Seconds Ago"
-                } else {
-                    timeAgo = "\(sec) Second Ago"
-                }
-                
-                if (min > 0){
-                    if (min > 1) {
-                        timeAgo = "\(min) Minutes Ago"
-                    } else {
-                        timeAgo = "\(min) Minute Ago"
-                    }
-                }
-                
-                if(hours > 0){
-                    if (hours > 1) {
-                        timeAgo = "\(hours) Hours Ago"
-                    } else {
-                        timeAgo = "\(hours) Hour Ago"
-                    }
-                }
-                
-                if (days > 0) {
-                    if (days > 1) {
-                        timeAgo = "\(days) Days Ago"
-                    } else {
-                        timeAgo = "\(days) Day Ago"
-                    }
-                }
-                
-                if(weeks > 0){
-                    if (weeks > 1) {
-                        timeAgo = "\(weeks) Weeks Ago"
-                    } else {
-                        timeAgo = "\(weeks) Week Ago"
-                    }
-                }
-                
-                if(month > 0){
-                    if (month > 1) {
-                        timeAgo = "\(month) Months Ago"
-                    } else {
-                        timeAgo = "\(month) Month Ago"
-                    }
-                }
-                
-                if(year > 0){
-                    if (year > 1) {
-                        timeAgo = "\(year) Years Ago"
-                    } else {
-                        timeAgo = "\(year) Year Ago"
-                    }
-                }
+                timeAgo = timeStrs[0] + " ago"
             }
         }
         

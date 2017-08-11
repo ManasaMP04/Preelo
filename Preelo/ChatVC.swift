@@ -556,7 +556,7 @@ extension ChatVC : SelectedImagesVCDelegate {
             }
             
             urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            urlRequest.setValue("Authorization", forHTTPHeaderField: StaticContentFile.getToken())
+            urlRequest.setValue(StaticContentFile.getToken(), forHTTPHeaderField: "authorization")
             
             Alamofire.upload(multipartFormData: { MultipartFormData in
                 

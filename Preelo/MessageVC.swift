@@ -74,19 +74,19 @@ class MessageVC: UIViewController {
         authorizationRequest?.isSelected = status
         messagesButton?.isSelected       = !status
         selection = status ? .authentication : .message
-        authorizationRequest.backgroundColor =  status ? UIColor.white : UIColor.colorWithHex(0xE6FAFE)
-        messagesButton.backgroundColor = status ? UIColor.colorWithHex(0xE6FAFE) : UIColor.white
-        messagesButton.titleLabel?.textColor = status ? UIColor.colorWithHex(0xA7A9AC) : UIColor.colorWithHex(0x40AABB)
-        authorizationRequest.titleLabel?.textColor = status ? UIColor.colorWithHex(0x40AABB) : UIColor.colorWithHex(0xA7A9AC)
-        messagesButton.titleLabel?.font = status ? UIFont(name: "Ubuntu", size: 12)! : UIFont(name: "Ubuntu-Bold", size: 12)!
-        authorizationRequest.titleLabel?.font = status ? UIFont(name: "Ubuntu-Bold", size: 12)! : UIFont(name: "Ubuntu", size: 12)!
+        authorizationRequest?.backgroundColor =  status ? UIColor.white : UIColor.colorWithHex(0xE6FAFE)
+        messagesButton?.backgroundColor = status ? UIColor.colorWithHex(0xE6FAFE) : UIColor.white
+        messagesButton?.titleLabel?.textColor = status ? UIColor.colorWithHex(0xA7A9AC) : UIColor.colorWithHex(0x40AABB)
+        authorizationRequest?.titleLabel?.textColor = status ? UIColor.colorWithHex(0x40AABB) : UIColor.colorWithHex(0xA7A9AC)
+        messagesButton?.titleLabel?.font = status ? UIFont(name: "Ubuntu", size: 12)! : UIFont(name: "Ubuntu-Bold", size: 12)!
+        authorizationRequest?.titleLabel?.font = status ? UIFont(name: "Ubuntu-Bold", size: 12)! : UIFont(name: "Ubuntu", size: 12)!
         
         list.removeAll()
         
         if let data = StaticContentFile.getAuthRequest() {
             
-            notificationCount.text = "\(data.authRequest.count)"
-            notificationCount.isHidden = data.authRequest.count == 0
+            notificationCount?.text = "\(data.authRequest.count)"
+            notificationCount?.isHidden = data.authRequest.count == 0
         }
         
         if status, let request = StaticContentFile.getAuthRequest() {
@@ -97,7 +97,7 @@ class MessageVC: UIViewController {
             list = StaticContentFile.getChannel()
         }
         
-        tableview.reloadData()
+        tableview?.reloadData()
     }
 }
 
