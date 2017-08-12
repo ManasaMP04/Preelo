@@ -144,6 +144,10 @@ extension MessageVC {
                     self.notificationCount.text = "\(self.list.count)"
                     self.tableview.deleteRows(at: [indexPath], with: .automatic)
                     self.view.showToast(message: result.message)
+                    if !StaticContentFile.isDoctorLogIn(){
+                    self.callChannelAPI()
+                    }
+                    
                 } else if let result = response.result.value {
                     
                     self.view.showToast(message:  result.message)
@@ -311,6 +315,10 @@ extension MessageVC{
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     self.list = result.authRequest
+                    self.notificationCount.text = "\(self.list.count)"
+                    self.notificationCount.isHidden = self.list.count == 0
+                   
+                    
                     self.tableview.reloadData()
                     StaticContentFile.saveAuthRequest(result)
                 }else if let result = response.result.value {

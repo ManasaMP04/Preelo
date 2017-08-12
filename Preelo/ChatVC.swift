@@ -160,6 +160,9 @@ extension ChatVC {
                     //self.view.showToast(message: result.message)
                     self.deauthorizeButton.isHidden = true
                     self.authorizationView.isHidden = false
+                    self.channelDetail.auth_status = "f"
+                    StaticContentFile.updateChannelDetail(self.channelDetail)
+                    self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
 
                 
                 } else if let result = response.result.value {
@@ -195,6 +198,10 @@ extension ChatVC {
                     self.deauthorizeButton.isHidden = false
                     self.requestAuthorizationViewHeight.constant = 0
                     self.authorizationView.isHidden = true
+                    self.channelDetail.auth_status = "t"
+                    StaticContentFile.updateChannelDetail(self.channelDetail)
+                    self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
+                    
                
                 } else if let result = response.result.value {
                 
