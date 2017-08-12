@@ -68,7 +68,7 @@ class ParentDetailCell: UITableViewCell {
         } else {
         
             editButton.setImage(nil, for: .normal)
-            editButton.setTitle("Edit", for: .normal)
+            editButton.setTitle("EDIT", for: .normal)
         }
         
         locationButton.isEnabled = enabledLocation

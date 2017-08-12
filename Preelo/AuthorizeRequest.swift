@@ -14,6 +14,8 @@ class AuthorizeRequest: Mappable {
     var status          = ""
     var authRequest     = [DocAuthorizationRequest]()
     
+    
+    
     required init?(map: Map) {
         
     }
@@ -23,6 +25,8 @@ class AuthorizeRequest: Mappable {
         message             <- map["message"]
         status              <- map["status"]
         authRequest         <- map["data"]
+         
+    
     }
     
     func modelToDict() -> [String : Any] {

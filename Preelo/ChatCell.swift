@@ -71,8 +71,8 @@ class ChatCell: UITableViewCell {
         
         if let auth = data as? DocAuthorizationRequest, StaticContentFile.isDoctorLogIn(){
             
-            self.name.text = auth.firstname
-            descriptionLabel.text = String(format: "Patient %@ %@ has sent You an authorization request", auth.firstname, auth.lastname)
+            self.name.text = auth.title
+            descriptionLabel.text = auth.subtitle
             
             initial.isHidden = false
             parentName.text = ""

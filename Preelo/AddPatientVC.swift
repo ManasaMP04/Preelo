@@ -242,8 +242,10 @@ extension AddPatientVC {
                 
                 self.activityIndicator?.stopAnimating()
                 self.view.isUserInteractionEnabled = true
-                if let _ = response.result.value {
-                    
+                if let result = response.result.value, result.status == "SUCCESS" {
+                    if let vc = self.navigationController?.viewControllerWithClass(MessageVC.self) as? MessageVC{
+                        vc.callChannelAPI()
+                    }
                     self.showAlertView(false)
                 } else {
                     
@@ -268,10 +270,20 @@ extension AddPatientVC {
                 
                 self.view.isUserInteractionEnabled = true
                 self.activityIndicator?.stopAnimating()
-                if let _ = response.result.value {
-                    
-                    self.showAlertView(true)
-                } else {
+               if let result = response.result.value, result.status == "SUCCESS" {
+                if let vc = self.navigationController?.viewControllerWithClass(MessageVC.self) as? MessageVC{
+                vc.callChannelAPI()
+                
+                }
+                
+                
+                self.showAlertView(true)
+                
+               
+               }
+               
+               
+               else {
                     
                     self.view.showToast(message: "Patient Edit is failed")
                 }}.responseString { (str) in

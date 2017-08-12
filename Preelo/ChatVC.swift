@@ -155,9 +155,13 @@ extension ChatVC {
                 self.activityIndicator?.stopAnimating()
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
-                    
-                    self.view.showToast(message: result.message)
+                    self.requestAuthorizationViewHeight.constant = 144
+                    self.tableViewHeight.constant = StaticContentFile.screenHeight - 170 - self.requestAuthorizationViewHeight.constant
+                    //self.view.showToast(message: result.message)
                     self.deauthorizeButton.isHidden = true
+                    self.authorizationView.isHidden = false
+
+                
                 } else if let result = response.result.value {
                     
                     self.view.showToast(message: result.message)
@@ -183,10 +187,15 @@ extension ChatVC {
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    self.view.showToast(message: result.message)
+                  //  self.view.showToast(message: result.message)
+                   
+                    self.requestAuthorizationViewHeight.constant = 0
+                    self.tableViewHeight.constant = StaticContentFile.screenHeight - 170 - self.requestAuthorizationViewHeight.constant
+                    
                     self.deauthorizeButton.isHidden = false
                     self.requestAuthorizationViewHeight.constant = 0
                     self.authorizationView.isHidden = true
+               
                 } else if let result = response.result.value {
                 
                     self.view.showToast(message: result.message)
@@ -269,7 +278,7 @@ extension ChatVC {
         
         if !StaticContentFile.isDoctorLogIn(), channelDetail.auth_status.lowercased() != "t" {
             
-            deauthorizeButton.isHidden = false
+            deauthorizeButton.isHidden = true
             requestAuthorizationViewHeight.constant = 144
             authorizationView.isHidden = false
             toolbarView.isUserInteractionEnabled = false

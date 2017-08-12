@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4et-Wg-mun">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4et-Wg-mun">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -35,15 +35,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-with-shadow" translatesAutoresizingMaskIntoConstraints="NO" id="F4Z-PN-Y9Q">
-                                <rect key="frame" x="63" y="62.5" width="195" height="195"/>
+                                <rect key="frame" x="22" y="21.5" width="276" height="276"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="195" id="bXu-O0-Pq1"/>
-                                    <constraint firstAttribute="height" constant="195" id="nd9-iJ-cMe"/>
+                                    <constraint firstAttribute="width" constant="276" id="bXu-O0-Pq1"/>
+                                    <constraint firstAttribute="height" constant="276" id="nd9-iJ-cMe"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mhP-dX-yyR">
-                                <rect key="frame" x="0.0" y="322.5" width="320" height="104"/>
+                                <rect key="frame" x="0.0" y="362.5" width="320" height="104"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDP-7T-YrT">
                                         <rect key="frame" x="20" y="0.0" width="280" height="45"/>
@@ -633,15 +633,15 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="emh-ft-5xm">
-                                <rect key="frame" x="100" y="110" width="120" height="70"/>
+                                <rect key="frame" x="85" y="110" width="150" height="70"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="29e-4N-d6m"/>
-                                    <constraint firstAttribute="width" constant="120" id="R23-mh-qvR"/>
+                                    <constraint firstAttribute="width" constant="150" id="R23-mh-qvR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
-                                <inset key="titleEdgeInsets" minX="-45" minY="50" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="38" minY="0.0" maxX="0.0" maxY="20"/>
+                                <inset key="titleEdgeInsets" minX="-33" minY="50" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="55" minY="0.0" maxX="0.0" maxY="20"/>
                                 <state key="normal" title="Profile Settings" image="Profile-settings-Icons"/>
                                 <connections>
                                     <action selector="profileButtonTapped:" destination="TvH-fx-vlA" eventType="touchUpInside" id="faQ-5H-Oih"/>
@@ -1306,7 +1306,7 @@ intended for diagnosis or prescription. Please agree to the above terms to conti
         <image name="Add-Patient Button" width="73" height="73"/>
         <image name="Back" width="28" height="28"/>
         <image name="Delete-White" width="17" height="22"/>
-        <image name="Logo-with-shadow" width="303" height="303"/>
+        <image name="Logo-with-shadow" width="276" height="276"/>
         <image name="Msg" width="20" height="11"/>
         <image name="Msg-Active" width="20" height="10"/>
         <image name="Open-Menu" width="20" height="27"/>

@@ -279,6 +279,7 @@ extension StaticContentFile {
         var dict =  [String: Any]()
         
         if let messageObject = plistStorageManager.objectForKey("\(detail.channel_id)", inFile: .message) as? [String: Any],
+            
             let obj = messageObject["\(detail.channel_id)"] as? [String: Any] {
             
             var channelObject = obj

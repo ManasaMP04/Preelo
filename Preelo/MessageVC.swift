@@ -277,7 +277,7 @@ extension MessageVC{
         }
     }
     
-    fileprivate func callChannelAPI() {
+     func callChannelAPI() {
         
         StaticContentFile.deleteMessagePlist()
         
