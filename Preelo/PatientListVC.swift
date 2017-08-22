@@ -246,10 +246,10 @@ extension PatientListVC {
                     let vc = ChatVC(parentId, name: name)
                     self.navigationController?.pushViewController(vc, animated: true)
                 } else if let result = response.result.value {
-                
+                    
                     self.view.showToast(message: result.message)
                 } else {
-                
+                    
                     self.view.showToast(message: "Please try again later")
                 }
         }
@@ -349,33 +349,22 @@ extension PatientListVC: DeletAccountAlertDelegate{
                     activityIndicator.stopAnimating()
                     if let result = response.result.value, result.status == "SUCCESS" {
                         
-                        self.view.showToast(message: result.message)
-                        UIView.animate(withDuration: 0.5, animations: {
-                            
-                            let docDetail = detail
-                            docDetail.blocked = detail.blocked.lowercased() == "y" ? "n" : "y"
-                            
-                            self.list[ind] = docDetail
-                            vc.view.showToast(message: result.message)
-                            self.tableView.reloadData()
-                            
-                            if let nav = self.parent as? UINavigationController, let tab =  nav.parent as? TabBarVC {
-                                
-                                tab.list = self.list
-                            }
-                        }, completion: { (status) in
-                            
-                            vc.dismiss(animated: true, completion: nil)
-                        })
+                        let docDetail = detail
+                        docDetail.blocked = detail.blocked.lowercased() == "y" ? "n" : "y"
                         
-                    } else {
+                        self.list[ind] = docDetail
+                        vc.view.showToast(message: result.message)
+                        self.tableView.reloadData()
+                        
+                        if let nav = self.parent as? UINavigationController, let tab =  nav.parent as? TabBarVC {
+                            
+                            tab.list = self.list
+                            vc.dismiss(animated: true, completion: nil)
+                            
+                        }} else {
                         
                         vc.view.showToast(message: "Filed to block or unblock the doctor")
                     }
-            }
-        } else {
-            
-            vc.view.showToast(message: "Some thing went wrong pleae try again")
-        }
+            }}
     }
 }

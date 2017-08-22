@@ -88,6 +88,7 @@ class ChannelDetail: Mappable {
         doctor_user_id      <- map["doctor_user_id"]
         lastMsgId           <- map["lastMsgId"]
         parentname          <- map["parentname"]
+        doctor_initials     <- map["doctor_initials"]
     }
     
     func modelToDict() -> [String : Any] {
@@ -98,7 +99,8 @@ class ChannelDetail: Mappable {
         dict["relationship"] = relationship
         dict["patientname"] = patientname
         dict["doctorname"] = doctorname
-         dict["parentname"] = parentname
+        dict["parentname"] = parentname
+        dict["doctor_initials"] = doctor_initials
         
         var array = [Any]()
         for message in recent_message {

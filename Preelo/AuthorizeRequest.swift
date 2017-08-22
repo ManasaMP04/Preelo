@@ -53,7 +53,7 @@ class AuthorizeRequest: Mappable {
         var array = [Any]()
         for request in authRequest {
             
-            array.append(request.modelToDict())
+            array.append(request.modelToDictForParent())
         }
         dict["data"] = array
         

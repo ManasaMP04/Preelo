@@ -24,6 +24,9 @@ class ChatCell: UITableViewCell {
     @IBOutlet fileprivate weak var acceptButton         : UIButton!
     @IBOutlet fileprivate weak var countLabel           : UILabel!
     @IBOutlet fileprivate weak var parentName           : UILabel!
+    @IBOutlet fileprivate weak var titleLeading         : NSLayoutConstraint!
+    @IBOutlet fileprivate weak var volumeImage          : UIImageView!
+    
     
     static let cellId = "ChatCell"
     
@@ -42,7 +45,7 @@ class ChatCell: UITableViewCell {
     
     fileprivate func setup() {
         
-         StaticContentFile.setButtonFont(declineButton, backgroundColorNeeed: false, shadowNeeded: false)
+        StaticContentFile.setButtonFont(declineButton, backgroundColorNeeed: false, shadowNeeded: false)
         StaticContentFile.setButtonFont(acceptButton)
         
         if StaticContentFile.isDoctorLogIn() {
@@ -50,48 +53,51 @@ class ChatCell: UITableViewCell {
             declineButton.setTitle("DECLINE", for: .normal)
             acceptButton.setTitle("ACCEPT", for: .normal)
         } else {
-    
+            
             declineButton.setTitle("CANCEL", for: .normal)
             acceptButton.setTitle("PENDING", for: .normal)
             acceptButton.isUserInteractionEnabled = false
         }
         declineButton.layer.cornerRadius = 18
         acceptButton.layer.cornerRadius  = 18
-        initial.layer.cornerRadius = 20
+        initial.layer.cornerRadius = 25
         initial.clipsToBounds = true
         countLabel.layer.cornerRadius = 10
         countLabel.clipsToBounds = true
         initial.layer.borderWidth = 1
     }
     
+    fileprivate func showAuthRequestTitle(_ title: String) {
+        
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 5
+        let attributes = [NSParagraphStyleAttributeName : style, NSFontAttributeName : UIFont(name: "Ubuntu", size: 13)!, NSForegroundColorAttributeName: UIColor.colorWithHex(0x939598)]
+        descriptionLabel.attributedText = NSAttributedString(string:title, attributes:attributes)
+    }
+    
     func showData(_ data: Any, isdeclineRequestViewShow: Bool = false) {
         
-        initial.isHidden = true
-        countLabel.isHidden = true
-        
-        if let auth = data as? DocAuthorizationRequest, StaticContentFile.isDoctorLogIn(){
+        if let auth = data as? DocAuthorizationRequest {
             
+            titleLeading.constant = 45
+            countLabel.isHidden = true
+            initial.isHidden = true
+            volumeImage.isHidden = false
             self.name.text = auth.title
-            descriptionLabel.text = auth.subtitle
+            showAuthRequestTitle(auth.subtitle)
             
             initial.isHidden = false
             parentName.text = ""
             
-            if let  firstCh = auth.relationship.characters.first {
+            if let  firstCh = auth.relationship.characters.first, StaticContentFile.isDoctorLogIn()  {
                 
                 let srt = "\(firstCh)"
                 initial.text = srt.uppercased()
+            } else if !StaticContentFile.isDoctorLogIn() {
+                
+                initial.text = "D"
             }
-        } else if let auth = data as? DocAuthorizationRequest, !StaticContentFile.isDoctorLogIn() {
-            
-            self.name.text = auth.doctor_firstname + " " + auth.doctor_lastname
-            descriptionLabel.text = String(format: "You have been invited by the Doctor %@ %@ to authorize yourself for sending images and messages.", auth.doctor_firstname, auth.doctor_lastname)
-            
-            initial.isHidden = false
-            parentName.text = ""
-            
-            initial.text = "D"
-        } else if let channel = data as? ChannelDetail {
+        }  else if let channel = data as? ChannelDetail {
             
             if let message = channel.recent_message.last {
                 
@@ -101,6 +107,9 @@ class ChatCell: UITableViewCell {
                 descriptionLabel.text = ""
             }
             
+            titleLeading.constant = 80
+            initial.isHidden = false
+            volumeImage.isHidden = true
             countLabel.isHidden = channel.unread_count == 0
             countLabel.text = "\(channel.unread_count)"
             name.textColor = channel.unread_count == 0 ? UIColor.colorWithHex(0x6D6E71) : UIColor.colorWithHex(0x3CCAE0)
@@ -112,7 +121,6 @@ class ChatCell: UITableViewCell {
                 
                 if let  firstCh = channel.relationship.characters.first {
                     
-                    initial.isHidden = false
                     initial.layer.borderColor = UIColor.clear.cgColor
                     let srt = "\(firstCh)"
                     initial.text = srt.uppercased()
@@ -139,15 +147,9 @@ class ChatCell: UITableViewCell {
                 
                 parentName.text = channel.patientname
                 self.name.text = channel.doctorname
-                
-                if let  firstCh = channel.doctorname.characters.first {
-                    
-                    initial.isHidden = false
-                    let srt = "\(firstCh)"
-                    initial.text = srt.uppercased()
-                    initial.layer.borderColor = UIColor.colorWithHex(0x3CCAE0).cgColor
-                    initial.backgroundColor = UIColor.white
-                }
+                initial.text = channel.doctor_initials.uppercased()
+                initial.layer.borderColor = UIColor.colorWithHex(0x3CCAE0).cgColor
+                initial.backgroundColor = UIColor.white
             }
         }
         

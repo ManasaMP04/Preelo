@@ -6,12 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "Taka-a-Pic-Icon.png",
+      "filename" : "camera@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Taka-a-Pic-Icon-1.png",
+      "filename" : "camera@3x.png",
       "scale" : "3x"
     }
   ],

@@ -18,7 +18,8 @@ protocol SelectedImagesVCDelegate: class {
 
 class SelectedImagesVC: UIViewController {
     
-    @IBOutlet weak var scrollview: UIScrollView!
+    @IBOutlet fileprivate weak var sendButton       : UIButton!
+    @IBOutlet fileprivate weak var scrollview       : UIScrollView!
     @IBOutlet fileprivate weak var customNavigation : CustomNavigationBar!
     @IBOutlet fileprivate weak var imageView        : UIImageView!
     @IBOutlet fileprivate weak var collectionView   : UICollectionView!
@@ -45,6 +46,8 @@ class SelectedImagesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        sendButton.layer.cornerRadius = 30
+        sendButton.clipsToBounds = true
         scrollview.minimumZoomScale = 1.0
         scrollview.maximumZoomScale = 6.0
         scrollview.delegate = self

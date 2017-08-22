@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4et-Wg-mun">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4et-Wg-mun">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -298,13 +298,21 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qNJ-Il-mz7">
-                                                <rect key="frame" x="85" y="441" width="150" height="28"/>
+                                                <rect key="frame" x="20" y="441" width="139" height="28"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="28" id="CY4-Xp-HeZ"/>
-                                                    <constraint firstAttribute="width" constant="150" id="yVn-ia-EGe"/>
                                                 </constraints>
                                                 <connections>
                                                     <segue destination="xCx-HI-EVa" kind="show" id="FlL-SD-dbv"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nuo-uM-8Kc">
+                                                <rect key="frame" x="161" y="441" width="139" height="28"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="28" id="cp1-zt-pdP"/>
+                                                </constraints>
+                                                <connections>
+                                                    <action selector="createAccountButtonTapped:" destination="5HU-vd-92J" eventType="touchUpInside" id="NOx-Qq-fvl"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -314,18 +322,22 @@
                                             <constraint firstItem="act-Ok-ZTm" firstAttribute="centerX" secondItem="X6g-ke-Weh" secondAttribute="centerX" id="1qx-r5-LfP"/>
                                             <constraint firstItem="b8W-Qz-wDI" firstAttribute="top" secondItem="act-Ok-ZTm" secondAttribute="bottom" id="22p-R8-SGo"/>
                                             <constraint firstItem="wt3-xF-rif" firstAttribute="centerX" secondItem="X6g-ke-Weh" secondAttribute="centerX" id="8i8-5D-8y0"/>
-                                            <constraint firstItem="qNJ-Il-mz7" firstAttribute="centerX" secondItem="b6O-jl-PXU" secondAttribute="centerX" id="BTI-mO-kjs"/>
                                             <constraint firstItem="XuS-dm-HLH" firstAttribute="top" secondItem="b8W-Qz-wDI" secondAttribute="bottom" constant="16" id="Ba4-8n-4lO"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="qNJ-Il-mz7" secondAttribute="bottom" constant="2" id="Jja-lI-7tz"/>
                                             <constraint firstItem="wt3-xF-rif" firstAttribute="top" secondItem="X6g-ke-Weh" secondAttribute="top" constant="40" id="KEO-8m-MAd"/>
                                             <constraint firstAttribute="trailing" secondItem="b8W-Qz-wDI" secondAttribute="trailing" constant="20" id="OSc-pl-6nE"/>
                                             <constraint firstItem="b6O-jl-PXU" firstAttribute="trailing" secondItem="XuS-dm-HLH" secondAttribute="trailing" id="QDW-SZ-zhU"/>
                                             <constraint firstItem="7Qc-Vl-2j1" firstAttribute="leading" secondItem="X6g-ke-Weh" secondAttribute="leading" id="WCf-yp-EHH"/>
+                                            <constraint firstItem="Nuo-uM-8Kc" firstAttribute="trailing" secondItem="b6O-jl-PXU" secondAttribute="trailing" id="Yiw-ut-61u"/>
                                             <constraint firstItem="b8W-Qz-wDI" firstAttribute="leading" secondItem="X6g-ke-Weh" secondAttribute="leading" constant="20" id="cWA-VZ-PNL"/>
+                                            <constraint firstItem="Nuo-uM-8Kc" firstAttribute="width" secondItem="qNJ-Il-mz7" secondAttribute="width" id="e4Y-cC-LoR"/>
+                                            <constraint firstItem="qNJ-Il-mz7" firstAttribute="leading" secondItem="b6O-jl-PXU" secondAttribute="leading" id="eXH-WD-JNY"/>
                                             <constraint firstItem="XuS-dm-HLH" firstAttribute="trailing" secondItem="b8W-Qz-wDI" secondAttribute="trailing" id="fnV-wN-6YB"/>
                                             <constraint firstItem="b6O-jl-PXU" firstAttribute="leading" secondItem="XuS-dm-HLH" secondAttribute="leading" id="hWk-Ms-unn"/>
                                             <constraint firstItem="7Qc-Vl-2j1" firstAttribute="top" secondItem="X6g-ke-Weh" secondAttribute="top" id="j2d-gs-rj1"/>
+                                            <constraint firstItem="Nuo-uM-8Kc" firstAttribute="top" secondItem="qNJ-Il-mz7" secondAttribute="top" id="omo-p0-BP5"/>
                                             <constraint firstItem="XuS-dm-HLH" firstAttribute="leading" secondItem="b8W-Qz-wDI" secondAttribute="leading" id="tp1-yk-dk8"/>
+                                            <constraint firstItem="Nuo-uM-8Kc" firstAttribute="leading" secondItem="qNJ-Il-mz7" secondAttribute="trailing" constant="2" id="vkP-c3-ASR"/>
                                             <constraint firstItem="qNJ-Il-mz7" firstAttribute="top" secondItem="b6O-jl-PXU" secondAttribute="bottom" constant="10" id="xSE-7y-TQD"/>
                                             <constraint firstItem="b6O-jl-PXU" firstAttribute="top" secondItem="XuS-dm-HLH" secondAttribute="bottom" constant="30" id="zyR-hr-Tvo"/>
                                         </constraints>
@@ -355,6 +367,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="550"/>
                     <connections>
+                        <outlet property="createAccount" destination="Nuo-uM-8Kc" id="u8f-lX-yJG"/>
                         <outlet property="forgotPasswordButton" destination="qNJ-Il-mz7" id="Bz2-r6-StL"/>
                         <outlet property="login" destination="b6O-jl-PXU" id="wG3-AP-YfV"/>
                         <outlet property="password" destination="XuS-dm-HLH" id="73q-j0-OgS"/>
@@ -604,15 +617,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Qh-P6-RtW">
-                                <rect key="frame" x="100" y="208" width="120" height="70"/>
+                                <rect key="frame" x="70" y="208" width="180" height="70"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="glj-3Q-Bst"/>
+                                    <constraint firstAttribute="width" constant="180" id="glj-3Q-Bst"/>
                                     <constraint firstAttribute="height" constant="70" id="nzh-Ov-18b"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
                                 <inset key="titleEdgeInsets" minX="-45" minY="50" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="33" minY="0.0" maxX="0.0" maxY="20"/>
+                                <inset key="imageEdgeInsets" minX="65" minY="0.0" maxX="0.0" maxY="20"/>
                                 <state key="normal" title="Settings" image="Settings"/>
                                 <connections>
                                     <action selector="settingsButtonTapped:" destination="TvH-fx-vlA" eventType="touchUpInside" id="fYM-NR-Vo8"/>
@@ -633,15 +646,15 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="emh-ft-5xm">
-                                <rect key="frame" x="85" y="110" width="150" height="70"/>
+                                <rect key="frame" x="70" y="110" width="180" height="70"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="29e-4N-d6m"/>
-                                    <constraint firstAttribute="width" constant="150" id="R23-mh-qvR"/>
+                                    <constraint firstAttribute="width" constant="180" id="R23-mh-qvR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
                                 <inset key="titleEdgeInsets" minX="-33" minY="50" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="55" minY="0.0" maxX="0.0" maxY="20"/>
+                                <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="20"/>
                                 <state key="normal" title="Profile Settings" image="Profile-settings-Icons"/>
                                 <connections>
                                     <action selector="profileButtonTapped:" destination="TvH-fx-vlA" eventType="touchUpInside" id="faQ-5H-Oih"/>

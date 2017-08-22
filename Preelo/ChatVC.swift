@@ -22,6 +22,7 @@ class ChatVC: UIViewController {
         case gallery
     }
     
+    @IBOutlet fileprivate weak var authRequestTitle     : UILabel!
     @IBOutlet fileprivate weak var customeNavigation    : CustomNavigationBar!
     @IBOutlet fileprivate weak var authorizationView    : UIView!
     @IBOutlet fileprivate weak var tableview            : UITableView!
@@ -155,16 +156,9 @@ extension ChatVC {
                 self.activityIndicator?.stopAnimating()
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
-                    self.requestAuthorizationViewHeight.constant = 144
-                    self.tableViewHeight.constant = StaticContentFile.screenHeight - 170 - self.requestAuthorizationViewHeight.constant
-                    //self.view.showToast(message: result.message)
-                    self.deauthorizeButton.isHidden = true
-                    self.authorizationView.isHidden = false
-                    self.channelDetail.auth_status = "f"
-                    StaticContentFile.updateChannelDetail(self.channelDetail)
+                    
+                    self.showAuthorizeButton(true)
                     self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
-
-                
                 } else if let result = response.result.value {
                     
                     self.view.showToast(message: result.message)
@@ -173,6 +167,16 @@ extension ChatVC {
                     self.view.showToast(message: "Please try again later")
                 }}
     }
+    
+    fileprivate func showAuthorizeButton(_ show: Bool) {
+        
+        self.requestAuthorizationViewHeight.constant =  show ? 150 : 0
+        self.tableViewHeight.constant = StaticContentFile.screenHeight - 170 - self.requestAuthorizationViewHeight.constant
+        self.deauthorizeButton.isHidden = !show
+        self.authorizationView.isHidden = show
+        self.channelDetail.auth_status =  show ? "f" : "t"
+        StaticContentFile.updateChannelDetail(self.channelDetail)
+    }
 }
 
 //MARK:- Private Methods
@@ -180,7 +184,7 @@ extension ChatVC {
 extension ChatVC {
     
     fileprivate func callApiToAuthorize() {
-    
+        
         self.activityIndicator?.startAnimating()
         Alamofire.request(AuthorizationRequestListRouter.authorize(channelDetail.patientId, channelDetail.parentId))
             .responseObject { (response: DataResponse<SuccessStatus>) in
@@ -190,24 +194,13 @@ extension ChatVC {
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                  //  self.view.showToast(message: result.message)
-                   
-                    self.requestAuthorizationViewHeight.constant = 0
-                    self.tableViewHeight.constant = StaticContentFile.screenHeight - 170 - self.requestAuthorizationViewHeight.constant
-                    
-                    self.deauthorizeButton.isHidden = false
-                    self.requestAuthorizationViewHeight.constant = 0
-                    self.authorizationView.isHidden = true
-                    self.channelDetail.auth_status = "t"
-                    StaticContentFile.updateChannelDetail(self.channelDetail)
+                    self.showAuthorizeButton(false)
                     self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
-                    
-               
                 } else if let result = response.result.value {
-                
+                    
                     self.view.showToast(message: result.message)
                 } else {
-                
+                    
                     self.view.showToast(message: "Please try again later")
                 }
         }
@@ -215,6 +208,7 @@ extension ChatVC {
     
     fileprivate func setup() {
         
+        deauthorizeButton.isHidden = true
         messageList.removeAll()
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(self.view)
@@ -229,9 +223,7 @@ extension ChatVC {
         
         StaticContentFile.setButtonFont(requestAuthButton)
         
-        requestAuthorizationViewHeight.constant = 0
-        authorizationView.isHidden = true
-        toolbarView.isUserInteractionEnabled = true
+        showTheAuthRequestButton()
         customeNavigation.setTitle(name)
         customeNavigation.delegate = self
         tableview.register(UINib(nibName: "FromMessageCell", bundle: nil), forCellReuseIdentifier: FromMessageCell.cellId)
@@ -240,8 +232,10 @@ extension ChatVC {
         
         tableview.estimatedRowHeight = 20
         tableview.rowHeight  = UITableViewAutomaticDimension
-    
-        refresh()
+        
+        self.view.isUserInteractionEnabled = false
+        activityIndicator?.startAnimating()
+        callApiToGetMessages()
     }
     
     func refresh(_ scrollDirectlyToBottom: Bool = false) {
@@ -281,12 +275,20 @@ extension ChatVC {
         showTheAuthRequestButton()
     }
     
+    fileprivate func showAuthRequestTitle(_ title: String) {
+        
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 5
+        let attributes = [NSParagraphStyleAttributeName : style, NSFontAttributeName : UIFont(name: "Ubuntu-Light", size: 15)!, NSForegroundColorAttributeName: UIColor.colorWithHex(0x939598)]
+        authRequestTitle.attributedText = NSAttributedString(string:title, attributes:attributes)
+    }
+    
     fileprivate func showTheAuthRequestButton() {
         
         if !StaticContentFile.isDoctorLogIn(), channelDetail.auth_status.lowercased() != "t" {
             
-            deauthorizeButton.isHidden = true
-            requestAuthorizationViewHeight.constant = 144
+            showAuthRequestTitle("You are not authorized to send messages. Please submit the Authorization Button to request authorization to send messages")
+            requestAuthorizationViewHeight.constant = 150
             authorizationView.isHidden = false
             toolbarView.isUserInteractionEnabled = false
             cameraButton.setImage(UIImage(named: "Camera_Inactive"), for: .normal)
@@ -306,11 +308,13 @@ extension ChatVC {
             requestAuthorizationViewHeight.constant = channelDetail.auth_status.lowercased() != "t" ? 144 : 0
             authorizationView.isHidden = channelDetail.auth_status.lowercased() == "t"
             
-            if StaticContentFile.isDoctorLogIn() {
+            if StaticContentFile.isDoctorLogIn(), channelDetail.auth_status.lowercased() != "t" {
                 
+                showAuthRequestTitle("This user is not authorised to send messages. Please click on the authorise button to allow the user to send messages")
                 requestAuthButton.setTitle("AUTHORIZE PARENT", for: .normal)
-                deauthorizeButton.isHidden = false
             }
+            
+            deauthorizeButton.isHidden = !(StaticContentFile.isDoctorLogIn() && channelDetail.auth_status.lowercased() == "t")
             
             cameraButton.setImage(UIImage(named: "camera-Active"), for: .normal)
             galleryButton.setImage(UIImage(named: "Gallery-Icon Active"), for: .normal)
@@ -507,7 +511,7 @@ extension ChatVC {
             
             let kbSize = (dictionary.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
             
-            tableViewHeight.constant = StaticContentFile.screenHeight - kbSize.height - 100
+            tableViewHeight.constant = StaticContentFile.screenHeight - kbSize.height
             
             if messageList.count > 0 {
                 
@@ -516,7 +520,7 @@ extension ChatVC {
                 view.layoutIfNeeded()
             }
             
-            self.scrollViewBottomInset = kbSize.height + 10
+            self.scrollViewBottomInset = kbSize.height - 40
         }
     }
     
@@ -524,7 +528,7 @@ extension ChatVC {
         
         tableViewHeight.constant = StaticContentFile.screenHeight - 170 - requestAuthorizationViewHeight.constant
         
-        self.scrollViewBottomInset = 0
+        self.scrollViewBottomInset = -40
     }
 }
 
@@ -554,7 +558,8 @@ extension ChatVC : SelectedImagesVCDelegate {
     
     func uploadImage () {
         
-        for image in images {
+        self.activityIndicator?.startAnimating()
+        for (index,image) in images.enumerated() {
             
             var url = URL(string: NetworkURL.baseUrl)!
             
@@ -586,21 +591,18 @@ extension ChatVC : SelectedImagesVCDelegate {
                     
                 case .success(let upload, _, _):
                     
-//                    let dateStr = Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A")
-//                    
-//                    let recentMessage = RecentMessages("IMAGE", text: "Photos",image: image, senderId: "you", timeInterval: dateStr)
-//                    
-//                    self.messageList.append(recentMessage)
-//                    self.tableview.reloadData()
-//                    StaticContentFile.saveMessage(recentMessage, channelDetail: self.channelDetail)
-//                    self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
-                    
                     upload.responseString { response in
                         
+                        if index == self.images.count - 1 {
+                            
+                            self.activityIndicator?.stopAnimating()
+                        }
                         if let JSON = response.result.value {
                             print("JSON: \(JSON)")
                         }
                     } case .failure(let error):
+                        
+                        self.activityIndicator?.stopAnimating()
                         print(error)
                 }
             })

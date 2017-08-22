@@ -243,7 +243,9 @@ extension AddPatientVC {
                 self.activityIndicator?.stopAnimating()
                 self.view.isUserInteractionEnabled = true
                 if let result = response.result.value, result.status == "SUCCESS" {
-                    if let vc = self.navigationController?.viewControllerWithClass(MessageVC.self) as? MessageVC{
+                    
+                    if let nav = self.tabBarController?.viewControllers?[0] as? UINavigationController, let vc = nav.viewControllerWithClass(MessageVC.self) as? MessageVC {
+                        
                         vc.callChannelAPI()
                     }
                     self.showAlertView(false)
@@ -265,25 +267,20 @@ extension AddPatientVC {
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
         self.view.isUserInteractionEnabled = false
+        
         Alamofire.request(PatientRouter.editPatient(patient))
             .responseObject { (response: DataResponse<addPatient>) in
                 
                 self.view.isUserInteractionEnabled = true
                 self.activityIndicator?.stopAnimating()
-               if let result = response.result.value, result.status == "SUCCESS" {
-                if let vc = self.navigationController?.viewControllerWithClass(MessageVC.self) as? MessageVC{
-                vc.callChannelAPI()
-                
-                }
-                
-                
-                self.showAlertView(true)
-                
-               
-               }
-               
-               
-               else {
+                if let result = response.result.value, result.status == "SUCCESS" {
+                    
+                    if let nav = self.tabBarController?.viewControllers?[0] as? UINavigationController, let vc = nav.viewControllerWithClass(MessageVC.self) as? MessageVC {
+                        
+                        vc.callChannelAPI()
+                    }
+                    self.showAlertView(true)
+                } else {
                     
                     self.view.showToast(message: "Patient Edit is failed")
                 }}.responseString { (str) in

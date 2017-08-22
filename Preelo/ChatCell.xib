@@ -33,7 +33,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulM-1S-903">
-                        <rect key="frame" x="56" y="22" width="35.5" height="21"/>
+                        <rect key="frame" x="80" y="22" width="35.5" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="3ve-r2-pQK"/>
                         </constraints>
@@ -42,16 +42,16 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient Preet Praveen has sent You an authorization request" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rup-Ka-hfh">
-                        <rect key="frame" x="56" y="65" width="225.5" height="29.5"/>
+                        <rect key="frame" x="80" y="65" width="184.5" height="29.5"/>
                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="13"/>
                         <color key="textColor" red="0.65490196079999996" green="0.66274509800000003" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1JV-5M-iT5">
-                        <rect key="frame" x="56" y="104.5" width="228" height="35"/>
+                        <rect key="frame" x="80" y="104.5" width="204" height="35"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rky-fZ-wqu">
-                                <rect key="frame" x="0.0" y="0.0" width="111.5" height="35"/>
+                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="35"/>
                                 <state key="normal" title="DECLINE">
                                     <color key="titleColor" red="0.23921568630000001" green="0.69019607839999997" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -60,7 +60,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oeq-ge-gzQ">
-                                <rect key="frame" x="116.5" y="0.0" width="111.5" height="35"/>
+                                <rect key="frame" x="104.5" y="0.0" width="99.5" height="35"/>
                                 <state key="normal" title="ACCEPT">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -82,11 +82,11 @@
                             <constraint firstItem="Rky-fZ-wqu" firstAttribute="top" secondItem="oeq-ge-gzQ" secondAttribute="top" id="rhM-JP-b03"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOE-Zt-fRe">
-                        <rect key="frame" x="8" y="32" width="40" height="40"/>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOE-Zt-fRe">
+                        <rect key="frame" x="15" y="32" width="50" height="50"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="iiw-bK-97F"/>
-                            <constraint firstAttribute="height" constant="40" id="v7B-aN-YfD"/>
+                            <constraint firstAttribute="width" constant="50" id="iiw-bK-97F"/>
+                            <constraint firstAttribute="height" constant="50" id="v7B-aN-YfD"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="14"/>
                         <color key="textColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -104,11 +104,18 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient Preet Praveen has sent You an authorization request" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oYd-1o-pxF">
-                        <rect key="frame" x="56" y="47" width="208" height="14"/>
+                        <rect key="frame" x="80" y="47" width="184" height="14"/>
                         <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="12"/>
                         <color key="textColor" red="0.73725490199999999" green="0.74509803919999995" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VolumeBlue" translatesAutoresizingMaskIntoConstraints="NO" id="U6e-Ub-1hS">
+                        <rect key="frame" x="15" y="26" width="14" height="13"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="13" id="FTy-w9-sgJ"/>
+                            <constraint firstAttribute="width" constant="14" id="Kap-2V-cBq"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="oYd-1o-pxF" firstAttribute="leading" secondItem="ulM-1S-903" secondAttribute="leading" id="85i-QJ-ivu"/>
@@ -118,12 +125,14 @@
                     <constraint firstAttribute="right" relation="greaterThanOrEqual" secondItem="rup-Ka-hfh" secondAttribute="right" constant="10" id="FL7-M7-CWw"/>
                     <constraint firstItem="rup-Ka-hfh" firstAttribute="top" secondItem="oYd-1o-pxF" secondAttribute="bottom" constant="4" id="NAJ-zA-8Mj"/>
                     <constraint firstItem="1JV-5M-iT5" firstAttribute="leading" secondItem="rup-Ka-hfh" secondAttribute="leading" id="NAt-9d-2kx"/>
-                    <constraint firstItem="ulM-1S-903" firstAttribute="leading" secondItem="MOE-Zt-fRe" secondAttribute="trailing" constant="8" id="WMV-9h-RFH"/>
+                    <constraint firstItem="U6e-Ub-1hS" firstAttribute="centerY" secondItem="ulM-1S-903" secondAttribute="centerY" id="TJx-BC-tjM"/>
                     <constraint firstAttribute="trailing" secondItem="Q1C-hy-KqR" secondAttribute="trailing" constant="8" id="X3D-DJ-uIo"/>
-                    <constraint firstItem="MOE-Zt-fRe" firstAttribute="leading" secondItem="oRA-Qv-wmG" secondAttribute="leading" constant="8" id="Y5g-dl-jtc"/>
+                    <constraint firstItem="MOE-Zt-fRe" firstAttribute="leading" secondItem="oRA-Qv-wmG" secondAttribute="leading" constant="15" id="Y5g-dl-jtc"/>
                     <constraint firstItem="Q1C-hy-KqR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ulM-1S-903" secondAttribute="trailing" constant="8" id="Yrv-oa-wsf"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="oYd-1o-pxF" secondAttribute="trailing" constant="20" id="aC6-Pj-jEL"/>
                     <constraint firstAttribute="trailing" secondItem="1JV-5M-iT5" secondAttribute="trailing" constant="8" id="ask-ck-1eO"/>
+                    <constraint firstItem="ulM-1S-903" firstAttribute="leading" secondItem="oRA-Qv-wmG" secondAttribute="leading" constant="80" id="bUk-zO-02f"/>
+                    <constraint firstItem="U6e-Ub-1hS" firstAttribute="leading" secondItem="oRA-Qv-wmG" secondAttribute="leading" constant="15" id="eV5-u8-PLo"/>
                     <constraint firstItem="Q1C-hy-KqR" firstAttribute="centerY" secondItem="ulM-1S-903" secondAttribute="centerY" id="ibx-cE-yOa"/>
                     <constraint firstItem="MOE-Zt-fRe" firstAttribute="top" secondItem="oRA-Qv-wmG" secondAttribute="top" constant="32" id="pce-mx-jFi"/>
                     <constraint firstItem="rup-Ka-hfh" firstAttribute="leading" secondItem="oYd-1o-pxF" secondAttribute="leading" id="sO9-ka-FjU"/>
@@ -139,8 +148,13 @@
                 <outlet property="initial" destination="MOE-Zt-fRe" id="T3K-Ea-iM8"/>
                 <outlet property="name" destination="ulM-1S-903" id="5Jd-f8-acJ"/>
                 <outlet property="parentName" destination="oYd-1o-pxF" id="zpf-yX-RWP"/>
+                <outlet property="titleLeading" destination="bUk-zO-02f" id="1tH-tu-cOs"/>
+                <outlet property="volumeImage" destination="U6e-Ub-1hS" id="rwA-bX-ygJ"/>
             </connections>
             <point key="canvasLocation" x="48" y="81.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="VolumeBlue" width="14" height="13"/>
+    </resources>
 </document>

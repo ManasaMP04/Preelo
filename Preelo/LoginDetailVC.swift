@@ -18,6 +18,7 @@ class LoginDetailVC: UIViewController {
     @IBOutlet fileprivate weak var profileImageView     : UIImageView!
     @IBOutlet fileprivate weak var titleLabel           : UILabel!
     @IBOutlet fileprivate weak var forgotPasswordButton : UIButton!
+    @IBOutlet fileprivate weak var createAccount        : UIButton!
     @IBOutlet fileprivate weak var scrollView           : UIScrollView!
     
     fileprivate var activityIndicator   : UIActivityIndicatorView?
@@ -57,6 +58,10 @@ class LoginDetailVC: UIViewController {
     @IBAction func gestureIsTapped(_ sender: Any) {
     
         view.endEditing(true)
+    }
+    
+    @IBAction func createAccountButtonTapped(_ sender: Any) {
+   
     }
 }
 
@@ -119,6 +124,8 @@ extension LoginDetailVC {
         StaticContentFile.setFontForTF(userName, autoCaps: false)
         StaticContentFile.setButtonFont(login)
         StaticContentFile.setUnderlineForButton(forgotPasswordButton, text: "Forgot Password ?")
+         StaticContentFile.setUnderlineForButton(createAccount, text: "Create Account")
+        
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         

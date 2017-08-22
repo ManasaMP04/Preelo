@@ -134,20 +134,15 @@ extension MessageVC {
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
                 self.view.isUserInteractionEnabled = true
-                StaticContentFile.updateAuthRequest(data)
                 self.activityIndicator?.stopAnimating()
+                
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    self.view.showToast(message: result.message)
+                    StaticContentFile.updateAuthRequest(data)
                     self.list.remove(at: indexPath.row)
                     self.notificationCount.isHidden = self.list.count == 0
                     self.notificationCount.text = "\(self.list.count)"
                     self.tableview.deleteRows(at: [indexPath], with: .automatic)
-                    self.view.showToast(message: result.message)
-                    if !StaticContentFile.isDoctorLogIn(){
-                    self.callChannelAPI()
-                    }
-                    
                 } else if let result = response.result.value {
                     
                     self.view.showToast(message:  result.message)
@@ -224,7 +219,7 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource {
         
         if selection == .authentication {
             
-            return 175
+            return 145
         }
         
         return 100
@@ -281,7 +276,7 @@ extension MessageVC{
         }
     }
     
-     func callChannelAPI() {
+    func callChannelAPI() {
         
         StaticContentFile.deleteMessagePlist()
         
@@ -293,7 +288,7 @@ extension MessageVC{
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     self.list = result.data
-                    self.tableview.reloadData()
+                    self.tableview?.reloadData()
                     
                     for detail in result.data {
                         
@@ -317,8 +312,6 @@ extension MessageVC{
                     self.list = result.authRequest
                     self.notificationCount.text = "\(self.list.count)"
                     self.notificationCount.isHidden = self.list.count == 0
-                   
-                    
                     self.tableview.reloadData()
                     StaticContentFile.saveAuthRequest(result)
                 }else if let result = response.result.value {
@@ -334,7 +327,6 @@ extension MessageVC{
         
         let plistStorageManager = PlistManager()
         plistStorageManager.deleteObject(forKey: "\(StaticContentFile.getId())", inFile: .authRequest)
-        
         Alamofire.request(AuthorizationRequestListRouter.get_patient_AuthRequest())
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
