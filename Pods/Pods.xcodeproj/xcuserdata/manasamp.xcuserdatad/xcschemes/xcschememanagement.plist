@@ -39,6 +39,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>GoogleToolboxForMac.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ObjectMapper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -49,7 +54,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Protobuf.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SQLite.swift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -67,6 +82,16 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>014A483E2EE1A003247176E1FE44A81B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0C7F8D49F579C2527E86B5F2D9B02832</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1462A800C6623ADC2221545332D41D29</key>
 		<dict>
 			<key>primary</key>
@@ -97,11 +122,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8CF9F45E230ABECC5DB83BCC2D53D4FB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>8F5C57CDB6551A5057CEEE523A7EB36A</key>
 		<dict>
 			<key>primary</key>
@@ -112,7 +132,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C9437AA9533277DCD5BEF5ACC128F3B5</key>
+		<key>ADA66651FE227BFCA731A7972C5B376B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C5B80060FE8C664DF08841000F41D515</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,7 +147,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FA9F2B9B43960750271E7E165879F790</key>
+		<key>E2DEBF4C7A217A2BE56F16668BA35AA6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EAC1BE8A4CD4AC447937420E7EA027A9</key>
 		<dict>
 			<key>primary</key>
 			<true/>

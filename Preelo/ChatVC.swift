@@ -179,10 +179,11 @@ extension ChatVC {
     
     fileprivate func showAuthorizeButton(_ show: Bool) {
         
-        self.requestAuthorizationViewHeight.constant =  show ? 160 : 0
+        requestAuthorizationViewHeight.constant = show ? 160 : 0
+        authorizationView.isHidden = !show
+        toolbarView.isUserInteractionEnabled = !show
         self.tableViewHeight.constant = StaticContentFile.screenHeight - 170 - self.requestAuthorizationViewHeight.constant
-        self.deauthorizeButton.isHidden = !show
-        self.authorizationView.isHidden = show
+        self.deauthorizeButton.isHidden = show
         self.channelDetail.auth_status =  show ? "f" : "t"
         StaticContentFile.updateChannelDetail(self.channelDetail)
     }
@@ -194,6 +195,7 @@ extension ChatVC {
     
     fileprivate func callApiToAuthorize() {
         
+        self.view.isUserInteractionEnabled = false
         self.activityIndicator?.startAnimating()
         Alamofire.request(AuthorizationRequestListRouter.authorize(channelDetail.patientId, channelDetail.parentId))
             .responseObject { (response: DataResponse<SuccessStatus>) in
@@ -251,9 +253,15 @@ extension ChatVC {
             callApiToGetMessages()
         } else if let data = StaticContentFile.getChannelDetail(self.channelDetail) {
             
-            self.messageList = data.recent_message
-            self.tableview.reloadData()
-            self.scrollToButtom()
+            if data.recent_message.count > 0 {
+                
+                self.messageList = data.recent_message
+                self.tableview.reloadData()
+                self.scrollToButtom()
+            } else {
+            
+                self.view.showToast(message: "Please check the internet connection")
+            }
         }
     }
     
@@ -577,6 +585,7 @@ extension ChatVC : SelectedImagesVCDelegate {
         
         if Reachability.forInternetConnection().isReachable() {
             
+            self.view.isUserInteractionEnabled = false
             self.activityIndicator?.startAnimating()
             for (index,image) in images.enumerated() {
                 
@@ -614,6 +623,7 @@ extension ChatVC : SelectedImagesVCDelegate {
                             
                             if index == self.images.count - 1 {
                                 
+                                self.view.isUserInteractionEnabled = true
                                 self.activityIndicator?.stopAnimating()
                             }
                             if let JSON = response.result.value {
@@ -623,6 +633,7 @@ extension ChatVC : SelectedImagesVCDelegate {
                             
                             if index == self.images.count - 1 {
                                 
+                                self.view.isUserInteractionEnabled = true
                                 self.activityIndicator?.stopAnimating()
                             }
                             

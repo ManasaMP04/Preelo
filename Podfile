@@ -10,7 +10,10 @@ use_frameworks!
     pod 'AlamofireObjectMapper', '~> 4.0.0' 
     pod "DXPopover"
     pod "BSImagePicker", "~> 2.4" 
-    pod 'Socket.IO-Client-Swift'  
+    pod 'Socket.IO-Client-Swift' 
+    pod 'SQLite.swift', '~> 0.11.3'  
+    pod 'Firebase/Core'
+    pod 'Firebase/Messaging'
 
     post_install do |installer|
       installer.pods_project.targets.each do |target|

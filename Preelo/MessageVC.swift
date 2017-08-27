@@ -30,7 +30,7 @@ class MessageVC: UIViewController {
     fileprivate var selection: Selection = .authentication
     fileprivate var activityIndicator    : UIActivityIndicatorView?
     fileprivate var pullToRefreshControl : UIRefreshControl!
-
+    
     fileprivate let defaults  = UserDefaults.standard
     var webSocket = [SocketIOClient]()
     fileprivate var selectedChannelId = 0
@@ -286,7 +286,7 @@ extension MessageVC{
             
             StaticContentFile.isDoctorLogIn() ? self.callAPIToGetAuthRequest() : self.callAPIToGetPatientAuthRequest()
         } else if !Reachability.forInternetConnection().isReachable() {
-        
+            
             self.pullToRefreshControl?.endRefreshing()
             authorizationButtonSelected(selection == .message)
         }
@@ -442,6 +442,28 @@ extension MessageVC {
                     return
                 }
             }
+        }
+    }
+    
+    func handleRemoteNotification () {
+        
+        if let vc = self.navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC, let details = list as? [ChannelDetail] {
+            
+            for data in details {
+                
+                if data.channel_id == selectedChannelId {
+                    
+                    vc.channelDetail = data
+                    vc.refresh()
+                    return
+                }
+            }
+        } else {
+        
+            activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+            self.activityIndicator?.stopAnimating()
+            self.view.isUserInteractionEnabled = true
+            callChannelAPI()
         }
     }
     

@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import ObjectMapper
+import SQLite
 
 class StaticContentFile: NSObject {
     
