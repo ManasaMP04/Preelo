@@ -18,15 +18,16 @@ protocol RelationPickerViewDelegate: class {
 
 class RelationPickerView: UIView {
 
-    fileprivate let pickerData    = ["Father", "Mother", "Sister", "Brother", "Grandmother", "Grandfather", "Gaurdian"]
+    fileprivate var pickerData    = [String]()
     fileprivate let pickerView    = UIPickerView()
     
     weak var delegate : RelationPickerViewDelegate?
     
     //MARK:- Init
     
-    init() {
+    init(_ pickerData: [String]) {
         
+        self.pickerData = pickerData
         super.init(frame: CGRect(x: 0, y: 0, width: Int(StaticContentFile.screenWidth - 40), height: pickerData.count*height))
         
         setup()

@@ -29,12 +29,12 @@ class ImageCell: UICollectionViewCell {
             
             scrollview.isUserInteractionEnabled = false
             imageView.isUserInteractionEnabled = false
-            showImage(msg.thumb_Url)
+            showImage(msg.thumb_Url, placeHolder: "Small-Image-Loader-With-Shadow")
         } else {
             
             scrollview.isUserInteractionEnabled = true
             imageView.isUserInteractionEnabled = true
-            showImage(msg.image_url)
+            showImage(msg.image_url,placeHolder: "Big-Image-loading")
         }
     }
     
@@ -43,15 +43,11 @@ class ImageCell: UICollectionViewCell {
         imageView.image        = imageName
     }
     
-    fileprivate func showImage(_ image: Any?) {
-        
-        if let name = image as? UIImage {
-            
-            imageView.image   = name
-        } else if let name = image as? String,
-            let imageUrl     = URL(string: name) {
+    fileprivate func showImage(_ image: String, placeHolder: String) {
+  
+        if let imageUrl     = URL(string: image) {
 
-           imageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "Image Placeholder_Fill"))
+           imageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: placeHolder))
         }
     }
 }

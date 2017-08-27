@@ -67,10 +67,9 @@ class ParentDetailVC: UIViewController {
     
     @IBAction func selectRelationButtonTapped(_ sender: Any) {
         
-        let relationView    = RelationPickerView()
+        let relationView    = RelationPickerView(["Father", "Mother", "Sister", "Brother", "Grandmother", "Grandfather", "Gaurdian"])
         relationView.delegate = self
         popAnimator.show(at: firstName, withContentView: relationView, in: self.view)
-        
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {

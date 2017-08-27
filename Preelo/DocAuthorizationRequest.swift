@@ -27,6 +27,10 @@ class DocAuthorizationRequest: Mappable {
         
     }
     
+    init () {
+    
+    }
+    
     func mapping(map: Map) {
         
         firstname          <- map["firstname"]

@@ -109,6 +109,8 @@ extension MessageVC {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotification), name: Notification.Name("NotificationIdentifier"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationForAuthRequest), name: Notification.Name("AuthNotificationIdentifier"), object: nil)
+        
         cardView?.addShadowWithColor(UIColor.colorWithHex(0x23B5B9) , offset: CGSize.zero, opacity: 0.3, radius: 4)
         self.navigationController?.navigationBar.isHidden = true
         addPullToRefreshView()
@@ -374,6 +376,7 @@ extension MessageVC: ChatVCDelegate {
             self.activityIndicator?.startAnimating()
             callAPIToGetPatientAuthRequest()
         } else {
+            
             authorizationButtonSelected(isAuthRequest)
         }
     }
@@ -410,6 +413,24 @@ extension MessageVC {
                             }
                             
                             NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: nil, userInfo: nil)
+                        } else  if event.event == "auth request" ,
+                        let data = event.items as? [[String: Any]] {
+                            
+                            for dict in data {
+                                
+                                self.saveAuthStatusFromSocket(dict)
+                            }
+                            
+                            NotificationCenter.default.post(name: Notification.Name("AuthNotificationIdentifier"), object: nil, userInfo: nil)
+                        } else  if event.event == "authorized message" ,
+                        let data = event.items as? [[String: Any]] {
+                            
+                            for dict in data {
+                                
+                                self.saveAuthStatusFromSocket(dict)
+                            }
+                            
+                            NotificationCenter.default.post(name: Notification.Name("AuthNotificationIdentifier"), object: nil, userInfo: nil)
                         }
                     })
                     skt.connect()
@@ -428,20 +449,30 @@ extension MessageVC {
     
     @objc fileprivate func handleNotification() {
         
-        self.list = StaticContentFile.getChannel()
-        self.tableview?.reloadData()
-        
-        if let vc = self.navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC, let details = list as? [ChannelDetail] {
+        if selection == .message {
             
-            for data in details {
+            self.list = StaticContentFile.getChannel()
+            self.tableview?.reloadData()
+            
+            if let vc = self.navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC, let details = list as? [ChannelDetail] {
                 
-                if data.channel_id == selectedChannelId {
+                for data in details {
                     
-                    vc.channelDetail = data
-                    vc.refresh()
-                    return
-                }
-            }
+                    if data.channel_id == selectedChannelId {
+                        
+                        vc.channelDetail = data
+                        vc.refresh()
+                        return
+                    }}}
+        }
+    }
+    
+    @objc fileprivate func handleNotificationForAuthRequest() {
+        
+        if selection == .authentication, let authRequest = StaticContentFile.getAuthRequest() {
+            
+            self.list = authRequest.authRequest
+            self.tableview?.reloadData()
         }
     }
     
@@ -459,7 +490,7 @@ extension MessageVC {
                 }
             }
         } else {
-        
+            
             activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
             self.activityIndicator?.stopAnimating()
             self.view.isUserInteractionEnabled = true
@@ -506,6 +537,41 @@ extension MessageVC {
             }
             
             StaticContentFile.saveMessage(channel)
+        }
+    }
+    
+    fileprivate func saveAuthStatusFromSocket(_ event: [String: Any]) {
+        
+        if let firstname = event["firstname"] as? String,
+            let lastname = event["lastname"] as? String,
+            let relationship = event["relationship"] as? String,
+            let doctorid = event["doctorid"] as? Int,
+            let patientid = event["patientid"] as? Int,
+            let title = event["title"] as? String,
+            let subtitle = event["subtitle"] as? String,
+            let parentid = event["parentid"] as? Int,
+            let family_id = event["family_id"] as? Int,
+            let doctor_firstname = event["doctor_firstname"] as? String,
+            let doctor_lastname = event["doctor_lastname"] as? String {
+            
+            let authRequest = AuthorizeRequest()
+            let auth = DocAuthorizationRequest()
+
+            auth.firstname = firstname
+            auth.lastname = lastname
+            auth.relationship      = relationship
+            auth.patientid         = patientid
+            auth.parentid          = parentid
+            auth.title             = title
+            auth.subtitle          = subtitle
+            
+            auth.family_id         = family_id
+            auth.doctorid          = doctorid
+            auth.doctor_firstname  = doctor_firstname
+            auth.doctor_lastname   = doctor_lastname
+            
+            authRequest.authRequest = [auth]
+            StaticContentFile.saveAuthRequest(authRequest)
         }
     }
 }

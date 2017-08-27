@@ -9,8 +9,15 @@
 /* Begin PBXBuildFile section */
 		1FFF0610CDC78805412E316B /* Pods_Preelo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A609B1C2189643CD7DF9756B /* Pods_Preelo.framework */; };
 		6202A2231F52ACFE00D95722 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6202A2221F52ACFE00D95722 /* Reachability.m */; };
-		6202A22A1F52C8F900D95722 /* SqliteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6202A2291F52C8F900D95722 /* SqliteManager.swift */; };
 		6202A22C1F52CDAF00D95722 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6202A22B1F52CDAF00D95722 /* GoogleService-Info.plist */; };
+		6202A22E1F52E07B00D95722 /* sqliteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6202A22D1F52E07B00D95722 /* sqliteModel.swift */; };
+		6202A2401F52E30500D95722 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6202A2251F52C61600D95722 /* libsqlite3.0.tbd */; };
+		6202A2411F52E30500D95722 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6202A2261F52C61600D95722 /* libsqlite3.tbd */; };
+		6202A2441F52E6E400D95722 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6202A2431F52E6E400D95722 /* DBManager.m */; };
+		6202A2471F53453A00D95722 /* CreateAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6202A2451F53453A00D95722 /* CreateAccount.swift */; };
+		6202A2481F53453A00D95722 /* CreateAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6202A2461F53453A00D95722 /* CreateAccount.xib */; };
+		6202A24A1F5355E900D95722 /* cityList.json in Resources */ = {isa = PBXBuildFile; fileRef = 6202A2491F5355E900D95722 /* cityList.json */; };
+		6202A24C1F53568700D95722 /* CtyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6202A24B1F53568700D95722 /* CtyList.swift */; };
 		6203EECE1EA61D8000E7D38B /* ParentDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6203EECD1EA61D8000E7D38B /* ParentDetailVC.xib */; };
 		621C2C181E750D95008BD57F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621C2C171E750D95008BD57F /* AppDelegate.swift */; };
 		621C2C1F1E750D95008BD57F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 621C2C1E1E750D95008BD57F /* Assets.xcassets */; };
@@ -131,8 +138,14 @@
 		6202A2241F52BFCA00D95722 /* Preelo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Preelo.entitlements; sourceTree = "<group>"; };
 		6202A2251F52C61600D95722 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		6202A2261F52C61600D95722 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		6202A2291F52C8F900D95722 /* SqliteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqliteManager.swift; sourceTree = "<group>"; };
 		6202A22B1F52CDAF00D95722 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6202A22D1F52E07B00D95722 /* sqliteModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sqliteModel.swift; sourceTree = "<group>"; };
+		6202A2421F52E6E000D95722 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		6202A2431F52E6E400D95722 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		6202A2451F53453A00D95722 /* CreateAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccount.swift; sourceTree = "<group>"; };
+		6202A2461F53453A00D95722 /* CreateAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateAccount.xib; sourceTree = "<group>"; };
+		6202A2491F5355E900D95722 /* cityList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cityList.json; sourceTree = "<group>"; };
+		6202A24B1F53568700D95722 /* CtyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CtyList.swift; sourceTree = "<group>"; };
 		6203EECD1EA61D8000E7D38B /* ParentDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParentDetailVC.xib; sourceTree = "<group>"; };
 		621C2C141E750D95008BD57F /* Preelo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Preelo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		621C2C171E750D95008BD57F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -245,6 +258,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6202A2401F52E30500D95722 /* libsqlite3.0.tbd in Frameworks */,
+				6202A2411F52E30500D95722 /* libsqlite3.tbd in Frameworks */,
 				62DA83641ED19F040048A9D9 /* AssetsLibrary.framework in Frameworks */,
 				1FFF0610CDC78805412E316B /* Pods_Preelo.framework in Frameworks */,
 			);
@@ -303,6 +318,8 @@
 				622A8FD21E9D547E00B34B56 /* parentVC */,
 				623D5EDE1EA0C4D000389481 /* MessageVC */,
 				623D5EDC1EA0BAA200389481 /* SlideOutVC.swift */,
+				6202A2451F53453A00D95722 /* CreateAccount.swift */,
+				6202A2461F53453A00D95722 /* CreateAccount.xib */,
 				86B5F74D1F16926F00D29697 /* SettingsVC */,
 				62DAC9E41EABEECA005BB0FF /* selectChildren */,
 				62E3AB7F1EA106CF0061802F /* ChatVC */,
@@ -336,6 +353,7 @@
 		622A8FCF1E9D540400B34B56 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				6202A2491F5355E900D95722 /* cityList.json */,
 				622A8FA61E9D3A1200B34B56 /* CustomNavigationBar.swift */,
 				622A8FA51E9D3A1200B34B56 /* AutoLayoutHelper.swift */,
 				622A8FA71E9D3A1200B34B56 /* Extensions.swift */,
@@ -348,7 +366,8 @@
 				62CDDBDC1ECA3354000A2AC7 /* PlistManager.swift */,
 				6202A2211F52ACF800D95722 /* Reachability.h */,
 				6202A2221F52ACFE00D95722 /* Reachability.m */,
-				6202A2291F52C8F900D95722 /* SqliteManager.swift */,
+				6202A2421F52E6E000D95722 /* DBManager.h */,
+				6202A2431F52E6E400D95722 /* DBManager.m */,
 				62E3AB881EA112A60061802F /* CustomFont */,
 			);
 			name = Extension;
@@ -400,6 +419,8 @@
 		629E4E871EA29BF700F280AD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6202A22D1F52E07B00D95722 /* sqliteModel.swift */,
+				6202A24B1F53568700D95722 /* CtyList.swift */,
 				629E4E881EA29C1600F280AD /* logIn.swift */,
 				629E4E8A1EA29C8800F280AD /* LogInDetail.swift */,
 				629E4E8E1EA2A41C00F280AD /* ForgotPassword.swift */,
@@ -655,6 +676,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8624AF421F1A203500E2FEFD /* EditChildNameVC.xib in Resources */,
+				6202A24A1F5355E900D95722 /* cityList.json in Resources */,
 				6202A22C1F52CDAF00D95722 /* GoogleService-Info.plist in Resources */,
 				62E3AB961EA114340061802F /* Ubuntu-B.ttf in Resources */,
 				62E3AB971EA114340061802F /* Ubuntu-C.ttf in Resources */,
@@ -681,6 +703,7 @@
 				6224B2641EB8EC11009C8D98 /* AlertVC.xib in Resources */,
 				6203EECE1EA61D8000E7D38B /* ParentDetailVC.xib in Resources */,
 				622A8FC01E9D3A1200B34B56 /* Main.storyboard in Resources */,
+				6202A2481F53453A00D95722 /* CreateAccount.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,12 +783,12 @@
 				62D064941EA3EEB4007A503F /* addPatient.swift in Sources */,
 				86B5F74C1F16926400D29697 /* SettingsViewController.swift in Sources */,
 				62B823891F3CF4CD00431893 /* SaveImage.swift in Sources */,
-				6202A22A1F52C8F900D95722 /* SqliteManager.swift in Sources */,
 				626160F71EC43146002CCCA8 /* RecentMessages.swift in Sources */,
 				622A8FBD1E9D3A1200B34B56 /* ForgotPasswordVC.swift in Sources */,
 				62C6F7F91EB87BCA00D5160A /* RelationPickerView.swift in Sources */,
 				622A8FBC1E9D3A1200B34B56 /* FloatingTextField.swift in Sources */,
 				629E4E971EA2AB7F00F280AD /* FamilyList.swift in Sources */,
+				6202A24C1F53568700D95722 /* CtyList.swift in Sources */,
 				622A8FC91E9D3A1200B34B56 /* StaticContentFile.swift in Sources */,
 				622A8FBE1E9D3A1200B34B56 /* LoginDetailVC.swift in Sources */,
 				865933EA1F1E810B0088064F /* SettingRouter.swift in Sources */,
@@ -813,12 +836,15 @@
 				62DAC9EE1EABF897005BB0FF /* AuthorizeRouter.swift in Sources */,
 				62D432811EA3C08F005FA616 /* LogoutRouter.swift in Sources */,
 				622A8FCA1E9D3A1200B34B56 /* TextValidator.swift in Sources */,
+				6202A22E1F52E07B00D95722 /* sqliteModel.swift in Sources */,
 				626160F51EC42E82002CCCA8 /* ChannelDetail.swift in Sources */,
 				862B8BAA1F17FE1100CF7527 /* EditChildNameVC.swift in Sources */,
 				62ACD5081EA129BF000B0EDE /* LogInRouter.swift in Sources */,
+				6202A2441F52E6E400D95722 /* DBManager.m in Sources */,
 				629E4E951EA2AB7300F280AD /* PatientList.swift in Sources */,
 				62DAC9F01EABFD58005BB0FF /* AuthorizeRequest.swift in Sources */,
 				622A8FC71E9D3A1200B34B56 /* PreeloTextField.swift in Sources */,
+				6202A2471F53453A00D95722 /* CreateAccount.swift in Sources */,
 				6202A2231F52ACFE00D95722 /* Reachability.m in Sources */,
 				621C2C181E750D95008BD57F /* AppDelegate.swift in Sources */,
 			);

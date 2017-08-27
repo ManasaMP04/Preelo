@@ -9,30 +9,46 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Preelo/ChatVC.swift"
-            timestampString = "525523663.77812"
+            filePath = "Preelo/MessageVC.swift"
+            timestampString = "525555931.988612"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "294"
-            endingLineNumber = "294"
-            landmarkName = "showTheAuthRequestButton()"
+            startingLineNumber = "545"
+            endingLineNumber = "545"
+            landmarkName = "saveAuthStatusFromSocket(_:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Preelo/ChatVC.swift"
-            timestampString = "525523667.715922"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "311"
-            endingLineNumber = "311"
-            landmarkName = "showTheAuthRequestButton()"
-            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Preelo.MessageVC.(saveAuthStatusFromSocket in _C744777799D66A97AFAEB8AAD0CABB60) (Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; ()"
+                  moduleName = "Preelo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/manasamp/Desktop/training/Preelo/MessageVC.swift"
+                  timestampString = "525557989.623211"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "545"
+                  endingLineNumber = "545"
+                  offsetFromSymbolStart = "38">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Preelo.MessageVC.(saveAuthStatusFromSocket in _C744777799D66A97AFAEB8AAD0CABB60) (Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; ()"
+                  moduleName = "Preelo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/manasamp/Desktop/training/Preelo/MessageVC.swift"
+                  timestampString = "525557989.626231"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "545"
+                  endingLineNumber = "545"
+                  offsetFromSymbolStart = "456">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

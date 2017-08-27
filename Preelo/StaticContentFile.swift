@@ -18,6 +18,8 @@ class StaticContentFile: NSObject {
     static let screenWidth      = screenBounds.size.width
     static let screenHeight     = screenBounds.size.height
     static let plistStorageManager = PlistManager()
+    static let tableName = "messages"
+    static let dbManager       = DBManager.init(fileName: "chat.db")
     
     static func setButtonFont(_ button: UIButton, backgroundColorNeeed: Bool = true, borderNeeded: Bool = true, shadowNeeded: Bool = true) {
         
@@ -73,6 +75,7 @@ extension StaticContentFile {
     
     static func removeAllKeys() {
         
+        dbManager?.dropTable(tableName)
         plistStorageManager.deleteObject(forKey: "\(StaticContentFile.getId())", inFile: .authRequest)
         defaults.removeObject(forKey: "isDoctorLogIn")
         defaults.removeObject(forKey: "token")
@@ -184,13 +187,13 @@ extension StaticContentFile {
             var authObject1 = authObject
             
             if StaticContentFile.isDoctorLogIn() {
-            
+                
                 for auth in result.authRequest {
                     
                     authArray.append(auth.modelToDict())
                 }
             } else {
-            
+                
                 for auth in result.authRequest {
                     
                     authArray.append(auth.modelToDictForParent())
@@ -241,6 +244,39 @@ extension StaticContentFile {
 
 extension StaticContentFile {
     
+    static func createDB() {
+        
+      //  dbManager?.delegate = self
+        
+        let queryString = String(format: "CREATE TABLE IF NOT EXISTS \(tableName) (channel_id INTEGER,relationship TEXT, patientname TEXT, doctorname TEXT, parentname TEXT,doctor_initials TEXT, unread_count  INTEGER, doctorId  INTEGER,parentId  INTEGER,patientId  INTEGER, auth_status TEXT, doctor_user_id  INTEGER,lastMsgId  INTEGER, chatTitle TEXT,chatLabelTitle TEXT,message_type TEXT, message_text  TEXT, message_date TEXT,image_url TEXT, thumb_Url TEXT, message_id  INTEGER,senderId TEXT)")
+        
+        dbManager?.createTable(forQuery: queryString)
+    }
+    
+    static func insertRowIntoDB(_ message: RecentMessages, channelDetail: ChannelDetail) {
+        
+        let queryString = String(format: "INSERT INTO REMAINDERS(channel_id, relationship, patientname, doctorname,parentname, doctor_initials,unread_count, doctorId, parentId, patientId, auth_status, doctor_user_id, lastMsgId, chatTitle, chatLabelTitle, message_type, message_text, message_date, image_url, thumb_Url, message_id, senderId) VALUES('%d','%@','%@','%@','%@','%@','%d','%d','%d','%d','%@',,'%d','%d','%@','%@','%@','%@','%@','%@','%@','%@','%d','%@')", channelDetail.channel_id, channelDetail.relationship, channelDetail.patientname, channelDetail.doctorname, channelDetail.parentname, channelDetail.doctor_initials, channelDetail.unread_count, channelDetail.doctorId, channelDetail.parentId, channelDetail.patientId, channelDetail.auth_status, channelDetail.doctor_user_id, channelDetail.lastMsgId, channelDetail.chatTitle, channelDetail.chatLabelTitle, message.message_type, message.message_text, message.message_date, message.image_url, message.thumb_Url, message.message_id, message.senderId)
+        
+        dbManager?.saveDataToDB(forQuery: queryString)
+    }
+    
+    static func getRecentMessagesForChannelDetail(_ channelDetail: ChannelDetail) {
+    
+        let queryString = String(format: "select  * from \(tableName) where channel_id = \(channelDetail.channel_id)")
+        
+        dbManager?.getDataForQuery(queryString)
+        
+        
+        
+    }
+    
+    static func updateAuthStatusForChannelDetail(_ channelDetail: ChannelDetail) {
+        
+        let queryString = String(format: "update \(tableName) set auth_status ='\(channelDetail.auth_status)' where channel_id = \(channelDetail.channel_id)")
+        
+        dbManager?.update(queryString)
+    }
+    
     static func saveMessage(_ message: RecentMessages, channelDetail: ChannelDetail) {
         
         var dict = [String: Any]()
@@ -276,7 +312,7 @@ extension StaticContentFile {
     }
     
     static func updateChannelDetail(_ detail: ChannelDetail) {
-    
+        
         var dict =  [String: Any]()
         
         if let messageObject = plistStorageManager.objectForKey("\(detail.channel_id)", inFile: .message) as? [String: Any],
@@ -287,7 +323,7 @@ extension StaticContentFile {
             channelObject["auth_status"] = detail.auth_status
             dict["\(detail.channel_id)"] = channelObject
             
-             plistStorageManager.setObject(dict as Any , forKey: "\(detail.channel_id)", inFile: .message)
+            plistStorageManager.setObject(dict as Any , forKey: "\(detail.channel_id)", inFile: .message)
         }
     }
     
@@ -296,19 +332,19 @@ extension StaticContentFile {
         if let messageObject = plistStorageManager.objectForKey("\(detail.channel_id)", inFile: .message) as? [String: Any],
             let obj = messageObject["\(detail.channel_id)"] as? [String: Any] {
             
-             
-                do {
-                    let jsonData = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
-                    if let jsonString = String.init(data: jsonData, encoding: .utf8),
-                        let result = Mapper<ChannelDetail>().map(JSONString: jsonString) {
-                        
-                        return result
-                    }} catch {}
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
+                if let jsonString = String.init(data: jsonData, encoding: .utf8),
+                    let result = Mapper<ChannelDetail>().map(JSONString: jsonString) {
+                    
+                    return result
+                }} catch {}
             
             return nil
         }
         
-         return nil
+        return nil
     }
     
     static func saveMessage(_ detail: ChannelDetail) {
@@ -325,9 +361,9 @@ extension StaticContentFile {
                 var list = msgs
                 
                 for (i,msg) in msgs.enumerated() {
-                
+                    
                     if let id = msg["message_id"] as? Int, let lastId = obj["lastMsgId"] as? Int,  id == -1 || id > lastId  {
-                      
+                        
                         list.remove(at: i)
                     }
                 }
@@ -378,5 +414,13 @@ extension StaticContentFile {
                         }} catch {}
                 }}}
         return array
+    }
+}
+
+extension StaticContentFile: DBManagerDelegate {
+
+    func dbManager(_ statement: OpaquePointer!) {
+        
+        
     }
 }

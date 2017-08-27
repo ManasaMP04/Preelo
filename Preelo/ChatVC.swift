@@ -163,6 +163,7 @@ extension ChatVC {
                     if let result = response.result.value, result.status == "SUCCESS" {
                         
                         self.showAuthorizeButton(true)
+                        
                         self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
                     } else if let result = response.result.value {
                         
@@ -177,7 +178,7 @@ extension ChatVC {
         }
     }
     
-    fileprivate func showAuthorizeButton(_ show: Bool) {
+    func showAuthorizeButton(_ show: Bool) {
         
         requestAuthorizationViewHeight.constant = show ? 160 : 0
         authorizationView.isHidden = !show

@@ -59,6 +59,12 @@ class SlideOutVC: UIViewController {
         
     }
     
+    @IBAction func sendButtonTapped(_ sender: Any) {
+    
+        let vc = CreateAccount(false)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @IBAction func logoutButtonTapped(_ sender: Any) {
         
         if Reachability.forInternetConnection().isReachable() {

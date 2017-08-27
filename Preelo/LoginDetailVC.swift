@@ -62,6 +62,8 @@ class LoginDetailVC: UIViewController {
     
     @IBAction func createAccountButtonTapped(_ sender: Any) {
    
+        let vc = CreateAccount(true)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -180,6 +182,7 @@ extension LoginDetailVC {
                     self.defaults.set(encodedData, forKey: "userProfile")
                     self.defaults.synchronize()
                     
+                    StaticContentFile.createDB()
                     self.callChannelAPI()
                 } else if let result = response.result.value, result.status == "VERIFY" {
                     

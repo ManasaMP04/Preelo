@@ -220,7 +220,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fRU-Kw-YGM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="996" y="181"/>
+            <point key="canvasLocation" x="1284" y="105"/>
         </scene>
         <!--Login DetailVC-->
         <scene sceneID="lHB-Ji-hVE">
@@ -617,7 +617,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Qh-P6-RtW">
-                                <rect key="frame" x="70" y="208" width="180" height="70"/>
+                                <rect key="frame" x="70" y="188" width="180" height="70"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="glj-3Q-Bst"/>
@@ -633,7 +633,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5b-nz-5cg">
-                                <rect key="frame" x="20" y="385" width="280" height="45"/>
+                                <rect key="frame" x="20" y="395" width="280" height="45"/>
                                 <color key="backgroundColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="KIF-eN-9qM"/>
@@ -646,7 +646,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="emh-ft-5xm">
-                                <rect key="frame" x="70" y="110" width="180" height="70"/>
+                                <rect key="frame" x="70" y="90" width="180" height="70"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="29e-4N-d6m"/>
@@ -661,16 +661,34 @@
                                     <segue destination="RVK-GT-Mon" kind="show" id="Hmg-YQ-x9Q"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k38-I4-UaY">
+                                <rect key="frame" x="70" y="286" width="180" height="70"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="7nx-Iu-Xak"/>
+                                    <constraint firstAttribute="width" constant="180" id="ZMU-Wt-nR2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
+                                <inset key="titleEdgeInsets" minX="-30" minY="50" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="72" minY="0.0" maxX="0.0" maxY="20"/>
+                                <state key="normal" title="Send Invite" image="Settings"/>
+                                <connections>
+                                    <action selector="sendButtonTapped:" destination="TvH-fx-vlA" eventType="touchUpInside" id="wHN-D0-kvq"/>
+                                    <action selector="settingsButtonTapped:" destination="TvH-fx-vlA" eventType="touchUpInside" id="gJ2-x6-7HX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.23529411759999999" green="0.71372549019999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="emh-ft-5xm" firstAttribute="centerX" secondItem="5Ye-us-Ck0" secondAttribute="centerX" id="1U2-m8-96o"/>
                             <constraint firstItem="6Qh-P6-RtW" firstAttribute="top" secondItem="emh-ft-5xm" secondAttribute="bottom" constant="28" id="1cf-uw-7lW"/>
+                            <constraint firstItem="k38-I4-UaY" firstAttribute="top" secondItem="6Qh-P6-RtW" secondAttribute="bottom" constant="28" id="4kn-yt-Cbz"/>
+                            <constraint firstItem="k38-I4-UaY" firstAttribute="centerX" secondItem="6Qh-P6-RtW" secondAttribute="centerX" id="6VT-9B-zTr"/>
                             <constraint firstItem="rNR-cB-OaH" firstAttribute="top" secondItem="5Ye-us-Ck0" secondAttribute="top" id="AMg-uc-mlT"/>
                             <constraint firstItem="6Qh-P6-RtW" firstAttribute="centerX" secondItem="emh-ft-5xm" secondAttribute="centerX" id="DWh-hF-B8o"/>
                             <constraint firstItem="5gA-k0-QPo" firstAttribute="centerY" secondItem="rNR-cB-OaH" secondAttribute="centerY" id="Exh-XZ-cd3"/>
-                            <constraint firstItem="bNM-Rx-gmH" firstAttribute="top" secondItem="w5b-nz-5cg" secondAttribute="bottom" constant="50" id="MLi-9j-PZl"/>
-                            <constraint firstItem="emh-ft-5xm" firstAttribute="top" secondItem="5gA-k0-QPo" secondAttribute="bottom" constant="70" id="bgY-yE-Mhs"/>
+                            <constraint firstItem="bNM-Rx-gmH" firstAttribute="top" secondItem="w5b-nz-5cg" secondAttribute="bottom" constant="40" id="MLi-9j-PZl"/>
+                            <constraint firstItem="emh-ft-5xm" firstAttribute="top" secondItem="5gA-k0-QPo" secondAttribute="bottom" constant="50" id="bgY-yE-Mhs"/>
                             <constraint firstItem="rNR-cB-OaH" firstAttribute="leading" secondItem="5Ye-us-Ck0" secondAttribute="leading" id="mPK-Gp-lVA"/>
                             <constraint firstItem="5gA-k0-QPo" firstAttribute="centerX" secondItem="5Ye-us-Ck0" secondAttribute="centerX" id="uvB-id-EsW"/>
                             <constraint firstItem="w5b-nz-5cg" firstAttribute="leading" secondItem="5Ye-us-Ck0" secondAttribute="leading" constant="20" id="xZp-qx-9bc"/>
@@ -1312,7 +1330,7 @@ intended for diagnosis or prescription. Please agree to the above terms to conti
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="36K-Ej-Qpd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1802" y="-61"/>
+            <point key="canvasLocation" x="1997" y="-61"/>
         </scene>
     </scenes>
     <resources>

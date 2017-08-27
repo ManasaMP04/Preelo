@@ -86,17 +86,7 @@ class ChatCell: UITableViewCell {
             self.name.text = auth.title
             showAuthRequestTitle(auth.subtitle)
             
-            initial.isHidden = false
             parentName.text = ""
-            
-            if let  firstCh = auth.relationship.characters.first, StaticContentFile.isDoctorLogIn()  {
-                
-                let srt = "\(firstCh)"
-                initial.text = srt.uppercased()
-            } else if !StaticContentFile.isDoctorLogIn() {
-                
-                initial.text = "D"
-            }
         }  else if let channel = data as? ChannelDetail {
             
             if let message = channel.recent_message.last {
