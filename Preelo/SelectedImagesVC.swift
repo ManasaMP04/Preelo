@@ -48,13 +48,19 @@ class SelectedImagesVC: UIViewController {
         
         sendButton.layer.cornerRadius = 30
         sendButton.clipsToBounds = true
+        selectImageButton.layer.cornerRadius = 30
+        selectImageButton.clipsToBounds = true
+        selectImageButton.layer.borderWidth = 1
+        sendButton.layer.borderWidth = 1
+        sendButton.layer.borderColor = UIColor.colorWithHex(0x3CCAE0).cgColor
+        selectImageButton.layer.borderColor = UIColor.colorWithHex(0x3CCAE0).cgColor
         scrollview.minimumZoomScale = 1.0
         scrollview.maximumZoomScale = 6.0
         scrollview.delegate = self
         
         customNavigation.setTitle("Selected Images")
         customNavigation.delegate = self
-        isCamera ? selectImageButton.setImage(UIImage(named: "Camera"), for: .normal) : selectImageButton.setImage(UIImage(named: "Gallery"), for: .normal)
+        isCamera ? selectImageButton.setImage(UIImage(named: "camera-Active"), for: .normal) : selectImageButton.setImage(UIImage(named: "Gallery-Icon Active"), for: .normal)
         collectionViewHeight.constant = 0
         imageView.image = imageList[0]
         collectionView.register(UINib(nibName: "ImageCell", bundle: nil), forCellWithReuseIdentifier: ImageCell.cellId)

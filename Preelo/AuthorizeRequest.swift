@@ -12,6 +12,7 @@ class AuthorizeRequest: Mappable {
     
     var message         = ""
     var status          = ""
+    var auth_status     = ""
     var authRequest     = [DocAuthorizationRequest]()
     
     
@@ -24,6 +25,7 @@ class AuthorizeRequest: Mappable {
         
         message             <- map["message"]
         status              <- map["status"]
+        auth_status         <- map["auth_status"]
         authRequest         <- map["data"]
          
     

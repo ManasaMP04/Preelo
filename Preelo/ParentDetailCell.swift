@@ -52,10 +52,10 @@ class ParentDetailCell: UITableViewCell {
         
         initial.isHidden = !showInitial
         initialWidth.constant = showInitial ? 28 : 0
-        imageViewWidth.constant = showImage ? 28 : 0
+        imageViewWidth.constant = showImage ? 15 : 0
         imageView1.isHidden = !showImage
         initial.text = initialText
-        nameLabelLeading.constant = (showImage || showInitial) ? 20 : 37
+        nameLabelLeading.constant = (showImage || showInitial) ? 15 : 37
         editTrailing.constant = StaticContentFile.isDoctorLogIn() ? 30 : 10
         editButton.isHidden = !showEdit
         editButtonWidth.constant = showEdit ? 45 : 0

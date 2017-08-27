@@ -325,7 +325,7 @@ extension StaticContentFile {
                 
                 for (i,msg) in msgs.enumerated() {
                 
-                    if let id = msg["channel_id"] as? Int, let lastId = msg["lastMsgId"] as? Int,  id == -1 || id > lastId  {
+                    if let id = msg["message_id"] as? Int, let lastId = obj["lastMsgId"] as? Int,  id == -1 || id > lastId  {
                       
                         list.remove(at: i)
                     }

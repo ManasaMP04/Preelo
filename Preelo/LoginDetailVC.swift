@@ -72,9 +72,12 @@ extension LoginDetailVC {
     @IBAction func loginButtonTapped(_ sender: Any) {
         
         if let email = userName.text, let password = password.text,
-            StaticContentFile.isValidEmail(email) , password.characters.count > 0 {
+            StaticContentFile.isValidEmail(email) , password.characters.count > 0, Reachability.forInternetConnection().isReachable() {
             
             isDoctorLogIn ? callLogiApi(email, password: password, urlRequest: LogInRouter.doc_post(email, password)) : callLogiApi(email, password: password, urlRequest: LogInRouter.post(email, password))
+        } else if !Reachability.forInternetConnection().isReachable() {
+        
+            self.view.showToast(message: "Please check the internet connection")
         } else if let email = userName.text, !StaticContentFile.isValidEmail(email) {
             
             view.showToast(message: "Email id is invalid")

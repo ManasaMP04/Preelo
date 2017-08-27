@@ -108,12 +108,12 @@ class ParentDetailVC: UIViewController {
                 _ = navigationController?.popToViewController(addPatientVC, animated: true)
                 
             }
-        } else if let email = email.text, StaticContentFile.isValidEmail(email) {
-            
-            view.showToast(message: "Email Id is invalid")
         } else if let text = phoneNumber.text, text.characters.count < 10 {
             
             view.showToast(message: "Phone number is invalid")
+        } else if let email = email.text, StaticContentFile.isValidEmail(email) {
+            
+            view.showToast(message: "Email Id is invalid")
         } else {
             
             view.showToast(message: "Please enter the required fields")

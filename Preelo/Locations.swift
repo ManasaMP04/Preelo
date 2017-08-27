@@ -22,7 +22,7 @@ class Locations: Mappable {
     var country         = ""
     var cwho            = 0
     var uwho            = 0
-
+    var faxes           = ""
     
     required init?(map: Map) {
         
@@ -42,5 +42,6 @@ class Locations: Mappable {
         cwho             <- map["cwho"]
         uwho             <- map["uwho"]
         phones           <- map["phones"]
+        faxes            <- map["faxes"]
     }
 }

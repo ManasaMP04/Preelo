@@ -35,7 +35,7 @@
                                 <constraint firstAttribute="height" constant="45" id="Kmv-Z9-5bh"/>
                                 <constraint firstAttribute="width" constant="45" id="TlN-07-qFB"/>
                             </constraints>
-                            <state key="normal" image="Delete"/>
+                            <state key="normal" image="Delete-White"/>
                             <connections>
                                 <action selector="deleteButtonTapped:" destination="-1" eventType="touchUpInside" id="hpV-7h-0lC"/>
                             </connections>
@@ -69,7 +69,7 @@
                 </scrollView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Lf-Yf-txV">
                     <rect key="frame" x="295" y="512" width="60" height="60"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="60" id="G1B-ZD-A8m"/>
                         <constraint firstAttribute="height" constant="60" id="Ury-yH-diY"/>
@@ -99,12 +99,13 @@
                     </connections>
                 </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iDG-w4-W8s">
-                    <rect key="frame" x="16" y="507" width="60" height="65"/>
+                    <rect key="frame" x="16" y="512" width="60" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="65" id="Vs2-gx-oVG"/>
+                        <constraint firstAttribute="height" constant="60" id="Vs2-gx-oVG"/>
                         <constraint firstAttribute="width" constant="60" id="dYD-ZN-aqq"/>
                     </constraints>
+                    <state key="normal" image="Camera"/>
                     <connections>
                         <action selector="selectImageButtonTapped:" destination="-1" eventType="touchUpInside" id="FhQ-6g-Gy4"/>
                     </connections>
@@ -132,7 +133,8 @@
     </objects>
     <resources>
         <image name="Add-Patient" width="33" height="33"/>
-        <image name="Delete" width="20" height="25"/>
-        <image name="Send-Icon" width="40" height="40"/>
+        <image name="Camera" width="16" height="16"/>
+        <image name="Delete-White" width="12" height="15"/>
+        <image name="Send-Icon" width="33" height="17"/>
     </resources>
 </document>

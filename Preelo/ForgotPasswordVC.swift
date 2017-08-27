@@ -35,7 +35,7 @@ class ForgotPasswordVC: UIViewController {
     
     @IBAction func continueButtonTapped(_ sender: Any) {
         
-        if let text = emailId.text, StaticContentFile.isValidEmail(text) {
+        if let text = emailId.text, StaticContentFile.isValidEmail(text), Reachability.forInternetConnection().isReachable() {
             
             activityIndicator?.startAnimating()
             self.view.isUserInteractionEnabled = false
@@ -61,8 +61,11 @@ class ForgotPasswordVC: UIViewController {
                         self.view.showToast(message: result.message)
                     }
             }
-        } else {
+        } else if !Reachability.forInternetConnection().isReachable() {
             
+            self.view.showToast(message: "Please check the internet connection")
+        } else {
+        
             self.view.showToast(message: "Email id is invalid")
         }
     }

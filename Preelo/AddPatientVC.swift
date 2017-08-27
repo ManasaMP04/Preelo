@@ -73,9 +73,12 @@ class AddPatientVC: UIViewController {
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         
-        if let patient = patientList {
+        if let patient = patientList, Reachability.forInternetConnection().isReachable() {
             
             isEditPatient ? callAPIToEditPatient(patient): callAPIToAddPatient(patient)
+        } else {
+        
+            self.view.showToast(message: "Please check the internet connection")
         }
     }
     

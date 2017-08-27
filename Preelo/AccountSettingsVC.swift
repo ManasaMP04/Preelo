@@ -245,7 +245,7 @@ extension AccountSettingsVC {
             email.characters.count > 0, let pass = password.text,
             pass.characters.count > 0,
             let confirmPassword = confirmPassword.text,
-            confirmPassword.characters.count > 0{
+            confirmPassword.characters.count > 0, Reachability.forInternetConnection().isReachable() {
             
             self.view.isUserInteractionEnabled = false
             activityIndicator?.startAnimating()
@@ -283,6 +283,9 @@ extension AccountSettingsVC {
                     self.view.isUserInteractionEnabled = true
                     self.activityIndicator?.stopAnimating()
             }
+        } else if !Reachability.forInternetConnection().isReachable() {
+        
+            self.view.showToast(message: "Please check the internet connection")
         } else {
             
             self.view.showToast(message: "Please enter the required field")

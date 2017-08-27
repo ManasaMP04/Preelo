@@ -43,7 +43,7 @@ class FeedBackSupportVC: UIViewController {
     fileprivate func callApi() {
         
         if let subject = self.subject.text,
-            let message = self.message.text {
+            let message = self.message.text, Reachability.forInternetConnection().isReachable() {
             
             activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
             activityIndicator?.startAnimating()
@@ -65,6 +65,9 @@ class FeedBackSupportVC: UIViewController {
                         self.view.showToast(message: "Failed to send the feedback")
                     }
             }
+        } else if !Reachability.forInternetConnection().isReachable() {
+        
+             self.view.showToast(message: "Please check the internet connection")
         } else {
             
             self.view.showToast(message: "Please enter the required field")

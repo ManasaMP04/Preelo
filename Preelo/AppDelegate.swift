@@ -64,17 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         
-        StaticContentFile.deleteMessagePlist()
-        
-        Alamofire.request(AuthorizationRequestListRouter.channel_get())
-            .responseObject {(response: DataResponse<ChannelObject>) in
-                
-                if let result = response.result.value, result.status == "SUCCESS" {
-                    for detail in result.data {
-                        
-                        StaticContentFile.saveMessage(detail)
-                    }}}
-        
+        MessageVC.sharedInstance.refresh(nil)
         MessageVC.sharedInstance.establishConnection()
     }
     func applicationWillTerminate(_ application: UIApplication) {

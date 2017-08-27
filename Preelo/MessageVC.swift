@@ -30,13 +30,13 @@ class MessageVC: UIViewController {
     fileprivate var selection: Selection = .authentication
     fileprivate var activityIndicator    : UIActivityIndicatorView?
     fileprivate var pullToRefreshControl : UIRefreshControl!
-    
-    static let sharedInstance = MessageVC()
+
     fileprivate let defaults  = UserDefaults.standard
     var webSocket = [SocketIOClient]()
     fileprivate var selectedChannelId = 0
-    
     fileprivate var list = [Any]()
+    
+    static let sharedInstance = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MessageVC") as! MessageVC
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -154,7 +154,10 @@ extension MessageVC {
     
     fileprivate func callAPIToSelectDocOrPatient(_ data: ChannelDetail) {
         
-        StaticContentFile.isDoctorLogIn() ? callAPIToSelect(SelectRouter.patient_select_post(data.patientId, data.parentId, data.doctor_user_id), data: data) : callAPIToSelect(SelectRouter.doc_select_post(data.patientId, data.doctorId, data.doctor_user_id), data: data)
+        if Reachability.forInternetConnection().isReachable() {
+            
+            StaticContentFile.isDoctorLogIn() ? callAPIToSelect(SelectRouter.patient_select_post(data.patientId, data.parentId, data.doctor_user_id), data: data) : callAPIToSelect(SelectRouter.doc_select_post(data.patientId, data.doctorId, data.doctor_user_id), data: data)
+        }
     }
     
     fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible, data: ChannelDetail) {
@@ -171,7 +174,10 @@ extension MessageVC {
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    let chatVC = ChatVC(data)
+                    let channelData = data
+                    channelData.auth_status = result.auth_status
+                    
+                    let chatVC = ChatVC(channelData)
                     chatVC.delegate = self
                     self.navigationController?.pushViewController(chatVC, animated: true)
                 } else if let result = response.result.value {
@@ -227,10 +233,15 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if selection == .message, let data = list[indexPath.row] as? ChannelDetail {
+        if selection == .message, let data = list[indexPath.row] as? ChannelDetail, Reachability.forInternetConnection().isReachable()  {
             
             selectedChannelId = data.channel_id
             callAPIToSelectDocOrPatient(data)
+        }else if selection == .message, let data = list[indexPath.row] as? ChannelDetail, !Reachability.forInternetConnection().isReachable() {
+            
+            let chatVC = ChatVC(data)
+            chatVC.delegate = self
+            self.navigationController?.pushViewController(chatVC, animated: true)
         }
     }
 }
@@ -243,10 +254,10 @@ extension MessageVC: ChatCellDelegate {
         
         if let indexPath = tableview.indexPath(for: cell), let data = list[indexPath.row] as? DocAuthorizationRequest {
             
-            if isAuthAccepted {
+            if isAuthAccepted, Reachability.forInternetConnection().isReachable()  {
                 
                 callAPIForAcceptAuth( AuthorizationRequestListRouter.approveAuth_post(data.patientid, data.parentid), indexPath: indexPath, data: data)
-            } else {
+            } else if Reachability.forInternetConnection().isReachable() {
                 
                 StaticContentFile.isDoctorLogIn() ? callAPIForAcceptAuth( AuthorizationRequestListRouter.rejectAuth_post(data.patientid, data.parentid), indexPath: indexPath, data: data) : callAPIForAcceptAuth( AuthorizationRequestListRouter.cancel_AuthRequest(data.patientid, data.doctorid), indexPath: indexPath, data: data)
             }
@@ -266,13 +277,18 @@ extension MessageVC{
         tableview?.addSubview(pullToRefreshControl)
     }
     
-    func refresh(_ sender: UIRefreshControl) {
+    func refresh(_ sender: UIRefreshControl?) {
         
-        if selection == .message {
+        if selection == .message, Reachability.forInternetConnection().isReachable() {
             
             self.callChannelAPI()
-        } else {
+        } else if Reachability.forInternetConnection().isReachable() {
+            
             StaticContentFile.isDoctorLogIn() ? self.callAPIToGetAuthRequest() : self.callAPIToGetPatientAuthRequest()
+        } else if !Reachability.forInternetConnection().isReachable() {
+        
+            self.pullToRefreshControl?.endRefreshing()
+            authorizationButtonSelected(selection == .message)
         }
     }
     
@@ -422,7 +438,7 @@ extension MessageVC {
                 if data.channel_id == selectedChannelId {
                     
                     vc.channelDetail = data
-                    vc.refresh(true)
+                    vc.refresh()
                     return
                 }
             }

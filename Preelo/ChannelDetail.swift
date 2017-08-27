@@ -63,6 +63,8 @@ class ChannelDetail: Mappable {
     var auth_status         = ""
     var doctor_user_id      = 0
     var lastMsgId           = -1
+    var chatTitle           = ""
+    var chatLabelTitle      = ""
     
     required init?(map: Map) {
         
@@ -89,6 +91,8 @@ class ChannelDetail: Mappable {
         lastMsgId           <- map["lastMsgId"]
         parentname          <- map["parentname"]
         doctor_initials     <- map["doctor_initials"]
+        chatTitle           <- map["chat_title"]
+        chatLabelTitle      <- map["chat_message_label"]
     }
     
     func modelToDict() -> [String : Any] {
@@ -117,6 +121,8 @@ class ChannelDetail: Mappable {
         dict["auth_status"] = auth_status
         dict["doctor_user_id"] = doctor_user_id
         dict["lastMsgId"]  = lastMsgId
+        dict["chat_title"]  = chatTitle
+        dict["chat_message_label"]  = chatLabelTitle
         
         return dict
     }

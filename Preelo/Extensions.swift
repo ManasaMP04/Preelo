@@ -117,9 +117,9 @@ extension UIActivityIndicatorView {
     
     static func activityIndicatorToView(_ view: UIView) -> UIActivityIndicatorView {
         
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
-        activityIndicator.backgroundColor = UIColor.lightGray
-        
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.backgroundColor = UIColor.white
+        activityIndicator.color = UIColor.colorWithHex(0x3eb1d6)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(activityIndicator)
         

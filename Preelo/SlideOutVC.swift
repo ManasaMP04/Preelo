@@ -61,23 +61,28 @@ class SlideOutVC: UIViewController {
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
         
-        activityIndicator?.startAnimating()
-        self.view.isUserInteractionEnabled = false
-        
-        Alamofire.request(LogoutRouter.post())
-            .responseObject { (response: DataResponse<logOut>) in
-                
-                self.activityIndicator?.stopAnimating()
-                self.view.isUserInteractionEnabled = true
-                if let _ = response.result.value {
+        if Reachability.forInternetConnection().isReachable() {
+            
+            activityIndicator?.startAnimating()
+            self.view.isUserInteractionEnabled = false
+            
+            Alamofire.request(LogoutRouter.post())
+                .responseObject { (response: DataResponse<logOut>) in
                     
-                    self.popToLogin()
-                } else if let result = response.result.value {
-                
-                    self.view.showToast(message: result.message)
-                } else {
-                
-                    self.view.showToast(message: "please try again")
-                }}
+                    self.activityIndicator?.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
+                    if let _ = response.result.value {
+                        
+                        self.popToLogin()
+                    } else if let result = response.result.value {
+                        
+                        self.view.showToast(message: result.message)
+                    } else {
+                        
+                        self.view.showToast(message: "please try again")
+                    }}} else if !Reachability.forInternetConnection().isReachable() {
+            
+            self.view.showToast(message: "Please check the internet connection")
+        }
     }
 }

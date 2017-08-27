@@ -93,13 +93,13 @@ enum PatientRouter:  URLRequestConvertible {
                                       "phonenumber": family.phone,
                                       "email" : family.email]
                     
-                    if family.parentid > 0 {
-                    
-                        familyDict["parentid"] = family.parentid
-                    }
-                    
+                    familyDict["parentid"] = family.parentid > 0 ? family.parentid : nil
                     families.append(familyDict)
-                    
+                }
+                
+                if list.family.count > 0 {
+                
+                    let family = list.family[0]
                     dict["patientid"] = family.patientid
                 }
                 

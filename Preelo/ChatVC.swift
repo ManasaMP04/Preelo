@@ -63,7 +63,7 @@ class ChatVC: UIViewController {
         
         self.channelDetail = channelDetail
         self.isPatient_DocFlow = false
-        name =  StaticContentFile.isDoctorLogIn() ? "\(channelDetail.parentname) - \(channelDetail.relationship)" : channelDetail.doctorname
+        name =  channelDetail.chatTitle
         
         super.init(nibName: "ChatVC", bundle: nil)
     }
@@ -113,13 +113,16 @@ extension ChatVC {
     
     @IBAction func requestAuthorisationButtonTapped(_ sender: Any) {
         
-        if StaticContentFile.isDoctorLogIn(), let _ = channelDetail {
+        if StaticContentFile.isDoctorLogIn(), let _ = channelDetail, Reachability.forInternetConnection().isReachable() {
             
             callApiToAuthorize()
-        } else {
+        } else if !StaticContentFile.isDoctorLogIn() {
             
             let vc = DisclaimerVC(channelDetail)
             navigationController?.pushViewController(vc, animated: true)
+        } else if Reachability.forInternetConnection().isReachable() {
+            
+            self.view.showToast(message: "Please check the internet connection")
         }
     }
     
@@ -147,30 +150,36 @@ extension ChatVC {
     
     @IBAction func deauthorizeButtonTapped(_ sender: Any) {
         
-        self.view.isUserInteractionEnabled = false
-        self.activityIndicator?.startAnimating()
-        Alamofire.request(AuthorizationRequestListRouter.deAuthorize(channelDetail.patientId, channelDetail.parentId))
-            .responseObject { (response: DataResponse<SuccessStatus>) in
-                
-                self.view.isUserInteractionEnabled = true
-                self.activityIndicator?.stopAnimating()
-                
-                if let result = response.result.value, result.status == "SUCCESS" {
+        if Reachability.forInternetConnection().isReachable() {
+            
+            self.view.isUserInteractionEnabled = false
+            self.activityIndicator?.startAnimating()
+            Alamofire.request(AuthorizationRequestListRouter.deAuthorize(channelDetail.patientId, channelDetail.parentId))
+                .responseObject { (response: DataResponse<SuccessStatus>) in
                     
-                    self.showAuthorizeButton(true)
-                    self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
-                } else if let result = response.result.value {
+                    self.view.isUserInteractionEnabled = true
+                    self.activityIndicator?.stopAnimating()
                     
-                    self.view.showToast(message: result.message)
-                } else {
-                    
-                    self.view.showToast(message: "Please try again later")
-                }}
+                    if let result = response.result.value, result.status == "SUCCESS" {
+                        
+                        self.showAuthorizeButton(true)
+                        self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
+                    } else if let result = response.result.value {
+                        
+                        self.view.showToast(message: result.message)
+                    } else {
+                        
+                        self.view.showToast(message: "Please try again later")
+                    }}
+        } else {
+            
+            self.view.showToast(message: "Please check the network connection")
+        }
     }
     
     fileprivate func showAuthorizeButton(_ show: Bool) {
         
-        self.requestAuthorizationViewHeight.constant =  show ? 150 : 0
+        self.requestAuthorizationViewHeight.constant =  show ? 160 : 0
         self.tableViewHeight.constant = StaticContentFile.screenHeight - 170 - self.requestAuthorizationViewHeight.constant
         self.deauthorizeButton.isHidden = !show
         self.authorizationView.isHidden = show
@@ -233,46 +242,32 @@ extension ChatVC {
         tableview.estimatedRowHeight = 20
         tableview.rowHeight  = UITableViewAutomaticDimension
         
-        self.view.isUserInteractionEnabled = false
-        activityIndicator?.startAnimating()
-        callApiToGetMessages()
+        self.messageList.removeAll()
+        
+        if Reachability.forInternetConnection().isReachable() {
+            
+            self.view.isUserInteractionEnabled = false
+            activityIndicator?.startAnimating()
+            callApiToGetMessages()
+        } else if let data = StaticContentFile.getChannelDetail(self.channelDetail) {
+            
+            self.messageList = data.recent_message
+            self.tableview.reloadData()
+            self.scrollToButtom()
+        }
     }
     
-    func refresh(_ scrollDirectlyToBottom: Bool = false) {
+    func refresh() {
         
-        if  !isPatient_DocFlow {
+        if  !isPatient_DocFlow, Reachability.forInternetConnection().isReachable() {
             
-            if channelDetail.lastMsgId == -1 {
+            if channelDetail.unread_count > 0 {
                 
-                self.view.isUserInteractionEnabled = false
-                activityIndicator?.startAnimating()
-                callApiToGetMessages()
-            } else if channelDetail.unread_count > 0 {
-                
-                self.messageList = channelDetail.recent_message
-                
-                if scrollDirectlyToBottom {
-                    
-                    callApiToGetMessages()
-                    self.messageList.removeLast()
-                } else {
-                    
-                    self.tableview.reloadData()
-                    scrollToButtom()
-                    footerActivityIndicator?.startAnimating()
-                    callApiToGetMessages()
-                    self.messageList.removeLast()
-                }
-            } else {
-                
-                self.messageList = channelDetail.recent_message
-                self.tableview.reloadData()
-                self.view.layoutIfNeeded()
-                scrollToButtom()
+                callApiToGetMessages(true)
             }
+            
+            showTheAuthRequestButton()
         }
-        
-        showTheAuthRequestButton()
     }
     
     fileprivate func showAuthRequestTitle(_ title: String) {
@@ -285,10 +280,10 @@ extension ChatVC {
     
     fileprivate func showTheAuthRequestButton() {
         
-        if !StaticContentFile.isDoctorLogIn(), channelDetail.auth_status.lowercased() != "t" {
+        if !StaticContentFile.isDoctorLogIn(), channelDetail?.auth_status.lowercased() != "t" {
             
             showAuthRequestTitle("You are not authorized to send messages. Please submit the Authorization Button to request authorization to send messages")
-            requestAuthorizationViewHeight.constant = 150
+            requestAuthorizationViewHeight.constant = 160
             authorizationView.isHidden = false
             toolbarView.isUserInteractionEnabled = false
             cameraButton.setImage(UIImage(named: "Camera_Inactive"), for: .normal)
@@ -353,21 +348,27 @@ extension ChatVC {
     
     fileprivate func callAPIToSendText(_ text: String) {
         
-        messageTF.text = ""
-        self.view.endEditing(true)
-        Alamofire.request(SendTextMessageRouter.post(text))
-            .responseObject { (response: DataResponse<SuccessStatus>) in
-                
-                if let result = response.result.value, result.status == "SUCCESS" {} else {
+        if Reachability.forInternetConnection().isReachable() {
+            
+            messageTF.text = ""
+            self.view.endEditing(true)
+            Alamofire.request(SendTextMessageRouter.post(text))
+                .responseObject { (response: DataResponse<SuccessStatus>) in
                     
-                    self.view.showToast(message: "Send Message Failed")
-                } } .responseString { (string) in
-                    
-                    print(string)
+                    if let result = response.result.value, result.status == "SUCCESS" {} else {
+                        
+                        self.view.showToast(message: "Send Message Failed")
+                    } } .responseString { (string) in
+                        
+                        print(string)
+            }
+        } else {
+            
+            self.view.showToast(message: "Please check the internet connection")
         }
     }
     
-    fileprivate func callApiToGetMessages() {
+    fileprivate func callApiToGetMessages(_ insertRow: Bool = false) {
         
         Alamofire.request(SendTextMessageRouter.get(channelDetail))
             .responseArray(keyPath: "data") {(response: DataResponse<[RecentMessages]>) in
@@ -375,7 +376,8 @@ extension ChatVC {
                 self.activityIndicator?.stopAnimating()
                 self.footerActivityIndicator?.stopAnimating()
                 self.view.isUserInteractionEnabled = true
-                
+                self.view.layoutIfNeeded()
+                sleep(10)
                 if let result = response.result.value {
                     
                     self.callapiToMarkedRead()
@@ -385,13 +387,28 @@ extension ChatVC {
                         StaticContentFile.saveMessage(msg, channelDetail: self.channelDetail)
                         self.channelDetail.lastMsgId = msg.message_id
                     }
-                    self.messageList.removeAll()
-                    if let data = StaticContentFile.getChannelDetail(self.channelDetail) {
+                    
+                    if let data = StaticContentFile.getChannelDetail(self.channelDetail), insertRow {
+                        
+                        var array = [RecentMessages]()
+                        array  =  self.messageList
+                        self.messageList = data.recent_message
+                        
+                        var i = 0
+                        while i <= result.count - 1 {
+                            
+                            self.tableview.beginUpdates()
+                            self.tableview.insertRows(at: [IndexPath(row: array.count + i,section: 0)], with: .automatic)
+                            self.tableview.endUpdates()
+                            
+                            i = i+1
+                        }
+                    } else if let data = StaticContentFile.getChannelDetail(self.channelDetail) {
                         
                         self.messageList = data.recent_message
+                        self.tableview.reloadData()
                     }
                     
-                    self.tableview.reloadData()
                     self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
                     self.scrollToButtom()
                 } else {
@@ -460,7 +477,7 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: ImageListCell.cellId, for: indexPath) as! ImageListCell
             cell.delegate = self
-            cell.showImages(message, name: name)
+            cell.showImages(message, name: channelDetail.chatLabelTitle)
             
             return cell
             
@@ -520,7 +537,7 @@ extension ChatVC {
                 view.layoutIfNeeded()
             }
             
-            self.scrollViewBottomInset = kbSize.height - 40
+            self.scrollViewBottomInset = kbSize.height
         }
     }
     
@@ -558,54 +575,63 @@ extension ChatVC : SelectedImagesVCDelegate {
     
     func uploadImage () {
         
-        self.activityIndicator?.startAnimating()
-        for (index,image) in images.enumerated() {
+        if Reachability.forInternetConnection().isReachable() {
             
-            var url = URL(string: NetworkURL.baseUrl)!
-            
-            url = url.appendingPathComponent(NetworkURL.sendImage)
-            var urlRequest = URLRequest(url: url)
-            urlRequest.httpMethod = "POST"
-            
-            let parameters = ["token": StaticContentFile.getToken(),
-                              "message_text": "Photos"]
-            
-            do {
-                urlRequest.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
-            } catch {
-                print(error)
-            }
-            
-            urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            urlRequest.setValue(StaticContentFile.getToken(), forHTTPHeaderField: "authorization")
-            
-            Alamofire.upload(multipartFormData: { MultipartFormData in
+            self.activityIndicator?.startAnimating()
+            for (index,image) in images.enumerated() {
                 
-                if let imgData = UIImageJPEGRepresentation(image, 0.5) {
-                    
-                    MultipartFormData.append(imgData, withName: "image", fileName: "image", mimeType: "image/jpg")
+                var url = URL(string: NetworkURL.baseUrl)!
+                
+                url = url.appendingPathComponent(NetworkURL.sendImage)
+                var urlRequest = URLRequest(url: url)
+                urlRequest.httpMethod = "POST"
+                
+                let parameters = ["token": StaticContentFile.getToken(),
+                                  "message_text": "Photos"]
+                
+                do {
+                    urlRequest.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+                } catch {
+                    print(error)
                 }
-            },with: urlRequest,encodingCompletion: { encodingResult in
                 
-                switch encodingResult {
+                urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                urlRequest.setValue(StaticContentFile.getToken(), forHTTPHeaderField: "authorization")
+                
+                Alamofire.upload(multipartFormData: { MultipartFormData in
                     
-                case .success(let upload, _, _):
-                    
-                    upload.responseString { response in
+                    if let imgData = UIImageJPEGRepresentation(image, 0.5) {
                         
-                        if index == self.images.count - 1 {
+                        MultipartFormData.append(imgData, withName: "image", fileName: "image", mimeType: "image/jpg")
+                    }
+                },with: urlRequest,encodingCompletion: { encodingResult in
+                    
+                    switch encodingResult {
+                        
+                    case .success(let upload, _, _):
+                        
+                        upload.responseString { response in
                             
-                            self.activityIndicator?.stopAnimating()
-                        }
-                        if let JSON = response.result.value {
-                            print("JSON: \(JSON)")
-                        }
-                    } case .failure(let error):
-                        
-                        self.activityIndicator?.stopAnimating()
-                        print(error)
-                }
-            })
+                            if index == self.images.count - 1 {
+                                
+                                self.activityIndicator?.stopAnimating()
+                            }
+                            if let JSON = response.result.value {
+                                print("JSON: \(JSON)")
+                            }
+                        } case .failure(let error):
+                            
+                            if index == self.images.count - 1 {
+                                
+                                self.activityIndicator?.stopAnimating()
+                            }
+                            
+                            print(error)
+                    }
+                })
+            }} else {
+            
+            self.view.showToast(message: "Please check the internet connection")
         }
     }
 }

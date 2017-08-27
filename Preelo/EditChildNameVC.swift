@@ -112,7 +112,7 @@ extension EditChildNameVC {
         if let fName = self.childrenFirstName.text,
             fName.characters.count > 0,
             let lName = self.childrenLastName.text,
-            lName.characters.count > 0 {
+            lName.characters.count > 0, Reachability.forInternetConnection().isReachable() {
             
             activityIndicator?.startAnimating()
             self.view.isUserInteractionEnabled = false
@@ -146,7 +146,10 @@ extension EditChildNameVC {
                         self.view.showToast(message: "Failed to send the feedback")
                     }
             }
-        } else {
+        } else if !Reachability.forInternetConnection().isReachable() {
+        
+            self.view.showToast(message: "Please check the internet connection")
+        }else {
             
             self.view.showToast(message: "Please enter the required field")
         }

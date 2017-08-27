@@ -107,6 +107,9 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
             } else if let detail = docDetail[indexPath.row - 1] as? DoctorPhoneNumbers {
                 
                 cell.showParentName(detail.phone_number , showImage: false, showEdit: true, image: "phone", showLocation: false, font: UIFont(name: "Ubuntu-Light", size: 14)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
+            } else if let detail = docDetail[indexPath.row - 1] as? String {
+                
+                cell.showParentName(detail , showImage: false, showEdit: false, image: nil, showLocation: false, font: UIFont(name: "Ubuntu-Light", size: 14)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
             }
         }
         
@@ -172,6 +175,11 @@ extension PatientListVC: ParentDetailCellDelegate {
                     for phone in loc.phones {
                         
                         docDetail.append(phone)
+                    }
+                    
+                    if loc.faxes.characters.count > 0 {
+                    
+                        docDetail.append(loc.faxes)
                     }
                 }
             }

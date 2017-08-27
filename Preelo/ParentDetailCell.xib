@@ -32,10 +32,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Man-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="wfQ-OD-CbL">
-                                <rect key="frame" x="15" y="8" width="28" height="28"/>
+                                <rect key="frame" x="15" y="14.5" width="20" height="15"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="8Wh-YL-gtR"/>
-                                    <constraint firstAttribute="width" constant="28" id="d8M-7G-dk0"/>
+                                    <constraint firstAttribute="height" constant="15" id="8Wh-YL-gtR"/>
+                                    <constraint firstAttribute="width" constant="20" id="d8M-7G-dk0"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBY-GP-FNy">
@@ -73,7 +73,7 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D4M-rj-nYu">
-                                <rect key="frame" x="15" y="8.5" width="28" height="28"/>
+                                <rect key="frame" x="15" y="15" width="28" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="luS-e1-H0q"/>
                                 </constraints>
@@ -138,9 +138,9 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Block" width="20" height="20"/>
-        <image name="Location" width="17" height="24"/>
-        <image name="LocationDis" width="17" height="24"/>
-        <image name="Man-Icon" width="28" height="28"/>
+        <image name="Block" width="19" height="19"/>
+        <image name="Location" width="16" height="22"/>
+        <image name="LocationDis" width="16" height="22"/>
+        <image name="Man-Icon" width="14" height="14"/>
     </resources>
 </document>
