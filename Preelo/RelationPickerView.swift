@@ -9,7 +9,7 @@
 import UIKit
 import DXPopover
 
-fileprivate let height = 30
+fileprivate let height = 40
 
 protocol RelationPickerViewDelegate: class {
     

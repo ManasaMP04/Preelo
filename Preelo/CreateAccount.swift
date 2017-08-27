@@ -79,7 +79,7 @@ class CreateAccount: UIViewController {
     @IBAction func CountryCodeTapped(_ sender: Any) {
         
         selection = .countryCode
-        presentPIckerView(ccView, data: cityList.countryCode)
+        presentPIckerView(countryCodeButton, data: cityList.countryCode)
     }
     
     @IBAction func stateTapped(_ sender: Any) {
