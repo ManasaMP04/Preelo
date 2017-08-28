@@ -195,6 +195,16 @@ extension CreateAccount {
         isForCreateAccount ? customNavigationBar.setTitle("Create New Account") : customNavigationBar.setTitle("Send Invite")
         customNavigationBar.delegate = self
         
+        firstName.selectAll(self)
+        lastName.selectAll(self)
+        email.selectAll(self)
+        phoneNumber.selectAll(self)
+        
+        firstName.copy(self)
+        lastName.copy(self)
+        email.copy(self)
+        phoneNumber.copy(self)
+        
         firstName.isCompleteBoarder = true
         firstName.textFieldDelegate = self
         phoneNumber.isCompleteBoarder = true

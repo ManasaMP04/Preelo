@@ -26,12 +26,12 @@
                   moduleName = "Preelo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/manasamp/Desktop/training/Preelo/MessageVC.swift"
-                  timestampString = "525558616.861811"
+                  timestampString = "525624346.31783"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "545"
                   endingLineNumber = "545"
-                  offsetFromSymbolStart = "38">
+                  offsetFromSymbolStart = "24">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -41,12 +41,12 @@
                   moduleName = "Preelo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/manasamp/Desktop/training/Preelo/MessageVC.swift"
-                  timestampString = "525558616.864108"
+                  timestampString = "525624346.319476"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "545"
                   endingLineNumber = "545"
-                  offsetFromSymbolStart = "456">
+                  offsetFromSymbolStart = "364">
                </Location>
             </Locations>
          </BreakpointContent>

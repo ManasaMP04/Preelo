@@ -171,6 +171,11 @@ extension AddPatientVC {
         StaticContentFile.setFontForTF(firstName)
         showDefaultValues()
         
+        firstName.selectAll(self)
+        lastName.selectAll(self)
+        firstName.copy(self)
+        lastName.copy(self)
+        
         firstName.textFieldDelegate = self
         lastName.textFieldDelegate = self
         firstName.validateForInputType(.generic, andNotifyDelegate: self)

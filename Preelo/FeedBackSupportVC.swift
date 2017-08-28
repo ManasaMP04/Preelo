@@ -76,6 +76,11 @@ class FeedBackSupportVC: UIViewController {
     
     fileprivate func setup(){
         
+        subject.selectAll(self)
+        message.selectAll(self)
+        subject.copy(self)
+        message.copy(self)
+        
         subject.isCompleteBoarder = true
         message.isCompleteBoarder = true
         subject.textFieldDelegate = self

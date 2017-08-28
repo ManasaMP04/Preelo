@@ -11,7 +11,7 @@ import UIKit
 class FromMessageCell: UITableViewCell {
     
     @IBOutlet fileprivate weak var cardView             : UIView!
-    @IBOutlet fileprivate weak var descriptionLabel     : UILabel!
+    @IBOutlet fileprivate(set) weak var descriptionLabel: UILabel!
     @IBOutlet fileprivate weak var timeStamp            : UILabel!
     
     static let cellId = "FromMessageCell"

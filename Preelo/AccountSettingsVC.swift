@@ -178,6 +178,19 @@ extension AccountSettingsVC {
         
         tableView.tableFooterView = UIView()
         
+        firstName.selectAll(self)
+        lastName.selectAll(self)
+        confirmPassword.selectAll(self)
+        emailAddress.selectAll(self)
+        phoneNumber.selectAll(self)
+        password.selectAll(self)
+        
+        firstName.copy(self)
+        lastName.copy(self)
+        confirmPassword.copy(self)
+        emailAddress.copy(self)
+        phoneNumber.copy(self)
+        password.copy(self)
         
         firstName.textFieldDelegate = self
         lastName.textFieldDelegate = self

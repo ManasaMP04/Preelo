@@ -93,6 +93,12 @@ extension EditChildNameVC {
         childrenLastName.validateForInputType(.generic, andNotifyDelegate: self)
         customNavigation.setTitle("Edit Child Name")
         customNavigation.delegate = self
+        
+        childrenFirstName.selectAll(self)
+        childrenLastName.selectAll(self)
+        childrenFirstName.copy(self)
+        childrenLastName.copy(self)
+        
         childrenFirstName.textFieldDelegate = self
         childrenLastName.textFieldDelegate = self
         StaticContentFile.setFontForTF(childrenFirstName, autoCaps: true)

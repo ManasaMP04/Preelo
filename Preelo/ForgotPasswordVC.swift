@@ -72,6 +72,8 @@ class ForgotPasswordVC: UIViewController {
     
     fileprivate func setup() {
         
+        emailId.copy(self)
+        emailId.selectAll(self)
         emailId.setLeftViewIcon("UserName")
         emailId.textFieldDelegate = self
         emailId.validateForInputType(.email, andNotifyDelegate: self)

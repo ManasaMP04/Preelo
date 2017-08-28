@@ -9,6 +9,7 @@
 import UIKit
 import AlamofireObjectMapper
 import Alamofire
+import DXPopover
 
 protocol ChatVCDelegate: class {
     
@@ -44,6 +45,7 @@ class ChatVC: UIViewController {
     fileprivate var isPatient_DocFlow   = false
     fileprivate var parentOrDocId      = 0
     fileprivate var name                = ""
+    fileprivate let popAnimator   = DXPopover()
     
     var channelDetail       : ChannelDetail!
     
@@ -260,7 +262,7 @@ extension ChatVC {
                 self.tableview.reloadData()
                 self.scrollToButtom()
             } else {
-            
+                
                 self.view.showToast(message: "Please check the internet connection")
             }
         }
@@ -497,12 +499,19 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
         if str == "you" {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: FromMessageCell.cellId, for: indexPath) as! FromMessageCell
+            
+            let gesture = UILongPressGestureRecognizer.init(target: self, action: #selector(showCopyIcon(_:)))
+            cell.addGestureRecognizer(gesture)
+
             cell.showMessage(message)
             
             return cell
         } else {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: ToMessageCell.cellId, for: indexPath) as! ToMessageCell
+            
+            let gesture = UILongPressGestureRecognizer.init(target: self, action: #selector(showCopyIcon(_:)))
+            cell.addGestureRecognizer(gesture)
             
             cell.showMessage(message, name: name)
             
@@ -537,7 +546,7 @@ extension ChatVC {
             
             let kbSize = (dictionary.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
             
-            tableViewHeight.constant = StaticContentFile.screenHeight - kbSize.height
+            tableViewHeight.constant = StaticContentFile.screenHeight - kbSize.height + 40
             
             if messageList.count > 0 {
                 
@@ -566,6 +575,44 @@ extension ChatVC : UITextFieldDelegate {
         
         view.endEditing(true)
         return true
+    }
+}
+
+extension ChatVC {
+    
+    func showCopyIcon(_ gesture: UILongPressGestureRecognizer) {
+        
+        if !popAnimator.isHidden, let cell = gesture.view as? UITableViewCell,
+            let indexpath = tableview.indexPath(for: cell) {
+            
+            createCopyButton(indexpath.row, cell: cell)
+        }
+    }
+    
+    fileprivate func createCopyButton(_ index: Int, cell: UITableViewCell) {
+        
+        let rect1 = self.view.convert(cell.frame, from: cell.superview)
+        let v1 = UIView.init(frame: rect1)
+        let button = UIButton.init(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        button.backgroundColor = UIColor.black
+        button.addTarget(self, action: #selector(copyToClipBoard(_:)), for: .touchUpInside)
+        button.tag = index
+        button.setTitle("Copy", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        popAnimator.show(at: v1, withContentView: button, in: self.view)
+    }
+    
+    @objc fileprivate func copyToClipBoard(_ sender: UIButton) {
+        
+        if let cell = tableview.cellForRow(at: IndexPath(row: sender.tag, section: 0))  as? FromMessageCell {
+            
+            UIPasteboard.general.string = cell.descriptionLabel.text
+        } else if let cell = tableview.cellForRow(at: IndexPath(row: sender.tag, section: 0))  as? ToMessageCell {
+            
+            UIPasteboard.general.string = cell.descriptionLabel.text
+        }
+        
+        popAnimator.dismiss()
     }
 }
 

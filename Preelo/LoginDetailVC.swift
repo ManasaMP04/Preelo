@@ -118,6 +118,10 @@ extension LoginDetailVC {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
+        userName.selectAll(self)
+        password.selectAll(self)
+        userName.copy(self)
+        password.copy(self)
         userName.textFieldDelegate = self
         userName.validateForInputType(.email, andNotifyDelegate: self)
         password.textFieldDelegate = self

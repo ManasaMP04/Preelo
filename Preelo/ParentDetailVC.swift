@@ -134,6 +134,16 @@ class ParentDetailVC: UIViewController {
         customNavigationBar.setTitle("New Patient")
         customNavigationBar.delegate = self
         
+        firstName.selectAll(self)
+        email.selectAll(self)
+        phoneNumber.selectAll(self)
+        lastName.selectAll(self)
+        
+        firstName.copy(self)
+        email.copy(self)
+        phoneNumber.copy(self)
+        lastName.copy(self)
+        
         firstName.isCompleteBoarder = true
         firstName.textFieldDelegate = self
         lastName.textFieldDelegate = self

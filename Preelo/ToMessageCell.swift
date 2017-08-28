@@ -8,14 +8,20 @@
 
 import UIKit
 
+protocol ToMessageCellDelegate: class {
+    
+    func gestureIsTapedForCell(_ cell: ToMessageCell)
+}
+
 class ToMessageCell: UITableViewCell {
 
     @IBOutlet fileprivate weak var cardView         : UIView!
     @IBOutlet fileprivate weak var nameLabel        : UILabel!
-    @IBOutlet fileprivate weak var descriptionLabel : UILabel!
+    @IBOutlet fileprivate(set) weak var descriptionLabel : UILabel!
     @IBOutlet fileprivate weak var timeStamp        : UILabel!
     
     static let cellId = "ToMessageCell"
+    weak var delegate: ToMessageCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,6 +37,11 @@ class ToMessageCell: UITableViewCell {
         
     }
  
+    @objc fileprivate func showCopyIcon() {
+        
+        delegate?.gestureIsTapedForCell(self)
+    }
+    
     func showMessage(_ message: RecentMessages, name: String) {
         
         descriptionLabel.text = message.message_text
