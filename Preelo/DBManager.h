@@ -22,4 +22,6 @@
 
 - (void)update:(NSString *)query;
 
+- (int) getNumberOfRecord:(NSString *)query;
+
 @end

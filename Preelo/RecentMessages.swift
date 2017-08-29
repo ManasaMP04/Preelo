@@ -20,7 +20,7 @@ class RecentMessages: Mappable {
     var image_upload_status  = ""
     var status               = "u"
     
-    init(_ type: String, text: String = "", image: String?, senderId: String = "", timeInterval: String) {
+    init(_ type: String = "", text: String = "", image: String? = nil, senderId: String = "", timeInterval: String = "") {
         
         message_type = type
         message_text = text
@@ -33,6 +33,11 @@ class RecentMessages: Mappable {
         
         self.message_date = timeInterval
         self.senderId  = senderId
+    }
+    
+    func initRecent() {
+    
+    
     }
     
     required init?(map: Map) {

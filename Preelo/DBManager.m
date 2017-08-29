@@ -61,6 +61,7 @@
             
         }
         
+         NSLog(@"create table");
         sqlite3_close(database);
         
     }
@@ -190,6 +191,67 @@
         if (sqlite3_prepare_v2(database, insert_stmt, -1, &statement, NULL) == SQLITE_OK)
             
         {
+            while( sqlite3_step(statement) == SQLITE_ROW )
+            {
+                [self.delegate DBManager:statement];
+            }
+            
+            sqlite3_finalize(statement);
+            
+        }
+        sqlite3_close(database);
+        
+    }else
+        
+    {
+        NSLog(@"failed");
+        
+    }
+}
+
+- (int) getNumberOfRecord: (NSString *)query
+{
+    int count = 0;
+    
+    if (sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK)
+    {
+        const char* sqlStatement = [query UTF8String];
+        sqlite3_stmt *statement;
+        
+        if( sqlite3_prepare_v2(database, sqlStatement, -1, &statement, NULL) == SQLITE_OK )
+        {
+            //Loop through all the returned rows (should be just one)
+            while( sqlite3_step(statement) == SQLITE_ROW )
+            {
+                count = sqlite3_column_int(statement, 0);
+            }
+        }
+        else
+        {
+            NSLog( @"Failed from sqlite3_prepare_v2. Error is:  %s", sqlite3_errmsg(database) );
+        }
+        
+        // Finalize and close database.
+        sqlite3_finalize(statement);
+        sqlite3_close(database);
+    }
+    
+    return count;
+}
+//Get Update column from tableView
+- (void)update:(NSString *)query
+
+{
+    
+    const char *dbPath = [databasePath UTF8String];
+    if (sqlite3_open(dbPath, &database) == SQLITE_OK)
+        
+    {
+        const char *updateQuery = [query UTF8String];
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, updateQuery, -1, &statement, NULL) == SQLITE_OK)
+            
+        {
             [self.delegate DBManager:statement];
             sqlite3_finalize(statement);
             
@@ -204,32 +266,4 @@
     }
 }
 
-
-//Get Update column from tableView
-- (void)update:(NSString *)query
-
-{
-    
-//    const char *dbPath = [databasePath UTF8String];
-//    if (sqlite3_open(dbPath, &database) == SQLITE_OK)
-//        
-//    {
-//        const char *insert_stmt = [query UTF8String];
-//        sqlite3_stmt *statement;
-//        if (sqlite3_prepare_v2(myDB, updateQuery, -1, &stmt, NULL)==SQLITE_OK)
-//            
-//        {
-//            [self.delegate DBManager:statement];
-//            sqlite3_finalize(statement);
-//            
-//        }
-//        sqlite3_close(database);
-//        
-//    }else
-//        
-//    {
-//        NSLog(@"failed");
-//        
-//    }
-}
 @end

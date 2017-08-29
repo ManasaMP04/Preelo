@@ -9,7 +9,6 @@
 import UIKit
 import Alamofire
 import ObjectMapper
-import SQLite
 
 class StaticContentFile: NSObject {
     
@@ -18,8 +17,91 @@ class StaticContentFile: NSObject {
     static let screenWidth      = screenBounds.size.width
     static let screenHeight     = screenBounds.size.height
     static let plistStorageManager = PlistManager()
-    static let tableName = "messages"
+    
     static let dbManager       = DBManager.init(fileName: "chat.db")
+    
+    static let channelTableName       = "channel"
+    static let messageTableName       = "message"
+    static var isForChannel = true
+    
+    static func createDB() {
+        
+        //  dbManager?.delegate = self
+        
+        let queryString = String(format: "CREATE TABLE IF NOT EXISTS \(channelTableName) (channel_id INTEGER,relationship TEXT, patientname TEXT, doctorname TEXT, parentname TEXT,doctor_initials TEXT, unread_count  INTEGER, doctorId  INTEGER,parentId  INTEGER,patientId  INTEGER, auth_status TEXT, doctor_user_id  INTEGER,lastMsgId  INTEGER, chatTitle TEXT,chatLabelTitle TEXT)")
+        
+        let queryString1 = String(format: "CREATE TABLE IF NOT EXISTS \(messageTableName) (channel_id INTEGER, message_type TEXT, message_text  TEXT, message_date TEXT,image_url TEXT, thumb_Url TEXT, message_id  INTEGER,senderId TEXT)")
+        
+        dbManager?.createTable(forQuery: queryString)
+        dbManager?.createTable(forQuery: queryString1)
+    }
+    
+    static func clearDbTableWithId(_ id: Int? = nil) {
+        
+        if let id1 = id {
+            
+            let queryString = String(format: "DELETE FROM \(messageTableName) WHERE channel_id = \(id1)")
+            dbManager?.deleteRow(forQuery: queryString)
+        } else {
+            
+            let queryString = String(format: "DELETE FROM \(messageTableName)")
+            let queryString1 = String(format: "DELETE FROM \(channelTableName)")
+            dbManager?.deleteRow(forQuery: queryString)
+            dbManager?.deleteRow(forQuery: queryString1)
+        }
+    }
+    
+    static func insertRowIntoDB(_ recentMessage: RecentMessages? = nil, channelDetail: ChannelDetail) {
+        
+        let sl = "SELECT COUNT(*) FROM channel where channel_id = \(channelDetail.channel_id)"
+        
+        if let count = dbManager?.getNumberOfRecord(sl), count > 0 {
+            
+            if let message = recentMessage {
+                
+                let queryString1 = String(format: "DELETE FROM \(messageTableName) WHERE message_id = \(message.message_id) AND channel_id = \(channelDetail.channel_id)")
+                dbManager?.deleteRow(forQuery: queryString1)
+                
+                let queryString = String(format: "INSERT INTO \(messageTableName)(channel_id, message_type, message_text, message_date, image_url, thumb_Url, message_id, senderId) VALUES(?,?,?,?,?,?,?,?)", channelDetail.channel_id, message.message_type, message.message_text, message.message_date, message.image_url, message.thumb_Url, message.message_id, message.senderId)
+                
+                dbManager?.saveDataToDB(forQuery: queryString)
+            } else {
+            
+            let queryString = String(format: "INSERT INTO \(channelTableName)(channel_id, relationship, patientname, doctorname,parentname, doctor_initials,unread_count, doctorId, parentId, patientId, auth_status, doctor_user_id, lastMsgId, chatTitle, chatLabelTitle) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", channelDetail.channel_id, channelDetail.relationship, channelDetail.patientname, channelDetail.doctorname, channelDetail.parentname, channelDetail.doctor_initials, channelDetail.unread_count, channelDetail.doctorId, channelDetail.parentId, channelDetail.patientId, channelDetail.auth_status, channelDetail.doctor_user_id, channelDetail.lastMsgId, channelDetail.chatTitle, channelDetail.chatLabelTitle)
+            
+            dbManager?.saveDataToDB(forQuery: queryString)
+            }
+        } else if channelDetail.recent_message.count > 0 {
+            
+            let message = channelDetail.recent_message[channelDetail.recent_message.count - 1]
+            let queryString = String(format: "INSERT INTO \(messageTableName)(channel_id, message_type, message_text, message_date, image_url, thumb_Url, message_id, senderId) VALUES(?,?,?,?,?,?,?,?)", channelDetail.channel_id, message.message_type, message.message_text, message.message_date, message.image_url, message.thumb_Url, message.message_id, message.senderId)
+            
+            dbManager?.saveDataToDB(forQuery: queryString)
+            
+            let queryString1 = String(format: "INSERT INTO \(channelTableName)(channel_id, relationship, patientname, doctorname,parentname, doctor_initials,unread_count, doctorId, parentId, patientId, auth_status, doctor_user_id, lastMsgId, chatTitle, chatLabelTitle) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", channelDetail.channel_id, channelDetail.relationship, channelDetail.patientname, channelDetail.doctorname, channelDetail.parentname, channelDetail.doctor_initials, channelDetail.unread_count, channelDetail.doctorId, channelDetail.parentId, channelDetail.patientId, channelDetail.auth_status, channelDetail.doctor_user_id, channelDetail.lastMsgId, channelDetail.chatTitle, channelDetail.chatLabelTitle)
+            dbManager?.saveDataToDB(forQuery: queryString1)
+        }
+    }
+    
+    static func updateChannelDetail(_ channelDetail: ChannelDetail, isAuthStatus: Bool) {
+        
+        if isAuthStatus {
+            let queryString = String(format: "update \(channelTableName) set auth_status ='\(channelDetail.auth_status)' where channel_id = \(channelDetail.channel_id)")
+            
+            dbManager?.update(queryString)
+        }else {
+            
+            let queryString = String(format: "update \(channelTableName) set lastMsgId ='\(channelDetail.lastMsgId)', unread_count = \(0)  where channel_id = \(channelDetail.channel_id)")
+            
+            dbManager?.update(queryString)
+        }
+    }
+}
+
+
+//MARK:- all button fonts
+
+extension StaticContentFile {
     
     static func setButtonFont(_ button: UIButton, backgroundColorNeeed: Bool = true, borderNeeded: Bool = true, shadowNeeded: Bool = true) {
         
@@ -75,7 +157,6 @@ extension StaticContentFile {
     
     static func removeAllKeys() {
         
-        dbManager?.dropTable(tableName)
         plistStorageManager.deleteObject(forKey: "\(StaticContentFile.getId())", inFile: .authRequest)
         defaults.removeObject(forKey: "isDoctorLogIn")
         defaults.removeObject(forKey: "token")
@@ -84,7 +165,7 @@ extension StaticContentFile {
         defaults.set(false, forKey: "isLoggedIn")
         defaults.removeObject(forKey: "userProfile")
         defaults.removeObject(forKey: "socketServers")
-        StaticContentFile.deleteMessagePlist()
+        StaticContentFile.clearDbTableWithId()
         MessageVC.sharedInstance.closeConnection()
     }
     
@@ -165,7 +246,10 @@ extension StaticContentFile {
             
             for (i,element) in authArray.enumerated() {
                 
-                if let id = element["patientid"] as? Int, id == result.patientid {
+                if let patientId = element["patientid"] as? Int,
+                    let parentId = element["parentid"] as? Int,
+                    let drId     = element["doctorid"] as? Int ,
+                    patientId == result.patientid, parentId == result.parentid, drId == result.doctorid  {
                     
                     authArray.remove(at: i)
                     
@@ -237,190 +321,5 @@ extension StaticContentFile {
         }
         
         return nil
-    }
-}
-
-//MARK:- save/get messages
-
-extension StaticContentFile {
-    
-    static func createDB() {
-        
-      //  dbManager?.delegate = self
-        
-        let queryString = String(format: "CREATE TABLE IF NOT EXISTS \(tableName) (channel_id INTEGER,relationship TEXT, patientname TEXT, doctorname TEXT, parentname TEXT,doctor_initials TEXT, unread_count  INTEGER, doctorId  INTEGER,parentId  INTEGER,patientId  INTEGER, auth_status TEXT, doctor_user_id  INTEGER,lastMsgId  INTEGER, chatTitle TEXT,chatLabelTitle TEXT,message_type TEXT, message_text  TEXT, message_date TEXT,image_url TEXT, thumb_Url TEXT, message_id  INTEGER,senderId TEXT)")
-        
-        dbManager?.createTable(forQuery: queryString)
-    }
-    
-    static func insertRowIntoDB(_ message: RecentMessages, channelDetail: ChannelDetail) {
-        
-        let queryString = String(format: "INSERT INTO REMAINDERS(channel_id, relationship, patientname, doctorname,parentname, doctor_initials,unread_count, doctorId, parentId, patientId, auth_status, doctor_user_id, lastMsgId, chatTitle, chatLabelTitle, message_type, message_text, message_date, image_url, thumb_Url, message_id, senderId) VALUES('%d','%@','%@','%@','%@','%@','%d','%d','%d','%d','%@',,'%d','%d','%@','%@','%@','%@','%@','%@','%@','%@','%d','%@')", channelDetail.channel_id, channelDetail.relationship, channelDetail.patientname, channelDetail.doctorname, channelDetail.parentname, channelDetail.doctor_initials, channelDetail.unread_count, channelDetail.doctorId, channelDetail.parentId, channelDetail.patientId, channelDetail.auth_status, channelDetail.doctor_user_id, channelDetail.lastMsgId, channelDetail.chatTitle, channelDetail.chatLabelTitle, message.message_type, message.message_text, message.message_date, message.image_url, message.thumb_Url, message.message_id, message.senderId)
-        
-        dbManager?.saveDataToDB(forQuery: queryString)
-    }
-    
-    static func getRecentMessagesForChannelDetail(_ channelDetail: ChannelDetail) {
-    
-        let queryString = String(format: "select  * from \(tableName) where channel_id = \(channelDetail.channel_id)")
-        
-        dbManager?.getDataForQuery(queryString)
-        
-        
-        
-    }
-    
-    static func updateAuthStatusForChannelDetail(_ channelDetail: ChannelDetail) {
-        
-        let queryString = String(format: "update \(tableName) set auth_status ='\(channelDetail.auth_status)' where channel_id = \(channelDetail.channel_id)")
-        
-        dbManager?.update(queryString)
-    }
-    
-    static func saveMessage(_ message: RecentMessages, channelDetail: ChannelDetail) {
-        
-        var dict = [String: Any]()
-        
-        if let messageObject = plistStorageManager.objectForKey("\(channelDetail.channel_id)", inFile: .message) as? [String: Any],
-            let obj = messageObject["\(channelDetail.channel_id)"] as? [String: Any],
-            let messagesList = obj["recent_message"] as? [[String: Any]] {
-            
-            var messageObject1 = obj
-            var list = messagesList
-            
-            if message.message_id >= channelDetail.lastMsgId {
-                
-                for (index, item) in list.enumerated() {
-                    
-                    if let id = item["message_id"] as? Int ,
-                        id == message.message_id {
-                        
-                        list.remove(at: index)
-                        
-                        break
-                    }
-                }}
-            
-            list.append(message.modelToDict())
-            messageObject1["recent_message"] = list
-            messageObject1["unread_count"] = 0
-            messageObject1["lastMsgId"] = message.message_id
-            dict["\(channelDetail.channel_id)"] = messageObject1
-            
-            plistStorageManager.setObject(dict, forKey: "\(channelDetail.channel_id)", inFile: .message)
-        }
-    }
-    
-    static func updateChannelDetail(_ detail: ChannelDetail) {
-        
-        var dict =  [String: Any]()
-        
-        if let messageObject = plistStorageManager.objectForKey("\(detail.channel_id)", inFile: .message) as? [String: Any],
-            
-            let obj = messageObject["\(detail.channel_id)"] as? [String: Any] {
-            
-            var channelObject = obj
-            channelObject["auth_status"] = detail.auth_status
-            dict["\(detail.channel_id)"] = channelObject
-            
-            plistStorageManager.setObject(dict as Any , forKey: "\(detail.channel_id)", inFile: .message)
-        }
-    }
-    
-    static func getChannelDetail(_ detail: ChannelDetail) -> ChannelDetail? {
-        
-        if let messageObject = plistStorageManager.objectForKey("\(detail.channel_id)", inFile: .message) as? [String: Any],
-            let obj = messageObject["\(detail.channel_id)"] as? [String: Any] {
-            
-            
-            do {
-                let jsonData = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
-                if let jsonString = String.init(data: jsonData, encoding: .utf8),
-                    let result = Mapper<ChannelDetail>().map(JSONString: jsonString) {
-                    
-                    return result
-                }} catch {}
-            
-            return nil
-        }
-        
-        return nil
-    }
-    
-    static func saveMessage(_ detail: ChannelDetail) {
-        
-        var dict =  [String: Any]()
-        
-        if let messageObject = plistStorageManager.objectForKey("\(detail.channel_id)", inFile: .message) as? [String: Any],
-            let obj = messageObject["\(detail.channel_id)"] as? [String: Any] {
-            
-            var channelObject = obj
-            
-            if let msgs = obj["recent_message"] as? [[String: Any]] {
-                
-                var list = msgs
-                
-                for (i,msg) in msgs.enumerated() {
-                    
-                    if let id = msg["message_id"] as? Int, let lastId = obj["lastMsgId"] as? Int,  id == -1 || id > lastId  {
-                        
-                        list.remove(at: i)
-                    }
-                }
-                
-                for message in detail.recent_message {
-                    
-                    list.append(message.modelToDict())
-                }
-                
-                channelObject["recent_message"] = list
-                
-                if let unreadCount = channelObject["unread_count"] as? Int {
-                    
-                    channelObject["unread_count"] = unreadCount + detail.unread_count
-                }
-                
-                dict["\(detail.channel_id)"] = channelObject
-            } else {
-                
-                dict["\(detail.channel_id)"] =  detail.modelToDict()
-            }
-            
-        } else {
-            
-            dict["\(detail.channel_id)"] =  detail.modelToDict()
-        }
-        
-        plistStorageManager.setObject(dict as Any , forKey: "\(detail.channel_id)", inFile: .message)
-    }
-    
-    static func getChannel() -> [ChannelDetail] {
-        
-        var array = [ChannelDetail]()
-        
-        if let keys = plistStorageManager.allKeysInPlistFile(.message) {
-            
-            for key in keys {
-                
-                if let object = plistStorageManager.objectForKey("\(key)", inFile: .message) as? [String: Any],
-                    let obj = object["\(key)"] as? [String: Any] {
-                    
-                    do {
-                        let jsonData = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
-                        if let jsonString = String.init(data: jsonData, encoding: .utf8),
-                            let result = Mapper<ChannelDetail>().map(JSONString: jsonString) {
-                            
-                            array.append(result)
-                        }} catch {}
-                }}}
-        return array
-    }
-}
-
-extension StaticContentFile: DBManagerDelegate {
-
-    func dbManager(_ statement: OpaquePointer!) {
-        
-        
     }
 }

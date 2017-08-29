@@ -10,45 +10,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Preelo/MessageVC.swift"
-            timestampString = "525555931.988612"
+            timestampString = "525645669.65145"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "545"
-            endingLineNumber = "545"
-            landmarkName = "saveAuthStatusFromSocket(_:)"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
+            landmarkName = "refresh(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Preelo.MessageVC.(saveAuthStatusFromSocket in _C744777799D66A97AFAEB8AAD0CABB60) (Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; ()"
-                  moduleName = "Preelo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/manasamp/Desktop/training/Preelo/MessageVC.swift"
-                  timestampString = "525624346.31783"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "545"
-                  endingLineNumber = "545"
-                  offsetFromSymbolStart = "24">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Preelo.MessageVC.(saveAuthStatusFromSocket in _C744777799D66A97AFAEB8AAD0CABB60) (Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; ()"
-                  moduleName = "Preelo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/manasamp/Desktop/training/Preelo/MessageVC.swift"
-                  timestampString = "525624346.319476"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "545"
-                  endingLineNumber = "545"
-                  offsetFromSymbolStart = "364">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Preelo/MessageVC.swift"
+            timestampString = "525648355.114965"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
+            landmarkName = "chatVCDelegateToRefresh(_:isAuthRequest:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Preelo/MessageVC.swift"
+            timestampString = "525648355.114965"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "410"
+            endingLineNumber = "410"
+            landmarkName = "dbManager(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Preelo/DBManager.m"
+            timestampString = "525648912.083765"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
+            landmarkName = "-getDataForQuery:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

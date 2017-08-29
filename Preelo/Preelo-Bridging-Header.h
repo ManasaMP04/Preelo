@@ -14,4 +14,5 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Reachability.h"
+#import <sqlite3.h>
 #import "DBManager.h"

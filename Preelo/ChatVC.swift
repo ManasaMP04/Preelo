@@ -99,7 +99,6 @@ class ChatVC: UIViewController {
         
         channelDetail.auth_status = "p"
         showTheAuthRequestButton()
-        StaticContentFile.updateChannelDetail(channelDetail)
         self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: true)
     }
 }
@@ -188,7 +187,7 @@ extension ChatVC {
         self.tableViewHeight.constant = StaticContentFile.screenHeight - 170 - self.requestAuthorizationViewHeight.constant
         self.deauthorizeButton.isHidden = show
         self.channelDetail.auth_status =  show ? "f" : "t"
-        StaticContentFile.updateChannelDetail(self.channelDetail)
+        StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: true)
     }
 }
 
@@ -253,18 +252,14 @@ extension ChatVC {
             
             self.view.isUserInteractionEnabled = false
             activityIndicator?.startAnimating()
+            StaticContentFile.clearDbTableWithId(channelDetail.channel_id)
             callApiToGetMessages()
-        } else if let data = StaticContentFile.getChannelDetail(self.channelDetail) {
+        } else {
             
-            if data.recent_message.count > 0 {
-                
-                self.messageList = data.recent_message
-                self.tableview.reloadData()
-                self.scrollToButtom()
-            } else {
-                
-                self.view.showToast(message: "Please check the internet connection")
-            }
+            let queryString = String(format: "select  * from \(StaticContentFile.messageTableName) where channel_id = \(channelDetail.channel_id)")
+            
+            StaticContentFile.dbManager?.getDataForQuery(queryString)
+            StaticContentFile.dbManager?.delegate = self
         }
     }
     
@@ -393,17 +388,22 @@ extension ChatVC {
                     
                     self.callapiToMarkedRead()
                     
-                    for msg in result {
+                    for (i,msg) in result.enumerated() {
                         
-                        StaticContentFile.saveMessage(msg, channelDetail: self.channelDetail)
-                        self.channelDetail.lastMsgId = msg.message_id
+                        StaticContentFile.insertRowIntoDB(msg, channelDetail: self.channelDetail)
+                        
+                        if i == result.count - 1{
+                            
+                            self.channelDetail.lastMsgId = msg.message_id
+                        }
                     }
                     
-                    if let data = StaticContentFile.getChannelDetail(self.channelDetail), insertRow {
+                    StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: false)
+                    if insertRow {
                         
                         var array = [RecentMessages]()
                         array  =  self.messageList
-                        self.messageList = data.recent_message
+                        self.messageList.append(contentsOf: result)
                         
                         var i = 0
                         while i <= result.count - 1 {
@@ -414,9 +414,9 @@ extension ChatVC {
                             
                             i = i+1
                         }
-                    } else if let data = StaticContentFile.getChannelDetail(self.channelDetail) {
+                    } else  {
                         
-                        self.messageList = data.recent_message
+                        self.messageList = result
                         self.tableview.reloadData()
                     }
                     
@@ -502,7 +502,7 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
             
             let gesture = UILongPressGestureRecognizer.init(target: self, action: #selector(showCopyIcon(_:)))
             cell.addGestureRecognizer(gesture)
-
+            
             cell.showMessage(message)
             
             return cell
@@ -694,5 +694,44 @@ extension ChatVC : SelectedImagesVCDelegate {
         }
     }
 }
+
+extension ChatVC: DBManagerDelegate {
+    
+    func dbManager(_ statement: OpaquePointer!) {
+        
+        let channel_id = Int(sqlite3_column_int(statement, 0))
+        
+        var array = [RecentMessages] ()
+        
+        if channelDetail.channel_id == channel_id {
+            
+            for _ in 0...sqlite3_column_count(statement)-1 {
+                
+                let message = RecentMessages()
+                
+                message.message_type = String(describing: sqlite3_column_text(statement, 1))
+                message.message_text = String(describing: sqlite3_column_text(statement, 2))
+                message.message_date = String(describing: sqlite3_column_text(statement, 3))
+                message.image_url = String(describing: sqlite3_column_text(statement, 4))
+                message.thumb_Url = String(describing: sqlite3_column_text(statement, 5))
+                message.message_id = Int(sqlite3_column_int(statement, 6))
+                message.senderId = String(describing: sqlite3_column_text(statement, 7))
+                
+                array.append(message)
+            }
+            
+            if array.count > 0 {
+                
+                self.messageList = array
+                self.tableview.reloadData()
+                self.scrollToButtom()
+            } else {
+                
+                self.view.showToast(message: "Please check the internet connection")
+            }
+        }
+    }
+}
+
 
 

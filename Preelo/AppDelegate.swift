@@ -116,13 +116,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         
-        MessageVC.sharedInstance.refresh(nil)
-        MessageVC.sharedInstance.establishConnection()
+        let defaults = UserDefaults.standard
+        if let status = defaults.value(forKey: "isLoggedIn") as? Bool, status {
+            
+            MessageVC.sharedInstance.refresh(nil)
+            MessageVC.sharedInstance.establishConnection()
+        }
     }
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
-    
 }
 

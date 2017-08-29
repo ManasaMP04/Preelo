@@ -92,12 +92,11 @@ class MessageVC: UIViewController {
         if status, let request = StaticContentFile.getAuthRequest() {
             
             list = request.authRequest
+            tableview?.reloadData()
         } else if !status {
             
-            list = StaticContentFile.getChannel()
+            getChannel()
         }
-        
-        tableview?.reloadData()
     }
 }
 
@@ -178,6 +177,7 @@ extension MessageVC {
                     
                     let channelData = data
                     channelData.auth_status = result.auth_status
+                    StaticContentFile.updateChannelDetail(channelData, isAuthStatus: true)
                     
                     let chatVC = ChatVC(channelData)
                     chatVC.delegate = self
@@ -296,7 +296,7 @@ extension MessageVC{
     
     func callChannelAPI() {
         
-        StaticContentFile.deleteMessagePlist()
+        StaticContentFile.clearDbTableWithId()
         
         Alamofire.request(AuthorizationRequestListRouter.channel_get())
             .responseObject {(response: DataResponse<ChannelObject>) in
@@ -310,9 +310,16 @@ extension MessageVC{
                     
                     for detail in result.data {
                         
-                        StaticContentFile.saveMessage(detail)
+                        StaticContentFile.insertRowIntoDB(channelDetail: detail)
                     }
                 }}
+    }
+    
+    fileprivate func getChannel() {
+        
+        let queryString = String(format: "select  * from \(StaticContentFile.channelTableName)")
+        StaticContentFile.dbManager?.delegate = self
+        StaticContentFile.dbManager?.getDataForQuery(queryString)
     }
     
     fileprivate func callAPIToGetAuthRequest() {
@@ -366,6 +373,44 @@ extension MessageVC{
     }
 }
 
+extension MessageVC: DBManagerDelegate {
+    
+    func dbManager(_ statement: OpaquePointer!) {
+        
+        list.removeAll()
+        
+        let sl = "SELECT COUNT(*) FROM channel"
+        
+        if let count = StaticContentFile.dbManager?.getNumberOfRecord(sl), count > 0 {
+            
+            for _ in 0...count-1 {
+                
+                let detail = ChannelDetail()
+                
+                detail.channel_id = Int(sqlite3_column_int(statement, 0))
+                detail.relationship = String(describing: sqlite3_column_text(statement, 1))
+                detail.patientname = String(describing: sqlite3_column_text(statement, 2))
+                detail.doctorname = String(describing: sqlite3_column_text(statement, 3))
+                detail.parentname = String(describing: sqlite3_column_text(statement, 4))
+                detail.doctor_initials = String(describing: sqlite3_column_text(statement, 5))
+                detail.unread_count = Int(sqlite3_column_int(statement, 6))
+                detail.doctorId = Int(sqlite3_column_int(statement, 7))
+                detail.parentId = Int(sqlite3_column_int(statement, 8))
+                detail.patientId = Int(sqlite3_column_int(statement, 9))
+                detail.auth_status = String(describing: sqlite3_column_text(statement, 10))
+                detail.doctor_user_id = Int(sqlite3_column_int(statement, 11))
+                detail.lastMsgId = Int(sqlite3_column_int(statement, 12))
+                detail.chatTitle = String(describing: sqlite3_column_text(statement, 13))
+                detail.chatLabelTitle = String(describing: sqlite3_column_text(statement, 14))
+                
+                list.append(detail)
+            }
+        }
+        
+        tableview?.reloadData()
+    }
+}
+
 extension MessageVC: ChatVCDelegate {
     
     func chatVCDelegateToRefresh(_ vc: ChatVC, isAuthRequest: Bool) {
@@ -414,20 +459,20 @@ extension MessageVC {
                             
                             NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: nil, userInfo: nil)
                         } else  if event.event == "auth request" ,
-                        let data = event.items as? [[String: Any]] {
+                            let data = event.items as? [[String: Any]] {
                             
                             for dict in data {
                                 
-                                self.saveAuthStatusFromSocket(dict)
+                                self.saveAuthStatusFromSocket(dict, isForAuthorize: false)
                             }
                             
                             NotificationCenter.default.post(name: Notification.Name("AuthNotificationIdentifier"), object: nil, userInfo: nil)
                         } else  if event.event == "authorized message" ,
-                        let data = event.items as? [[String: Any]] {
+                            let data = event.items as? [[String: Any]] {
                             
                             for dict in data {
                                 
-                                self.saveAuthStatusFromSocket(dict)
+                                self.saveAuthStatusFromSocket(dict, isForAuthorize: true)
                             }
                             
                             NotificationCenter.default.post(name: Notification.Name("AuthNotificationIdentifier"), object: nil, userInfo: nil)
@@ -451,8 +496,7 @@ extension MessageVC {
         
         if selection == .message {
             
-            self.list = StaticContentFile.getChannel()
-            self.tableview?.reloadData()
+            getChannel()
             
             if let vc = self.navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC, let details = list as? [ChannelDetail] {
                 
@@ -528,19 +572,19 @@ extension MessageVC {
                 let recentMsg = RecentMessages(msgType, text: message, image: nil, senderId: "", timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
                 recentMsg.message_id = msgId
                 channel.recent_message = [recentMsg]
+                StaticContentFile.insertRowIntoDB(recentMsg, channelDetail: channel)
             } else if let message = event["message"] as? String,
                 let image = event["image_url"] as? String {
                 
                 let recentMsg = RecentMessages(msgType, text: message, image: image, senderId: "", timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
                 recentMsg.message_id = msgId
                 channel.recent_message = [recentMsg]
+                StaticContentFile.insertRowIntoDB(recentMsg, channelDetail: channel)
             }
-            
-            StaticContentFile.saveMessage(channel)
         }
     }
     
-    fileprivate func saveAuthStatusFromSocket(_ event: [String: Any]) {
+    fileprivate func saveAuthStatusFromSocket(_ event: [String: Any], isForAuthorize: Bool) {
         
         if let firstname = event["firstname"] as? String,
             let lastname = event["lastname"] as? String,
@@ -556,7 +600,7 @@ extension MessageVC {
             
             let authRequest = AuthorizeRequest()
             let auth = DocAuthorizationRequest()
-
+            
             auth.firstname = firstname
             auth.lastname = lastname
             auth.relationship      = relationship
@@ -571,7 +615,14 @@ extension MessageVC {
             auth.doctor_lastname   = doctor_lastname
             
             authRequest.authRequest = [auth]
-            StaticContentFile.saveAuthRequest(authRequest)
+            
+            if isForAuthorize {
+                
+                StaticContentFile.updateAuthRequest(auth)
+            } else{
+                
+                StaticContentFile.saveAuthRequest(authRequest)
+            }
         }
     }
 }
