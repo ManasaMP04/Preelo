@@ -74,10 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         
-        if StaticContentFile.isDoctorLogIn() {
-            
-            MessageVC.sharedInstance.handleRemoteNotification()
-        }
+        MessageVC.sharedInstance.handleRemoteNotification()
     }
     
     func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
@@ -119,7 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let defaults = UserDefaults.standard
         if let status = defaults.value(forKey: "isLoggedIn") as? Bool, status {
             
-            MessageVC.sharedInstance.refresh(nil)
+            MessageVC.sharedInstance.handleRemoteNotification()
             MessageVC.sharedInstance.establishConnection()
         }
     }

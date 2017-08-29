@@ -35,6 +35,7 @@ class MessageVC: UIViewController {
     var webSocket = [SocketIOClient]()
     fileprivate var selectedChannelId = 0
     fileprivate var list = [Any]()
+    let dbManager       = DBManager.init(fileName: "chat.db")!
     
     static let sharedInstance = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MessageVC") as! MessageVC
     
@@ -106,6 +107,7 @@ extension MessageVC {
     
     fileprivate func setup() {
         
+         dbManager.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotification), name: Notification.Name("NotificationIdentifier"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationForAuthRequest), name: Notification.Name("AuthNotificationIdentifier"), object: nil)
@@ -177,7 +179,7 @@ extension MessageVC {
                     
                     let channelData = data
                     channelData.auth_status = result.auth_status
-                    StaticContentFile.updateChannelDetail(channelData, isAuthStatus: true)
+                    StaticContentFile.updateChannelDetail(channelData, isAuthStatus: true, dbManager: self.dbManager)
                     
                     let chatVC = ChatVC(channelData)
                     chatVC.delegate = self
@@ -279,7 +281,7 @@ extension MessageVC{
         tableview?.addSubview(pullToRefreshControl)
     }
     
-    func refresh(_ sender: UIRefreshControl?) {
+    @objc fileprivate func refresh(_ sender: UIRefreshControl?) {
         
         if selection == .message, Reachability.forInternetConnection().isReachable() {
             
@@ -294,15 +296,21 @@ extension MessageVC{
         }
     }
     
+    fileprivate func stopAnimating() {
+        
+        self.pullToRefreshControl?.endRefreshing()
+        self.activityIndicator?.stopAnimating()
+        self.view.isUserInteractionEnabled = true
+    }
+    
     func callChannelAPI() {
         
-        StaticContentFile.clearDbTableWithId()
+        StaticContentFile.clearDbTableWithId(dbManager: self.dbManager)
         
         Alamofire.request(AuthorizationRequestListRouter.channel_get())
             .responseObject {(response: DataResponse<ChannelObject>) in
                 
-                self.pullToRefreshControl?.endRefreshing()
-                
+                self.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     self.list = result.data
@@ -310,16 +318,18 @@ extension MessageVC{
                     
                     for detail in result.data {
                         
-                        StaticContentFile.insertRowIntoDB(channelDetail: detail)
+                        StaticContentFile.insertRowIntoDB(channelDetail: detail, dbManager: self.dbManager)
                     }
                 }}
     }
     
     fileprivate func getChannel() {
         
+        list.removeAll()
+        
         let queryString = String(format: "select  * from \(StaticContentFile.channelTableName)")
-        StaticContentFile.dbManager?.delegate = self
-        StaticContentFile.dbManager?.getDataForQuery(queryString)
+        
+        dbManager.getDataForQuery(queryString)
     }
     
     fileprivate func callAPIToGetAuthRequest() {
@@ -329,9 +339,7 @@ extension MessageVC{
         Alamofire.request(AuthorizationRequestListRouter.get())
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
-                self.pullToRefreshControl?.endRefreshing()
-                self.activityIndicator?.stopAnimating()
-                self.view.isUserInteractionEnabled = true
+                self.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     self.list = result.authRequest
@@ -355,9 +363,7 @@ extension MessageVC{
         Alamofire.request(AuthorizationRequestListRouter.get_patient_AuthRequest())
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
-                self.pullToRefreshControl?.endRefreshing()
-                self.activityIndicator?.stopAnimating()
-                self.view.isUserInteractionEnabled = true
+                self.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     self.list = result.authRequest
@@ -377,35 +383,25 @@ extension MessageVC: DBManagerDelegate {
     
     func dbManager(_ statement: OpaquePointer!) {
         
-        list.removeAll()
+        let detail = ChannelDetail()
         
-        let sl = "SELECT COUNT(*) FROM channel"
+        detail.channel_id = Int(sqlite3_column_int(statement, 0))
+        detail.relationship = String(cString: sqlite3_column_text(statement, 1))
+        detail.patientname = String(cString: sqlite3_column_text(statement, 2))
+        detail.doctorname = String(cString: sqlite3_column_text(statement, 3))
+        detail.parentname = String(cString: sqlite3_column_text(statement, 4))
+        detail.doctor_initials = String(cString: sqlite3_column_text(statement, 5))
+        detail.unread_count = Int(sqlite3_column_int(statement, 6))
+        detail.doctorId = Int(sqlite3_column_int(statement, 7))
+        detail.parentId = Int(sqlite3_column_int(statement, 8))
+        detail.patientId = Int(sqlite3_column_int(statement, 9))
+        detail.auth_status = String(cString: sqlite3_column_text(statement, 10))
+        detail.doctor_user_id = Int(sqlite3_column_int(statement, 11))
+        detail.lastMsgId = Int(sqlite3_column_int(statement, 12))
+        detail.chatTitle = String(cString: sqlite3_column_text(statement, 13))
+        detail.chatLabelTitle = String(cString: sqlite3_column_text(statement, 14))
         
-        if let count = StaticContentFile.dbManager?.getNumberOfRecord(sl), count > 0 {
-            
-            for _ in 0...count-1 {
-                
-                let detail = ChannelDetail()
-                
-                detail.channel_id = Int(sqlite3_column_int(statement, 0))
-                detail.relationship = String(describing: sqlite3_column_text(statement, 1))
-                detail.patientname = String(describing: sqlite3_column_text(statement, 2))
-                detail.doctorname = String(describing: sqlite3_column_text(statement, 3))
-                detail.parentname = String(describing: sqlite3_column_text(statement, 4))
-                detail.doctor_initials = String(describing: sqlite3_column_text(statement, 5))
-                detail.unread_count = Int(sqlite3_column_int(statement, 6))
-                detail.doctorId = Int(sqlite3_column_int(statement, 7))
-                detail.parentId = Int(sqlite3_column_int(statement, 8))
-                detail.patientId = Int(sqlite3_column_int(statement, 9))
-                detail.auth_status = String(describing: sqlite3_column_text(statement, 10))
-                detail.doctor_user_id = Int(sqlite3_column_int(statement, 11))
-                detail.lastMsgId = Int(sqlite3_column_int(statement, 12))
-                detail.chatTitle = String(describing: sqlite3_column_text(statement, 13))
-                detail.chatLabelTitle = String(describing: sqlite3_column_text(statement, 14))
-                
-                list.append(detail)
-            }
-        }
+        list.append(detail)
         
         tableview?.reloadData()
     }
@@ -529,15 +525,15 @@ extension MessageVC {
                 if data.channel_id == selectedChannelId {
                     
                     vc.channelDetail = data
-                    vc.refresh()
+                    vc.callApiToGetMessages()
                     return
                 }
             }
         } else {
             
             activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
-            self.activityIndicator?.stopAnimating()
-            self.view.isUserInteractionEnabled = true
+            self.activityIndicator?.startAnimating()
+            self.view.isUserInteractionEnabled = false
             callChannelAPI()
         }
     }
@@ -569,17 +565,28 @@ extension MessageVC {
             if msgType == "simple",
                 let message = event["message"] as? String {
                 
+                channel.lastMsg = message
+                
+                if let auth = event["auth_status"] as? String {
+                
+                    channel.auth_status = auth
+                }
+                
+                StaticContentFile.updateChannelDetail(channel, isAuthStatus: false, dbManager: dbManager )
                 let recentMsg = RecentMessages(msgType, text: message, image: nil, senderId: "", timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
                 recentMsg.message_id = msgId
                 channel.recent_message = [recentMsg]
-                StaticContentFile.insertRowIntoDB(recentMsg, channelDetail: channel)
+                StaticContentFile.insertRowIntoDB(recentMsg, channelDetail: channel, dbManager: self.dbManager)
             } else if let message = event["message"] as? String,
                 let image = event["image_url"] as? String {
+                
+                channel.lastMsg = message
+                StaticContentFile.updateChannelDetail(channel, isAuthStatus: false, dbManager: dbManager)
                 
                 let recentMsg = RecentMessages(msgType, text: message, image: image, senderId: "", timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
                 recentMsg.message_id = msgId
                 channel.recent_message = [recentMsg]
-                StaticContentFile.insertRowIntoDB(recentMsg, channelDetail: channel)
+                StaticContentFile.insertRowIntoDB(recentMsg, channelDetail: channel, dbManager: self.dbManager)
             }
         }
     }

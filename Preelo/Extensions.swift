@@ -8,6 +8,14 @@
 
 import UIKit
 
+extension String {
+
+    func relaceCharacter() -> String {
+    
+        return self.replacingOccurrences(of: "'", with: "''")
+    }
+}
+
 extension UIView {
     
     func showToast(message : String) {

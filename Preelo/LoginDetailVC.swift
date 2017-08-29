@@ -217,7 +217,7 @@ extension LoginDetailVC {
                     
                     for detail in result.data {
                     
-                        StaticContentFile.insertRowIntoDB(channelDetail: detail)
+                        StaticContentFile.insertRowIntoDB(channelDetail: detail, dbManager: DBManager.init(fileName: "chat.db"))
                     }
                     
                     StaticContentFile.isDoctorLogIn() ? self.callAPIToGetAuthRequest() : self.callAPIToGetPatientAuthRequest()

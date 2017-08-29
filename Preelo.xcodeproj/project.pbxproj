@@ -10,7 +10,6 @@
 		1FFF0610CDC78805412E316B /* Pods_Preelo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A609B1C2189643CD7DF9756B /* Pods_Preelo.framework */; };
 		6202A2231F52ACFE00D95722 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6202A2221F52ACFE00D95722 /* Reachability.m */; };
 		6202A22C1F52CDAF00D95722 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6202A22B1F52CDAF00D95722 /* GoogleService-Info.plist */; };
-		6202A22E1F52E07B00D95722 /* sqliteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6202A22D1F52E07B00D95722 /* sqliteModel.swift */; };
 		6202A2411F52E30500D95722 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6202A2261F52C61600D95722 /* libsqlite3.tbd */; };
 		6202A2471F53453A00D95722 /* CreateAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6202A2451F53453A00D95722 /* CreateAccount.swift */; };
 		6202A2481F53453A00D95722 /* CreateAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6202A2461F53453A00D95722 /* CreateAccount.xib */; };
@@ -138,7 +137,6 @@
 		6202A2251F52C61600D95722 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		6202A2261F52C61600D95722 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		6202A22B1F52CDAF00D95722 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		6202A22D1F52E07B00D95722 /* sqliteModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sqliteModel.swift; sourceTree = "<group>"; };
 		6202A2451F53453A00D95722 /* CreateAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccount.swift; sourceTree = "<group>"; };
 		6202A2461F53453A00D95722 /* CreateAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateAccount.xib; sourceTree = "<group>"; };
 		6202A2491F5355E900D95722 /* cityList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cityList.json; sourceTree = "<group>"; };
@@ -417,7 +415,6 @@
 		629E4E871EA29BF700F280AD /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				6202A22D1F52E07B00D95722 /* sqliteModel.swift */,
 				6202A24B1F53568700D95722 /* CtyList.swift */,
 				629E4E881EA29C1600F280AD /* logIn.swift */,
 				629E4E8A1EA29C8800F280AD /* LogInDetail.swift */,
@@ -835,7 +832,6 @@
 				62DAC9EE1EABF897005BB0FF /* AuthorizeRouter.swift in Sources */,
 				62D432811EA3C08F005FA616 /* LogoutRouter.swift in Sources */,
 				622A8FCA1E9D3A1200B34B56 /* TextValidator.swift in Sources */,
-				6202A22E1F52E07B00D95722 /* sqliteModel.swift in Sources */,
 				626160F51EC42E82002CCCA8 /* ChannelDetail.swift in Sources */,
 				862B8BAA1F17FE1100CF7527 /* EditChildNameVC.swift in Sources */,
 				62ACD5081EA129BF000B0EDE /* LogInRouter.swift in Sources */,

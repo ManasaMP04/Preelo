@@ -65,6 +65,7 @@ class ChannelDetail: Mappable {
     var lastMsgId           = -1
     var chatTitle           = ""
     var chatLabelTitle      = ""
+    var lastMsg             = ""
     
     required init?(map: Map) {
         

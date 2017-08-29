@@ -46,6 +46,7 @@ class ChatVC: UIViewController {
     fileprivate var parentOrDocId      = 0
     fileprivate var name                = ""
     fileprivate let popAnimator   = DXPopover()
+    var dbManager       = DBManager.init(fileName: "chat.db")!
     
     var channelDetail       : ChannelDetail!
     
@@ -153,13 +154,11 @@ extension ChatVC {
         
         if Reachability.forInternetConnection().isReachable() {
             
-            self.view.isUserInteractionEnabled = false
-            self.activityIndicator?.startAnimating()
+            startAnimating()
             Alamofire.request(AuthorizationRequestListRouter.deAuthorize(channelDetail.patientId, channelDetail.parentId))
                 .responseObject { (response: DataResponse<SuccessStatus>) in
                     
-                    self.view.isUserInteractionEnabled = true
-                    self.activityIndicator?.stopAnimating()
+                   self.stopAnimating()
                     
                     if let result = response.result.value, result.status == "SUCCESS" {
                         
@@ -187,7 +186,7 @@ extension ChatVC {
         self.tableViewHeight.constant = StaticContentFile.screenHeight - 170 - self.requestAuthorizationViewHeight.constant
         self.deauthorizeButton.isHidden = show
         self.channelDetail.auth_status =  show ? "f" : "t"
-        StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: true)
+        StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: true, dbManager: dbManager)
     }
 }
 
@@ -197,13 +196,11 @@ extension ChatVC {
     
     fileprivate func callApiToAuthorize() {
         
-        self.view.isUserInteractionEnabled = false
-        self.activityIndicator?.startAnimating()
+       startAnimating()
         Alamofire.request(AuthorizationRequestListRouter.authorize(channelDetail.patientId, channelDetail.parentId))
             .responseObject { (response: DataResponse<SuccessStatus>) in
                 
-                self.view.isUserInteractionEnabled = true
-                self.activityIndicator?.stopAnimating()
+                self.stopAnimating()
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
@@ -224,7 +221,6 @@ extension ChatVC {
         deauthorizeButton.isHidden = true
         messageList.removeAll()
         
-        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(self.view)
         createFooter ()
         
         NotificationCenter.default.addObserver(self,
@@ -235,7 +231,7 @@ extension ChatVC {
         messageTF.delegate = self
         
         StaticContentFile.setButtonFont(requestAuthButton)
-        
+        dbManager.delegate = self
         showTheAuthRequestButton()
         customeNavigation.setTitle(name)
         customeNavigation.delegate = self
@@ -250,30 +246,19 @@ extension ChatVC {
         
         if Reachability.forInternetConnection().isReachable() {
             
-            self.view.isUserInteractionEnabled = false
-            activityIndicator?.startAnimating()
-            StaticContentFile.clearDbTableWithId(channelDetail.channel_id)
             callApiToGetMessages()
         } else {
             
-            let queryString = String(format: "select  * from \(StaticContentFile.messageTableName) where channel_id = \(channelDetail.channel_id)")
-            
-            StaticContentFile.dbManager?.getDataForQuery(queryString)
-            StaticContentFile.dbManager?.delegate = self
+            refresh()
         }
     }
     
     func refresh() {
         
-        if  !isPatient_DocFlow, Reachability.forInternetConnection().isReachable() {
-            
-            if channelDetail.unread_count > 0 {
-                
-                callApiToGetMessages(true)
-            }
-            
-            showTheAuthRequestButton()
-        }
+        self.messageList.removeAll()
+        let queryString = String(format: "select  * from \(StaticContentFile.messageTableName) where channel_id = \(channelDetail.channel_id)")
+        
+        dbManager.getDataForQuery(queryString)
     }
     
     fileprivate func showAuthRequestTitle(_ title: String) {
@@ -374,51 +359,49 @@ extension ChatVC {
         }
     }
     
-    fileprivate func callApiToGetMessages(_ insertRow: Bool = false) {
+    fileprivate func stopAnimating() {
+        
+        self.activityIndicator?.stopAnimating()
+        self.footerActivityIndicator?.stopAnimating()
+        self.view.isUserInteractionEnabled = true
+    }
+    
+    fileprivate func startAnimating() {
+        
+        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(self.view)
+        self.view.isUserInteractionEnabled = false
+        activityIndicator?.startAnimating()
+    }
+    
+    func callApiToGetMessages(_ insertRow: Bool = false) {
+        
+        startAnimating()
+        StaticContentFile.clearDbTableWithId(channelDetail.channel_id, dbManager: dbManager)
         
         Alamofire.request(SendTextMessageRouter.get(channelDetail))
             .responseArray(keyPath: "data") {(response: DataResponse<[RecentMessages]>) in
                 
-                self.activityIndicator?.stopAnimating()
-                self.footerActivityIndicator?.stopAnimating()
-                self.view.isUserInteractionEnabled = true
+                self.stopAnimating()
                 self.view.layoutIfNeeded()
-                sleep(10)
+                
                 if let result = response.result.value {
                     
                     self.callapiToMarkedRead()
                     
                     for (i,msg) in result.enumerated() {
                         
-                        StaticContentFile.insertRowIntoDB(msg, channelDetail: self.channelDetail)
+                        StaticContentFile.insertRowIntoDB(msg, channelDetail: self.channelDetail, dbManager: self.dbManager)
                         
                         if i == result.count - 1{
                             
                             self.channelDetail.lastMsgId = msg.message_id
+                            self.channelDetail.lastMsg = msg.message_text
+                            StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: false, dbManager: self.dbManager)
                         }
                     }
                     
-                    StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: false)
-                    if insertRow {
-                        
-                        var array = [RecentMessages]()
-                        array  =  self.messageList
-                        self.messageList.append(contentsOf: result)
-                        
-                        var i = 0
-                        while i <= result.count - 1 {
-                            
-                            self.tableview.beginUpdates()
-                            self.tableview.insertRows(at: [IndexPath(row: array.count + i,section: 0)], with: .automatic)
-                            self.tableview.endUpdates()
-                            
-                            i = i+1
-                        }
-                    } else  {
-                        
-                        self.messageList = result
-                        self.tableview.reloadData()
-                    }
+                    self.messageList = result
+                    self.tableview.reloadData()
                     
                     self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
                     self.scrollToButtom()
@@ -633,8 +616,7 @@ extension ChatVC : SelectedImagesVCDelegate {
         
         if Reachability.forInternetConnection().isReachable() {
             
-            self.view.isUserInteractionEnabled = false
-            self.activityIndicator?.startAnimating()
+            startAnimating()
             for (index,image) in images.enumerated() {
                 
                 var url = URL(string: NetworkURL.baseUrl)!
@@ -671,8 +653,7 @@ extension ChatVC : SelectedImagesVCDelegate {
                             
                             if index == self.images.count - 1 {
                                 
-                                self.view.isUserInteractionEnabled = true
-                                self.activityIndicator?.stopAnimating()
+                                self.stopAnimating()
                             }
                             if let JSON = response.result.value {
                                 print("JSON: \(JSON)")
@@ -681,8 +662,7 @@ extension ChatVC : SelectedImagesVCDelegate {
                             
                             if index == self.images.count - 1 {
                                 
-                                self.view.isUserInteractionEnabled = true
-                                self.activityIndicator?.stopAnimating()
+                                self.stopAnimating()
                             }
                             
                             print(error)
@@ -699,36 +679,23 @@ extension ChatVC: DBManagerDelegate {
     
     func dbManager(_ statement: OpaquePointer!) {
         
-        let channel_id = Int(sqlite3_column_int(statement, 0))
         
-        var array = [RecentMessages] ()
+        let message = RecentMessages()
+        message.message_type = String(cString: sqlite3_column_text(statement, 1))
+        message.message_text = String(cString: sqlite3_column_text(statement, 2))
+        message.message_date = String(cString: sqlite3_column_text(statement, 3))
+        message.image_url = String(cString: sqlite3_column_text(statement, 4))
+        message.thumb_Url = String(cString: sqlite3_column_text(statement, 5))
+        message.message_id = Int(sqlite3_column_int(statement, 6))
+        message.senderId = String(cString: sqlite3_column_text(statement, 7))
         
-        if channelDetail.channel_id == channel_id {
-            
-            for _ in 0...sqlite3_column_count(statement)-1 {
-                
-                let message = RecentMessages()
-                
-                message.message_type = String(describing: sqlite3_column_text(statement, 1))
-                message.message_text = String(describing: sqlite3_column_text(statement, 2))
-                message.message_date = String(describing: sqlite3_column_text(statement, 3))
-                message.image_url = String(describing: sqlite3_column_text(statement, 4))
-                message.thumb_Url = String(describing: sqlite3_column_text(statement, 5))
-                message.message_id = Int(sqlite3_column_int(statement, 6))
-                message.senderId = String(describing: sqlite3_column_text(statement, 7))
-                
-                array.append(message)
-            }
-            
-            if array.count > 0 {
-                
-                self.messageList = array
-                self.tableview.reloadData()
-                self.scrollToButtom()
-            } else {
+        self.messageList.append(message)
+        self.tableview.reloadData()
+        self.scrollToButtom()
+            if self.messageList.count > 0 {
                 
                 self.view.showToast(message: "Please check the internet connection")
-            }
+                
         }
     }
 }

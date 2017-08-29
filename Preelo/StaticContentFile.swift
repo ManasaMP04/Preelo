@@ -18,82 +18,78 @@ class StaticContentFile: NSObject {
     static let screenHeight     = screenBounds.size.height
     static let plistStorageManager = PlistManager()
     
-    static let dbManager       = DBManager.init(fileName: "chat.db")
-    
     static let channelTableName       = "channel"
     static let messageTableName       = "message"
     static var isForChannel = true
     
     static func createDB() {
         
-        //  dbManager?.delegate = self
+        let dbManager       = DBManager.init(fileName: "chat.db")
         
-        let queryString = String(format: "CREATE TABLE IF NOT EXISTS \(channelTableName) (channel_id INTEGER,relationship TEXT, patientname TEXT, doctorname TEXT, parentname TEXT,doctor_initials TEXT, unread_count  INTEGER, doctorId  INTEGER,parentId  INTEGER,patientId  INTEGER, auth_status TEXT, doctor_user_id  INTEGER,lastMsgId  INTEGER, chatTitle TEXT,chatLabelTitle TEXT)")
+        let queryString = String(format: "CREATE TABLE IF NOT EXISTS \(channelTableName) (channel_id int,relationship TEXT, patientname TEXT, doctorname TEXT, parentname TEXT,doctor_initials TEXT, unread_count  int, doctorId  int,parentId  int,patientId  int, auth_status TEXT, doctor_user_id  int,lastMsgId  int, chatTitle TEXT,chatLabelTitle TEXT)")
         
-        let queryString1 = String(format: "CREATE TABLE IF NOT EXISTS \(messageTableName) (channel_id INTEGER, message_type TEXT, message_text  TEXT, message_date TEXT,image_url TEXT, thumb_Url TEXT, message_id  INTEGER,senderId TEXT)")
+        let queryString1 = String(format: "CREATE TABLE IF NOT EXISTS \(messageTableName) (channel_id int, message_type TEXT, message_text  TEXT, message_date TEXT,image_url TEXT, thumb_Url TEXT, message_id  int,senderId TEXT)")
         
         dbManager?.createTable(forQuery: queryString)
         dbManager?.createTable(forQuery: queryString1)
     }
     
-    static func clearDbTableWithId(_ id: Int? = nil) {
+    static func clearDbTableWithId(_ id: Int? = nil, dbManager: DBManager) {
         
         if let id1 = id {
             
             let queryString = String(format: "DELETE FROM \(messageTableName) WHERE channel_id = \(id1)")
-            dbManager?.deleteRow(forQuery: queryString)
+            dbManager.deleteRow(forQuery: queryString)
         } else {
             
-            let queryString = String(format: "DELETE FROM \(messageTableName)")
-            let queryString1 = String(format: "DELETE FROM \(channelTableName)")
-            dbManager?.deleteRow(forQuery: queryString)
-            dbManager?.deleteRow(forQuery: queryString1)
+            let queryString = String(format: "DELETE FROM '\(messageTableName)'")
+            let queryString1 = String(format: "DELETE FROM '\(channelTableName)'")
+            dbManager.deleteRow(forQuery: queryString)
+            dbManager.deleteRow(forQuery: queryString1)
         }
     }
     
-    static func insertRowIntoDB(_ recentMessage: RecentMessages? = nil, channelDetail: ChannelDetail) {
+    static func insertRowIntoDB(_ recentMessage: RecentMessages? = nil, channelDetail: ChannelDetail, dbManager: DBManager) {
         
         let sl = "SELECT COUNT(*) FROM channel where channel_id = \(channelDetail.channel_id)"
+        let count = dbManager.getNumberOfRecord(sl)
         
-        if let count = dbManager?.getNumberOfRecord(sl), count > 0 {
+        if count > 0 {
             
             if let message = recentMessage {
                 
-                let queryString1 = String(format: "DELETE FROM \(messageTableName) WHERE message_id = \(message.message_id) AND channel_id = \(channelDetail.channel_id)")
-                dbManager?.deleteRow(forQuery: queryString1)
+                let queryString1 = String(format: "DELETE FROM '\(messageTableName)' WHERE message_id = '\(message.message_id)' AND channel_id = '\(channelDetail.channel_id)'")
+                dbManager.deleteRow(forQuery: queryString1)
                 
-                let queryString = String(format: "INSERT INTO \(messageTableName)(channel_id, message_type, message_text, message_date, image_url, thumb_Url, message_id, senderId) VALUES(?,?,?,?,?,?,?,?)", channelDetail.channel_id, message.message_type, message.message_text, message.message_date, message.image_url, message.thumb_Url, message.message_id, message.senderId)
+                let queryString = String(format: "INSERT INTO '\(messageTableName)' VALUES('\(channelDetail.channel_id)', '\(message.message_type.relaceCharacter())', '\(message.message_text.relaceCharacter())', '\(message.message_date.relaceCharacter())','\(message.image_url.relaceCharacter())', '\(message.thumb_Url.relaceCharacter())', '\(message.message_id)', '\(message.senderId.relaceCharacter())'")
                 
-                dbManager?.saveDataToDB(forQuery: queryString)
-            } else {
-            
-            let queryString = String(format: "INSERT INTO \(channelTableName)(channel_id, relationship, patientname, doctorname,parentname, doctor_initials,unread_count, doctorId, parentId, patientId, auth_status, doctor_user_id, lastMsgId, chatTitle, chatLabelTitle) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", channelDetail.channel_id, channelDetail.relationship, channelDetail.patientname, channelDetail.doctorname, channelDetail.parentname, channelDetail.doctor_initials, channelDetail.unread_count, channelDetail.doctorId, channelDetail.parentId, channelDetail.patientId, channelDetail.auth_status, channelDetail.doctor_user_id, channelDetail.lastMsgId, channelDetail.chatTitle, channelDetail.chatLabelTitle)
-            
-            dbManager?.saveDataToDB(forQuery: queryString)
+                dbManager.saveDataToDB(forQuery: queryString)
             }
         } else if channelDetail.recent_message.count > 0 {
             
             let message = channelDetail.recent_message[channelDetail.recent_message.count - 1]
-            let queryString = String(format: "INSERT INTO \(messageTableName)(channel_id, message_type, message_text, message_date, image_url, thumb_Url, message_id, senderId) VALUES(?,?,?,?,?,?,?,?)", channelDetail.channel_id, message.message_type, message.message_text, message.message_date, message.image_url, message.thumb_Url, message.message_id, message.senderId)
             
-            dbManager?.saveDataToDB(forQuery: queryString)
+            let queryString1 = String(format: "INSERT INTO '\(channelTableName)' VALUES( '\(channelDetail.channel_id)', '\(channelDetail.relationship.relaceCharacter())', '\(channelDetail.patientname.relaceCharacter())', '\(channelDetail.doctorname.relaceCharacter())', '\(channelDetail.parentname.relaceCharacter())', '\(channelDetail.doctor_initials.relaceCharacter())', '\(channelDetail.unread_count)', '\(channelDetail.doctorId)', '\(channelDetail.parentId)', '\(channelDetail.patientId)', '\(channelDetail.auth_status)', '\(channelDetail.doctor_user_id)', '\(message.message_text.relaceCharacter())', '\(channelDetail.chatTitle.relaceCharacter())', '\(channelDetail.chatLabelTitle.relaceCharacter())'")
             
-            let queryString1 = String(format: "INSERT INTO \(channelTableName)(channel_id, relationship, patientname, doctorname,parentname, doctor_initials,unread_count, doctorId, parentId, patientId, auth_status, doctor_user_id, lastMsgId, chatTitle, chatLabelTitle) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", channelDetail.channel_id, channelDetail.relationship, channelDetail.patientname, channelDetail.doctorname, channelDetail.parentname, channelDetail.doctor_initials, channelDetail.unread_count, channelDetail.doctorId, channelDetail.parentId, channelDetail.patientId, channelDetail.auth_status, channelDetail.doctor_user_id, channelDetail.lastMsgId, channelDetail.chatTitle, channelDetail.chatLabelTitle)
-            dbManager?.saveDataToDB(forQuery: queryString1)
+            dbManager.saveDataToDB(forQuery: queryString1)
+            
+            let queryString = String(format: "INSERT INTO '\(messageTableName)' VALUES('\(channelDetail.channel_id)', '\(message.message_type.relaceCharacter())', '\(message.message_text.relaceCharacter())', '\(message.message_date.relaceCharacter())','\(message.image_url.relaceCharacter())', '\(message.thumb_Url.relaceCharacter())', '\(message.message_id)', '\(message.senderId.relaceCharacter())'")
+            
+            dbManager.saveDataToDB(forQuery: queryString)
         }
     }
     
-    static func updateChannelDetail(_ channelDetail: ChannelDetail, isAuthStatus: Bool) {
+    static func updateChannelDetail(_ channelDetail: ChannelDetail, isAuthStatus: Bool, dbManager: DBManager) {
         
         if isAuthStatus {
-            let queryString = String(format: "update \(channelTableName) set auth_status ='\(channelDetail.auth_status)' where channel_id = \(channelDetail.channel_id)")
+            let queryString = String(format: "update '\(channelTableName)' set auth_status ='\(channelDetail.auth_status)' where channel_id = '\(channelDetail.channel_id)'")
             
-            dbManager?.update(queryString)
-        }else {
+            dbManager.update(queryString)
+        } else {
             
-            let queryString = String(format: "update \(channelTableName) set lastMsgId ='\(channelDetail.lastMsgId)', unread_count = \(0)  where channel_id = \(channelDetail.channel_id)")
+            let queryString = String(format: "update '\(channelTableName)' set lastMsg ='\(channelDetail.lastMsg.relaceCharacter())', unread_count = '\(channelDetail.unread_count)', auth_status ='\(channelDetail.auth_status)'  where channel_id = '\(channelDetail.channel_id)'")
             
-            dbManager?.update(queryString)
+            dbManager.update(queryString)
         }
     }
 }
@@ -165,7 +161,7 @@ extension StaticContentFile {
         defaults.set(false, forKey: "isLoggedIn")
         defaults.removeObject(forKey: "userProfile")
         defaults.removeObject(forKey: "socketServers")
-        StaticContentFile.clearDbTableWithId()
+        StaticContentFile.clearDbTableWithId(dbManager: DBManager.init(fileName: "chat.db"))
         MessageVC.sharedInstance.closeConnection()
     }
     
