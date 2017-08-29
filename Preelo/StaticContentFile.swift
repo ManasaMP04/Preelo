@@ -26,7 +26,7 @@ class StaticContentFile: NSObject {
         
         let dbManager       = DBManager.init(fileName: "chat.db")
         
-        let queryString = String(format: "CREATE TABLE IF NOT EXISTS \(channelTableName) (channel_id int,relationship TEXT, patientname TEXT, doctorname TEXT, parentname TEXT,doctor_initials TEXT, unread_count  int, doctorId  int,parentId  int,patientId  int, auth_status TEXT, doctor_user_id  int,lastMsgId  int, chatTitle TEXT,chatLabelTitle TEXT)")
+        let queryString = String(format: "CREATE TABLE IF NOT EXISTS \(channelTableName) (channel_id int,relationship TEXT, patientname TEXT, doctorname TEXT, parentname TEXT,doctor_initials TEXT, unread_count  int, doctorId  int,parentId  int,patientId  int, auth_status TEXT, doctor_user_id  int,lastMsg  Text, chatTitle TEXT,chatLabelTitle TEXT)")
         
         let queryString1 = String(format: "CREATE TABLE IF NOT EXISTS \(messageTableName) (channel_id int, message_type TEXT, message_text  TEXT, message_date TEXT,image_url TEXT, thumb_Url TEXT, message_id  int,senderId TEXT)")
         
@@ -61,7 +61,7 @@ class StaticContentFile: NSObject {
                 let queryString1 = String(format: "DELETE FROM '\(messageTableName)' WHERE message_id = '\(message.message_id)' AND channel_id = '\(channelDetail.channel_id)'")
                 dbManager.deleteRow(forQuery: queryString1)
                 
-                let queryString = String(format: "INSERT INTO '\(messageTableName)' VALUES('\(channelDetail.channel_id)', '\(message.message_type.relaceCharacter())', '\(message.message_text.relaceCharacter())', '\(message.message_date.relaceCharacter())','\(message.image_url.relaceCharacter())', '\(message.thumb_Url.relaceCharacter())', '\(message.message_id)', '\(message.senderId.relaceCharacter())'")
+                let queryString = String(format: "INSERT INTO '\(messageTableName)' VALUES('\(channelDetail.channel_id)', '\(message.message_type.relaceCharacter())', '\(message.message_text.relaceCharacter())', '\(message.message_date.relaceCharacter())','\(message.image_url.relaceCharacter())', '\(message.thumb_Url.relaceCharacter())', '\(message.message_id)', '\(message.senderId.relaceCharacter())')")
                 
                 dbManager.saveDataToDB(forQuery: queryString)
             }
@@ -69,11 +69,11 @@ class StaticContentFile: NSObject {
             
             let message = channelDetail.recent_message[channelDetail.recent_message.count - 1]
             
-            let queryString1 = String(format: "INSERT INTO '\(channelTableName)' VALUES( '\(channelDetail.channel_id)', '\(channelDetail.relationship.relaceCharacter())', '\(channelDetail.patientname.relaceCharacter())', '\(channelDetail.doctorname.relaceCharacter())', '\(channelDetail.parentname.relaceCharacter())', '\(channelDetail.doctor_initials.relaceCharacter())', '\(channelDetail.unread_count)', '\(channelDetail.doctorId)', '\(channelDetail.parentId)', '\(channelDetail.patientId)', '\(channelDetail.auth_status)', '\(channelDetail.doctor_user_id)', '\(message.message_text.relaceCharacter())', '\(channelDetail.chatTitle.relaceCharacter())', '\(channelDetail.chatLabelTitle.relaceCharacter())'")
+            let queryString1 = String(format: "INSERT INTO '\(channelTableName)' VALUES( '\(channelDetail.channel_id)', '\(channelDetail.relationship.relaceCharacter())', '\(channelDetail.patientname.relaceCharacter())', '\(channelDetail.doctorname.relaceCharacter())', '\(channelDetail.parentname.relaceCharacter())', '\(channelDetail.doctor_initials.relaceCharacter())', '\(channelDetail.unread_count)', '\(channelDetail.doctorId)', '\(channelDetail.parentId)', '\(channelDetail.patientId)', '\(channelDetail.auth_status)', '\(channelDetail.doctor_user_id)', '\(message.message_text.relaceCharacter())', '\(channelDetail.chatTitle.relaceCharacter())', '\(channelDetail.chatLabelTitle.relaceCharacter())')")
             
             dbManager.saveDataToDB(forQuery: queryString1)
             
-            let queryString = String(format: "INSERT INTO '\(messageTableName)' VALUES('\(channelDetail.channel_id)', '\(message.message_type.relaceCharacter())', '\(message.message_text.relaceCharacter())', '\(message.message_date.relaceCharacter())','\(message.image_url.relaceCharacter())', '\(message.thumb_Url.relaceCharacter())', '\(message.message_id)', '\(message.senderId.relaceCharacter())'")
+            let queryString = String(format: "INSERT INTO '\(messageTableName)' VALUES('\(channelDetail.channel_id)', '\(message.message_type.relaceCharacter())', '\(message.message_text.relaceCharacter())', '\(message.message_date.relaceCharacter())','\(message.image_url.relaceCharacter())', '\(message.thumb_Url.relaceCharacter())', '\(message.message_id)', '\(message.senderId.relaceCharacter())')")
             
             dbManager.saveDataToDB(forQuery: queryString)
         }
@@ -87,7 +87,7 @@ class StaticContentFile: NSObject {
             dbManager.update(queryString)
         } else {
             
-            let queryString = String(format: "update '\(channelTableName)' set lastMsg ='\(channelDetail.lastMsg.relaceCharacter())', unread_count = '\(channelDetail.unread_count)', auth_status ='\(channelDetail.auth_status)'  where channel_id = '\(channelDetail.channel_id)'")
+            let queryString = String(format: "update '\(channelTableName)' set lastMsg ='\(channelDetail.lastMsg.relaceCharacter())', unread_count = '\(channelDetail.unread_count)'  where channel_id = '\(channelDetail.channel_id)'")
             
             dbManager.update(queryString)
         }

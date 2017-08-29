@@ -170,7 +170,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get your password on your Email ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="950-Ya-zyT">
-                                <rect key="frame" x="36.5" y="114" width="247" height="17"/>
+                                <rect key="frame" x="39" y="114" width="242" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="Nec-p8-lMi"/>
                                     <constraint firstAttribute="width" constant="584" id="TSW-Wb-tmV"/>
@@ -306,7 +306,7 @@
                                                     <segue destination="xCx-HI-EVa" kind="show" id="FlL-SD-dbv"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nuo-uM-8Kc">
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nuo-uM-8Kc">
                                                 <rect key="frame" x="161" y="441" width="139" height="28"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="28" id="cp1-zt-pdP"/>
@@ -617,7 +617,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Qh-P6-RtW">
-                                <rect key="frame" x="70" y="188" width="180" height="70"/>
+                                <rect key="frame" x="70" y="208" width="180" height="70"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="glj-3Q-Bst"/>
@@ -646,7 +646,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="emh-ft-5xm">
-                                <rect key="frame" x="70" y="90" width="180" height="70"/>
+                                <rect key="frame" x="70" y="110" width="180" height="70"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="29e-4N-d6m"/>
@@ -661,8 +661,8 @@
                                     <segue destination="RVK-GT-Mon" kind="show" id="Hmg-YQ-x9Q"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k38-I4-UaY">
-                                <rect key="frame" x="70" y="286" width="180" height="70"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k38-I4-UaY">
+                                <rect key="frame" x="70" y="306" width="180" height="70"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="7nx-Iu-Xak"/>
@@ -688,7 +688,7 @@
                             <constraint firstItem="6Qh-P6-RtW" firstAttribute="centerX" secondItem="emh-ft-5xm" secondAttribute="centerX" id="DWh-hF-B8o"/>
                             <constraint firstItem="5gA-k0-QPo" firstAttribute="centerY" secondItem="rNR-cB-OaH" secondAttribute="centerY" id="Exh-XZ-cd3"/>
                             <constraint firstItem="bNM-Rx-gmH" firstAttribute="top" secondItem="w5b-nz-5cg" secondAttribute="bottom" constant="40" id="MLi-9j-PZl"/>
-                            <constraint firstItem="emh-ft-5xm" firstAttribute="top" secondItem="5gA-k0-QPo" secondAttribute="bottom" constant="50" id="bgY-yE-Mhs"/>
+                            <constraint firstItem="emh-ft-5xm" firstAttribute="top" secondItem="5gA-k0-QPo" secondAttribute="bottom" constant="70" id="bgY-yE-Mhs"/>
                             <constraint firstItem="rNR-cB-OaH" firstAttribute="leading" secondItem="5Ye-us-Ck0" secondAttribute="leading" id="mPK-Gp-lVA"/>
                             <constraint firstItem="5gA-k0-QPo" firstAttribute="centerX" secondItem="5Ye-us-Ck0" secondAttribute="centerX" id="uvB-id-EsW"/>
                             <constraint firstItem="w5b-nz-5cg" firstAttribute="leading" secondItem="5Ye-us-Ck0" secondAttribute="leading" constant="20" id="xZp-qx-9bc"/>

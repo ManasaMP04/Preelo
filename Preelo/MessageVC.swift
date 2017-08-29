@@ -36,6 +36,7 @@ class MessageVC: UIViewController {
     fileprivate var selectedChannelId = 0
     fileprivate var list = [Any]()
     let dbManager       = DBManager.init(fileName: "chat.db")!
+    fileprivate var isChannelCall  = false
     
     static let sharedInstance = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MessageVC") as! MessageVC
     
@@ -93,7 +94,7 @@ class MessageVC: UIViewController {
         if status, let request = StaticContentFile.getAuthRequest() {
             
             list = request.authRequest
-            tableview?.reloadData()
+            reloadData()
         } else if !status {
             
             getChannel()
@@ -107,9 +108,9 @@ extension MessageVC {
     
     fileprivate func setup() {
         
-         dbManager.delegate = self
+        dbManager.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotification), name: Notification.Name("NotificationIdentifier"), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotification), name: Notification.Name("reloadData"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationForAuthRequest), name: Notification.Name("AuthNotificationIdentifier"), object: nil)
         
         cardView?.addShadowWithColor(UIColor.colorWithHex(0x23B5B9) , offset: CGSize.zero, opacity: 0.3, radius: 4)
@@ -127,18 +128,21 @@ extension MessageVC {
         tableview.tableFooterView = UIView()
     }
     
-    fileprivate func callAPIForAcceptAuth(_ request: URLRequestConvertible, indexPath: IndexPath, data: DocAuthorizationRequest) {
+    func startAnimating() {
         
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         activityIndicator?.startAnimating()
         self.view.isUserInteractionEnabled = false
+    }
+    
+    fileprivate func callAPIForAcceptAuth(_ request: URLRequestConvertible, indexPath: IndexPath, data: DocAuthorizationRequest) {
+        
+        startAnimating()
         
         Alamofire.request(request)
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
-                self.view.isUserInteractionEnabled = true
-                self.activityIndicator?.stopAnimating()
-                
+                self.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     StaticContentFile.updateAuthRequest(data)
@@ -165,15 +169,12 @@ extension MessageVC {
     
     fileprivate func callAPIToSelect(_ urlRequest: URLRequestConvertible, data: ChannelDetail) {
         
-        self.view.isUserInteractionEnabled = false
-        activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
-        activityIndicator?.startAnimating()
+        startAnimating()
         
         Alamofire.request(urlRequest)
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 
-                self.view.isUserInteractionEnabled = true
-                self.activityIndicator?.stopAnimating()
+                self.stopAnimating()
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
@@ -285,13 +286,14 @@ extension MessageVC{
         
         if selection == .message, Reachability.forInternetConnection().isReachable() {
             
+            startAnimating()
             self.callChannelAPI()
         } else if Reachability.forInternetConnection().isReachable() {
             
             StaticContentFile.isDoctorLogIn() ? self.callAPIToGetAuthRequest() : self.callAPIToGetPatientAuthRequest()
         } else if !Reachability.forInternetConnection().isReachable() {
             
-            self.pullToRefreshControl?.endRefreshing()
+            self.stopAnimating()
             authorizationButtonSelected(selection == .message)
         }
     }
@@ -310,29 +312,35 @@ extension MessageVC{
         Alamofire.request(AuthorizationRequestListRouter.channel_get())
             .responseObject {(response: DataResponse<ChannelObject>) in
                 
-                self.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
-                    
-                    self.list = result.data
-                    self.tableview?.reloadData()
                     
                     for detail in result.data {
                         
                         StaticContentFile.insertRowIntoDB(channelDetail: detail, dbManager: self.dbManager)
                     }
-                }}
+                    
+                    self.getChannel()
+                    
+                     NotificationCenter.default.post(name: Notification.Name("reloadData"), object: nil, userInfo: nil)
+                }
+        
+                self.stopAnimating()
+        }
     }
     
     fileprivate func getChannel() {
         
-        list.removeAll()
+        if selection == .message {
+            
+            list.removeAll()
+        }
         
         let queryString = String(format: "select  * from \(StaticContentFile.channelTableName)")
         
         dbManager.getDataForQuery(queryString)
     }
     
-    fileprivate func callAPIToGetAuthRequest() {
+    func callAPIToGetAuthRequest() {
         
         let plistStorageManager = PlistManager()
         plistStorageManager.deleteObject(forKey: "\(StaticContentFile.getId())", inFile: .authRequest)
@@ -342,10 +350,14 @@ extension MessageVC{
                 self.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    self.list = result.authRequest
+                    if self.selection == .authentication {
+                        
+                        self.list = result.authRequest
+                        self.reloadData()
+                    }
+                    
                     self.notificationCount.text = "\(self.list.count)"
                     self.notificationCount.isHidden = self.list.count == 0
-                    self.tableview.reloadData()
                     StaticContentFile.saveAuthRequest(result)
                 }else if let result = response.result.value {
                     
@@ -356,7 +368,7 @@ extension MessageVC{
                 }}
     }
     
-    fileprivate func callAPIToGetPatientAuthRequest() {
+    func callAPIToGetPatientAuthRequest() {
         
         let plistStorageManager = PlistManager()
         plistStorageManager.deleteObject(forKey: "\(StaticContentFile.getId())", inFile: .authRequest)
@@ -366,8 +378,11 @@ extension MessageVC{
                 self.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    self.list = result.authRequest
-                    self.tableview.reloadData()
+                    if self.selection == .authentication {
+                        
+                        self.list = result.authRequest
+                        self.reloadData()                    }
+                    
                     StaticContentFile.saveAuthRequest(result)
                 }else if let result = response.result.value {
                     
@@ -397,13 +412,14 @@ extension MessageVC: DBManagerDelegate {
         detail.patientId = Int(sqlite3_column_int(statement, 9))
         detail.auth_status = String(cString: sqlite3_column_text(statement, 10))
         detail.doctor_user_id = Int(sqlite3_column_int(statement, 11))
-        detail.lastMsgId = Int(sqlite3_column_int(statement, 12))
+        detail.lastMsg = String(cString: sqlite3_column_text(statement, 12))
         detail.chatTitle = String(cString: sqlite3_column_text(statement, 13))
         detail.chatLabelTitle = String(cString: sqlite3_column_text(statement, 14))
         
-        list.append(detail)
-        
-        tableview?.reloadData()
+        if selection == .message {
+            
+            list.append(detail)
+        }
     }
 }
 
@@ -413,8 +429,7 @@ extension MessageVC: ChatVCDelegate {
         
         if isAuthRequest, !StaticContentFile.isDoctorLogIn() {
             
-            self.view.isUserInteractionEnabled = false
-            self.activityIndicator?.startAnimating()
+            startAnimating()
             callAPIToGetPatientAuthRequest()
         } else {
             
@@ -488,23 +503,32 @@ extension MessageVC {
         }
     }
     
+    @objc fileprivate func reloadData() {
+    
+        tableview.reloadData()
+    }
+    
     @objc fileprivate func handleNotification() {
         
-        if selection == .message {
+        getChannel()
+        
+        if let vc = self.navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC, let details = list as? [ChannelDetail] {
             
-            getChannel()
-            
-            if let vc = self.navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC, let details = list as? [ChannelDetail] {
+            for (i,data) in details.enumerated() {
                 
-                for data in details {
+                let d1 = data
+                d1.unread_count = 0
+                list[i] = d1
+                self.reloadData()
+                
+                StaticContentFile.updateChannelDetail(d1, isAuthStatus: false, dbManager: dbManager)
+                
+                if data.channel_id == selectedChannelId {
                     
-                    if data.channel_id == selectedChannelId {
-                        
-                        vc.channelDetail = data
-                        vc.refresh()
-                        return
-                    }}}
-        }
+                    vc.channelDetail = data
+                    vc.refresh()
+                    return
+                }}}
     }
     
     @objc fileprivate func handleNotificationForAuthRequest() {
@@ -512,7 +536,7 @@ extension MessageVC {
         if selection == .authentication, let authRequest = StaticContentFile.getAuthRequest() {
             
             self.list = authRequest.authRequest
-            self.tableview?.reloadData()
+            reloadData()
         }
     }
     
@@ -531,10 +555,8 @@ extension MessageVC {
             }
         } else {
             
-            activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
-            self.activityIndicator?.startAnimating()
-            self.view.isUserInteractionEnabled = false
-            callChannelAPI()
+            startAnimating()
+            refresh(nil)
         }
     }
     
@@ -555,12 +577,16 @@ extension MessageVC {
         if let id = event["channel_id"] as? Int,
             let name = event["channel_name"] as? String,
             let msgType = event["message_type"] as? String,
-            let msgId = event["message_id"] as? Int {
+            let msgId = event["message_id"] as? Int,
+            let email = event["email"] as? String ,
+            let loginEmail = StaticContentFile.getUserProfile()?.email {
             
             let channel = ChannelDetail()
             channel.channel_id = id
             channel.channel_name = name
             channel.unread_count = 1
+            
+            let sender = (email == loginEmail) ? "you" : "not you"
             
             if msgType == "simple",
                 let message = event["message"] as? String {
@@ -568,12 +594,12 @@ extension MessageVC {
                 channel.lastMsg = message
                 
                 if let auth = event["auth_status"] as? String {
-                
+                    
                     channel.auth_status = auth
                 }
                 
                 StaticContentFile.updateChannelDetail(channel, isAuthStatus: false, dbManager: dbManager )
-                let recentMsg = RecentMessages(msgType, text: message, image: nil, senderId: "", timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
+                let recentMsg = RecentMessages(msgType, text: message, image: nil, senderId: sender, timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
                 recentMsg.message_id = msgId
                 channel.recent_message = [recentMsg]
                 StaticContentFile.insertRowIntoDB(recentMsg, channelDetail: channel, dbManager: self.dbManager)
@@ -583,7 +609,7 @@ extension MessageVC {
                 channel.lastMsg = message
                 StaticContentFile.updateChannelDetail(channel, isAuthStatus: false, dbManager: dbManager)
                 
-                let recentMsg = RecentMessages(msgType, text: message, image: image, senderId: "", timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
+                let recentMsg = RecentMessages(msgType, text: message, image: image, senderId: sender, timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
                 recentMsg.message_id = msgId
                 channel.recent_message = [recentMsg]
                 StaticContentFile.insertRowIntoDB(recentMsg, channelDetail: channel, dbManager: self.dbManager)

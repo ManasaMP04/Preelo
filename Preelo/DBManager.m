@@ -61,7 +61,7 @@
             
         }
         
-         NSLog(@"create table");
+        NSLog(@"create table");
         sqlite3_close(database);
         
     }
@@ -242,7 +242,6 @@
 - (void)update:(NSString *)query
 
 {
-    
     const char *dbPath = [databasePath UTF8String];
     if (sqlite3_open(dbPath, &database) == SQLITE_OK)
         
@@ -252,10 +251,17 @@
         if (sqlite3_prepare_v2(database, updateQuery, -1, &statement, NULL) == SQLITE_OK)
             
         {
-            [self.delegate DBManager:statement];
-            sqlite3_finalize(statement);
             
+            if (sqlite3_step(statement) != SQLITE_DONE) {
+                
+                NSLog(@"Error during step. %s", sqlite3_errmsg(database));
+            }else {
+            
+            NSLog(@"updated Sucessfully");
+            }
         }
+        
+        sqlite3_finalize(statement);
         sqlite3_close(database);
         
     }else

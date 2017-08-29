@@ -108,15 +108,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        
+        let defaults = UserDefaults.standard
+        if let status = defaults.value(forKey: "isLoggedIn") as? Bool, status,
+             Reachability.forInternetConnection().isReachable() {
+            
+            MessageVC.sharedInstance.callChannelAPI()
+            StaticContentFile.isDoctorLogIn() ? MessageVC.sharedInstance.callAPIToGetAuthRequest() : MessageVC.sharedInstance.callAPIToGetPatientAuthRequest()
+        }
     }
+    
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         
         let defaults = UserDefaults.standard
         if let status = defaults.value(forKey: "isLoggedIn") as? Bool, status {
-            
-            MessageVC.sharedInstance.handleRemoteNotification()
+        
             MessageVC.sharedInstance.establishConnection()
         }
     }

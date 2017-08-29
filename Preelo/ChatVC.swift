@@ -255,10 +255,15 @@ extension ChatVC {
     
     func refresh() {
         
+        self.activityIndicator?.stopAnimating()
+        self.view.isUserInteractionEnabled = true
         self.messageList.removeAll()
         let queryString = String(format: "select  * from \(StaticContentFile.messageTableName) where channel_id = \(channelDetail.channel_id)")
         
         dbManager.getDataForQuery(queryString)
+        
+        self.tableview.reloadData()
+        self.scrollToButtom()
     }
     
     fileprivate func showAuthRequestTitle(_ title: String) {
@@ -394,6 +399,7 @@ extension ChatVC {
                         
                         if i == result.count - 1{
                             
+                            self.channelDetail.unread_count = 0
                             self.channelDetail.lastMsgId = msg.message_id
                             self.channelDetail.lastMsg = msg.message_text
                             StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: false, dbManager: self.dbManager)
@@ -529,7 +535,7 @@ extension ChatVC {
             
             let kbSize = (dictionary.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
             
-            tableViewHeight.constant = StaticContentFile.screenHeight - kbSize.height + 40
+            tableViewHeight.constant = StaticContentFile.screenHeight - kbSize.height + 60
             
             if messageList.count > 0 {
                 
@@ -679,7 +685,6 @@ extension ChatVC: DBManagerDelegate {
     
     func dbManager(_ statement: OpaquePointer!) {
         
-        
         let message = RecentMessages()
         message.message_type = String(cString: sqlite3_column_text(statement, 1))
         message.message_text = String(cString: sqlite3_column_text(statement, 2))
@@ -690,13 +695,6 @@ extension ChatVC: DBManagerDelegate {
         message.senderId = String(cString: sqlite3_column_text(statement, 7))
         
         self.messageList.append(message)
-        self.tableview.reloadData()
-        self.scrollToButtom()
-            if self.messageList.count > 0 {
-                
-                self.view.showToast(message: "Please check the internet connection")
-                
-        }
     }
 }
 
