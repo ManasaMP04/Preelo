@@ -36,6 +36,7 @@ class ChatVC: UIViewController {
     @IBOutlet weak var deauthorizeButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var galleryButton: UIButton!
+    @IBOutlet weak var scrollviewBottom: NSLayoutConstraint!
     
     fileprivate var messageList         = [RecentMessages]()
     fileprivate var activityIndicator   : UIActivityIndicatorView?
@@ -539,22 +540,16 @@ extension ChatVC {
     
     @objc fileprivate func keyboardWasShown(_ notification: Notification) {
         
+        self.view.layoutIfNeeded()
         if let info = (notification as NSNotification).userInfo {
             
             let dictionary = info as NSDictionary
             
             let kbSize = (dictionary.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
             
-            tableViewHeight.constant = StaticContentFile.screenHeight - kbSize.height + 60
+            tableViewHeight.constant = StaticContentFile.screenHeight - kbSize.height
             
-            if messageList.count > 0 {
-                
-                tableview.scrollToRow(at: IndexPath(row: messageList.count-1, section: 0), at: .bottom, animated: true)
-                
-                view.layoutIfNeeded()
-            }
-            
-            self.scrollViewBottomInset = kbSize.height
+            self.scrollviewBottom.constant = kbSize.height
         }
     }
     
@@ -562,7 +557,7 @@ extension ChatVC {
         
         tableViewHeight.constant = StaticContentFile.screenHeight - 170 - requestAuthorizationViewHeight.constant
         
-        self.scrollViewBottomInset = -40
+        self.scrollviewBottom.constant = 0
     }
 }
 

@@ -28,6 +28,7 @@
                 <outlet property="requestAuthButton" destination="9xN-2L-JeE" id="Xhy-ex-5Cf"/>
                 <outlet property="requestAuthorizationViewHeight" destination="xsS-eV-WSn" id="YKc-UU-gNK"/>
                 <outlet property="scrollView" destination="WAt-Pe-tRq" id="6wi-Wt-7fM"/>
+                <outlet property="scrollviewBottom" destination="k3s-7E-I4o" id="KAP-wU-HUJ"/>
                 <outlet property="tableViewHeight" destination="JPB-ew-ake" id="s7V-Da-i16"/>
                 <outlet property="tableview" destination="Wcp-gu-6Ue" id="a1L-vm-q97"/>
                 <outlet property="toolbarView" destination="oxm-pz-0QZ" id="hoQ-Zb-EX2"/>
