@@ -158,7 +158,7 @@ extension ChatVC {
             Alamofire.request(AuthorizationRequestListRouter.deAuthorize(channelDetail.patientId, channelDetail.parentId))
                 .responseObject { (response: DataResponse<SuccessStatus>) in
                     
-                   self.stopAnimating()
+                    self.stopAnimating()
                     
                     if let result = response.result.value, result.status == "SUCCESS" {
                         
@@ -196,7 +196,7 @@ extension ChatVC {
     
     fileprivate func callApiToAuthorize() {
         
-       startAnimating()
+        startAnimating()
         Alamofire.request(AuthorizationRequestListRouter.authorize(channelDetail.patientId, channelDetail.parentId))
             .responseObject { (response: DataResponse<SuccessStatus>) in
                 
@@ -249,20 +249,30 @@ extension ChatVC {
             callApiToGetMessages()
         } else {
             
-            refresh()
+            stopAnimating()
+            self.messageList.removeAll()
+            let queryString = String(format: "select  * from \(StaticContentFile.messageTableName) where channel_id = \(channelDetail.channel_id)")
+            
+            dbManager.getDataForQuery(queryString)
+            
+            self.tableview.reloadData()
+            self.scrollToButtom()
         }
     }
     
     func refresh() {
         
-        self.activityIndicator?.stopAnimating()
-        self.view.isUserInteractionEnabled = true
+        stopAnimating()
+        var array = [RecentMessages]()
+        array = self.messageList
         self.messageList.removeAll()
         let queryString = String(format: "select  * from \(StaticContentFile.messageTableName) where channel_id = \(channelDetail.channel_id)")
         
         dbManager.getDataForQuery(queryString)
         
-        self.tableview.reloadData()
+        tableview.beginUpdates()
+        tableview.insertRows(at: [IndexPath(row: array.count, section: 0)], with: .automatic)
+        tableview.endUpdates()
         self.scrollToButtom()
     }
     
