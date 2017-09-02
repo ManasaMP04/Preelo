@@ -244,7 +244,7 @@ extension LoginDetailVC {
                     
                      self.defaults.set(true, forKey: "isLoggedIn")
                      StaticContentFile.saveAuthRequest(result)
-                    
+                    StaticContentFile.callApiToRegisterDevice()
                     self.performSegue(withIdentifier: "loginSuccess", sender: nil)
                 }else {
                     
@@ -263,7 +263,7 @@ extension LoginDetailVC {
                     
                     self.defaults.set(true, forKey: "isLoggedIn")
                     StaticContentFile.saveAuthRequest(result)
-                    
+                    StaticContentFile.callApiToRegisterDevice()
                     self.performSegue(withIdentifier: "loginSuccess", sender: nil)
                 }else {
                     
