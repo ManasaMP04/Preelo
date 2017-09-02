@@ -163,7 +163,7 @@ extension AddPatientVC {
         tableview.register(UINib(nibName: "ParentDetailCell", bundle: nil), forCellReuseIdentifier: ParentDetailCell.cellId)
         
         StaticContentFile.setButtonFont(addPatientButton, backgroundColorNeeed: false, shadowNeeded: false)
-        StaticContentFile.setButtonFont(doneButton)
+        StaticContentFile.setButtonFont(doneButton, shadowNeeded: false)
         firstName.isCompleteBoarder = true
         lastName.isCompleteBoarder  = true
         
@@ -256,6 +256,7 @@ extension AddPatientVC {
                         
                         vc.callChannelAPI()
                     }
+                    self.isEditPatient = false
                     self.showAlertView(false)
                 } else {
                     
@@ -283,6 +284,7 @@ extension AddPatientVC {
                 self.activityIndicator?.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
+                    self.isEditPatient = false
                     if let nav = self.tabBarController?.viewControllers?[0] as? UINavigationController, let vc = nav.viewControllerWithClass(MessageVC.self) as? MessageVC {
                         
                         vc.callChannelAPI()

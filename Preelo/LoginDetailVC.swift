@@ -112,6 +112,11 @@ extension LoginDetailVC {
     
     fileprivate func setup() {
         
+        if let image = UIImage(named: "Doctor-Login-Screen") {
+            
+            view.backgroundColor = UIColor.init(patternImage: image)
+        }
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
@@ -132,7 +137,6 @@ extension LoginDetailVC {
         StaticContentFile.setFontForTF(password, autoCaps: false)
         StaticContentFile.setFontForTF(userName, autoCaps: false)
         StaticContentFile.setButtonFont(login)
-        StaticContentFile.setUnderlineForButton(forgotPasswordButton, text: "Forgot Password ?")
          StaticContentFile.setUnderlineForButton(createAccount, text: "Create Account")
         
         

@@ -58,6 +58,7 @@ extension TabBarVC {
     
     fileprivate func setup() {
         
+        self.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
         self.navigationController?.navigationBar.isHidden = true
         callLogiApi()
     }

@@ -70,6 +70,18 @@ class AccountSettingsVC: UIViewController {
     }
 }
 
+extension AccountSettingsVC: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        if let v1 = touch.view, v1 is UIButton {
+            
+            return false
+        }
+        return true
+    }
+}
+
 extension AccountSettingsVC:CustomNavigationBarDelegate  {
     
     func tappedBackButtonFromVC(_ customView: CustomNavigationBar){
@@ -153,7 +165,7 @@ extension AccountSettingsVC {
     fileprivate func setup () {
         
         childrenInfoButton.isHidden = StaticContentFile.isDoctorLogIn()
-    
+        
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         
         tableView.register(UINib(nibName: "ParentDetailCell", bundle: nil), forCellReuseIdentifier: ParentDetailCell.cellId)
@@ -227,7 +239,11 @@ extension AccountSettingsVC {
             lastName.text = profile.lastname
             emailAddress.text = profile.email
             phoneNumber.text = profile.phonenumber
+            confirmPassword.text = ""
+            password.text = ""
         }
+        
+        self.view.endEditing(true)
     }
     
     fileprivate func personalButtonSelected(_ status: Bool) {
@@ -255,18 +271,15 @@ extension AccountSettingsVC {
             let phone = self.phoneNumber.text,
             phone.characters.count > 0,
             let email = self.emailAddress.text,
-            email.characters.count > 0, let pass = password.text,
-            pass.characters.count > 0,
-            let confirmPassword = confirmPassword.text,
-            confirmPassword.characters.count > 0, Reachability.forInternetConnection().isReachable() {
+            email.characters.count > 0, Reachability.forInternetConnection().isReachable() {
             
             self.view.isUserInteractionEnabled = false
             activityIndicator?.startAnimating()
             
-            Alamofire.request(SettingRouter.post_updateProfile(fName, lName, phone, email, pass, confirmPassword))
+            Alamofire.request(SettingRouter.post_updateProfile(fName, lName, phone, email, password.text, confirmPassword.text))
                 .responseObject { (response: DataResponse<SuccessStatus>) in
                     
-                    if let result = response.result.value {
+                    if let result = response.result.value, result.status == "SUCCESS"  {
                         
                         if let profile = self.userProfile {
                             
@@ -297,7 +310,7 @@ extension AccountSettingsVC {
                     self.activityIndicator?.stopAnimating()
             }
         } else if !Reachability.forInternetConnection().isReachable() {
-        
+            
             self.view.showToast(message: "Please check the internet connection")
         } else {
             

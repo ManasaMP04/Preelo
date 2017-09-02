@@ -109,7 +109,7 @@ authorization to send messages</string>
                                 </view>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wcp-gu-6Ue">
                                     <rect key="frame" x="0.0" y="362" width="375" height="200"/>
-                                    <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="200" id="JPB-ew-ake"/>
                                     </constraints>
@@ -146,7 +146,7 @@ authorization to send messages</string>
                                             <rect key="frame" x="107" y="7.5" width="207" height="30"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xAF-hp-Svp">
                                             <rect key="frame" x="322" y="0.0" width="45" height="45"/>
@@ -177,7 +177,7 @@ authorization to send messages</string>
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="oxm-pz-0QZ" secondAttribute="bottom" id="3pR-JV-kNk"/>
                                 <constraint firstAttribute="trailing" secondItem="oxm-pz-0QZ" secondAttribute="trailing" id="5N3-ff-xbb"/>
@@ -192,7 +192,7 @@ authorization to send messages</string>
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="xUv-Ng-3SV" firstAttribute="height" secondItem="WAt-Pe-tRq" secondAttribute="height" priority="999" id="Owh-cl-Ctw"/>

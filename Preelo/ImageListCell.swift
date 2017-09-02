@@ -64,7 +64,6 @@ extension ImageListCell: UICollectionViewDelegate, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.cellId, for: indexPath) as! ImageCell
-        
         let msg = imageList[indexPath.row]
         let str = msg.senderId.lowercased()
         let time = Date.dateDiff(dateStr: msg.message_date)

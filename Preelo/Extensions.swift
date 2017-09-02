@@ -20,7 +20,7 @@ extension UIView {
     
     func showToast(message : String) {
         
-        let toastLabel = UILabel(frame: CGRect(x: 50, y: self.frame.size.height/2, width: self.frame.size.width - 100, height: 45))
+        let toastLabel = UILabel(frame: CGRect(x: 25, y: self.frame.size.height/2, width: StaticContentFile.screenWidth - 50, height: 45))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
         toastLabel.numberOfLines = 0

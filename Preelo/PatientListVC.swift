@@ -14,6 +14,29 @@ fileprivate let cellHeight = CGFloat(70)
 
 class PatientListVC: UIViewController {
     
+    struct Address {
+        
+        var address1 : String
+        var address2 : String
+        var city : String
+        var state: String
+        var zip: String
+        var phone = [String]()
+        var fax   : String
+        
+        var count : Int {
+            
+            var i = 1
+            
+            if fax.characters.count > 0 {
+                
+                i = i + 1
+            }
+            
+            return i + phone.count
+        }
+    }
+    
     @IBOutlet fileprivate weak var customNavigationBar        : CustomNavigationBar!
     @IBOutlet fileprivate weak var tableView                  : UITableView!
     @IBOutlet fileprivate weak var tableviewBottomConstraint  : NSLayoutConstraint!
@@ -21,7 +44,7 @@ class PatientListVC: UIViewController {
     
     fileprivate var activityIndicator: UIActivityIndicatorView?
     fileprivate var list = [Any]()
-    fileprivate var docDetail = [Any]()
+    fileprivate var docDetail = [Address]()
     fileprivate var patientDetail : Any!
     
     fileprivate var selectedIndex: IndexPath?
@@ -80,7 +103,10 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
         
         if let path = selectedIndex, path.section == section {
             
-            row += docDetail.count
+            for detail in docDetail {
+                
+                row += detail.count
+            }
         }
         
         return row
@@ -99,17 +125,30 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
             if indexPath.row == 0 {
                 
                 let image = list.blocked.lowercased() == "y" ? "Unblock" : "Block"
-                cell.showParentName(list.doctor_firstname , showImage: false, showEdit: true, image: image, showLocation: true, font: UIFont(name: "Ubuntu", size: 16)!, color: UIColor.colorWithHex(0x414042), showInitial: true, initialText: String(list.doctor_firstname.characters.prefix(1)), enabledLocation: list.blocked.lowercased() != "y")
-            } else if let detail = docDetail[indexPath.row - 1] as? Locations {
+                cell.showParentName(list.doctor_firstname , showImage: false, showEdit: true, image: image, showLocation: true, font: UIFont(name: "Ubuntu", size: 16)!, color: UIColor.colorWithHex(0x414042), showInitial: true, initialText: String(list.doctor_firstname.characters.prefix(1)), isLocationSelected: selectedIndex == indexPath)
+            } else {
                 
-                let address = detail.address1 + " " + detail.address2
-                cell.showParentName(address , showImage: false, showEdit: false, image: nil, showLocation: false, font: UIFont(name: "Ubuntu-Medium", size: 12)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
-            } else if let detail = docDetail[indexPath.row - 1] as? DoctorPhoneNumbers {
                 
-                cell.showParentName(detail.phone_number , showImage: false, showEdit: true, image: "phone", showLocation: false, font: UIFont(name: "Ubuntu-Light", size: 14)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
-            } else if let detail = docDetail[indexPath.row - 1] as? String {
                 
-                cell.showParentName(detail , showImage: false, showEdit: false, image: nil, showLocation: false, font: UIFont(name: "Ubuntu-Light", size: 14)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
+                if   let detail = docDetail[indexPath.row - 1] as? Locations {
+                    
+                    let address = detail.address1 + " " + detail.address2
+                    cell.showParentName(address , showImage: false, showEdit: false, image: nil, showLocation: false, font: UIFont(name: "Ubuntu-Medium", size: 12)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
+                } else if let detail = docDetail[indexPath.row - 1] as? DoctorPhoneNumbers {
+                    
+                    cell.showParentName(detail.phone_number , showImage: false, showEdit: true, image: "phone", showLocation: false, font: UIFont(name: "Ubuntu-Light", size: 14)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
+                } else if let detail = docDetail[indexPath.row - 1] as? String {
+                    
+                    cell.showParentName(detail , showImage: false, showEdit: false, image: nil, showLocation: false, font: UIFont(name: "Ubuntu-Light", size: 14)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
+                }
+                
+                
+                
+                
+                
+                
+                
+                
             }
         }
         
@@ -118,18 +157,12 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return cellHeight
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if StaticContentFile.isDoctorLogIn(),
-            let patient = list[indexPath.section] as? PatientList,
-            let detail  = patientDetail as? Patients,
-            patient.family.count > 0 {
+        if indexPath.row == 0 {
             
-            callAPIToSelectDocOrPatient(patient, index: 0, doctorId: detail.doctorid)
+            return cellHeight
         }
+        
+        return UITableViewAutomaticDimension
     }
 }
 
@@ -170,17 +203,15 @@ extension PatientListVC: ParentDetailCellDelegate {
                 
                 for loc in docList.locations {
                     
-                    docDetail.append(loc)
+                    var phones = [String]()
                     
                     for phone in loc.phones {
                         
-                        docDetail.append(phone)
+                        phones.append(phone.phone_number)
                     }
                     
-                    if loc.faxes.characters.count > 0 {
-                    
-                        docDetail.append(loc.faxes)
-                    }
+                    let address = Address(address1: loc.address1, address2: loc.address2, city: loc.city,state: loc.state,zip: "", phone: phones, fax: loc.faxes)
+                    docDetail.append(address)
                 }
             }
             
@@ -307,6 +338,7 @@ extension PatientListVC {
     
     fileprivate func setup() {
         
+        tableView.estimatedRowHeight = 35
         if StaticContentFile.isDoctorLogIn() {
             
             view.bringSubview(toFront: addPatientButton)

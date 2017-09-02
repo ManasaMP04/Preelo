@@ -65,7 +65,8 @@ class AlertVC: UIViewController {
         notificationView.layer.cornerRadius = 5
         notificationView.layer.borderWidth = 0.2
         notificationView.layer.borderColor = UIColor.lightGray.cgColor
-        StaticContentFile.setButtonFont(doneButton, backgroundColorNeeed: true)
+        StaticContentFile.setButtonFont(doneButton, backgroundColorNeeed: true, shadowNeeded: false)
+        doneButton.layer.cornerRadius =  doneButton.frame.size.width / 18
         customeNavigation.delegate = self
         customeNavigation.setTitle(titleValue)
         self.notificationTitle.text = notificationString

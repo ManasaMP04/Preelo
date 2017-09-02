@@ -141,7 +141,7 @@
                         <viewControllerLayoutGuide type="bottom" id="1hC-y0-1fh"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5k5-Lh-P1H">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="550"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your Email ID" adjustsFontSizeToFit="NO" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2OS-uS-BSB" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
@@ -170,7 +170,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get your password on your Email ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="950-Ya-zyT">
-                                <rect key="frame" x="39" y="114" width="242" height="17"/>
+                                <rect key="frame" x="36.5" y="114" width="247" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="Nec-p8-lMi"/>
                                     <constraint firstAttribute="width" constant="584" id="TSW-Wb-tmV"/>
@@ -231,30 +231,30 @@
                         <viewControllerLayoutGuide type="bottom" id="qKF-TK-iSp"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kwU-R5-y2V">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="550"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uzx-Qb-UF8">
-                                <rect key="frame" x="0.0" y="64" width="320" height="486"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="636"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X6g-ke-Weh">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="486"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="636"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello Doctor!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wt3-xF-rif">
-                                                <rect key="frame" x="101" y="40" width="118.5" height="21.5"/>
+                                                <rect key="frame" x="101" y="49" width="118.5" height="21.5"/>
                                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="19"/>
                                                 <color key="textColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageView:act-Ok-ZTm:image" translatesAutoresizingMaskIntoConstraints="NO" id="act-Ok-ZTm">
-                                                <rect key="frame" x="62" y="65" width="195" height="195"/>
+                                                <rect key="frame" x="62" y="90.5" width="195" height="195"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="195" id="FZ2-Oe-QLU"/>
                                                     <constraint firstAttribute="width" constant="195" id="Q6L-bH-l45"/>
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6O-jl-PXU">
-                                                <rect key="frame" x="20" y="386" width="280" height="45"/>
+                                                <rect key="frame" x="20" y="484" width="280" height="45"/>
                                                 <color key="backgroundColor" red="0.23529411759999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="YKw-Gx-wxQ"/>
@@ -267,7 +267,7 @@
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="b8W-Qz-wDI" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="260" width="280" height="40"/>
+                                                <rect key="frame" x="20" y="348" width="280" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="xzn-mc-I9m"/>
                                                 </constraints>
@@ -276,7 +276,7 @@
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XuS-dm-HLH" customClass="FloatingTextField" customModule="Preelo" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="316" width="280" height="40"/>
+                                                <rect key="frame" x="20" y="404" width="280" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="n5d-LM-3KY"/>
                                                 </constraints>
@@ -297,17 +297,22 @@
                                                     <action selector="backButtonTapped:" destination="5HU-vd-92J" eventType="touchUpInside" id="Gq1-9y-AOs"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qNJ-Il-mz7">
-                                                <rect key="frame" x="20" y="441" width="139" height="28"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qNJ-Il-mz7">
+                                                <rect key="frame" x="20" y="549" width="149" height="28"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="28" id="CY4-Xp-HeZ"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="14"/>
+                                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="24" maxY="0.0"/>
+                                                <state key="normal" title="Forgot Password?">
+                                                    <color key="titleColor" red="0.23529411764705882" green="0.792156862745098" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
                                                 <connections>
                                                     <segue destination="xCx-HI-EVa" kind="show" id="FlL-SD-dbv"/>
                                                 </connections>
                                             </button>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nuo-uM-8Kc">
-                                                <rect key="frame" x="161" y="441" width="139" height="28"/>
+                                                <rect key="frame" x="171" y="549" width="129" height="28"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="28" id="cp1-zt-pdP"/>
                                                 </constraints>
@@ -316,33 +321,34 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="act-Ok-ZTm" firstAttribute="top" secondItem="X6g-ke-Weh" secondAttribute="top" constant="65" id="0OO-VE-kwb"/>
                                             <constraint firstItem="act-Ok-ZTm" firstAttribute="centerX" secondItem="X6g-ke-Weh" secondAttribute="centerX" id="1qx-r5-LfP"/>
-                                            <constraint firstItem="b8W-Qz-wDI" firstAttribute="top" secondItem="act-Ok-ZTm" secondAttribute="bottom" id="22p-R8-SGo"/>
                                             <constraint firstItem="wt3-xF-rif" firstAttribute="centerX" secondItem="X6g-ke-Weh" secondAttribute="centerX" id="8i8-5D-8y0"/>
                                             <constraint firstItem="XuS-dm-HLH" firstAttribute="top" secondItem="b8W-Qz-wDI" secondAttribute="bottom" constant="16" id="Ba4-8n-4lO"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="qNJ-Il-mz7" secondAttribute="bottom" constant="2" id="Jja-lI-7tz"/>
-                                            <constraint firstItem="wt3-xF-rif" firstAttribute="top" secondItem="X6g-ke-Weh" secondAttribute="top" constant="40" id="KEO-8m-MAd"/>
+                                            <constraint firstItem="b8W-Qz-wDI" firstAttribute="centerY" secondItem="X6g-ke-Weh" secondAttribute="centerY" constant="50" id="NZS-tE-a8V"/>
                                             <constraint firstAttribute="trailing" secondItem="b8W-Qz-wDI" secondAttribute="trailing" constant="20" id="OSc-pl-6nE"/>
                                             <constraint firstItem="b6O-jl-PXU" firstAttribute="trailing" secondItem="XuS-dm-HLH" secondAttribute="trailing" id="QDW-SZ-zhU"/>
+                                            <constraint firstItem="act-Ok-ZTm" firstAttribute="top" secondItem="wt3-xF-rif" secondAttribute="bottom" constant="20" id="UUo-NA-XUZ"/>
                                             <constraint firstItem="7Qc-Vl-2j1" firstAttribute="leading" secondItem="X6g-ke-Weh" secondAttribute="leading" id="WCf-yp-EHH"/>
                                             <constraint firstItem="Nuo-uM-8Kc" firstAttribute="trailing" secondItem="b6O-jl-PXU" secondAttribute="trailing" id="Yiw-ut-61u"/>
                                             <constraint firstItem="b8W-Qz-wDI" firstAttribute="leading" secondItem="X6g-ke-Weh" secondAttribute="leading" constant="20" id="cWA-VZ-PNL"/>
-                                            <constraint firstItem="Nuo-uM-8Kc" firstAttribute="width" secondItem="qNJ-Il-mz7" secondAttribute="width" id="e4Y-cC-LoR"/>
+                                            <constraint firstItem="act-Ok-ZTm" firstAttribute="centerY" secondItem="X6g-ke-Weh" secondAttribute="centerY" constant="-130" id="dG5-76-pyj"/>
+                                            <constraint firstItem="Nuo-uM-8Kc" firstAttribute="width" secondItem="qNJ-Il-mz7" secondAttribute="width" constant="-20" id="e4Y-cC-LoR"/>
                                             <constraint firstItem="qNJ-Il-mz7" firstAttribute="leading" secondItem="b6O-jl-PXU" secondAttribute="leading" id="eXH-WD-JNY"/>
                                             <constraint firstItem="XuS-dm-HLH" firstAttribute="trailing" secondItem="b8W-Qz-wDI" secondAttribute="trailing" id="fnV-wN-6YB"/>
                                             <constraint firstItem="b6O-jl-PXU" firstAttribute="leading" secondItem="XuS-dm-HLH" secondAttribute="leading" id="hWk-Ms-unn"/>
                                             <constraint firstItem="7Qc-Vl-2j1" firstAttribute="top" secondItem="X6g-ke-Weh" secondAttribute="top" id="j2d-gs-rj1"/>
                                             <constraint firstItem="Nuo-uM-8Kc" firstAttribute="top" secondItem="qNJ-Il-mz7" secondAttribute="top" id="omo-p0-BP5"/>
+                                            <constraint firstItem="wt3-xF-rif" firstAttribute="top" relation="greaterThanOrEqual" secondItem="X6g-ke-Weh" secondAttribute="top" constant="20" id="pk3-4F-Mur"/>
                                             <constraint firstItem="XuS-dm-HLH" firstAttribute="leading" secondItem="b8W-Qz-wDI" secondAttribute="leading" id="tp1-yk-dk8"/>
                                             <constraint firstItem="Nuo-uM-8Kc" firstAttribute="leading" secondItem="qNJ-Il-mz7" secondAttribute="trailing" constant="2" id="vkP-c3-ASR"/>
-                                            <constraint firstItem="qNJ-Il-mz7" firstAttribute="top" secondItem="b6O-jl-PXU" secondAttribute="bottom" constant="10" id="xSE-7y-TQD"/>
-                                            <constraint firstItem="b6O-jl-PXU" firstAttribute="top" secondItem="XuS-dm-HLH" secondAttribute="bottom" constant="30" id="zyR-hr-Tvo"/>
+                                            <constraint firstItem="qNJ-Il-mz7" firstAttribute="top" secondItem="b6O-jl-PXU" secondAttribute="bottom" constant="20" id="xSE-7y-TQD"/>
+                                            <constraint firstItem="b6O-jl-PXU" firstAttribute="top" secondItem="XuS-dm-HLH" secondAttribute="bottom" constant="40" id="zyR-hr-Tvo"/>
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="X6g-ke-Weh" firstAttribute="height" secondItem="Uzx-Qb-UF8" secondAttribute="height" priority="999" id="1t7-hz-d3r"/>
                                     <constraint firstItem="X6g-ke-Weh" firstAttribute="width" secondItem="Uzx-Qb-UF8" secondAttribute="width" id="Dh7-z8-Ucw"/>
@@ -365,7 +371,7 @@
                         </connections>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="550"/>
+                    <size key="freeformSize" width="320" height="700"/>
                     <connections>
                         <outlet property="createAccount" destination="Nuo-uM-8Kc" id="u8f-lX-yJG"/>
                         <outlet property="forgotPasswordButton" destination="qNJ-Il-mz7" id="Bz2-r6-StL"/>
@@ -396,7 +402,7 @@
                         <viewControllerLayoutGuide type="bottom" id="GkN-Tx-FWP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qvc-Wa-SBI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="501"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="651"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D4Q-OT-sUr" customClass="CustomNavigationBar" customModule="Preelo" customModuleProvider="target">
@@ -505,7 +511,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7dC-AD-nVJ">
-                                <rect key="frame" x="0.0" y="110" width="320" height="391"/>
+                                <rect key="frame" x="0.0" y="110" width="320" height="541"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
@@ -624,8 +630,6 @@
                                     <constraint firstAttribute="height" constant="70" id="nzh-Ov-18b"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
-                                <inset key="titleEdgeInsets" minX="-45" minY="50" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="65" minY="0.0" maxX="0.0" maxY="20"/>
                                 <state key="normal" title="Settings" image="Settings"/>
                                 <connections>
                                     <action selector="settingsButtonTapped:" destination="TvH-fx-vlA" eventType="touchUpInside" id="fYM-NR-Vo8"/>
@@ -653,8 +657,6 @@
                                     <constraint firstAttribute="width" constant="180" id="R23-mh-qvR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
-                                <inset key="titleEdgeInsets" minX="-33" minY="50" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="20"/>
                                 <state key="normal" title="Profile Settings" image="Profile-settings-Icons"/>
                                 <connections>
                                     <action selector="profileButtonTapped:" destination="TvH-fx-vlA" eventType="touchUpInside" id="faQ-5H-Oih"/>
@@ -729,7 +731,9 @@
         <scene sceneID="jzM-9R-aOL">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5Rj-ZJ-149" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" id="jCc-dw-zK0"/>
+                    <tabBarItem key="tabBarItem" title="" id="jCc-dw-zK0">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kiN-Cr-d8k">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -753,7 +757,7 @@
                         <viewControllerLayoutGuide type="bottom" id="I7t-eg-2Lm"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="btp-zu-jqD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="501"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="651"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFD-2z-stm" customClass="CustomNavigationBar" customModule="Preelo" customModuleProvider="target">
@@ -764,7 +768,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3G8-io-1zL">
-                                <rect key="frame" x="0.0" y="60" width="320" height="441"/>
+                                <rect key="frame" x="0.0" y="60" width="320" height="591"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Gmr-tO-YXI" id="eP7-QS-WHc"/>
@@ -772,7 +776,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1AL-5H-iDN">
-                                <rect key="frame" x="260" y="406" width="60" height="60"/>
+                                <rect key="frame" x="260" y="556" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="09Z-Go-6cD"/>
                                     <constraint firstAttribute="width" constant="60" id="RSA-sP-Fqb"/>
@@ -1010,6 +1014,9 @@
                                             <constraint firstItem="Dcb-R5-4bH" firstAttribute="trailing" secondItem="q3Z-UH-Uyy" secondAttribute="trailing" id="tvQ-hL-8It"/>
                                             <constraint firstItem="gb7-TS-hNP" firstAttribute="leading" secondItem="qMl-S0-JZy" secondAttribute="leading" id="xEf-cF-DCc"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="TFY-sN-ASc" appends="YES" id="20y-BZ-VYL"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -1039,9 +1046,6 @@
                             <constraint firstItem="aY8-vB-shl" firstAttribute="top" secondItem="c5q-cs-7UZ" secondAttribute="bottom" constant="5" id="wxR-Yg-ddc"/>
                             <constraint firstItem="cUt-Wp-sIu" firstAttribute="top" secondItem="4H6-Sc-lMp" secondAttribute="bottom" id="yGg-xC-fU5"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="TFY-sN-ASc" appends="YES" id="Dc2-ch-c75"/>
-                        </connections>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="737"/>
@@ -1065,6 +1069,7 @@
                 <tapGestureRecognizer cancelsTouchesInView="NO" id="TFY-sN-ASc">
                     <connections>
                         <action selector="gestureTapped:" destination="RVK-GT-Mon" id="br4-B8-sQv"/>
+                        <outlet property="delegate" destination="RVK-GT-Mon" id="grk-sx-keq"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -1317,7 +1322,9 @@ intended for diagnosis or prescription. Please agree to the above terms to conti
         <scene sceneID="0ig-aa-N4D">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oVu-hU-rIx" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="Msg" selectedImage="Msg-Active" id="OBL-1V-6AA"/>
+                    <tabBarItem key="tabBarItem" title="" image="Msg" selectedImage="Msg-Active" id="OBL-1V-6AA">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="n8u-Tw-fPA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

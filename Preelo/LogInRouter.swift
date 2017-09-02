@@ -17,6 +17,8 @@ enum LogInRouter : URLRequestConvertible {
     
     case forgotPassword(String)
     
+    case registerDevice()
+    
     public func asURLRequest() throws -> URLRequest {
         
         var method: HTTPMethod {
@@ -43,6 +45,10 @@ enum LogInRouter : URLRequestConvertible {
             case .forgotPassword(_) :
                 
                 relativePath = NetworkURL.forgotPassword
+                
+            case .registerDevice :
+                
+                relativePath = NetworkURL.registerDevice
             }
             
             
@@ -69,6 +75,18 @@ enum LogInRouter : URLRequestConvertible {
             case .forgotPassword(let email) :
                 
                 let dict : [String: Any] = ["email": email]
+                
+                return dict
+                
+            case .registerDevice :
+                
+                var dict : [String: Any] = ["token": StaticContentFile.getToken(), "platform": "IOS"]
+                
+                let tokenParts = deviceToken.map { data -> String in
+                    return String(format: "%02.2hhx", data)
+                }
+                
+                dict["device_id"] = tokenParts.joined()
                 
                 return dict
             }

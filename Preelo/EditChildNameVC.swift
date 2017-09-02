@@ -103,7 +103,7 @@ extension EditChildNameVC {
         childrenLastName.textFieldDelegate = self
         StaticContentFile.setFontForTF(childrenFirstName, autoCaps: true)
         StaticContentFile.setFontForTF(childrenLastName, autoCaps: true)
-        StaticContentFile.setButtonFont(confirmChangeButton)
+        StaticContentFile.setButtonFont(confirmChangeButton, shadowNeeded: false)
         StaticContentFile.setButtonFont(cancelButton, backgroundColorNeeed: false, shadowNeeded: false)
         
         childrenFirstName.isCompleteBoarder = true
@@ -126,7 +126,7 @@ extension EditChildNameVC {
             Alamofire.request(SettingRouter.post_updateChildren(fName, lName, childDetail.patientid))
                 .responseObject { (response: DataResponse<SuccessStatus>) in
                     
-                    if let result = response.result.value {
+                    if let result = response.result.value, result.status == "SUCCESS"  {
                         
                         self.childDetail.child_firstname = fName
                         self.childDetail.child_lastname  = lName
@@ -144,7 +144,6 @@ extension EditChildNameVC {
                         
                         self.view.isUserInteractionEnabled = true
                         self.activityIndicator?.stopAnimating()
-                        self.view.showToast(message: result.message)
                     } else {
                         
                         self.view.isUserInteractionEnabled = true

@@ -98,6 +98,7 @@ class MessageVC: UIViewController {
         } else if !status {
             
             getChannel()
+            reloadData()
         }
     }
 }
@@ -110,7 +111,7 @@ extension MessageVC {
         
         dbManager.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotification), name: Notification.Name("NotificationIdentifier"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotification), name: Notification.Name("reloadData"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: Notification.Name("reloadData"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationForAuthRequest), name: Notification.Name("AuthNotificationIdentifier"), object: nil)
         
         cardView?.addShadowWithColor(UIColor.colorWithHex(0x23B5B9) , offset: CGSize.zero, opacity: 0.3, radius: 4)
@@ -321,9 +322,9 @@ extension MessageVC{
                     
                     self.getChannel()
                     
-                     NotificationCenter.default.post(name: Notification.Name("reloadData"), object: nil, userInfo: nil)
+                    NotificationCenter.default.post(name: Notification.Name("reloadData"), object: nil, userInfo: nil)
                 }
-        
+                
                 self.stopAnimating()
         }
     }
@@ -415,6 +416,7 @@ extension MessageVC: DBManagerDelegate {
         detail.lastMsg = String(cString: sqlite3_column_text(statement, 12))
         detail.chatTitle = String(cString: sqlite3_column_text(statement, 13))
         detail.chatLabelTitle = String(cString: sqlite3_column_text(statement, 14))
+        detail.lastMsgId = Int(sqlite3_column_int(statement, 15))
         
         if selection == .message {
             
@@ -504,7 +506,7 @@ extension MessageVC {
     }
     
     @objc fileprivate func reloadData() {
-    
+        
         tableview.reloadData()
     }
     
@@ -579,35 +581,31 @@ extension MessageVC {
             let msgType = event["message_type"] as? String,
             let msgId = event["message_id"] as? Int,
             let email = event["email"] as? String ,
-            let loginEmail = StaticContentFile.getUserProfile()?.email {
+            let loginEmail = StaticContentFile.getUserProfile()?.email,
+            let message = event["message"] as? String {
             
             let channel = ChannelDetail()
             channel.channel_id = id
             channel.channel_name = name
             channel.unread_count = 1
+            channel.lastMsgId = msgId
+            channel.lastMsg = message
             
+            if let auth = event["auth_status"] as? String {
+                
+                channel.auth_status = auth
+            }
+            
+            StaticContentFile.updateChannelDetail(channel, isAuthStatus: false, dbManager: dbManager )
             let sender = (email == loginEmail) ? "you" : "not you"
             
-            if msgType == "simple",
-                let message = event["message"] as? String {
+            if msgType == "simple" {
                 
-                channel.lastMsg = message
-                
-                if let auth = event["auth_status"] as? String {
-                    
-                    channel.auth_status = auth
-                }
-                
-                StaticContentFile.updateChannelDetail(channel, isAuthStatus: false, dbManager: dbManager )
                 let recentMsg = RecentMessages(msgType, text: message, image: nil, senderId: sender, timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
                 recentMsg.message_id = msgId
                 channel.recent_message = [recentMsg]
                 StaticContentFile.insertRowIntoDB(recentMsg, channelDetail: channel, dbManager: self.dbManager)
-            } else if let message = event["message"] as? String,
-                let image = event["image_url"] as? String {
-                
-                channel.lastMsg = message
-                StaticContentFile.updateChannelDetail(channel, isAuthStatus: false, dbManager: dbManager)
+            } else if let image = event["image_url"] as? String {
                 
                 let recentMsg = RecentMessages(msgType, text: message, image: image, senderId: sender, timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
                 recentMsg.message_id = msgId

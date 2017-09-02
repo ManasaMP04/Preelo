@@ -91,7 +91,7 @@ class ChatCell: UITableViewCell {
             
             descriptionLabel.text = channel.lastMsg
             
-            titleLeading.constant = 80
+            titleLeading.constant = 100
             initial.isHidden = false
             volumeImage.isHidden = true
             countLabel.isHidden = channel.unread_count == 0

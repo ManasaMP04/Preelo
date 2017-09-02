@@ -8,12 +8,18 @@
 
 import UIKit
 
+protocol ImageCellDelegate: class {
+    
+    func imageCell(_ cell: ImageCell, enabled: Bool)
+}
+
 class ImageCell: UICollectionViewCell {
     
     @IBOutlet weak var scrollview: UIScrollView!
     @IBOutlet fileprivate weak var imageView : UIImageView!
     
     static let cellId = "ImageCell"
+    weak var delegate: ImageCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,7 +40,7 @@ class ImageCell: UICollectionViewCell {
             
             scrollview.isUserInteractionEnabled = true
             imageView.isUserInteractionEnabled = true
-            showImage(msg.image_url,placeHolder: "Big-Image-loading")
+            showImage(msg.image_url,placeHolder: "Big-Image-loading", showToast: true)
         }
     }
     
@@ -43,11 +49,26 @@ class ImageCell: UICollectionViewCell {
         imageView.image        = imageName
     }
     
-    fileprivate func showImage(_ image: String, placeHolder: String) {
+    fileprivate func showImage(_ image: String, placeHolder: String, showToast: Bool = false) {
   
+        
+//        imageCache.queryDiskCache(forKey: imageUrl.absoluteString, done: {(_ image: UIImage, _ cacheType: SDImageCacheType) -> Void in
+//            if image {
+//                self.imageView.image = image
+//            }
+//            else {
+//                self.imageView.sd_setImage(withURL: imageUrl, placeholderImage: UIImage(named: "placeholder")!, completed: {(_ image: UIImage, _ error: Error, _ cacheType: SDImageCacheType, _ imageURL: URL) -> Void in
+//                    SDImageCache.shared().store(image, forKey: urlForImageString().absoluteString)
+//                })
+//            }
+//        })
+        
         if let imageUrl     = URL(string: image) {
-
-           imageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: placeHolder))
+            
+            imageView.sd_setImage(with: imageUrl,placeholderImage: UIImage(named: placeHolder),options: [], completed: { (img, error, cacheType, url) in
+                
+                self.delegate?.imageCell(self, enabled: img != nil)
+            })
         }
     }
 }

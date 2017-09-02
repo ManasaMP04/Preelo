@@ -157,7 +157,7 @@ class ParentDetailVC: UIViewController {
         StaticContentFile.setFontForTF(lastName)
         StaticContentFile.setFontForTF(phoneNumber)
         StaticContentFile.setFontForTF(email, autoCaps: false)
-        StaticContentFile.setButtonFont(doneButton)
+        StaticContentFile.setButtonFont(doneButton, shadowNeeded: false)
         
         firstName.validateForInputType(.generic, andNotifyDelegate: self)
         lastName.validateForInputType(.generic, andNotifyDelegate: self)

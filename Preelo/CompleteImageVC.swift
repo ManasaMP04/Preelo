@@ -79,6 +79,19 @@ extension CompleteImageVC: CustomNavigationBarDelegate {
     }
 }
 
+extension CompleteImageVC : ImageCellDelegate {
+    
+    func imageCell(_ cell: ImageCell, enabled: Bool) {
+        
+        if !enabled {
+            
+            self.view.showToast(message: "Something went wrong. We are unable to display this image at this time. Please contact system administrator")
+        }
+        
+        saveImage.isUserInteractionEnabled = enabled
+    }
+}
+
 extension CompleteImageVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -89,7 +102,7 @@ extension CompleteImageVC: UICollectionViewDelegate, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.cellId, for: indexPath) as! ImageCell
-        
+        cell.delegate = self
         cell.showImage(imageList[indexPath.row], showFullImage: true)
         
         return cell

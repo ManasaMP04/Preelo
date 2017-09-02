@@ -55,7 +55,7 @@ class FeedBackSupportVC: UIViewController {
                     self.view.isUserInteractionEnabled = true
                     self.activityIndicator?.stopAnimating()
                     
-                    if let result = response.result.value {
+                    if let result = response.result.value, result.status == "SUCCESS"  {
                         
                         self.subject.text = nil
                         self.message.text = nil

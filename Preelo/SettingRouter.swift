@@ -14,7 +14,7 @@ enum SettingRouter:  URLRequestConvertible {
     case post_accountDelet()
     case post_feedbackSupport(String,String)
     case post_updateChildren(String,String, Int)
-    case post_updateProfile(String,String, String, String, String,String)
+    case post_updateProfile(String,String, String, String, String?,String?)
     case post_doctBlock(Int)
     case pos_docUnBlock(Int)
     
@@ -92,8 +92,8 @@ enum SettingRouter:  URLRequestConvertible {
                                             "token" : StaticContentFile.getToken(),
                                             "phonenumber": phone,
                                             "email" : email,
-                                            "password" : password,
-                                            "confirm_password" : conPassword]
+                                            "password" : password ?? "",
+                                            "confirm_password" : conPassword ?? ""]
                 return dict
                 
             case .pos_docUnBlock(let Id), .post_doctBlock(let Id):

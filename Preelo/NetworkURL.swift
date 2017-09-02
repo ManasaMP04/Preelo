@@ -42,4 +42,5 @@ enum NetworkURL {
     static let cancelAuthRequest            = "doctor/cancelauthrequests"
     static let authorize                    = "patient/authorize"
     static let deauthorize                  = "patient/deauthorize"
+    static let registerDevice               = "device/register"
 }

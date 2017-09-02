@@ -44,7 +44,7 @@ class ParentDetailCell: UITableViewCell {
         
     }
     
-    func showParentName(_ name: String, showImage: Bool, showEdit: Bool = true, image: String? = nil, showLocation: Bool = false, font: UIFont = UIFont(name: "Ubuntu", size: 14)!, color: UIColor = UIColor.colorWithHex(0x414042), showInitial: Bool = false, initialText: String = "", enabledLocation: Bool = true) {
+    func showParentName(_ name: String, showImage: Bool, showEdit: Bool = true, image: String? = nil, showLocation: Bool = false, font: UIFont = UIFont(name: "Ubuntu", size: 14)!, color: UIColor = UIColor.colorWithHex(0x414042), showInitial: Bool = false, initialText: String = "", isLocationSelected: Bool = false) {
         
         parentName.font = font
         parentName.textColor = color
@@ -71,7 +71,8 @@ class ParentDetailCell: UITableViewCell {
             editButton.setTitle("EDIT", for: .normal)
         }
         
-        locationButton.isEnabled = enabledLocation
+        let locImage = isLocationSelected ?  UIImage(named: "LocationDis") : UIImage(named: "Location")
+        locationButton.setImage(locImage, for: .normal)
         locationButton.isHidden = !showLocation
         locationButtonWidth.constant = showLocation ? 45 : 0
     }

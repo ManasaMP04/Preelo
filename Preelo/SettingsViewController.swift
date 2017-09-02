@@ -21,7 +21,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        StaticContentFile.setButtonFont(deletAccountButton)
+        StaticContentFile.setButtonFont(deletAccountButton, shadowNeeded: false)
         StaticContentFile.setButtonFont(feedBackSupportButton, backgroundColorNeeed: false, shadowNeeded: false)
         StaticContentFile.setButtonFont(termAndConditionButton, backgroundColorNeeed: false, shadowNeeded: false)
         

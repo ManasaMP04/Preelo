@@ -23,7 +23,9 @@ class SlideOutVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        StaticContentFile.setButtonFont(logOut)
+        StaticContentFile.adjustImageAndTitleOffsetsForButton(profileSetting)
+        StaticContentFile.adjustImageAndTitleOffsetsForButton(settings)
+        StaticContentFile.setButtonFont(logOut, shadowNeeded: false)
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         
         titleLabel.text = StaticContentFile.isDoctorLogIn() ? "Welcome Doctor" : String(format: "Welcome %@", StaticContentFile.getName())

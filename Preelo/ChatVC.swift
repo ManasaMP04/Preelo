@@ -247,23 +247,26 @@ extension ChatVC {
         
         if Reachability.forInternetConnection().isReachable() {
             
+            getDataFromSqlite()
             callApiToGetMessages()
         } else {
             
-            stopAnimating()
-            self.messageList.removeAll()
-            let queryString = String(format: "select  * from \(StaticContentFile.messageTableName) where channel_id = \(channelDetail.channel_id)")
-            
-            dbManager.getDataForQuery(queryString)
-            
+            getDataFromSqlite()
             self.tableview.reloadData()
             self.scrollToButtom()
         }
     }
     
+    fileprivate func getDataFromSqlite() {
+        
+        self.messageList.removeAll()
+        let queryString = String(format: "select  * from \(StaticContentFile.messageTableName) where channel_id = '\(channelDetail.channel_id)'")
+        
+        dbManager.getDataForQuery(queryString)
+    }
+    
     func refresh() {
         
-        stopAnimating()
         var array = [RecentMessages]()
         array = self.messageList
         self.messageList.removeAll()
@@ -271,10 +274,13 @@ extension ChatVC {
         
         dbManager.getDataForQuery(queryString)
         
-        tableview.beginUpdates()
-        tableview.insertRows(at: [IndexPath(row: array.count, section: 0)], with: .automatic)
-        tableview.endUpdates()
-        self.scrollToButtom()
+        if self.messageList.count > array.count {
+            
+            tableview.beginUpdates()
+            tableview.insertRows(at: [IndexPath(row: array.count, section: 0)], with: .automatic)
+            tableview.endUpdates()
+            self.scrollToButtom()
+        }
     }
     
     fileprivate func showAuthRequestTitle(_ title: String) {
@@ -327,9 +333,15 @@ extension ChatVC {
     
     fileprivate func scrollToButtom() {
         
-        self.view.layoutIfNeeded()
-        let indexPath = IndexPath(row: self.messageList.count - 1, section: 0)
-        self.tableview.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        if self.messageList.count - 1 >= 0 {
+            
+            self.view.layoutIfNeeded()
+            let indexPath = IndexPath(row: self.messageList.count - 1, section: 0)
+            self.tableview.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            sleep(2)
+        }
+        
+        self.stopAnimating()
     }
     
     fileprivate func createFooter () {
@@ -389,15 +401,13 @@ extension ChatVC {
         activityIndicator?.startAnimating()
     }
     
-    func callApiToGetMessages(_ insertRow: Bool = false) {
+    func callApiToGetMessages() {
         
         startAnimating()
-        StaticContentFile.clearDbTableWithId(channelDetail.channel_id, dbManager: dbManager)
         
         Alamofire.request(SendTextMessageRouter.get(channelDetail))
             .responseArray(keyPath: "data") {(response: DataResponse<[RecentMessages]>) in
                 
-                self.stopAnimating()
                 self.view.layoutIfNeeded()
                 
                 if let result = response.result.value {
@@ -406,6 +416,7 @@ extension ChatVC {
                     
                     for (i,msg) in result.enumerated() {
                         
+                        self.messageList.append(msg)
                         StaticContentFile.insertRowIntoDB(msg, channelDetail: self.channelDetail, dbManager: self.dbManager)
                         
                         if i == result.count - 1{
@@ -417,13 +428,13 @@ extension ChatVC {
                         }
                     }
                     
-                    self.messageList = result
                     self.tableview.reloadData()
                     
                     self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
                     self.scrollToButtom()
                 } else {
                     
+                    self.stopAnimating()
                     self.view.showToast(message: "Please try again something went wrong")
                 }}
     }
@@ -513,7 +524,7 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
             let gesture = UILongPressGestureRecognizer.init(target: self, action: #selector(showCopyIcon(_:)))
             cell.addGestureRecognizer(gesture)
             
-            cell.showMessage(message, name: name)
+            cell.showMessage(message, name: channelDetail.chatLabelTitle)
             
             return cell
         }
@@ -541,15 +552,13 @@ extension ChatVC {
     @objc fileprivate func keyboardWasShown(_ notification: Notification) {
         
         self.view.layoutIfNeeded()
-        if let info = (notification as NSNotification).userInfo {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             
-            let dictionary = info as NSDictionary
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            tableViewHeight.constant = StaticContentFile.screenHeight - keyboardHeight
             
-            let kbSize = (dictionary.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
-            
-            tableViewHeight.constant = StaticContentFile.screenHeight - kbSize.height
-            
-            self.scrollviewBottom.constant = kbSize.height
+            self.scrollviewBottom.constant = keyboardHeight
         }
     }
     
