@@ -73,7 +73,7 @@ class PatientListVC: UIViewController {
         
         if let index = editedPatienIndex {
             
-            list[index.row] = data
+            list[index.section] = data
         } else {
             
             list.append(data)

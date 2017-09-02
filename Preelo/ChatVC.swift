@@ -552,13 +552,14 @@ extension ChatVC {
     @objc fileprivate func keyboardWasShown(_ notification: Notification) {
         
         self.view.layoutIfNeeded()
-        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue,
+            let tabBarHeight = self.tabBarController?.tabBar.frame.height {
             
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            tableViewHeight.constant = StaticContentFile.screenHeight - keyboardHeight
+            tableViewHeight.constant = StaticContentFile.screenHeight - keyboardHeight - tabBarHeight - 5
             
-            self.scrollviewBottom.constant = keyboardHeight
+            self.scrollviewBottom.constant = keyboardHeight - tabBarHeight + 5
         }
     }
     
