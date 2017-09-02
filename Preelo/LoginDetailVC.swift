@@ -253,7 +253,6 @@ extension LoginDetailVC {
     }
     
     fileprivate func callAPIToGetPatientAuthRequest() {
-        
         Alamofire.request(AuthorizationRequestListRouter.get_patient_AuthRequest())
             .responseObject { (response: DataResponse<AuthorizeRequest>) in
                 

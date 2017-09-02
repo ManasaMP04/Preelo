@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import FirebaseInstanceID
 
 enum LogInRouter : URLRequestConvertible {
     
@@ -80,13 +81,15 @@ enum LogInRouter : URLRequestConvertible {
                 
             case .registerDevice :
                 
+                let defaults = UserDefaults.standard
+                
                 var dict : [String: Any] = ["token": StaticContentFile.getToken(), "platform": "IOS"]
                 
-                let tokenParts = deviceToken.map { data -> String in
-                    return String(format: "%02.2hhx", data)
+                if let fcmToken = InstanceID.instanceID().token(), let deviceId =  defaults.value(forKey: "deviceID") {
+                    
+                    dict["fcm_token"] = fcmToken
+                    dict["device_id"] = deviceId
                 }
-                
-                dict["device_id"] = tokenParts.joined()
                 
                 return dict
             }

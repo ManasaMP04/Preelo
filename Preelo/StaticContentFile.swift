@@ -335,10 +335,10 @@ extension StaticContentFile {
     
     static func callApiToRegisterDevice () {
         
-        Alamofire.request(AuthorizationRequestListRouter.channel_get())
+        Alamofire.request(LogInRouter.registerDevice())
             .responseObject {(response: DataResponse<SuccessStatus>) in
             
-                    
+             print("\(response.result)")
                 
         }
     }

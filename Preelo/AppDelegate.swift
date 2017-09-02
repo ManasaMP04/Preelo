@@ -14,6 +14,7 @@ import UserNotifications
 import Firebase
 import FirebaseInstanceID
 import FirebaseMessaging
+import Security
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
@@ -90,6 +91,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         let token = tokenParts.joined()
+        let defaults = UserDefaults.standard
+        defaults.set(token, forKey: "deviceID")
         print("Device Token: \(token)")
     }
     
