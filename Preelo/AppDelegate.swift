@@ -55,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         if let status = defaults.value(forKey: "isLoggedIn") as? Bool, status {
             
+            StaticContentFile.callApiToRegisterDevice()
             let initialViewController = storyboard.instantiateViewController(withIdentifier: "tabVC")
             let nav = UINavigationController.init(rootViewController: initialViewController)
             self.window?.rootViewController = nav
