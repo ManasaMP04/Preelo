@@ -89,7 +89,13 @@ class ChatCell: UITableViewCell {
             parentName.text = ""
         }  else if let channel = data as? ChannelDetail {
             
-            descriptionLabel.text = channel.lastMsg
+            if channel.lastMsg.characters.count > 0 {
+                
+                descriptionLabel.text = channel.lastMsg
+            } else if let msg = channel.recent_message.last {
+                
+                descriptionLabel.text = msg.message_text
+            }
             
             titleLeading.constant = 100
             initial.isHidden = false

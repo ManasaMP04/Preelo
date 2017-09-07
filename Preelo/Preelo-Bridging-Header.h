@@ -16,3 +16,4 @@
 #import "Reachability.h"
 #import <sqlite3.h>
 #import "DBManager.h"
+#import <SocketRocket/SRWebSocket.h>

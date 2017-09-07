@@ -21,6 +21,10 @@ class StaticContentFile: NSObject {
     static let channelTableName       = "channel"
     static let messageTableName       = "message"
     static var isForChannel = true
+    static let socketMsgEventName = "chat message"
+    static let socketImageEventName = "image"
+    static let socketAuthorizeEventName = "authorized message"
+    static let socketAuthRequestEventName = "auth request"
     
     static func createDB() {
         
@@ -42,16 +46,14 @@ class StaticContentFile: NSObject {
             dbManager.deleteRow(forQuery: queryString)
         } else {
             
-            let queryString = String(format: "DELETE FROM '\(messageTableName)'")
-            let queryString1 = String(format: "DELETE FROM '\(channelTableName)'")
-            dbManager.deleteRow(forQuery: queryString)
+            let queryString1 = String(format: "DELETE FROM '\(channelTableName)' where userId = '\(StaticContentFile.getId())'")
             dbManager.deleteRow(forQuery: queryString1)
         }
     }
     
     static func insertRowIntoDB(_ recentMessage: RecentMessages? = nil, channelDetail: ChannelDetail, dbManager: DBManager) {
         
-        let sl = "SELECT COUNT(*) FROM channel where channel_id = \(channelDetail.channel_id)"
+        let sl = "SELECT COUNT(*) FROM '\(channelTableName)' where channel_id = \(channelDetail.channel_id) AND userId = '\(StaticContentFile.getId())'"
         let count = dbManager.getNumberOfRecord(sl)
         
         if count > 0 {
@@ -75,15 +77,20 @@ class StaticContentFile: NSObject {
         }
     }
     
-    static func updateChannelDetail(_ channelDetail: ChannelDetail, isAuthStatus: Bool, dbManager: DBManager) {
+    static func updateChannelDetail(_ channelDetail: ChannelDetail, isAuthStatus: Bool, dbManager: DBManager, isLastMessage: Bool, isCount: Bool = false) {
         
         if isAuthStatus {
             let queryString = String(format: "update '\(channelTableName)' set auth_status ='\(channelDetail.auth_status)' where channel_id = '\(channelDetail.channel_id)'")
             
             dbManager.update(queryString)
+        } else if isLastMessage {
+            
+            let queryString = isCount ? (String(format: "update '\(channelTableName)' set lastMsg ='\(channelDetail.lastMsg.relaceCharacter())', unread_count = '\(channelDetail.unread_count)', lastMsgId = '\(channelDetail.lastMsgId)'  where channel_id = '\(channelDetail.channel_id)'")) : (String(format: "update '\(channelTableName)' set lastMsg ='\(channelDetail.lastMsg.relaceCharacter())', lastMsgId = '\(channelDetail.lastMsgId)'  where channel_id = '\(channelDetail.channel_id)'"))
+            
+            dbManager.update(queryString)
         } else {
             
-            let queryString = String(format: "update '\(channelTableName)' set lastMsg ='\(channelDetail.lastMsg.relaceCharacter())', unread_count = '\(channelDetail.unread_count)', lastMsgId = '\(channelDetail.lastMsgId)'  where channel_id = '\(channelDetail.channel_id)'")
+            let queryString = String(format: "update '\(channelTableName)' set unread_count = '\(channelDetail.unread_count)' where channel_id = '\(channelDetail.channel_id)'")
             
             dbManager.update(queryString)
         }
@@ -170,7 +177,7 @@ extension StaticContentFile {
         defaults.set(false, forKey: "isLoggedIn")
         defaults.removeObject(forKey: "userProfile")
         defaults.removeObject(forKey: "socketServers")
-        MessageVC.sharedInstance.closeConnection()
+        SocketIOManager.sharedInstance.closeConnection()
     }
     
     static func deleteMessagePlist() {
@@ -251,14 +258,16 @@ extension StaticContentFile {
             for (i,element) in authArray.enumerated() {
                 
                 if let patientId = element["patientid"] as? Int,
-                    let parentId = element["parentid"] as? Int,
-                    patientId == result.patientid, parentId == result.parentid  {
+                    let drId = element["doctorid"] as? Int,
+                    let parentid = element["parentid"] as? Int,
+                    patientId == result.patientid,
+                    drId == result.doctorid,
+                    parentid == result.parentid  {
                     
                     authArray.remove(at: i)
                     
                     authObject1["data"] = authArray
                     plistStorageManager.setObject(authObject1, forKey: "\(StaticContentFile.getId())", inFile: .authRequest)
-                    return
                 }
             }
         }
@@ -335,8 +344,8 @@ extension StaticContentFile {
         
         Alamofire.request(LogInRouter.registerDevice())
             .responseObject {(response: DataResponse<SuccessStatus>) in
-            
-             print("\(response.result)")
+                
+                print("\(response.result)")
                 
         }
     }

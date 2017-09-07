@@ -74,12 +74,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>UIImageViewModeScaleAspect.xcscheme</key>
+		<key>SocketRocket.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>jetfire.xcscheme</key>
+		<key>UIImageViewModeScaleAspect.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -87,27 +87,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>137219DF98C57B279AD34F4C0414CD0D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>1462A800C6623ADC2221545332D41D29</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1570C4486F6E64EEC295E9D23E9113A1</key>
+		<key>2652AF0A5059AE35838374A709B3A3F0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>26152113E1A95A8BC76EC257DF2AA06E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2C1FECBEF902A516AE4E462142E88A98</key>
+		<key>2991B0B9F5A8731CECE4193A88A77356</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,7 +112,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>50743DFD08CEA17B5B28DE35E66119C9</key>
+		<key>652626F38B596BFA92C862764376061D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -133,6 +123,11 @@
 			<true/>
 		</dict>
 		<key>699E789DB4104C01604BD6DC24F58DDA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7B8A4306CA9DAF5DD00752E7C2BB45AB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,7 +147,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BC0FF292B96EDEFC2194EC1B985D0619</key>
+		<key>C14D22AFC6A033BF855DB06674B69D75</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -163,6 +158,11 @@
 			<true/>
 		</dict>
 		<key>D479E111A702D9488AB56257EDBDCDB5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E0C340E1A00BDFFD46C735CDF9D9E6CE</key>
 		<dict>
 			<key>primary</key>
 			<true/>

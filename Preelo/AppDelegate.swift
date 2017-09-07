@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         
-        MessageVC.sharedInstance.closeConnection()
+        SocketIOManager.sharedInstance.closeConnection()
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -128,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let defaults = UserDefaults.standard
         if let status = defaults.value(forKey: "isLoggedIn") as? Bool, status {
         
-            MessageVC.sharedInstance.establishConnection()
+            SocketIOManager.sharedInstance.establishConnection()
         }
     }
     func applicationWillTerminate(_ application: UIApplication) {

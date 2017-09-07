@@ -48,6 +48,7 @@ class ChatVC: UIViewController {
     fileprivate var name                = ""
     fileprivate let popAnimator   = DXPopover()
     var dbManager       = DBManager.init(fileName: "chat.db")!
+    fileprivate var authViewHeight = CGFloat(140)
     
     var channelDetail       : ChannelDetail!
     
@@ -90,15 +91,6 @@ class ChatVC: UIViewController {
         super.viewDidLoad()
         
         setup()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-        super.viewDidAppear(true)
-        
-        DispatchQueue.main.async(execute: { () -> Void in
-            
-            MessageVC.sharedInstance.lisenSocket () })
     }
     
     override func didReceiveMemoryWarning() {
@@ -192,13 +184,13 @@ extension ChatVC {
     
     func showAuthorizeButton(_ show: Bool) {
         
-        requestAuthorizationViewHeight.constant = show ? 160 : 0
+        requestAuthorizationViewHeight.constant = show ? authViewHeight : 0
         authorizationView.isHidden = !show
         toolbarView.isUserInteractionEnabled = !show
         self.tableViewHeight.constant = StaticContentFile.screenHeight - 170 - self.requestAuthorizationViewHeight.constant
         self.deauthorizeButton.isHidden = show
         self.channelDetail.auth_status =  show ? "f" : "t"
-        StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: true, dbManager: dbManager)
+        StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: true, dbManager: dbManager, isLastMessage: false)
     }
 }
 
@@ -276,21 +268,20 @@ extension ChatVC {
         dbManager.getDataForQuery(queryString)
     }
     
-    func refresh() {
+    func refresh(_ msg: RecentMessages) {
         
         var array = [RecentMessages]()
         array = self.messageList
-        self.messageList.removeAll()
-        let queryString = String(format: "select  * from \(StaticContentFile.messageTableName) where channel_id = \(channelDetail.channel_id)")
         
-        dbManager.getDataForQuery(queryString)
+        self.messageList.append(msg)
         
         if self.messageList.count > array.count {
             
             tableview.beginUpdates()
             tableview.insertRows(at: [IndexPath(row: array.count, section: 0)], with: .automatic)
             tableview.endUpdates()
-            self.scrollToButtom()
+            
+            scrollToButtom()
         }
     }
     
@@ -302,12 +293,12 @@ extension ChatVC {
         authRequestTitle.attributedText = NSAttributedString(string:title, attributes:attributes)
     }
     
-    fileprivate func showTheAuthRequestButton() {
+    func showTheAuthRequestButton() {
         
         if !StaticContentFile.isDoctorLogIn(), channelDetail?.auth_status.lowercased() != "t" {
             
             showAuthRequestTitle("You are not authorized to send messages. Please submit the Authorization Button to request authorization to send messages")
-            requestAuthorizationViewHeight.constant = 180
+            requestAuthorizationViewHeight.constant = authViewHeight
             authorizationView.isHidden = false
             toolbarView.isUserInteractionEnabled = false
             cameraButton.setImage(UIImage(named: "Camera_Inactive"), for: .normal)
@@ -321,10 +312,14 @@ extension ChatVC {
                 
                 requestAuthButton.backgroundColor = UIColor.lightGray
                 requestAuthButton.layer.borderColor = UIColor.lightGray.cgColor
+            } else {
+            
+                requestAuthButton.backgroundColor = UIColor.colorWithHex(0x3DB0BB)
+                requestAuthButton.layer.borderColor = UIColor.colorWithHex(0x3DB0BB).cgColor
             }
         } else {
             
-            requestAuthorizationViewHeight.constant = channelDetail.auth_status.lowercased() != "t" ? 144 : 0
+            requestAuthorizationViewHeight.constant = channelDetail.auth_status.lowercased() != "t" ? authViewHeight : 0
             authorizationView.isHidden = channelDetail.auth_status.lowercased() == "t"
             
             if StaticContentFile.isDoctorLogIn(), channelDetail.auth_status.lowercased() != "t" {
@@ -423,25 +418,33 @@ extension ChatVC {
                 
                 if let result = response.result.value {
                     
-                    self.callapiToMarkedRead()
-                    
                     for (i,msg) in result.enumerated() {
                         
                         self.messageList.append(msg)
                         StaticContentFile.insertRowIntoDB(msg, channelDetail: self.channelDetail, dbManager: self.dbManager)
                         
-                        if i == result.count - 1{
+                        if i == result.count - 1 {
                             
                             self.channelDetail.unread_count = 0
                             self.channelDetail.lastMsgId = msg.message_id
                             self.channelDetail.lastMsg = msg.message_text
-                            StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: false, dbManager: self.dbManager)
+                            StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: false, dbManager: self.dbManager, isLastMessage: true, isCount: true)
                         }
                     }
                     
-                    self.tableview.reloadData()
+                    if result.count == 0 {
+                        
+                        self.channelDetail.unread_count = 0
+                        StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: false, dbManager: self.dbManager, isLastMessage: false, isCount: true)
+                    }
                     
-                    self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
+                    if result.count > 0 {
+                        
+                        self.callapiToMarkedRead()
+                        self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
+                    }
+                    
+                    self.tableview.reloadData()
                     self.scrollToButtom()
                 } else {
                     
@@ -593,7 +596,7 @@ extension ChatVC {
         tableViewHeight.constant = StaticContentFile.screenHeight - 170 - requestAuthorizationViewHeight.constant
         
         self.scrollviewBottom.constant = 0
-    }
+        }
 }
 
 //MARK:- TextFieldDelegate
@@ -603,6 +606,11 @@ extension ChatVC : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         view.endEditing(true)
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
         return true
     }
 }

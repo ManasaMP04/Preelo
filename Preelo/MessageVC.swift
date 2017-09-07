@@ -32,11 +32,13 @@ class MessageVC: UIViewController {
     fileprivate var pullToRefreshControl : UIRefreshControl!
     
     fileprivate let defaults  = UserDefaults.standard
-    var webSocket = [SocketIOClient]()
     fileprivate var selectedChannelId = 0
     fileprivate var list = [Any]()
     let dbManager       = DBManager.init(fileName: "chat.db")!
     fileprivate var isChannelCall  = false
+    fileprivate var updateChannel = false
+    fileprivate var updateChannelDetail: ChannelDetail?
+    fileprivate var selectedChannel: ChannelDetail?
     
     static let sharedInstance = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MessageVC") as! MessageVC
     
@@ -44,15 +46,8 @@ class MessageVC: UIViewController {
         super.viewDidLoad()
         
         setup()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         
-        super.viewDidAppear(true)
-        
-        DispatchQueue.main.async(execute: { () -> Void in
-            
-            self.lisenSocket () })
+        handleSocketConnection()
     }
     
     override func didReceiveMemoryWarning() {
@@ -68,6 +63,25 @@ class MessageVC: UIViewController {
             let tab = navation.self.parent as? TabBarVC {
             tab.changeTheItem()
         }
+    }
+    
+    fileprivate func handleSocketConnection() {
+        
+        SocketIOManager.sharedInstance.connectToServer(completionHandler: { (userList, success, eventName: String) -> Void in
+            
+            DispatchQueue.main.async(execute: { () -> Void in
+                
+                if let data = userList, (eventName == StaticContentFile.socketMsgEventName ||  eventName == StaticContentFile.socketImageEventName) {
+                    self.saveChannelDataFromSocket(data)
+                } else if let data = userList, (eventName == StaticContentFile.socketAuthorizeEventName ||  eventName == StaticContentFile.socketAuthRequestEventName) {
+                    
+                    self.handleNotificationForAuthRequest(data, isForAuthorize: eventName == StaticContentFile.socketAuthorizeEventName)
+                } else if eventName == "error" {
+                    
+                    self.showAlert()
+                }
+            })
+        })
     }
     
     @IBAction func authorizationButtonTapped(_ sender: Any) {
@@ -103,11 +117,11 @@ class MessageVC: UIViewController {
         if status, let request = StaticContentFile.getAuthRequest() {
             
             list = request.authRequest
-            reloadData()
+            tableview?.reloadData()
         } else if !status {
             
             getChannel()
-            reloadData()
+            tableview?.reloadData()
         }
     }
 }
@@ -119,8 +133,6 @@ extension MessageVC {
     fileprivate func setup() {
         
         dbManager.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: Notification.Name("reloadData"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationForAuthRequest), name: Notification.Name("AuthNotificationIdentifier"), object: nil)
         
         cardView?.addShadowWithColor(UIColor.colorWithHex(0x23B5B9) , offset: CGSize.zero, opacity: 0.3, radius: 4)
         self.navigationController?.navigationBar.isHidden = true
@@ -156,8 +168,8 @@ extension MessageVC {
                     
                     StaticContentFile.updateAuthRequest(data)
                     self.list.remove(at: indexPath.row)
-                    self.notificationCount.isHidden = self.list.count == 0
-                    self.notificationCount.text = "\(self.list.count)"
+                    self.notificationCount.isHidden = result.authRequest.count == 0
+                    self.notificationCount.text = "\(result.authRequest.count)"
                     self.tableview.deleteRows(at: [indexPath], with: .automatic)
                 } else if let result = response.result.value {
                     
@@ -189,7 +201,7 @@ extension MessageVC {
                     
                     let channelData = data
                     channelData.auth_status = result.auth_status
-                    StaticContentFile.updateChannelDetail(channelData, isAuthStatus: true, dbManager: self.dbManager)
+                    StaticContentFile.updateChannelDetail(channelData, isAuthStatus: true, dbManager: self.dbManager,isLastMessage: false)
                     
                     let chatVC = ChatVC(channelData)
                     chatVC.delegate = self
@@ -250,10 +262,13 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource {
         if selection == .message, let data = list[indexPath.row] as? ChannelDetail, Reachability.forInternetConnection().isReachable()  {
             
             selectedChannelId = data.channel_id
+            selectedChannel   = data
             callAPIToSelectDocOrPatient(data)
         }else if selection == .message, let data = list[indexPath.row] as? ChannelDetail, !Reachability.forInternetConnection().isReachable() {
             
             let chatVC = ChatVC(data)
+            selectedChannelId = data.channel_id
+            selectedChannel   = data
             chatVC.delegate = self
             self.navigationController?.pushViewController(chatVC, animated: true)
         }
@@ -323,14 +338,16 @@ extension MessageVC{
                 
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
+                    if self.selection == .message {
+                        
+                        self.list = result.data
+                        self.tableview?.reloadData()
+                    }
+                    
                     for detail in result.data {
                         
                         StaticContentFile.insertRowIntoDB(channelDetail: detail, dbManager: self.dbManager)
                     }
-                    
-                    self.getChannel()
-                    
-                    NotificationCenter.default.post(name: Notification.Name("reloadData"), object: nil, userInfo: nil)
                 }
                 
                 self.stopAnimating()
@@ -343,9 +360,6 @@ extension MessageVC{
             
             list.removeAll()
         }
-        
-        let sl = "SELECT COUNT(*) FROM '\(StaticContentFile.channelTableName)' where userId = '\(StaticContentFile.getId())'"
-        let count = dbManager.getNumberOfRecord(sl)
         
         let queryString = String(format: "select  * from '\(StaticContentFile.channelTableName)' where userId = '\(StaticContentFile.getId())'")
         
@@ -365,11 +379,11 @@ extension MessageVC{
                     if self.selection == .authentication {
                         
                         self.list = result.authRequest
-                        self.reloadData()
+                        self.tableview?.reloadData()
                     }
                     
-                    self.notificationCount.text = "\(self.list.count)"
-                    self.notificationCount.isHidden = self.list.count == 0
+                    self.notificationCount.text = "\(result.authRequest.count)"
+                    self.notificationCount.isHidden = result.authRequest.count == 0
                     StaticContentFile.saveAuthRequest(result)
                 }else if let result = response.result.value {
                     
@@ -396,7 +410,7 @@ extension MessageVC{
                     if self.selection == .authentication {
                         
                         self.list = result.authRequest
-                        self.reloadData()
+                        self.tableview?.reloadData()
                     }
                     
                     StaticContentFile.saveAuthRequest(result)
@@ -414,28 +428,42 @@ extension MessageVC: DBManagerDelegate {
     
     func dbManager(_ statement: OpaquePointer!) {
         
-        let detail = ChannelDetail()
-        
-        detail.channel_id = Int(sqlite3_column_int(statement, 0))
-        detail.relationship = String(cString: sqlite3_column_text(statement, 1))
-        detail.patientname = String(cString: sqlite3_column_text(statement, 2))
-        detail.doctorname = String(cString: sqlite3_column_text(statement, 3))
-        detail.parentname = String(cString: sqlite3_column_text(statement, 4))
-        detail.doctor_initials = String(cString: sqlite3_column_text(statement, 5))
-        detail.unread_count = Int(sqlite3_column_int(statement, 6))
-        detail.doctorId = Int(sqlite3_column_int(statement, 7))
-        detail.parentId = Int(sqlite3_column_int(statement, 8))
-        detail.patientId = Int(sqlite3_column_int(statement, 9))
-        detail.auth_status = String(cString: sqlite3_column_text(statement, 10))
-        detail.doctor_user_id = Int(sqlite3_column_int(statement, 11))
-        detail.lastMsg = String(cString: sqlite3_column_text(statement, 12))
-        detail.chatTitle = String(cString: sqlite3_column_text(statement, 13))
-        detail.chatLabelTitle = String(cString: sqlite3_column_text(statement, 14))
-        detail.lastMsgId = Int(sqlite3_column_int(statement, 15))
-        
-        if selection == .message {
+        if !updateChannel {
             
-            list.append(detail)
+            let detail = ChannelDetail()
+            
+            detail.channel_id = Int(sqlite3_column_int(statement, 0))
+            detail.relationship = String(cString: sqlite3_column_text(statement, 1))
+            detail.patientname = String(cString: sqlite3_column_text(statement, 2))
+            detail.doctorname = String(cString: sqlite3_column_text(statement, 3))
+            detail.parentname = String(cString: sqlite3_column_text(statement, 4))
+            detail.doctor_initials = String(cString: sqlite3_column_text(statement, 5))
+            detail.unread_count = Int(sqlite3_column_int(statement, 6))
+            detail.doctorId = Int(sqlite3_column_int(statement, 7))
+            detail.parentId = Int(sqlite3_column_int(statement, 8))
+            detail.patientId = Int(sqlite3_column_int(statement, 9))
+            detail.auth_status = String(cString: sqlite3_column_text(statement, 10))
+            detail.doctor_user_id = Int(sqlite3_column_int(statement, 11))
+            detail.lastMsg = String(cString: sqlite3_column_text(statement, 12))
+            detail.chatTitle = String(cString: sqlite3_column_text(statement, 13))
+            detail.chatLabelTitle = String(cString: sqlite3_column_text(statement, 14))
+            detail.lastMsgId = Int(sqlite3_column_int(statement, 15))
+            
+            if selection == .message {
+                
+                list.append(detail)
+            }
+        } else if updateChannel {
+            
+            updateChannel = false
+            
+            let detail = ChannelDetail()
+            
+            detail.channel_id = Int(sqlite3_column_int(statement, 0))
+            detail.unread_count = Int(sqlite3_column_int(statement, 1))
+            detail.unread_count = detail.unread_count + 1
+            
+            updateChannelDetail = detail
         }
     }
 }
@@ -459,85 +487,9 @@ extension MessageVC: ChatVCDelegate {
 
 extension MessageVC {
     
-    func lisenSocket () {
+    @objc fileprivate func handleNotificationForAuthRequest(_ data: [String: Any], isForAuthorize: Bool) {
         
-        for skt in webSocket {
-            
-            skt.onAny({ (event) in
-                
-                if event.event == "error" {
-                    
-                    self.showAlert()
-                } else  if (event.event == "chat message" || event.event == "image"),
-                    let data = event.items as? [[String: Any]] {
-                    
-                    DispatchQueue.main.async {
-                        
-                        for dict in data {
-                            
-                            self.saveChannelDataFromSocket(dict)
-                        }
-                    }
-                } else  if event.event == "auth request" ,
-                    let data = event.items as? [[String: Any]] {
-                    
-                    for dict in data {
-                        
-                        self.saveAuthStatusFromSocket(dict, isForAuthorize: false)
-                    }
-                    NotificationCenter.default.post(name: Notification.Name("AuthNotificationIdentifier"), object: nil, userInfo: nil)
-                } else  if event.event == "authorized message" ,
-                    let data = event.items as? [[String: Any]] {
-                    
-                    for dict in data {
-                        
-                        self.saveAuthStatusFromSocket(dict, isForAuthorize: true)
-                    }
-                    
-                    NotificationCenter.default.post(name: Notification.Name("AuthNotificationIdentifier"), object: nil, userInfo: nil)
-                }
-            })
-        }
-    }
-    
-    func establishConnection() {
-        
-        if let servers = defaults.value(forKey: "socketServers") as? [[String: Any]] {
-            
-            for dict in servers {
-                
-                if let url = dict["address"] as? String,
-                    let UrlForSocket = URL(string: url + "/") {
-                    
-                    let skt = SocketIOClient( socketURL: UrlForSocket, config: [.connectParams(["token": StaticContentFile.getToken()])])
-                    
-                    webSocket.append(skt)
-                    skt.connect()
-                }
-            }
-        }
-    }
-    
-    func closeConnection() {
-        
-        for skt in webSocket {
-            
-            skt.disconnect()
-        }
-    }
-    
-    @objc fileprivate func reloadData() {
-        
-        tableview.reloadData()
-    }
-    
-    @objc fileprivate func handleNotificationForAuthRequest() {
-        
-        if selection == .authentication, let authRequest = StaticContentFile.getAuthRequest() {
-            
-            self.list = authRequest.authRequest
-            reloadData()
-        }
+        self.saveAuthStatusFromSocket(data, isForAuthorize: isForAuthorize)
     }
     
     func handleRemoteNotification () {
@@ -556,7 +508,8 @@ extension MessageVC {
         } else {
             
             startAnimating()
-            refresh(nil)
+            self.callChannelAPI()
+            StaticContentFile.isDoctorLogIn() ? self.callAPIToGetAuthRequest() : self.callAPIToGetPatientAuthRequest()
         }
     }
     
@@ -602,29 +555,28 @@ extension MessageVC {
                 recentMsg.message_id = msgId
                 channel.recent_message = [recentMsg]
                 
-                insertintoChannel(id, recentMsg: recentMsg)
+                insertintoChannel(channel, recentMsg: recentMsg)
                 
                 StaticContentFile.insertRowIntoDB(recentMsg, channelDetail: channel, dbManager: self.dbManager)
-            } else if let image = event["image_url"] as? String {
+            } else if msgType == "image", let image = event["image_url"] as? String {
                 
-                let recentMsg = RecentMessages(msgType, text: message, image: image, senderId: sender, timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
+                channel.lastMsg = "Image"
+                let recentMsg = RecentMessages(msgType, text: "Image", image: image, senderId: sender, timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
                 recentMsg.message_id = msgId
                 channel.recent_message = [recentMsg]
                 
-                insertintoChannel(id, recentMsg: recentMsg)
+                insertintoChannel(channel, recentMsg: recentMsg)
                 StaticContentFile.insertRowIntoDB(recentMsg, channelDetail: channel, dbManager: self.dbManager)
             }
-            
-            StaticContentFile.updateChannelDetail(channel, isAuthStatus: false, dbManager: dbManager )
         }
     }
     
-    fileprivate func insertintoChannel(_ channelId: Int, recentMsg: RecentMessages) {
+    fileprivate func insertintoChannel(_ channel: ChannelDetail, recentMsg: RecentMessages) {
         
         if let details = list as? [ChannelDetail] {
             
             let indexes = details.enumerated().filter {
-                $0.element.channel_id == channelId
+                $0.element.channel_id == channel.channel_id
                 }.map{$0.offset}
             
             for index in indexes {
@@ -632,15 +584,35 @@ extension MessageVC {
                 let detail = details[index]
                 detail.lastMsg = recentMsg.message_text
                 detail.lastMsgId = recentMsg.message_id
-                detail.recent_message.append(recentMsg)
+                detail.recent_message = [recentMsg]
                 detail.unread_count =  detail.unread_count + 1
+                
+                self.list = details
                 
                 if let vc = self.navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC {
                     
-                    if channelId == selectedChannelId {
+                    if channel.channel_id == selectedChannelId {
+                        
+                        detail.unread_count = 0
                         
                         vc.channelDetail = detail
-                        vc.refresh()
+                        vc.refresh(recentMsg)
+                        
+                        StaticContentFile.updateChannelDetail(detail, isAuthStatus: false, dbManager: dbManager, isLastMessage: false)
+                    }
+                } else {
+                    
+                    StaticContentFile.updateChannelDetail(channel, isAuthStatus: false, dbManager: dbManager, isLastMessage: true)
+                    
+                    updateChannel = true
+                    
+                    let queryString = String(format: "select channel_id,unread_count from '\(StaticContentFile.channelTableName)' where channel_id = '\(channel.channel_id)'")
+                    
+                    dbManager.getDataForQuery(queryString)
+                    
+                    if let detail = updateChannelDetail {
+                        
+                        StaticContentFile.updateChannelDetail(detail, isAuthStatus: false, dbManager: dbManager, isLastMessage: false)
                     }
                 }
             }
@@ -651,42 +623,89 @@ extension MessageVC {
     
     fileprivate func saveAuthStatusFromSocket(_ event: [String: Any], isForAuthorize: Bool) {
         
-        if let firstname = event["firstname"] as? String,
-            let lastname = event["lastname"] as? String,
-            let relationship = event["relationship"] as? String,
-            let doctorid = event["doctorid"] as? Int,
+        if let doctorid = event["doctorid"] as? Int,
             let patientid = event["patientid"] as? Int,
-            let title = event["title"] as? String,
-            let subtitle = event["subtitle"] as? String,
-            let parentid = event["parentid"] as? Int,
-            let family_id = event["family_id"] as? Int,
-            let doctor_firstname = event["doctor_firstname"] as? String,
-            let doctor_lastname = event["doctor_lastname"] as? String {
+        let parentid = event["parentid"] as? Int {
             
             let authRequest = AuthorizeRequest()
             let auth = DocAuthorizationRequest()
             
-            auth.firstname = firstname
-            auth.lastname = lastname
-            auth.relationship      = relationship
             auth.patientid         = patientid
-            auth.parentid          = parentid
-            auth.title             = title
-            auth.subtitle          = subtitle
-            
-            auth.family_id         = family_id
             auth.doctorid          = doctorid
-            auth.doctor_firstname  = doctor_firstname
-            auth.doctor_lastname   = doctor_lastname
+            auth.parentid          = parentid
             
-            authRequest.authRequest = [auth]
+            StaticContentFile.updateAuthRequest(auth)
             
-            if isForAuthorize {
+            if let authStatus = event["auth_status"] as? String, isForAuthorize {
                 
-                StaticContentFile.updateAuthRequest(auth)
-            } else{
+                if selection == .authentication,
+                    let details = list as? [DocAuthorizationRequest] {
+                    
+                    authRequest.authRequest = [auth]
+                    
+                    let indexes = details.enumerated().filter {
+                        $0.element.patientid == patientid && $0.element.doctorid == doctorid && $0.element.parentid == parentid
+                        }.map{$0.offset}
+                    
+                    for index in indexes {
+                        
+                        self.list.remove(at: index)
+                    }
+                    
+                    tableview?.reloadData()
+                }
+                
+                if let vc = self.navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC,
+                    let channel = selectedChannel,
+                    auth.patientid  == channel.patientId,
+                    auth.doctorid == channel.doctorId {
+                    
+                    vc.channelDetail.auth_status = authStatus
+                    vc.showTheAuthRequestButton()
+                }
+            } else if let firstname = event["firstname"] as? String,
+                let lastname = event["lastname"] as? String,
+                let relationship = event["relationship"] as? String,
+                let title = event["title"] as? String,
+                let subtitle = event["subtitle"] as? String,
+                let family_id = event["family_id"] as? Int,
+                let doctor_firstname = event["doctor_firstname"] as? String,
+                let doctor_lastname = event["doctor_lastname"] as? String {
+                
+                
+                auth.firstname = firstname
+                auth.lastname = lastname
+                auth.relationship      = relationship
+                auth.parentid          = parentid
+                auth.title             = title
+                auth.subtitle          = subtitle
+                
+                auth.family_id         = family_id
+                auth.doctor_firstname  = doctor_firstname
+                auth.doctor_lastname   = doctor_lastname
+                
+                authRequest.authRequest = [auth]
+                
                 
                 StaticContentFile.saveAuthRequest(authRequest)
+                
+                if selection == .authentication,
+                    let _ = list as? [DocAuthorizationRequest] {
+                    
+                    self.list.append(auth)
+                    tableview?.reloadData()
+                }
+            }
+            
+            if let txt = self.notificationCount.text,
+                let count = Int(txt) {
+                
+                self.notificationCount.isHidden = isForAuthorize ? count-1 == 0 : false
+                self.notificationCount.text = "\(count+1)"
+            } else if !isForAuthorize {
+                
+                self.notificationCount.isHidden = false
+                self.notificationCount.text = "1"
             }
         }
     }

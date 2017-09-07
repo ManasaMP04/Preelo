@@ -33,13 +33,13 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
-  - jetfire (0.1.5)
   - ObjectMapper (2.2.0)
   - Protobuf (3.3.0)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
   - Socket.IO-Client-Swift (10.2.0)
+  - SocketRocket (0.5.1)
   - SQLite.swift (0.11.3):
     - SQLite.swift/standard (= 0.11.3)
   - SQLite.swift/standard (0.11.3)
@@ -51,9 +51,9 @@ DEPENDENCIES:
   - DXPopover
   - Firebase/Core
   - Firebase/Messaging
-  - jetfire (~> 0.1.2)
   - SDWebImage (~> 3.8)
   - Socket.IO-Client-Swift
+  - SocketRocket
   - SQLite.swift (~> 0.11.3)
 
 SPEC CHECKSUMS:
@@ -68,14 +68,14 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 9fbf536668f4d3f0880e7438456dabd1376e294b
   FirebaseMessaging: 227406c05b0dc9290702d2e9f18ab5528f0c2cf2
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
-  jetfire: 60c16cd6ae0282928e24203eb93f03b89c1929ce
   ObjectMapper: 4060d739febae11ab0c6af8d786f98667c82e1bd
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   Socket.IO-Client-Swift: ecd7fe4d2746a7557e71c2d6e95e23e3be31ddd1
+  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   SQLite.swift: 99b36c22084427f0abbeb957556ce1528cf10bb3
   UIImageViewModeScaleAspect: 11a790a0b9d248a13dc63e3a78991f1463b6d84e
 
-PODFILE CHECKSUM: 6dc6762d03df62b71725691cf241d917a56b5c91
+PODFILE CHECKSUM: 865e3e1b564dfb294175619e927aff62278432d6
 
 COCOAPODS: 1.2.1

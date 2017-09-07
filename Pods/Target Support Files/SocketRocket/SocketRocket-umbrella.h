@@ -10,9 +10,9 @@
 #endif
 #endif
 
-#import "JFRSecurity.h"
-#import "JFRWebSocket.h"
+#import "SocketRocket.h"
+#import "SRWebSocket.h"
 
-FOUNDATION_EXPORT double jetfireVersionNumber;
-FOUNDATION_EXPORT const unsigned char jetfireVersionString[];
+FOUNDATION_EXPORT double SocketRocketVersionNumber;
+FOUNDATION_EXPORT const unsigned char SocketRocketVersionString[];
 

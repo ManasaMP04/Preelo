@@ -14,7 +14,7 @@ use_frameworks!
     pod 'SQLite.swift', '~> 0.11.3'  
     pod 'Firebase/Core'
     pod 'Firebase/Messaging'
-pod 'jetfire', '~> 0.1.2'
+pod 'SocketRocket'
 
     post_install do |installer|
       installer.pods_project.targets.each do |target|

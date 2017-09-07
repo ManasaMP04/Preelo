@@ -64,6 +64,7 @@
 		62ACD5051EA125D1000B0EDE /* NetworkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5041EA125D1000B0EDE /* NetworkURL.swift */; };
 		62ACD5081EA129BF000B0EDE /* LogInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5071EA129BF000B0EDE /* LogInRouter.swift */; };
 		62AF1DFF1F548C19007AEA1F /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62AF1DFE1F548C19007AEA1F /* DBManager.m */; };
+		62AF47041F61951400675F7A /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AF47031F61951400675F7A /* SocketIOManager.swift */; };
 		62B729E51EC83E63006057DB /* FromMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729E31EC83E63006057DB /* FromMessageCell.swift */; };
 		62B729E61EC83E63006057DB /* FromMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B729E41EC83E63006057DB /* FromMessageCell.xib */; };
 		62B729E91EC83E74006057DB /* ToMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B729E71EC83E74006057DB /* ToMessageCell.swift */; };
@@ -199,6 +200,7 @@
 		62ACD5071EA129BF000B0EDE /* LogInRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInRouter.swift; sourceTree = "<group>"; };
 		62AF1DFD1F548C0F007AEA1F /* DBManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		62AF1DFE1F548C19007AEA1F /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		62AF47031F61951400675F7A /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		62B729E31EC83E63006057DB /* FromMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromMessageCell.swift; sourceTree = "<group>"; };
 		62B729E41EC83E63006057DB /* FromMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FromMessageCell.xib; sourceTree = "<group>"; };
 		62B729E71EC83E74006057DB /* ToMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToMessageCell.swift; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 			isa = PBXGroup;
 			children = (
 				622A8FAD1E9D3A1200B34B56 /* MessageVC.swift */,
+				62AF47031F61951400675F7A /* SocketIOManager.swift */,
 				62E3AB7B1EA101410061802F /* ChatCell.swift */,
 				62E3AB7C1EA101410061802F /* ChatCell.xib */,
 			);
@@ -782,6 +785,7 @@
 				62B729EE1EC84387006057DB /* ImageListCell.swift in Sources */,
 				629E4E8B1EA29C8800F280AD /* LogInDetail.swift in Sources */,
 				626AB1431EA36461001271D3 /* ChildrenDetail.swift in Sources */,
+				62AF47041F61951400675F7A /* SocketIOManager.swift in Sources */,
 				62D064941EA3EEB4007A503F /* addPatient.swift in Sources */,
 				86B5F74C1F16926400D29697 /* SettingsViewController.swift in Sources */,
 				62B823891F3CF4CD00431893 /* SaveImage.swift in Sources */,

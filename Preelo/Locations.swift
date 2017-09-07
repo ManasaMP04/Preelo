@@ -22,7 +22,7 @@ class Locations: Mappable {
     var country         = ""
     var cwho            = 0
     var uwho            = 0
-    var faxes           = ""
+    var faxes           = [DoctorPhoneNumbers]()
     
     required init?(map: Map) {
         

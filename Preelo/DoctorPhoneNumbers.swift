@@ -19,6 +19,7 @@ class DoctorPhoneNumbers: Mappable {
     var primary_flag        = ""
     var cdate               = ""
     var udate               = ""
+    var fax_number          = ""
     
     required init?(map: Map) {
         
@@ -35,5 +36,6 @@ class DoctorPhoneNumbers: Mappable {
         primary_flag        <- map["primary_flag"]
         cdate               <- map["cdate"]
         udate               <- map["udate"]
+        fax_number          <- map["fax_number"]
     }
 }

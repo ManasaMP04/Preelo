@@ -20,15 +20,15 @@ struct Address {
     var state: String
     var zip: String
     var phone = [String]()
-    var fax   : String
+    var fax  = [String]()
     
     var count : Int {
         
         var i = 1
         
-        if fax.characters.count > 0 {
+        if fax.count > 0 {
             
-            i = i + 1
+            i = i + fax.count
         }
         
         return i + phone.count
@@ -72,7 +72,7 @@ class PatientListVC: UIViewController {
     func removeSelectedIndex() {
     
         selectedIndex = nil
-        tableView.reloadData()
+        tableView?.reloadData()
     }
     
     func refreshTableview(_ data: PatientList) {
@@ -196,7 +196,14 @@ extension PatientListVC: ParentDetailCellDelegate {
                         phones.append(phone.phone_number)
                     }
                     
-                    let address = Address(address1: loc.address1, address2: loc.address2, city: loc.city,state: loc.state,zip: "", phone: phones, fax: loc.faxes)
+                    var faxes = [String]()
+                    
+                    for fax in loc.faxes {
+                        
+                        faxes.append(fax.fax_number + " " + "(Fax)")
+                    }
+                    
+                    let address = Address(address1: loc.address1, address2: loc.address2, city: loc.city,state: loc.state,zip: "", phone: phones, fax: faxes)
                     docDetail.append(address)
                 }
             }

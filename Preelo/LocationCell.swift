@@ -73,7 +73,8 @@ extension LocationCell: UITableViewDelegate, UITableViewDataSource {
             cell.showParentName(phone, showImage: false, showEdit: true, image: "phone", showLocation: false, font: UIFont(name: "Ubuntu-Light", size: 14)!, color: UIColor.colorWithHex(0x414042), showInitial: true, showSeparator: indexPath.row+1 == detail.count, separatorLeadingSpace: 68)
         } else {
             
-            cell.showParentName(detail.fax, showImage: false, showEdit: false, image: nil, showLocation: false, font: UIFont(name: "Ubuntu-Light", size: 14)!, color: UIColor.colorWithHex(0x414042), showInitial: true, showSeparator: indexPath.row+1 == detail.count, separatorLeadingSpace: 70)
+            let fax = detail.fax [indexPath.row - detail.phone.count - 1]
+            cell.showParentName(fax, showImage: false, showEdit: false, image: nil, showLocation: false, font: UIFont(name: "Ubuntu-Light", size: 14)!, color: UIColor.colorWithHex(0x414042), showInitial: true, showSeparator: indexPath.row+1 == detail.count, separatorLeadingSpace: 70)
         }
         
         return cell
