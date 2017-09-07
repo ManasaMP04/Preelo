@@ -9,9 +9,9 @@
 import UIKit
 
 extension String {
-
-    func relaceCharacter() -> String {
     
+    func relaceCharacter() -> String {
+        
         return self.replacingOccurrences(of: "'", with: "''")
     }
 }
@@ -174,18 +174,53 @@ extension Date {
         if let endDate = f.date(from: endDateStr),
             let startDate = f.date(from: dateStr) {
             
-            let t = endDate.timeIntervalSince(startDate)
-            let formt = DateComponentsFormatter()
-            formt.unitsStyle = .full
-            let timeStr = formt.string(from: t)
-            
-            if let timeStrs = timeStr?.components(separatedBy: ", "), timeStrs.count > 0 {
+            if startDate.isToday() {
                 
-                timeAgo = timeStrs[0] + " ago"
+                let t = endDate.timeIntervalSince(startDate)
+                let formt = DateComponentsFormatter()
+                formt.unitsStyle = .short
+                formt.allowedUnits = [.second, .hour,.minute]
+                let timeStr = formt.string(from: t)
+                
+                if let timeStrs = timeStr?.components(separatedBy: ", "), timeStrs.count > 0 {
+                    
+                    timeAgo = timeStrs[0] + " ago"
+                }
+            } else if let startDate = f.date(from: dateStr) {
+                
+                f.dateFormat = "dd/MM/yyyy hh:mm a"
+                timeAgo = f.string(from: startDate)
             }
         }
         
         return timeAgo
+    }
+    
+    func isToday () -> Bool {
+        
+        let diff = self.calendarDaysDifferenceFromToday()
+        
+        return diff == 0
+    }
+    
+    func calendarDaysDifferenceFromToday () -> Int {
+        
+        return calendarDaysDifferenceSinceDate(Date())
+    }
+    
+    func calendarDaysDifferenceSinceDate (_ date: Date) -> Int {
+        
+        return interval(ofComponent: .day, fromDate: date)
+    }
+    
+    func interval(ofComponent comp: Calendar.Component, fromDate date: Date) -> Int {
+        
+        let currentCalendar = Calendar.current
+        
+        guard let start = currentCalendar.ordinality(of: comp, in: .era, for: date) else { return 0 }
+        guard let end = currentCalendar.ordinality(of: comp, in: .era, for: self) else { return 0 }
+        
+        return end - start
     }
 }
 

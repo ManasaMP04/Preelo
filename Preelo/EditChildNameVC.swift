@@ -77,6 +77,18 @@ class EditChildNameVC: UIViewController {
     }
 }
 
+extension EditChildNameVC: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        if let v1 = touch.view, v1 is UIButton {
+            
+            return false
+        }
+        return true
+    }
+}
+
 extension EditChildNameVC {
     
     fileprivate func setup() {

@@ -279,6 +279,19 @@ extension LoginDetailVC {
     }
 }
 
+extension LoginDetailVC: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        if let v1 = touch.view, v1 is UIButton {
+            
+            return false
+        }
+        return true
+    }
+}
+
+
 //MARK:- KeyBoard delegate methods
 
 extension LoginDetailVC {

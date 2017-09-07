@@ -26,7 +26,7 @@ class StaticContentFile: NSObject {
         
         let dbManager       = DBManager.init(fileName: "chat.db")
         
-        let queryString = String(format: "CREATE TABLE IF NOT EXISTS \(channelTableName) (channel_id int,relationship TEXT, patientname TEXT, doctorname TEXT, parentname TEXT,doctor_initials TEXT, unread_count  int, doctorId  int,parentId  int,patientId  int, auth_status TEXT, doctor_user_id  int,lastMsg  Text, chatTitle TEXT,chatLabelTitle TEXT, lastMsgId int)")
+        let queryString = String(format: "CREATE TABLE IF NOT EXISTS \(channelTableName) (channel_id int,relationship TEXT, patientname TEXT, doctorname TEXT, parentname TEXT,doctor_initials TEXT, unread_count  int, doctorId  int,parentId  int,patientId  int, auth_status TEXT, doctor_user_id  int,lastMsg  Text, chatTitle TEXT,chatLabelTitle TEXT, lastMsgId int, userId int)")
         
         let queryString1 = String(format: "CREATE TABLE IF NOT EXISTS \(messageTableName) (channel_id int, message_type TEXT, message_text  TEXT, message_date TEXT,image_url TEXT, thumb_Url TEXT, message_id  int,senderId TEXT)")
         
@@ -69,7 +69,7 @@ class StaticContentFile: NSObject {
             
             let message = channelDetail.recent_message[channelDetail.recent_message.count - 1]
             
-            let queryString1 = String(format: "INSERT INTO '\(channelTableName)' VALUES( '\(channelDetail.channel_id)', '\(channelDetail.relationship.relaceCharacter())', '\(channelDetail.patientname.relaceCharacter())', '\(channelDetail.doctorname.relaceCharacter())', '\(channelDetail.parentname.relaceCharacter())', '\(channelDetail.doctor_initials.relaceCharacter())', '\(channelDetail.unread_count)', '\(channelDetail.doctorId)', '\(channelDetail.parentId)', '\(channelDetail.patientId)', '\(channelDetail.auth_status)', '\(channelDetail.doctor_user_id)', '\(message.message_text.relaceCharacter())', '\(channelDetail.chatTitle.relaceCharacter())', '\(channelDetail.chatLabelTitle.relaceCharacter())', '\(channelDetail.lastMsgId)')")
+            let queryString1 = String(format: "INSERT INTO '\(channelTableName)' VALUES( '\(channelDetail.channel_id)', '\(channelDetail.relationship.relaceCharacter())', '\(channelDetail.patientname.relaceCharacter())', '\(channelDetail.doctorname.relaceCharacter())', '\(channelDetail.parentname.relaceCharacter())', '\(channelDetail.doctor_initials.relaceCharacter())', '\(channelDetail.unread_count)', '\(channelDetail.doctorId)', '\(channelDetail.parentId)', '\(channelDetail.patientId)', '\(channelDetail.auth_status)', '\(channelDetail.doctor_user_id)', '\(message.message_text.relaceCharacter())', '\(channelDetail.chatTitle.relaceCharacter())', '\(channelDetail.chatLabelTitle.relaceCharacter())', '\(channelDetail.lastMsgId)', '\(StaticContentFile.getId())')")
             
             dbManager.saveDataToDB(forQuery: queryString1)
         }
@@ -170,7 +170,6 @@ extension StaticContentFile {
         defaults.set(false, forKey: "isLoggedIn")
         defaults.removeObject(forKey: "userProfile")
         defaults.removeObject(forKey: "socketServers")
-        StaticContentFile.clearDbTableWithId(dbManager: DBManager.init(fileName: "chat.db"))
         MessageVC.sharedInstance.closeConnection()
     }
     
@@ -253,8 +252,7 @@ extension StaticContentFile {
                 
                 if let patientId = element["patientid"] as? Int,
                     let parentId = element["parentid"] as? Int,
-                    let drId     = element["doctorid"] as? Int ,
-                    patientId == result.patientid, parentId == result.parentid, drId == result.doctorid  {
+                    patientId == result.patientid, parentId == result.parentid  {
                     
                     authArray.remove(at: i)
                     

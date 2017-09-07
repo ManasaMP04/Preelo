@@ -93,6 +93,11 @@ extension TabBarVC {
         if let nav = self.childViewControllers[0] as? UINavigationController,
             let nav1 = self.childViewControllers[1] as? UINavigationController {
         
+            if let vc = nav1.viewControllers[0] as? Preelo.PatientListVC {
+            
+                vc.removeSelectedIndex()
+            }
+            
             if (self.presentedViewController != nil) {
             
                 dismiss(animated: true, completion: nil)

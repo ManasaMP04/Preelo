@@ -33,6 +33,11 @@ class ForgotPasswordVC: UIViewController {
         _ = navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func gesturetapped(_ sender: Any) {
+   
+        self.view.endEditing(true)
+    }
+    
     @IBAction func continueButtonTapped(_ sender: Any) {
         
         if let text = emailId.text, StaticContentFile.isValidEmail(text), Reachability.forInternetConnection().isReachable() {
@@ -82,6 +87,19 @@ class ForgotPasswordVC: UIViewController {
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
     }
 }
+
+extension ForgotPasswordVC: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        if let v1 = touch.view, v1 is UIButton {
+            
+            return false
+        }
+        return true
+    }
+}
+
 
 //MARK:- TextFieldDelegate
 

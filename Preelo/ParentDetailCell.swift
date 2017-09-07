@@ -31,6 +31,7 @@ class ParentDetailCell: UITableViewCell {
     @IBOutlet weak var nameLabelLeading: NSLayoutConstraint!
     weak var delegate: ParentDetailCellDelegate?
     @IBOutlet weak var separatorTrailing: NSLayoutConstraint!
+    @IBOutlet weak var separator: UIView!
     
     static let cellId = "ParentDetailCell"
     
@@ -44,7 +45,7 @@ class ParentDetailCell: UITableViewCell {
         
     }
     
-    func showParentName(_ name: String, showImage: Bool, showEdit: Bool = true, image: String? = nil, showLocation: Bool = false, font: UIFont = UIFont(name: "Ubuntu", size: 14)!, color: UIColor = UIColor.colorWithHex(0x414042), showInitial: Bool = false, initialText: String = "", isLocationSelected: Bool = false) {
+    func showParentName(_ name: String, showImage: Bool, showEdit: Bool = true, image: String? = nil, showLocation: Bool = false, font: UIFont = UIFont(name: "Ubuntu", size: 14)!, color: UIColor = UIColor.colorWithHex(0x414042), showInitial: Bool = false, initialText: String = "", isLocationSelected: Bool = false, showSeparator: Bool = true, separatorLeadingSpace: CGFloat? = nil) {
         
         parentName.font = font
         parentName.textColor = color
@@ -55,18 +56,25 @@ class ParentDetailCell: UITableViewCell {
         imageViewWidth.constant = showImage ? 15 : 0
         imageView1.isHidden = !showImage
         initial.text = initialText
-        nameLabelLeading.constant = (showImage || showInitial) ? 15 : 37
+        
+        if let const = separatorLeadingSpace {
+            
+            nameLabelLeading.constant = const
+        } else {
+            nameLabelLeading.constant = (showImage || showInitial) ? 15 : 37
+        }
         editTrailing.constant = StaticContentFile.isDoctorLogIn() ? 30 : 10
         editButton.isHidden = !showEdit
         editButtonWidth.constant = showEdit ? 45 : 0
         separatorTrailing.constant = !StaticContentFile.isDoctorLogIn() ? 20 : 35
-    
+        separator.isHidden = !showSeparator
+        
         if let img = image {
-         
+            
             editButton.setImage(UIImage(named: img), for: .normal)
             
         } else {
-        
+            
             editButton.setImage(nil, for: .normal)
             editButton.setTitle("EDIT", for: .normal)
         }
@@ -83,7 +91,7 @@ class ParentDetailCell: UITableViewCell {
     }
     
     @IBAction func tappedLocation(_ sender: Any) {
-    
+        
         delegate?.parentDetailCellTappedLocation?(self)
     }
 }

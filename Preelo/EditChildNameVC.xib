@@ -138,6 +138,7 @@
         <tapGestureRecognizer cancelsTouchesInView="NO" id="ZzR-HT-sJv">
             <connections>
                 <action selector="gestureIsTapped:" destination="-1" id="HqI-XK-uXm"/>
+                <outlet property="delegate" destination="-1" id="qGB-Xy-ONr"/>
             </connections>
         </tapGestureRecognizer>
     </objects>

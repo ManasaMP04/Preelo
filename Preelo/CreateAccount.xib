@@ -327,7 +327,7 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="country code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MeK-Ph-9El">
-                                            <rect key="frame" x="0.0" y="0.0" width="64.5" height="13"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="65" height="13"/>
                                             <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="11"/>
                                             <color key="textColor" red="0.50196078430000002" green="0.50980392159999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -458,8 +458,17 @@
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="zHe-Xz-2Eb" appends="YES" id="0OS-Vd-Iuv"/>
+            </connections>
             <point key="canvasLocation" x="196.5" y="120"/>
         </view>
+        <tapGestureRecognizer id="zHe-Xz-2Eb">
+            <connections>
+                <action selector="gestureTapped:" destination="-1" id="v87-yY-1eZ"/>
+                <outlet property="delegate" destination="-1" id="uSt-zo-RVd"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="Down-Arrow" width="22" height="22"/>

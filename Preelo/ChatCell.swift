@@ -46,7 +46,7 @@ class ChatCell: UITableViewCell {
     fileprivate func setup() {
         
         StaticContentFile.setButtonFont(declineButton, backgroundColorNeeed: false, shadowNeeded: false)
-        StaticContentFile.setButtonFont(acceptButton)
+        StaticContentFile.setButtonFont(acceptButton, shadowNeeded: false)
         
         if StaticContentFile.isDoctorLogIn() {
             
@@ -79,7 +79,7 @@ class ChatCell: UITableViewCell {
         
         if let auth = data as? DocAuthorizationRequest {
             
-            titleLeading.constant = 45
+            titleLeading.constant = 60
             countLabel.isHidden = true
             initial.isHidden = true
             volumeImage.isHidden = false

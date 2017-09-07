@@ -299,8 +299,6 @@ extension AccountSettingsVC {
                             
                             vc.refresh()
                         }
-                        
-                        self.view.showToast(message: result.message)
                     } else {
                         
                         self.view.showToast(message: "Failed to send the feedback")

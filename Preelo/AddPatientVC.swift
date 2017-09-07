@@ -93,6 +93,19 @@ class AddPatientVC: UIViewController {
     }
 }
 
+extension AddPatientVC: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        if let v1 = touch.view, v1 is UIButton {
+            
+            return false
+        }
+        return true
+    }
+}
+
+
 //MARK:- UITableViewDelegate, UITableViewDataSource
 
 extension AddPatientVC: UITableViewDelegate, UITableViewDataSource {

@@ -82,6 +82,11 @@ class CreateAccount: UIViewController {
         presentPIckerView(countryCodeButton, data: cityList.countryCode)
     }
     
+    @IBAction func gestureTapped(_ sender: Any) {
+    
+        self.view.endEditing(true)
+    }
+    
     @IBAction func stateTapped(_ sender: Any) {
         
         selection = .state
@@ -109,6 +114,18 @@ class CreateAccount: UIViewController {
     @IBAction func createAccountTapped(_ sender: Any) {
         
         callAPIToCreatAccount()
+    }
+}
+
+extension CreateAccount: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        if let v1 = touch.view, v1 is UIButton {
+            
+            return false
+        }
+        return true
     }
 }
 

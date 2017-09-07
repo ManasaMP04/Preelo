@@ -92,6 +92,15 @@ class ChatVC: UIViewController {
         setup()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        
+        super.viewDidAppear(true)
+        
+        DispatchQueue.main.async(execute: { () -> Void in
+            
+            MessageVC.sharedInstance.lisenSocket () })
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -163,6 +172,8 @@ extension ChatVC {
                     
                     if let result = response.result.value, result.status == "SUCCESS" {
                         
+                        self.showAuthRequestTitle("This user is not authorised to send messages. Please click on the authorise button to allow the user to send messages")
+                        self.requestAuthButton.setTitle("AUTHORIZE PARENT", for: .normal)
                         self.showAuthorizeButton(true)
                         
                         self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
@@ -231,7 +242,7 @@ extension ChatVC {
                                                selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         messageTF.delegate = self
         
-        StaticContentFile.setButtonFont(requestAuthButton)
+        StaticContentFile.setButtonFont(requestAuthButton, shadowNeeded: false)
         dbManager.delegate = self
         showTheAuthRequestButton()
         customeNavigation.setTitle(name)
@@ -296,7 +307,7 @@ extension ChatVC {
         if !StaticContentFile.isDoctorLogIn(), channelDetail?.auth_status.lowercased() != "t" {
             
             showAuthRequestTitle("You are not authorized to send messages. Please submit the Authorization Button to request authorization to send messages")
-            requestAuthorizationViewHeight.constant = 160
+            requestAuthorizationViewHeight.constant = 180
             authorizationView.isHidden = false
             toolbarView.isUserInteractionEnabled = false
             cameraButton.setImage(UIImage(named: "Camera_Inactive"), for: .normal)
@@ -510,10 +521,6 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
         if str == "you" {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: FromMessageCell.cellId, for: indexPath) as! FromMessageCell
-            
-            let gesture = UILongPressGestureRecognizer.init(target: self, action: #selector(showCopyIcon(_:)))
-            cell.addGestureRecognizer(gesture)
-            
             cell.showMessage(message)
             
             return cell
@@ -521,12 +528,30 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: ToMessageCell.cellId, for: indexPath) as! ToMessageCell
             
-            let gesture = UILongPressGestureRecognizer.init(target: self, action: #selector(showCopyIcon(_:)))
-            cell.addGestureRecognizer(gesture)
-            
             cell.showMessage(message, name: channelDetail.chatLabelTitle)
             
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+        
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        
+        return action == #selector(copy(_:))
+    }
+    
+    func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+        
+        if action == #selector(copy(_:)), let cell = tableview.cellForRow(at: indexPath) as? FromMessageCell  {
+            
+            UIPasteboard.general.string = cell.descriptionLabel.text
+        } else if action == #selector(copy(_:)), let cell = tableview.cellForRow(at: indexPath) as? ToMessageCell  {
+            
+            UIPasteboard.general.string = cell.descriptionLabel.text
         }
     }
     
@@ -557,7 +582,7 @@ extension ChatVC {
             
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            tableViewHeight.constant = StaticContentFile.screenHeight - keyboardHeight - tabBarHeight - 5
+            tableViewHeight.constant = StaticContentFile.screenHeight - keyboardHeight - tabBarHeight - 20
             
             self.scrollviewBottom.constant = keyboardHeight - tabBarHeight + 5
         }
@@ -579,44 +604,6 @@ extension ChatVC : UITextFieldDelegate {
         
         view.endEditing(true)
         return true
-    }
-}
-
-extension ChatVC {
-    
-    func showCopyIcon(_ gesture: UILongPressGestureRecognizer) {
-        
-        if !popAnimator.isHidden, let cell = gesture.view as? UITableViewCell,
-            let indexpath = tableview.indexPath(for: cell) {
-            
-            createCopyButton(indexpath.row, cell: cell)
-        }
-    }
-    
-    fileprivate func createCopyButton(_ index: Int, cell: UITableViewCell) {
-        
-        let rect1 = self.view.convert(cell.frame, from: cell.superview)
-        let v1 = UIView.init(frame: rect1)
-        let button = UIButton.init(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        button.backgroundColor = UIColor.black
-        button.addTarget(self, action: #selector(copyToClipBoard(_:)), for: .touchUpInside)
-        button.tag = index
-        button.setTitle("Copy", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        popAnimator.show(at: v1, withContentView: button, in: self.view)
-    }
-    
-    @objc fileprivate func copyToClipBoard(_ sender: UIButton) {
-        
-        if let cell = tableview.cellForRow(at: IndexPath(row: sender.tag, section: 0))  as? FromMessageCell {
-            
-            UIPasteboard.general.string = cell.descriptionLabel.text
-        } else if let cell = tableview.cellForRow(at: IndexPath(row: sender.tag, section: 0))  as? ToMessageCell {
-            
-            UIPasteboard.general.string = cell.descriptionLabel.text
-        }
-        
-        popAnimator.dismiss()
     }
 }
 

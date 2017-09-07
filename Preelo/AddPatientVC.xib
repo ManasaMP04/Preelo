@@ -176,6 +176,7 @@
         <tapGestureRecognizer id="mgN-Hl-vXo">
             <connections>
                 <action selector="tapGestureTapped:" destination="-1" id="O5G-3w-HUr"/>
+                <outlet property="delegate" destination="-1" id="dBJ-LL-c6e"/>
             </connections>
         </tapGestureRecognizer>
     </objects>

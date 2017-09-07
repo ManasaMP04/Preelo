@@ -8,11 +8,6 @@
 
 import UIKit
 
-protocol ToMessageCellDelegate: class {
-    
-    func gestureIsTapedForCell(_ cell: ToMessageCell)
-}
-
 class ToMessageCell: UITableViewCell {
 
     @IBOutlet fileprivate weak var cardView         : UIView!
@@ -21,7 +16,6 @@ class ToMessageCell: UITableViewCell {
     @IBOutlet fileprivate weak var timeStamp        : UILabel!
     
     static let cellId = "ToMessageCell"
-    weak var delegate: ToMessageCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,11 +29,6 @@ class ToMessageCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         
-    }
- 
-    @objc fileprivate func showCopyIcon() {
-        
-        delegate?.gestureIsTapedForCell(self)
     }
     
     func showMessage(_ message: RecentMessages, name: String) {

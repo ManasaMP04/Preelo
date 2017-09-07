@@ -134,6 +134,7 @@
                 <outlet property="locationButtonWidth" destination="iqe-eo-r5g" id="M4E-P0-nEH"/>
                 <outlet property="nameLabelLeading" destination="bxy-sf-Q3d" id="P1B-Bf-2Sf"/>
                 <outlet property="parentName" destination="CBY-GP-FNy" id="YbY-IA-uCb"/>
+                <outlet property="separator" destination="y6z-Z1-Qos" id="xrS-yz-cAr"/>
                 <outlet property="separatorTrailing" destination="Kvh-Cr-WPC" id="Mza-kn-cAf"/>
             </connections>
         </tableViewCell>

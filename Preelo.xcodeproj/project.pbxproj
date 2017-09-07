@@ -59,6 +59,8 @@
 		629E4E931EA2AABB00F280AD /* Patients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E921EA2AABB00F280AD /* Patients.swift */; };
 		629E4E951EA2AB7300F280AD /* PatientList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E941EA2AB7300F280AD /* PatientList.swift */; };
 		629E4E971EA2AB7F00F280AD /* FamilyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E4E961EA2AB7F00F280AD /* FamilyList.swift */; };
+		62A9B06C1F5BCDD60065BF70 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A9B06A1F5BCDD50065BF70 /* LocationCell.swift */; };
+		62A9B06D1F5BCDD60065BF70 /* LocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62A9B06B1F5BCDD60065BF70 /* LocationCell.xib */; };
 		62ACD5051EA125D1000B0EDE /* NetworkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5041EA125D1000B0EDE /* NetworkURL.swift */; };
 		62ACD5081EA129BF000B0EDE /* LogInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ACD5071EA129BF000B0EDE /* LogInRouter.swift */; };
 		62AF1DFF1F548C19007AEA1F /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62AF1DFE1F548C19007AEA1F /* DBManager.m */; };
@@ -191,6 +193,8 @@
 		629E4E921EA2AABB00F280AD /* Patients.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patients.swift; sourceTree = "<group>"; };
 		629E4E941EA2AB7300F280AD /* PatientList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientList.swift; sourceTree = "<group>"; };
 		629E4E961EA2AB7F00F280AD /* FamilyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyList.swift; sourceTree = "<group>"; };
+		62A9B06A1F5BCDD50065BF70 /* LocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
+		62A9B06B1F5BCDD60065BF70 /* LocationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationCell.xib; sourceTree = "<group>"; };
 		62ACD5041EA125D1000B0EDE /* NetworkURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkURL.swift; sourceTree = "<group>"; };
 		62ACD5071EA129BF000B0EDE /* LogInRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInRouter.swift; sourceTree = "<group>"; };
 		62AF1DFD1F548C0F007AEA1F /* DBManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
@@ -398,6 +402,8 @@
 				622A8FCB1E9D500C00B34B56 /* ParentDetailCell.swift */,
 				622A8FCC1E9D500C00B34B56 /* ParentDetailCell.xib */,
 				62C6F7F81EB87BCA00D5160A /* RelationPickerView.swift */,
+				62A9B06A1F5BCDD50065BF70 /* LocationCell.swift */,
+				62A9B06B1F5BCDD60065BF70 /* LocationCell.xib */,
 			);
 			name = parentVC;
 			sourceTree = "<group>";
@@ -670,6 +676,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62A9B06D1F5BCDD60065BF70 /* LocationCell.xib in Resources */,
 				8624AF421F1A203500E2FEFD /* EditChildNameVC.xib in Resources */,
 				6202A24A1F5355E900D95722 /* cityList.json in Resources */,
 				6202A22C1F52CDAF00D95722 /* GoogleService-Info.plist in Resources */,
@@ -778,6 +785,7 @@
 				62D064941EA3EEB4007A503F /* addPatient.swift in Sources */,
 				86B5F74C1F16926400D29697 /* SettingsViewController.swift in Sources */,
 				62B823891F3CF4CD00431893 /* SaveImage.swift in Sources */,
+				62A9B06C1F5BCDD60065BF70 /* LocationCell.swift in Sources */,
 				626160F71EC43146002CCCA8 /* RecentMessages.swift in Sources */,
 				622A8FBD1E9D3A1200B34B56 /* ForgotPasswordVC.swift in Sources */,
 				62C6F7F91EB87BCA00D5160A /* RelationPickerView.swift in Sources */,

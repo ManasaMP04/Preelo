@@ -12,30 +12,30 @@ import Alamofire
 
 fileprivate let cellHeight = CGFloat(70)
 
-class PatientListVC: UIViewController {
+struct Address {
     
-    struct Address {
+    var address1 : String
+    var address2 : String
+    var city : String
+    var state: String
+    var zip: String
+    var phone = [String]()
+    var fax   : String
+    
+    var count : Int {
         
-        var address1 : String
-        var address2 : String
-        var city : String
-        var state: String
-        var zip: String
-        var phone = [String]()
-        var fax   : String
+        var i = 1
         
-        var count : Int {
+        if fax.characters.count > 0 {
             
-            var i = 1
-            
-            if fax.characters.count > 0 {
-                
-                i = i + 1
-            }
-            
-            return i + phone.count
+            i = i + 1
         }
+        
+        return i + phone.count
     }
+}
+
+class PatientListVC: UIViewController {
     
     @IBOutlet fileprivate weak var customNavigationBar        : CustomNavigationBar!
     @IBOutlet fileprivate weak var tableView                  : UITableView!
@@ -67,6 +67,12 @@ class PatientListVC: UIViewController {
         let addPatientVC = AddPatientVC(nil)
         
         self.navigationController?.pushViewController(addPatientVC, animated: true)
+    }
+    
+    func removeSelectedIndex() {
+    
+        selectedIndex = nil
+        tableView.reloadData()
     }
     
     func refreshTableview(_ data: PatientList) {
@@ -103,10 +109,7 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
         
         if let path = selectedIndex, path.section == section {
             
-            for detail in docDetail {
-                
-                row += detail.count
-            }
+             row += 1
         }
         
         return row
@@ -116,6 +119,7 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: ParentDetailCell.cellId, for: indexPath) as! ParentDetailCell
         cell.delegate = self
+        
         
         if let data = list[indexPath.section] as? PatientList {
             
@@ -127,28 +131,10 @@ extension PatientListVC: UITableViewDelegate, UITableViewDataSource {
                 let image = list.blocked.lowercased() == "y" ? "Unblock" : "Block"
                 cell.showParentName(list.doctor_firstname , showImage: false, showEdit: true, image: image, showLocation: true, font: UIFont(name: "Ubuntu", size: 16)!, color: UIColor.colorWithHex(0x414042), showInitial: true, initialText: String(list.doctor_firstname.characters.prefix(1)), isLocationSelected: selectedIndex == indexPath)
             } else {
-                
-                
-                
-                if   let detail = docDetail[indexPath.row - 1] as? Locations {
-                    
-                    let address = detail.address1 + " " + detail.address2
-                    cell.showParentName(address , showImage: false, showEdit: false, image: nil, showLocation: false, font: UIFont(name: "Ubuntu-Medium", size: 12)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
-                } else if let detail = docDetail[indexPath.row - 1] as? DoctorPhoneNumbers {
-                    
-                    cell.showParentName(detail.phone_number , showImage: false, showEdit: true, image: "phone", showLocation: false, font: UIFont(name: "Ubuntu-Light", size: 14)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
-                } else if let detail = docDetail[indexPath.row - 1] as? String {
-                    
-                    cell.showParentName(detail , showImage: false, showEdit: false, image: nil, showLocation: false, font: UIFont(name: "Ubuntu-Light", size: 14)!, color: UIColor.colorWithHex(0x414042), showInitial: true)
-                }
-                
-                
-                
-                
-                
-                
-                
-                
+               
+                let cell1 = tableView.dequeueReusableCell(withIdentifier: LocationCell.cellId, for: indexPath) as! LocationCell
+                cell1.showLocation(docDetail)
+                return cell1
             }
         }
         
@@ -354,8 +340,10 @@ extension PatientListVC {
         navigationItem.hidesBackButton = true
         
         tableView.register(UINib(nibName: "ParentDetailCell", bundle: nil), forCellReuseIdentifier: ParentDetailCell.cellId)
+        tableView.register(UINib(nibName: "LocationCell", bundle: nil), forCellReuseIdentifier: LocationCell.cellId)
         
-        if let nav = self.parent as? UINavigationController, let tab =  nav.parent as? TabBarVC {
+        if let nav = self.parent as? UINavigationController,
+            let tab =  nav.parent as? TabBarVC {
             
             if tab.isAPIFetched {
                 

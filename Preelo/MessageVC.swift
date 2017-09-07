@@ -46,6 +46,15 @@ class MessageVC: UIViewController {
         setup()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        
+        super.viewDidAppear(true)
+        
+        DispatchQueue.main.async(execute: { () -> Void in
+            
+            self.lisenSocket () })
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -110,7 +119,6 @@ extension MessageVC {
     fileprivate func setup() {
         
         dbManager.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotification), name: Notification.Name("NotificationIdentifier"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: Notification.Name("reloadData"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationForAuthRequest), name: Notification.Name("AuthNotificationIdentifier"), object: nil)
         
@@ -336,7 +344,10 @@ extension MessageVC{
             list.removeAll()
         }
         
-        let queryString = String(format: "select  * from \(StaticContentFile.channelTableName)")
+        let sl = "SELECT COUNT(*) FROM '\(StaticContentFile.channelTableName)' where userId = '\(StaticContentFile.getId())'"
+        let count = dbManager.getNumberOfRecord(sl)
+        
+        let queryString = String(format: "select  * from '\(StaticContentFile.channelTableName)' where userId = '\(StaticContentFile.getId())'")
         
         dbManager.getDataForQuery(queryString)
     }
@@ -379,10 +390,14 @@ extension MessageVC{
                 self.stopAnimating()
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
+                    self.notificationCount?.text = "\(result.authRequest.count)"
+                    self.notificationCount?.isHidden = result.authRequest.count == 0
+                    
                     if self.selection == .authentication {
                         
                         self.list = result.authRequest
-                        self.reloadData()                    }
+                        self.reloadData()
+                    }
                     
                     StaticContentFile.saveAuthRequest(result)
                 }else if let result = response.result.value {
@@ -444,6 +459,47 @@ extension MessageVC: ChatVCDelegate {
 
 extension MessageVC {
     
+    func lisenSocket () {
+        
+        for skt in webSocket {
+            
+            skt.onAny({ (event) in
+                
+                if event.event == "error" {
+                    
+                    self.showAlert()
+                } else  if (event.event == "chat message" || event.event == "image"),
+                    let data = event.items as? [[String: Any]] {
+                    
+                    DispatchQueue.main.async {
+                        
+                        for dict in data {
+                            
+                            self.saveChannelDataFromSocket(dict)
+                        }
+                    }
+                } else  if event.event == "auth request" ,
+                    let data = event.items as? [[String: Any]] {
+                    
+                    for dict in data {
+                        
+                        self.saveAuthStatusFromSocket(dict, isForAuthorize: false)
+                    }
+                    NotificationCenter.default.post(name: Notification.Name("AuthNotificationIdentifier"), object: nil, userInfo: nil)
+                } else  if event.event == "authorized message" ,
+                    let data = event.items as? [[String: Any]] {
+                    
+                    for dict in data {
+                        
+                        self.saveAuthStatusFromSocket(dict, isForAuthorize: true)
+                    }
+                    
+                    NotificationCenter.default.post(name: Notification.Name("AuthNotificationIdentifier"), object: nil, userInfo: nil)
+                }
+            })
+        }
+    }
+    
     func establishConnection() {
         
         if let servers = defaults.value(forKey: "socketServers") as? [[String: Any]] {
@@ -456,41 +512,6 @@ extension MessageVC {
                     let skt = SocketIOClient( socketURL: UrlForSocket, config: [.connectParams(["token": StaticContentFile.getToken()])])
                     
                     webSocket.append(skt)
-                    
-                    skt.onAny({ (event) in
-                        
-                        if event.event == "error" {
-                            
-                            self.showAlert()
-                        } else  if (event.event == "chat message" || event.event == "image"),
-                            let data = event.items as? [[String: Any]] {
-                            
-                            for dict in data {
-                                
-                                self.saveChannelDataFromSocket(dict)
-                            }
-                            
-                            NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: nil, userInfo: nil)
-                        } else  if event.event == "auth request" ,
-                            let data = event.items as? [[String: Any]] {
-                            
-                            for dict in data {
-                                
-                                self.saveAuthStatusFromSocket(dict, isForAuthorize: false)
-                            }
-                            
-                            NotificationCenter.default.post(name: Notification.Name("AuthNotificationIdentifier"), object: nil, userInfo: nil)
-                        } else  if event.event == "authorized message" ,
-                            let data = event.items as? [[String: Any]] {
-                            
-                            for dict in data {
-                                
-                                self.saveAuthStatusFromSocket(dict, isForAuthorize: true)
-                            }
-                            
-                            NotificationCenter.default.post(name: Notification.Name("AuthNotificationIdentifier"), object: nil, userInfo: nil)
-                        }
-                    })
                     skt.connect()
                 }
             }
@@ -508,29 +529,6 @@ extension MessageVC {
     @objc fileprivate func reloadData() {
         
         tableview.reloadData()
-    }
-    
-    @objc fileprivate func handleNotification() {
-        
-        getChannel()
-        
-        if let vc = self.navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC, let details = list as? [ChannelDetail] {
-            
-            for (i,data) in details.enumerated() {
-                
-                let d1 = data
-                d1.unread_count = 0
-                list[i] = d1
-                self.reloadData()
-                
-                StaticContentFile.updateChannelDetail(d1, isAuthStatus: false, dbManager: dbManager)
-                
-                if data.channel_id == selectedChannelId {
-                    
-                    vc.channelDetail = data
-                    vc.refresh()
-                    return
-                }}}
     }
     
     @objc fileprivate func handleNotificationForAuthRequest() {
@@ -596,7 +594,6 @@ extension MessageVC {
                 channel.auth_status = auth
             }
             
-            StaticContentFile.updateChannelDetail(channel, isAuthStatus: false, dbManager: dbManager )
             let sender = (email == loginEmail) ? "you" : "not you"
             
             if msgType == "simple" {
@@ -604,14 +601,51 @@ extension MessageVC {
                 let recentMsg = RecentMessages(msgType, text: message, image: nil, senderId: sender, timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
                 recentMsg.message_id = msgId
                 channel.recent_message = [recentMsg]
+                
+                insertintoChannel(id, recentMsg: recentMsg)
+                
                 StaticContentFile.insertRowIntoDB(recentMsg, channelDetail: channel, dbManager: self.dbManager)
             } else if let image = event["image_url"] as? String {
                 
                 let recentMsg = RecentMessages(msgType, text: message, image: image, senderId: sender, timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
                 recentMsg.message_id = msgId
                 channel.recent_message = [recentMsg]
+                
+                insertintoChannel(id, recentMsg: recentMsg)
                 StaticContentFile.insertRowIntoDB(recentMsg, channelDetail: channel, dbManager: self.dbManager)
             }
+            
+            StaticContentFile.updateChannelDetail(channel, isAuthStatus: false, dbManager: dbManager )
+        }
+    }
+    
+    fileprivate func insertintoChannel(_ channelId: Int, recentMsg: RecentMessages) {
+        
+        if let details = list as? [ChannelDetail] {
+            
+            let indexes = details.enumerated().filter {
+                $0.element.channel_id == channelId
+                }.map{$0.offset}
+            
+            for index in indexes {
+                
+                let detail = details[index]
+                detail.lastMsg = recentMsg.message_text
+                detail.lastMsgId = recentMsg.message_id
+                detail.recent_message.append(recentMsg)
+                detail.unread_count =  detail.unread_count + 1
+                
+                if let vc = self.navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC {
+                    
+                    if channelId == selectedChannelId {
+                        
+                        vc.channelDetail = detail
+                        vc.refresh()
+                    }
+                }
+            }
+            
+            tableview?.reloadData()
         }
     }
     
