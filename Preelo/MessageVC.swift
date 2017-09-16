@@ -55,17 +55,12 @@ class MessageVC: UIViewController {
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        
-        self.hidesBottomBarWhenPushed = true
-        super.viewWillDisappear(true)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(true)
         
-        if let tab = self.parent as? TabBarVC {
+        if let nav = self.parent as? UINavigationController,
+            let tab = nav.parent as? TabBarVC {
             
             tab.tabBar.isHidden = false
             tab.changeTheItem()

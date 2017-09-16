@@ -105,6 +105,7 @@ extension TabBarVC {
             
             nav.popToRootViewController(animated: true)
             nav1.popToRootViewController(animated: true)
+            self.tabBar.isHidden = false
         }
     }
 }

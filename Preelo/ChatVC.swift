@@ -47,11 +47,10 @@ class ChatVC: UIViewController {
     fileprivate var name                = ""
     fileprivate let popAnimator   = DXPopover()
     var dbManager       = DBManager.init(fileName: "chat.db")!
-    fileprivate var authViewHeight = CGFloat(140)
+    fileprivate var authViewHeight = CGFloat(160)
     
+    var lastScrollOffsetY: CGFloat = 0
     fileprivate var cellToShowMenu: UITableViewCell?
-    
-    fileprivate var isScrollUp = false
     
     var channelDetail       : ChannelDetail!
     
@@ -89,11 +88,18 @@ class ChatVC: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        
+        tableview.delegate = self
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setup()
+        tableview.scrollsToTop = true
         addMenuItem()
     }
     
@@ -255,7 +261,7 @@ extension ChatVC {
         tableview.rowHeight  = UITableViewAutomaticDimension
         
         self.messageList.removeAll()
-        getDataFromSqlite(20)
+        getDataFromSqlite()
         
         if Reachability.forInternetConnection().isReachable() {
             
@@ -267,9 +273,17 @@ extension ChatVC {
         }
     }
     
-    fileprivate func getDataFromSqlite(_ limitedNumber: Int) {
+    fileprivate func getDataFromSqlite() {
         
-        let queryString = String(format: "select  * from \(StaticContentFile.messageTableName) where channel_id = '\(channelDetail.channel_id)'")
+        var queryString = ""
+        
+        if messageList.count == 0 {
+            
+            queryString = String(format: "select  * from \(StaticContentFile.messageTableName) where channel_id = '\(channelDetail.channel_id)' ORDER BY message_id DESC LIMIT 20")
+        } else if let msg = messageList.first {
+            
+            queryString = String(format: "select  * from \(StaticContentFile.messageTableName) where channel_id = '\(channelDetail.channel_id)' AND message_id < '\(msg.message_id)' ORDER BY message_id DESC LIMIT '\(messageList.count + 20)'")
+        }
         
         dbManager.getDataForQuery(queryString)
     }
@@ -559,22 +573,40 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelega
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
+        cell.backgroundColor = UIColor.clear
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let currentOffsetY = scrollView.contentOffset.y
+        
+        if  currentOffsetY < lastScrollOffsetY,
+            scrollView == tableview,
+            let indexs = tableview.indexPathsForVisibleRows,
+            indexs.contains(IndexPath(row: 8, section: 0)) {
+            
+           fetchMoreData()
+        }
+        
+        lastScrollOffsetY = scrollView.contentOffset.y
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        
+        fetchMoreData()
+    }
+    
+    fileprivate func fetchMoreData() {
+        
         let sl = "SELECT COUNT(*) FROM '\(StaticContentFile.messageTableName)' where channel_id = '\(channelDetail.channel_id)'"
         
         let count = Int(dbManager.getNumberOfRecord(sl))
         
-        //        if  messageList.count - 1 > indexPath.row,
-        //            messageList.count < count {
-        //
-        //            isScrollUp = true
-        //            getDataFromSqlite(messageList.count + 20)
-        //        } else {
-        //
-        //            isScrollUp = false
-        //        }
-        
-        
-        cell.backgroundColor = UIColor.clear
+        if count != messageList.count {
+            
+            getDataFromSqlite()
+            tableview.reloadData()
+        }
     }
     
     fileprivate func addMenuItem() {
@@ -779,13 +811,7 @@ extension ChatVC: DBManagerDelegate {
         message.message_id = Int(sqlite3_column_int(statement, 6))
         message.senderId = String(cString: sqlite3_column_text(statement, 7))
         
-        if isScrollUp {
-            
-            self.messageList.insert(message, at: 0)
-        }else {
-            
-            self.messageList.append(message)
-        }
+        self.messageList.insert(message, at: 0)
     }
 }
 

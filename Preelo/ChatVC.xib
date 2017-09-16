@@ -112,7 +112,7 @@ authorization to send messages</string>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <connections>
                                         <outlet property="dataSource" destination="-1" id="Ad3-E7-YIp"/>
-                                        <outlet property="delegate" destination="-1" id="0Ku-Fa-RuI"/>
+                                        <outlet property="delegate" destination="-1" id="MRm-zP-Y03"/>
                                         <outletCollection property="gestureRecognizers" destination="u3u-xt-mTy" appends="YES" id="REq-jy-Pkp"/>
                                     </connections>
                                 </tableView>
