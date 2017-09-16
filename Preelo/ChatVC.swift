@@ -298,10 +298,11 @@ extension ChatVC {
         if self.messageList.count > array.count {
             
             tableview.beginUpdates()
+            
             tableview.insertRows(at: [IndexPath(row: array.count, section: 0)], with: .automatic)
             tableview.endUpdates()
             
-            scrollToButtom()
+           self.tableview.scrollToRow(at: IndexPath(row: array.count, section: 0), at: .top, animated: true)
         }
     }
     
