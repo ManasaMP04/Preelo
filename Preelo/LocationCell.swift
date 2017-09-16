@@ -82,6 +82,10 @@ extension LocationCell: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 50
+        if indexPath.row == 0 {
+            
+            return 60
+        }
+        return 35
     }
 }

@@ -61,6 +61,8 @@ class MessageVC: UIViewController {
         
         if let navation = self.parent as? UINavigationController,
             let tab = navation.self.parent as? TabBarVC {
+            
+            tab.tabBar.isHidden = false
             tab.changeTheItem()
         }
     }
@@ -71,7 +73,9 @@ class MessageVC: UIViewController {
             
             DispatchQueue.main.async(execute: { () -> Void in
                 
-                if let data = userList, (eventName == StaticContentFile.socketMsgEventName ||  eventName == StaticContentFile.socketImageEventName) {
+                if let data = userList,
+                    (eventName == StaticContentFile.socketMsgEventName ||  eventName == StaticContentFile.socketImageEventName) {
+                    
                     self.saveChannelDataFromSocket(data)
                 } else if let data = userList, (eventName == StaticContentFile.socketAuthorizeEventName ||  eventName == StaticContentFile.socketAuthRequestEventName) {
                     
@@ -117,12 +121,12 @@ class MessageVC: UIViewController {
         if status, let request = StaticContentFile.getAuthRequest() {
             
             list = request.authRequest
-            tableview?.reloadData()
         } else if !status {
             
             getChannel()
-            tableview?.reloadData()
         }
+        
+        tableview?.reloadData()
     }
 }
 
@@ -167,10 +171,8 @@ extension MessageVC {
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     StaticContentFile.updateAuthRequest(data)
-                    self.list.remove(at: indexPath.row)
                     self.notificationCount.isHidden = result.authRequest.count == 0
                     self.notificationCount.text = "\(result.authRequest.count)"
-                    self.tableview.deleteRows(at: [indexPath], with: .automatic)
                 } else if let result = response.result.value {
                     
                     self.view.showToast(message:  result.message)
@@ -625,7 +627,7 @@ extension MessageVC {
         
         if let doctorid = event["doctorid"] as? Int,
             let patientid = event["patientid"] as? Int,
-        let parentid = event["parentid"] as? Int {
+            let parentid = event["parentid"] as? Int {
             
             let authRequest = AuthorizeRequest()
             let auth = DocAuthorizationRequest()
@@ -635,6 +637,8 @@ extension MessageVC {
             auth.parentid          = parentid
             
             StaticContentFile.updateAuthRequest(auth)
+            
+            self.view.layoutIfNeeded()
             
             if let authStatus = event["auth_status"] as? String, isForAuthorize {
                 
@@ -668,10 +672,7 @@ extension MessageVC {
                 let relationship = event["relationship"] as? String,
                 let title = event["title"] as? String,
                 let subtitle = event["subtitle"] as? String,
-                let family_id = event["family_id"] as? Int,
-                let doctor_firstname = event["doctor_firstname"] as? String,
-                let doctor_lastname = event["doctor_lastname"] as? String {
-                
+                let family_id = event["family_id"] as? Int {
                 
                 auth.firstname = firstname
                 auth.lastname = lastname
@@ -681,9 +682,6 @@ extension MessageVC {
                 auth.subtitle          = subtitle
                 
                 auth.family_id         = family_id
-                auth.doctor_firstname  = doctor_firstname
-                auth.doctor_lastname   = doctor_lastname
-                
                 authRequest.authRequest = [auth]
                 
                 
@@ -698,14 +696,16 @@ extension MessageVC {
             }
             
             if let txt = self.notificationCount.text,
+                let count = Int(txt), isForAuthorize {
+                
+                self.notificationCount.text = "\(count-1)"
+                self.notificationCount.isHidden = count-1 == 0
+            } else if !isForAuthorize,
+                let txt = self.notificationCount.text,
                 let count = Int(txt) {
                 
-                self.notificationCount.isHidden = isForAuthorize ? count-1 == 0 : false
-                self.notificationCount.text = "\(count+1)"
-            } else if !isForAuthorize {
-                
                 self.notificationCount.isHidden = false
-                self.notificationCount.text = "1"
+                self.notificationCount.text = "\(count+1)"
             }
         }
     }

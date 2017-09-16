@@ -17,6 +17,7 @@ class SlideOutVC: UIViewController {
     @IBOutlet fileprivate weak var settings         : UIButton!
     @IBOutlet fileprivate weak var logOut           : UIButton!
     @IBOutlet fileprivate weak var titleLabel       : UILabel!
+    @IBOutlet fileprivate weak var sendInvite       : UIButton!
     
     fileprivate var activityIndicator: UIActivityIndicatorView?
     
@@ -25,6 +26,7 @@ class SlideOutVC: UIViewController {
         
         StaticContentFile.adjustImageAndTitleOffsetsForButton(profileSetting)
         StaticContentFile.adjustImageAndTitleOffsetsForButton(settings)
+        StaticContentFile.adjustImageAndTitleOffsetsForButton(sendInvite)
         StaticContentFile.setButtonFont(logOut, shadowNeeded: false)
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         
@@ -62,7 +64,7 @@ class SlideOutVC: UIViewController {
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
-    
+        
         let vc = CreateAccount(false)
         self.navigationController?.pushViewController(vc, animated: true)
     }

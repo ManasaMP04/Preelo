@@ -258,11 +258,11 @@ extension StaticContentFile {
             for (i,element) in authArray.enumerated() {
                 
                 if let patientId = element["patientid"] as? Int,
-                    let drId = element["doctorid"] as? Int,
                     let parentid = element["parentid"] as? Int,
                     patientId == result.patientid,
-                    drId == result.doctorid,
-                    parentid == result.parentid  {
+                    parentid == result.parentid,
+                    let drId = element["doctorid"] as? Int,
+                    result.doctorid ==  drId {
                     
                     authArray.remove(at: i)
                     

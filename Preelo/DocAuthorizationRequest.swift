@@ -58,6 +58,7 @@ class DocAuthorizationRequest: Mappable {
         dict["relationship"] = relationship
         dict["title"]          = title
         dict["subtitle"]    = subtitle
+        dict["doctorid"]    = StaticContentFile.getId()
         
         return dict
     }

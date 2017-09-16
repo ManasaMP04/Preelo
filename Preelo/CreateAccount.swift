@@ -23,38 +23,33 @@ class CreateAccount: UIViewController {
         case city
         case countryCode
     }
-
+    
     @IBOutlet weak var countrycode: UILabel!
     @IBOutlet weak var customNavigationBar: CustomNavigationBar!
     @IBOutlet weak var account: UIButton!
-    @IBOutlet weak var cityButton: UIButton!
-    @IBOutlet weak var stateButton: UIButton!
-    @IBOutlet weak var countryButton: UIButton!
     @IBOutlet weak var accountTypeTitle: UILabel!
     @IBOutlet weak var accountType: UILabel!
     @IBOutlet weak var firstName: FloatingTextField!
     @IBOutlet weak var lastName: FloatingTextField!
-    @IBOutlet weak var country: UILabel!
-    @IBOutlet weak var state: UILabel!
     @IBOutlet weak var phoneNumber: FloatingTextField!
-    @IBOutlet weak var city: UILabel!
     @IBOutlet weak var email: FloatingTextField!
     @IBOutlet weak var createAccount: UIButton!
     @IBOutlet weak var countryCodeButton: UIButton!
-    
     @IBOutlet weak var accountView: UIView!
-    @IBOutlet weak var countryView: UIView!
-    @IBOutlet weak var stateView: UIView!
-    @IBOutlet weak var cityView: UIView!
     @IBOutlet weak var ccView: UIView!
+    @IBOutlet weak var cityTf: FloatingTextField!
+    @IBOutlet weak var drLastName: FloatingTextField!
+    @IBOutlet weak var drFirstName: FloatingTextField!
     
-    
+    @IBOutlet weak var drDetailView: NSLayoutConstraint!
     
     fileprivate let popAnimator   = DXPopover()
     fileprivate var selection: Selection = .account
     fileprivate var cityList: CityList!
     
-
+    fileprivate var isPatient = false
+    
+    
     init (_ isForCreateAccount: Bool) {
         
         self.isForCreateAccount = isForCreateAccount
@@ -83,26 +78,8 @@ class CreateAccount: UIViewController {
     }
     
     @IBAction func gestureTapped(_ sender: Any) {
-    
+        
         self.view.endEditing(true)
-    }
-    
-    @IBAction func stateTapped(_ sender: Any) {
-        
-        selection = .state
-        presentPIckerView(stateView, data: cityList.state)
-    }
-    
-    @IBAction func cityTapped(_ sender: Any) {
-        
-        selection = .city
-        presentPIckerView(cityView, data: cityList.city)
-    }
-    
-    @IBAction func countryTapped(_ sender: Any) {
-        
-        selection = .country
-        presentPIckerView(countryView, data: cityList.country)
     }
     
     @IBAction func chooseAccountType(_ sender: Any) {
@@ -199,16 +176,6 @@ extension CreateAccount {
         account.layer.cornerRadius  = 5
         account.layer.borderWidth   = 1
         account.layer.borderColor   =  UIColor(white: 201/255, alpha: 1).cgColor
-        cityButton.layer.cornerRadius  = 5
-        cityButton.layer.borderWidth   = 1
-        cityButton.layer.borderColor   =  UIColor(white: 201/255, alpha: 1).cgColor
-        stateButton.layer.cornerRadius  = 5
-        stateButton.layer.borderWidth   = 1
-        stateButton.layer.borderColor   =  UIColor(white: 201/255, alpha: 1).cgColor
-        countryButton.layer.cornerRadius  = 5
-        countryButton.layer.borderWidth   = 1
-        countryButton.layer.borderColor   = UIColor(white: 201/255, alpha: 1).cgColor
-        
         isForCreateAccount ? customNavigationBar.setTitle("Create New Account") : customNavigationBar.setTitle("Send Invite")
         customNavigationBar.delegate = self
         
@@ -222,6 +189,12 @@ extension CreateAccount {
         email.copy(self)
         phoneNumber.copy(self)
         
+        drFirstName.isCompleteBoarder = true
+        drFirstName.textFieldDelegate = self
+        drLastName.isCompleteBoarder = true
+        drLastName.textFieldDelegate = self
+        cityTf.isCompleteBoarder = true
+        cityTf.textFieldDelegate = self
         firstName.isCompleteBoarder = true
         firstName.textFieldDelegate = self
         phoneNumber.isCompleteBoarder = true
@@ -231,12 +204,19 @@ extension CreateAccount {
         lastName.isCompleteBoarder = true
         email.isCompleteBoarder = true
         
+        StaticContentFile.setFontForTF(drFirstName)
+        StaticContentFile.setFontForTF(drLastName)
+        StaticContentFile.setFontForTF(cityTf)
         StaticContentFile.setFontForTF(firstName)
         StaticContentFile.setFontForTF(lastName)
         StaticContentFile.setFontForTF(phoneNumber)
         StaticContentFile.setFontForTF(email, autoCaps: false)
         StaticContentFile.setButtonFont(createAccount)
         
+        drFirstName.validateForInputType(.generic, andNotifyDelegate: self)
+        drLastName.validateForInputType(.generic, andNotifyDelegate: self)
+        cityTf.validateForInputType(.generic, andNotifyDelegate: self)
+        phoneNumber.validateForInputType(.mobile, andNotifyDelegate: self)
         firstName.validateForInputType(.generic, andNotifyDelegate: self)
         lastName.validateForInputType(.generic, andNotifyDelegate: self)
         email.validateForInputType(.email, andNotifyDelegate: self)
@@ -252,7 +232,17 @@ extension CreateAccount : PreeloTextFieldDelegate {
         if firstName.isFirstResponder {
             
             lastName.becomeFirstResponder()
-        } else if lastName.isFirstResponder {
+        } else if lastName.isFirstResponder, isPatient {
+            
+            drFirstName.becomeFirstResponder()
+            
+        } else if drFirstName.isFirstResponder {
+            
+            drLastName.becomeFirstResponder()
+        } else if lastName.isFirstResponder || drLastName.isFirstResponder  {
+            
+            cityTf.becomeFirstResponder()
+        }else if cityTf.isFirstResponder {
             
             phoneNumber.becomeFirstResponder()
         } else if phoneNumber.isFirstResponder {
@@ -275,20 +265,18 @@ extension CreateAccount: RelationPickerViewDelegate {
     func relationPickerView(_ view: RelationPickerView, text: String) {
         
         if selection == .account {
-        
-        accountType.text = text
-        } else if selection == .country {
             
-            country.text = text
-        } else if selection == .state {
+            accountType.text = text
             
-            state.text = text
-        }else if selection == .city {
-            
-            city.text = text
-        }else if selection == .countryCode {
-            
-            countrycode.text = text
+            if text == "Patient" {
+                
+                isPatient = true
+                drDetailView.constant = 120
+            } else {
+                
+                isPatient = false
+                drDetailView.constant = 0
+            }
         }
         
         popAnimator.dismiss()

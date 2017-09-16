@@ -81,8 +81,13 @@ class ParentDetailVC: UIViewController {
         
         if selectedIndex >= 0 {
             
+            let fly = family
+            fly.patientid = list.family[selectedIndex].patientid
+            fly.parentid = list.family[selectedIndex].parentid
+            fly.id = list.family[selectedIndex].id
+            
             list.family.remove(at: selectedIndex)
-            list.family.insert(family, at: selectedIndex)
+            list.family.insert(fly, at: selectedIndex)
         } else  {
             
             list.family.append(family)
@@ -131,7 +136,7 @@ class ParentDetailVC: UIViewController {
         relationButton.layer.cornerRadius  = 5
         relationButton.layer.borderWidth   = 1
         relationButton.layer.borderColor   = UIColor.lightGray.cgColor
-        customNavigationBar.setTitle("New Patient")
+        self.selectedIndex == -1 ? customNavigationBar.setTitle("New Patient") : customNavigationBar.setTitle("EDIT Patient")
         customNavigationBar.delegate = self
         
         firstName.selectAll(self)
@@ -200,7 +205,7 @@ extension ParentDetailVC: CustomNavigationBarDelegate {
             let okAlert = UIAlertAction.init(title: "YES", style: .default, handler: { (action) in
                 
                 alertVc.dismiss(animated: false, completion: nil)
-                 _ = self.navigationController?.popViewController(animated: true)
+                _ = self.navigationController?.popViewController(animated: true)
             })
             
             let noAlert = UIAlertAction.init(title: "NO", style: .default, handler: { (action) in

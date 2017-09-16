@@ -50,6 +50,8 @@ class ChatVC: UIViewController {
     var dbManager       = DBManager.init(fileName: "chat.db")!
     fileprivate var authViewHeight = CGFloat(140)
     
+    fileprivate var isScrollUp = false
+    
     var channelDetail       : ChannelDetail!
     
     weak var delegate: ChatVCDelegate?
@@ -91,6 +93,16 @@ class ChatVC: UIViewController {
         super.viewDidLoad()
         
         setup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(true)
+        
+        if let nav = self.parent as? UINavigationController, let tabVc = nav.parent as? TabBarVC {
+        
+            tabVc.tabBar.isHidden = true
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -222,7 +234,13 @@ extension ChatVC {
     
     fileprivate func setup() {
         
-        deauthorizeButton.isHidden = true
+        if let image = UIImage(named: "bgImg") {
+            
+            view.backgroundColor = UIColor.init(patternImage: image)
+        }
+        
+        showTheAuthRequestButton()
+        
         messageList.removeAll()
         
         createFooter ()
@@ -236,7 +254,6 @@ extension ChatVC {
         
         StaticContentFile.setButtonFont(requestAuthButton, shadowNeeded: false)
         dbManager.delegate = self
-        showTheAuthRequestButton()
         customeNavigation.setTitle(name)
         customeNavigation.delegate = self
         tableview.register(UINib(nibName: "FromMessageCell", bundle: nil), forCellReuseIdentifier: FromMessageCell.cellId)
@@ -247,22 +264,20 @@ extension ChatVC {
         tableview.rowHeight  = UITableViewAutomaticDimension
         
         self.messageList.removeAll()
+        getDataFromSqlite(20)
         
         if Reachability.forInternetConnection().isReachable() {
             
-            getDataFromSqlite()
             callApiToGetMessages()
         } else {
             
-            getDataFromSqlite()
             self.tableview.reloadData()
             self.scrollToButtom()
         }
     }
     
-    fileprivate func getDataFromSqlite() {
+    fileprivate func getDataFromSqlite(_ limitedNumber: Int) {
         
-        self.messageList.removeAll()
         let queryString = String(format: "select  * from \(StaticContentFile.messageTableName) where channel_id = '\(channelDetail.channel_id)'")
         
         dbManager.getDataForQuery(queryString)
@@ -297,6 +312,7 @@ extension ChatVC {
         
         if !StaticContentFile.isDoctorLogIn(), channelDetail?.auth_status.lowercased() != "t" {
             
+            toolbarView.isUserInteractionEnabled = false
             showAuthRequestTitle("You are not authorized to send messages. Please submit the Authorization Button to request authorization to send messages")
             requestAuthorizationViewHeight.constant = authViewHeight
             authorizationView.isHidden = false
@@ -313,12 +329,13 @@ extension ChatVC {
                 requestAuthButton.backgroundColor = UIColor.lightGray
                 requestAuthButton.layer.borderColor = UIColor.lightGray.cgColor
             } else {
-            
+                
                 requestAuthButton.backgroundColor = UIColor.colorWithHex(0x3DB0BB)
                 requestAuthButton.layer.borderColor = UIColor.colorWithHex(0x3DB0BB).cgColor
             }
         } else {
             
+            toolbarView.isUserInteractionEnabled = true
             requestAuthorizationViewHeight.constant = channelDetail.auth_status.lowercased() != "t" ? authViewHeight : 0
             authorizationView.isHidden = channelDetail.auth_status.lowercased() == "t"
             
@@ -498,7 +515,7 @@ extension ChatVC: CustomNavigationBarDelegate {
 
 //MARK:- UITableViewDelegate, UITableViewDataSource
 
-extension ChatVC: UITableViewDelegate, UITableViewDataSource {
+extension ChatVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -560,7 +577,21 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        cell.backgroundColor = UIColor.colorWithHex(0xFAFAFA)
+        let sl = "SELECT COUNT(*) FROM '\(StaticContentFile.messageTableName)' where channel_id = '\(channelDetail.channel_id)'"
+        
+        let count = Int(dbManager.getNumberOfRecord(sl))
+        
+        //        if  messageList.count - 1 > indexPath.row,
+        //            messageList.count < count {
+        //
+        //            isScrollUp = true
+        //            getDataFromSqlite(messageList.count + 20)
+        //        } else {
+        //
+        //            isScrollUp = false
+        //        }
+        
+        cell.backgroundColor = UIColor.clear
     }
 }
 
@@ -596,7 +627,7 @@ extension ChatVC {
         tableViewHeight.constant = StaticContentFile.screenHeight - 170 - requestAuthorizationViewHeight.constant
         
         self.scrollviewBottom.constant = 0
-        }
+    }
 }
 
 //MARK:- TextFieldDelegate
@@ -704,7 +735,13 @@ extension ChatVC: DBManagerDelegate {
         message.message_id = Int(sqlite3_column_int(statement, 6))
         message.senderId = String(cString: sqlite3_column_text(statement, 7))
         
-        self.messageList.append(message)
+        if isScrollUp {
+            
+            self.messageList.insert(message, at: 0)
+        }else {
+            
+            self.messageList.append(message)
+        }
     }
 }
 
