@@ -44,7 +44,7 @@ class SlideOutVC: UIViewController {
         
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             
-            let initialViewController = self.storyboard?.instantiateViewController(withIdentifier: "navigation")
+            let initialViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "navigation")
             
             appDelegate.window?.rootViewController = initialViewController
         }

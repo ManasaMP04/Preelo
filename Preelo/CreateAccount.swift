@@ -34,6 +34,7 @@ class CreateAccount: UIViewController {
         case countryCode
     }
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var countrycode: UILabel!
     @IBOutlet weak var customNavigationBar: CustomNavigationBar!
     @IBOutlet weak var account: UIButton!
@@ -59,6 +60,15 @@ class CreateAccount: UIViewController {
     
     fileprivate var isPatient = false
     
+    fileprivate var scrollViewBottomInset : CGFloat! {
+        
+        didSet {
+            
+            var currentInset                = self.scrollView.contentInset
+            currentInset.bottom             = scrollViewBottomInset
+            self.scrollView.contentInset    = currentInset
+        }
+    }
     
     init (_ isForCreateAccount: Bool) {
         
@@ -100,6 +110,11 @@ class CreateAccount: UIViewController {
     
     @IBAction func createAccountTapped(_ sender: Any) {
         
+        create()
+    }
+    
+    fileprivate func create() {
+    
         if Reachability.forInternetConnection().isReachable() {
             
             if let phone = phoneNumber.text, phone.characters.count == 10,
@@ -188,26 +203,28 @@ extension CreateAccount {
                 if let result = response.result.value, result.status == "SUCCESS" {
                     
                     self.showViewWithSuccesValue(result.message, isForPatient: isForPatient)
-                } else {
+                } else if let result = response.result.value {
                     
-                    self.view.showToast(message: "Patient Add is failed")
+                    self.view.showToast(message: result.message)
                 }
         }
     }
 
     fileprivate func showViewWithSuccesValue(_ msg: String, isForPatient: Bool) {
     
-        UIView.animate(withDuration: 0.5, animations: {
+        let duration = isForCreateAccount ? 3 : 8
+        
+        UIView.animate(withDuration: TimeInterval(duration), animations: {
             
             self.view.showToast(message: msg)
         }, completion: { (status) in
             
             if self.isForCreateAccount,
                 let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginDetailVC") as? LoginDetailVC {
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginDetailVC") as? LoginDetailVC {
                 
                 let nav = UINavigationController.init(rootViewController: vc)
-                
+                nav.navigationBar.isHidden = true
                 appDelegate.window?.rootViewController = nav
                 
                 vc.isDoctorLogIn = !isForPatient
@@ -270,6 +287,29 @@ extension CreateAccount {
         firstName.validateForInputType(.generic, andNotifyDelegate: self)
         lastName.validateForInputType(.generic, andNotifyDelegate: self)
         email.validateForInputType(.email, andNotifyDelegate: self)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc fileprivate func keyboardWasShown(_ notification: Notification) {
+        
+        if let info = (notification as NSNotification).userInfo {
+            
+            let dictionary = info as NSDictionary
+            
+            let kbSize = (dictionary.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
+            
+            self.scrollViewBottomInset = kbSize.height + 10
+        }
+    }
+    
+    @objc fileprivate func keyboardWillHide(_ notification: Notification) {
+        
+        self.scrollViewBottomInset = 0
     }
 }
 
@@ -298,6 +338,10 @@ extension CreateAccount : PreeloTextFieldDelegate {
         } else if phoneNumber.isFirstResponder {
             
             email.becomeFirstResponder()
+        } else {
+        
+            create()
+            self.view.endEditing(true)
         }
     }
 }

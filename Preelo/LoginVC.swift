@@ -12,6 +12,7 @@ class LoginVC: UIViewController {
     
     @IBOutlet fileprivate weak var doctorLogin              : UIButton!
     @IBOutlet fileprivate weak var patientLogin             : UIButton!
+    @IBOutlet fileprivate weak var createAccount            : UIButton!
     
     fileprivate var isDoctorLogIn: Bool = false
     
@@ -29,13 +30,24 @@ class LoginVC: UIViewController {
     @IBAction func doctorLogin(_ sender: Any) {
         
         isDoctorLogIn = true
-        self.performSegue(withIdentifier: "logIn", sender: nil)
+        pushVc()
     }
     
     @IBAction func patientLogin(_ sender: Any) {
         
         isDoctorLogIn = false
         
+        pushVc()
+    }
+    
+    @IBAction func createAccountButtonTapped(_ sender: Any) {
+        
+        let vc = CreateAccount(true)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    fileprivate func pushVc() {
+    
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginDetailVC") as? LoginDetailVC {
             
             vc.isDoctorLogIn = isDoctorLogIn
@@ -50,6 +62,7 @@ extension LoginVC {
     
     fileprivate func setup() {
         
+        StaticContentFile.setUnderlineForButton(createAccount, text: "Create Account")
         navigationController?.navigationBar.isHidden = true
         if let image = UIImage(named: "Login-BG") {
             

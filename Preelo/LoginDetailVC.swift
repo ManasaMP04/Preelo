@@ -51,8 +51,15 @@ class LoginDetailVC: UIViewController {
     
     @IBAction func backButtonTapped(_ sender: Any) {
         
+        if let vcs = navigationController?.viewControllers, vcs.count > 1 {
         
-        _ = navigationController?.popViewController(animated: true)
+            _ = navigationController?.popViewController(animated: true)
+        } else if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            
+            let initialViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "navigation")
+            
+            appDelegate.window?.rootViewController = initialViewController
+        }
     }
     
     @IBAction func gestureIsTapped(_ sender: Any) {
