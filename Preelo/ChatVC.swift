@@ -32,11 +32,10 @@ class ChatVC: UIViewController {
     @IBOutlet fileprivate weak var requestAuthorizationViewHeight : NSLayoutConstraint!
     @IBOutlet fileprivate weak var requestAuthButton    : UIButton!
     @IBOutlet fileprivate weak var messageTF            : UITextField!
-    @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var deauthorizeButton: UIButton!
-    @IBOutlet weak var cameraButton: UIButton!
-    @IBOutlet weak var galleryButton: UIButton!
-    @IBOutlet weak var scrollviewBottom: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var deauthorizeButton    : UIButton!
+    @IBOutlet fileprivate weak var cameraButton         : UIButton!
+    @IBOutlet fileprivate weak var galleryButton        : UIButton!
+    @IBOutlet fileprivate weak var scrollviewBottom     : NSLayoutConstraint!
     
     fileprivate var messageList         = [RecentMessages]()
     fileprivate var activityIndicator   : UIActivityIndicatorView?
@@ -49,6 +48,8 @@ class ChatVC: UIViewController {
     fileprivate let popAnimator   = DXPopover()
     var dbManager       = DBManager.init(fileName: "chat.db")!
     fileprivate var authViewHeight = CGFloat(140)
+    
+    fileprivate var cellToShowMenu: UITableViewCell?
     
     fileprivate var isScrollUp = false
     
@@ -93,16 +94,7 @@ class ChatVC: UIViewController {
         super.viewDidLoad()
         
         setup()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        super.viewWillAppear(true)
-        
-        if let nav = self.parent as? UINavigationController, let tabVc = nav.parent as? TabBarVC {
-        
-            tabVc.tabBar.isHidden = true
-        }
+        addMenuItem()
     }
     
     override func didReceiveMemoryWarning() {
@@ -199,7 +191,6 @@ extension ChatVC {
         requestAuthorizationViewHeight.constant = show ? authViewHeight : 0
         authorizationView.isHidden = !show
         toolbarView.isUserInteractionEnabled = !show
-        self.tableViewHeight.constant = StaticContentFile.screenHeight - 170 - self.requestAuthorizationViewHeight.constant
         self.deauthorizeButton.isHidden = show
         self.channelDetail.auth_status =  show ? "f" : "t"
         StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: true, dbManager: dbManager, isLastMessage: false)
@@ -350,8 +341,6 @@ extension ChatVC {
             cameraButton.setImage(UIImage(named: "camera-Active"), for: .normal)
             galleryButton.setImage(UIImage(named: "Gallery-Icon Active"), for: .normal)
         }
-        
-        tableViewHeight.constant = StaticContentFile.screenHeight - 170 - requestAuthorizationViewHeight.constant
     }
     
     fileprivate func scrollToButtom() {
@@ -556,23 +545,16 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelega
     
     func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
         
+        cellToShowMenu = tableView.cellForRow(at: indexPath)
         return true
     }
     
     func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         
-        return action == #selector(copy(_:))
+        return false
     }
     
     func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
-        
-        if action == #selector(copy(_:)), let cell = tableview.cellForRow(at: indexPath) as? FromMessageCell  {
-            
-            UIPasteboard.general.string = cell.descriptionLabel.text
-        } else if action == #selector(copy(_:)), let cell = tableview.cellForRow(at: indexPath) as? ToMessageCell  {
-            
-            UIPasteboard.general.string = cell.descriptionLabel.text
-        }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -591,7 +573,63 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelega
         //            isScrollUp = false
         //        }
         
+        
         cell.backgroundColor = UIColor.clear
+    }
+    
+    fileprivate func addMenuItem() {
+        
+        let menuItem = UIMenuItem.init(title: "Copy", action: #selector(copyItem))
+        let menuVc = UIMenuController.shared
+        menuVc.menuItems = [menuItem]
+        menuVc.update()
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(menuControllerWillShow(_:)), name: NSNotification.Name.UIMenuControllerWillShowMenu, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(menuControllerWillHide(_:)), name: NSNotification.Name.UIMenuControllerWillHideMenu, object: nil)
+    }
+    
+    @objc fileprivate func copyItem() {
+        
+        if let cell = cellToShowMenu  as? FromMessageCell {
+            
+            UIPasteboard.general.string = cell.descriptionLabel.text
+        } else if let cell = cellToShowMenu  as? ToMessageCell {
+            
+            UIPasteboard.general.string = cell.descriptionLabel.text
+        }
+    }
+    
+    @objc fileprivate func menuControllerWillShow(_ notification: NSNotification) {
+        
+        let menuVc = UIMenuController.shared
+        
+        var v1 = UIView()
+        if let cell = cellToShowMenu as? FromMessageCell {
+            
+            v1 = cell.cardView
+        } else if let cell = cellToShowMenu  as? ToMessageCell {
+            
+            v1 = cell.cardView
+        }
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIMenuControllerWillShowMenu, object: nil)
+        
+        let size = menuVc.menuFrame.size
+        var menuFrame = CGRect()
+        menuFrame.origin.x = tableview.frame.origin.x
+        menuFrame.size = size
+        menuVc.setMenuVisible(false, animated: false)
+        
+        menuVc.setTargetRect(menuFrame, in: v1)
+        menuVc.setMenuVisible(true, animated: true)
+    }
+    
+    @objc fileprivate func menuControllerWillHide(_ notification: NSNotification) {
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(menuControllerWillShow(_:)), name: NSNotification.Name.UIMenuControllerWillShowMenu, object: nil)
     }
 }
 
@@ -612,21 +650,27 @@ extension ChatVC {
         
         self.view.layoutIfNeeded()
         if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue,
-            let tabBarHeight = self.tabBarController?.tabBar.frame.height {
+            let curve = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? Int,
+            let animationCurve = UIViewAnimationCurve(rawValue: curve),
+            let animation = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval {
+            
+            UIView.beginAnimations(nil, context: nil)
+            UIView.setAnimationDuration(animation)
+            UIView.setAnimationCurve(animationCurve)
+            UIView.setAnimationBeginsFromCurrentState(true)
             
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            tableViewHeight.constant = StaticContentFile.screenHeight - keyboardHeight - tabBarHeight - 20
             
-            self.scrollviewBottom.constant = keyboardHeight - tabBarHeight + 5
+            self.scrollView.contentOffset = CGPoint(x: 0, y: keyboardHeight)
+            
+            UIView.commitAnimations()
         }
     }
     
     @objc fileprivate func keyboardWillHide(_ notification: Notification) {
         
-        tableViewHeight.constant = StaticContentFile.screenHeight - 170 - requestAuthorizationViewHeight.constant
-        
-        self.scrollviewBottom.constant = 0
+        self.scrollView.frame = self.scrollView.frame.offsetBy(dx: 0.0, dy: 0)
     }
 }
 

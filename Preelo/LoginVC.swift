@@ -35,7 +35,12 @@ class LoginVC: UIViewController {
     @IBAction func patientLogin(_ sender: Any) {
         
         isDoctorLogIn = false
-        self.performSegue(withIdentifier: "logIn", sender: nil)
+        
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginDetailVC") as? LoginDetailVC {
+            
+            vc.isDoctorLogIn = isDoctorLogIn
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
@@ -53,14 +58,5 @@ extension LoginVC {
         
         StaticContentFile.setButtonFont(doctorLogin)
         StaticContentFile.setButtonFont(patientLogin)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "logIn" {
-            
-            let loginVC           = segue.destination as? LoginDetailVC
-            loginVC?.isDoctorLogIn = isDoctorLogIn
-        }
     }
 }

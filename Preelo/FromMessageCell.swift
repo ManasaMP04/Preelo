@@ -10,7 +10,7 @@ import UIKit
 
 class FromMessageCell: UITableViewCell {
     
-    @IBOutlet fileprivate weak var cardView             : UIView!
+    @IBOutlet fileprivate(set) weak var cardView             : UIView!
     @IBOutlet fileprivate(set) weak var descriptionLabel: UILabel!
     @IBOutlet fileprivate weak var timeStamp            : UILabel!
     
@@ -30,10 +30,20 @@ class FromMessageCell: UITableViewCell {
        
     }
     
+    @objc fileprivate func copyItem() {
+        
+       UIPasteboard.general.string = self.descriptionLabel.text
+    }
+    
     func showMessage(_ message: RecentMessages) {
         
         let str = Date.dateDiff(dateStr: message.message_date)
         timeStamp.text = str
         descriptionLabel.text = message.message_text
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        
+        return (action == #selector(copyItem))
     }
 }

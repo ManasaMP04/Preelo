@@ -55,12 +55,17 @@ class MessageVC: UIViewController {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        self.hidesBottomBarWhenPushed = true
+        super.viewWillDisappear(true)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(true)
         
-        if let navation = self.parent as? UINavigationController,
-            let tab = navation.self.parent as? TabBarVC {
+        if let tab = self.parent as? TabBarVC {
             
             tab.tabBar.isHidden = false
             tab.changeTheItem()
@@ -206,6 +211,7 @@ extension MessageVC {
                     StaticContentFile.updateChannelDetail(channelData, isAuthStatus: true, dbManager: self.dbManager,isLastMessage: false)
                     
                     let chatVC = ChatVC(channelData)
+                    chatVC.hidesBottomBarWhenPushed = true
                     chatVC.delegate = self
                     self.navigationController?.pushViewController(chatVC, animated: true)
                 } else if let result = response.result.value {
@@ -226,6 +232,7 @@ extension MessageVC: CustomNavigationBarDelegate {
     func tappedBackButtonFromVC(_ customView: CustomNavigationBar) {
         
         if let slideOutVC = storyboard?.instantiateViewController(withIdentifier: "SlideOutVC") {
+            
             navigationController?.pushViewController(slideOutVC, animated: true)
         }
     }

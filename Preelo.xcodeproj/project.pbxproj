@@ -92,6 +92,7 @@
 		62DAC9EC1EABEF04005BB0FF /* SelectChildrenVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62DAC9EA1EABEF04005BB0FF /* SelectChildrenVC.xib */; };
 		62DAC9EE1EABF897005BB0FF /* AuthorizeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAC9ED1EABF897005BB0FF /* AuthorizeRouter.swift */; };
 		62DAC9F01EABFD58005BB0FF /* AuthorizeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DAC9EF1EABFD58005BB0FF /* AuthorizeRequest.swift */; };
+		62DC50C81F6CFDFF0052FB45 /* CreateAccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DC50C71F6CFDFF0052FB45 /* CreateAccountRouter.swift */; };
 		62E3AB7D1EA101410061802F /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E3AB7B1EA101410061802F /* ChatCell.swift */; };
 		62E3AB7E1EA101410061802F /* ChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62E3AB7C1EA101410061802F /* ChatCell.xib */; };
 		62E3AB821EA107530061802F /* DisclaimerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E3AB801EA107530061802F /* DisclaimerVC.swift */; };
@@ -229,6 +230,7 @@
 		62DAC9EA1EABEF04005BB0FF /* SelectChildrenVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectChildrenVC.xib; sourceTree = "<group>"; };
 		62DAC9ED1EABF897005BB0FF /* AuthorizeRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizeRouter.swift; sourceTree = "<group>"; };
 		62DAC9EF1EABFD58005BB0FF /* AuthorizeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizeRequest.swift; sourceTree = "<group>"; };
+		62DC50C71F6CFDFF0052FB45 /* CreateAccountRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountRouter.swift; sourceTree = "<group>"; };
 		62E3AB7B1EA101410061802F /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		62E3AB7C1EA101410061802F /* ChatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatCell.xib; sourceTree = "<group>"; };
 		62E3AB801EA107530061802F /* DisclaimerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclaimerVC.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				624B44551EAE79410014D2A2 /* AuthorizationRequestListRouter.swift */,
 				62D027DC1EB12E0500A6ACF3 /* SendTextMessageRouter.swift */,
 				865933E91F1E810B0088064F /* SettingRouter.swift */,
+				62DC50C71F6CFDFF0052FB45 /* CreateAccountRouter.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -790,6 +793,7 @@
 				86B5F74C1F16926400D29697 /* SettingsViewController.swift in Sources */,
 				62B823891F3CF4CD00431893 /* SaveImage.swift in Sources */,
 				62A9B06C1F5BCDD60065BF70 /* LocationCell.swift in Sources */,
+				62DC50C81F6CFDFF0052FB45 /* CreateAccountRouter.swift in Sources */,
 				626160F71EC43146002CCCA8 /* RecentMessages.swift in Sources */,
 				622A8FBD1E9D3A1200B34B56 /* ForgotPasswordVC.swift in Sources */,
 				62C6F7F91EB87BCA00D5160A /* RelationPickerView.swift in Sources */,

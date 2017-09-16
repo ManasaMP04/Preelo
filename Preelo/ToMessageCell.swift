@@ -10,7 +10,7 @@ import UIKit
 
 class ToMessageCell: UITableViewCell {
 
-    @IBOutlet fileprivate weak var cardView         : UIView!
+    @IBOutlet fileprivate(set) weak var cardView         : UIView!
     @IBOutlet fileprivate weak var nameLabel        : UILabel!
     @IBOutlet fileprivate(set) weak var descriptionLabel : UILabel!
     @IBOutlet fileprivate weak var timeStamp        : UILabel!
@@ -36,5 +36,15 @@ class ToMessageCell: UITableViewCell {
         descriptionLabel.text = message.message_text
         nameLabel.text = name
         timeStamp.text = Date.dateDiff(dateStr: message.message_date)
+    }
+    
+    @objc fileprivate func copyItem() {
+        
+        UIPasteboard.general.string = self.descriptionLabel.text
+    }
+
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        
+        return (action == #selector(copyItem))
     }
 }

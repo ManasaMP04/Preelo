@@ -11,6 +11,19 @@ import AlamofireObjectMapper
 import Alamofire
 import DXPopover
 
+struct CreateAccountDetails {
+    
+    var  accountType : String
+    var fName : String
+    var lName : String
+    var drFName : String
+    var drLName : String
+    var cityName : String
+    var ccName : String
+    var phone : String
+    var email : String
+}
+
 class CreateAccount: UIViewController {
     
     fileprivate var isForCreateAccount = true
@@ -18,9 +31,6 @@ class CreateAccount: UIViewController {
     enum Selection: Int {
         
         case account = 0
-        case country
-        case state
-        case city
         case countryCode
     }
     
@@ -90,7 +100,38 @@ class CreateAccount: UIViewController {
     
     @IBAction func createAccountTapped(_ sender: Any) {
         
-        callAPIToCreatAccount()
+        if Reachability.forInternetConnection().isReachable() {
+            
+            if let phone = phoneNumber.text, phone.characters.count == 10,
+                let email = email.text,StaticContentFile.isValidEmail(email),
+                let lastname = lastName.text, lastname.characters.count > 0,
+                let firstName = firstName.text,  firstName.characters.count > 0,
+                let city = cityTf.text, city.characters.count > 0,
+                let accountType = accountType.text,
+                let cc = countrycode.text {
+                
+                var drFname = ""
+                var drLname = ""
+                if accountType == "Patient", let drFN = drFirstName.text, let drLN = drLastName.text {
+                    
+                    drFname = drFN
+                    drLname = drLN
+                } else if accountType == "Patient" {
+                    
+                    self.view.showToast(message: "Please Enter the required fields")
+                }
+                
+                let detail = CreateAccountDetails(accountType: accountType,fName: firstName, lName: lastname, drFName: drFname, drLName: drLname, cityName: city, ccName: cc, phone: phone, email: email)
+                
+                isForCreateAccount ?  callAPIToCreatAccount(CreateAccountRouter.createAccount(detail), isForPatient: accountType == "Patient") : callAPIToCreatAccount(CreateAccountRouter.invite(detail), isForPatient: accountType == "Patient")
+            } else {
+                
+                self.view.showToast(message: "Please Enter the required fields")
+            }
+        } else if !Reachability.forInternetConnection().isReachable() {
+            
+            self.view.showToast(message: "Please check the internet connection")
+        }
     }
 }
 
@@ -133,40 +174,49 @@ extension CreateAccount {
         }
     }
     
-    fileprivate func callAPIToCreatAccount() {
+    fileprivate func callAPIToCreatAccount(_ request: URLRequestConvertible, isForPatient: Bool) {
         
-        if let phone = phoneNumber.text, phone.characters.count == 10,
-            let email = email.text,StaticContentFile.isValidEmail(email),
-            let lastname = lastName.text, lastname.characters.count > 0,
-            let firstName = firstName.text,  firstName.characters.count > 0 {
-            
-            let activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
-            activityIndicator.startAnimating()
-            self.view.isUserInteractionEnabled = false
-            
-            Alamofire.request(PatientRouter.get())
-                .responseObject { (response: DataResponse<ForgotPassword>) in
+        let activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
+        activityIndicator.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        
+        Alamofire.request(request)
+            .responseObject { (response: DataResponse<SuccessStatus>) in
+                
+                activityIndicator.stopAnimating()
+                self.view.isUserInteractionEnabled = true
+                if let result = response.result.value, result.status == "SUCCESS" {
                     
-                    activityIndicator.stopAnimating()
-                    self.view.isUserInteractionEnabled = true
-                    if let result = response.result.value, result.status == "SUCCESS" {
-                        
-                        UIView.animate(withDuration: 0.9, animations: {
-                            
-                            self.view.showToast(message: result.message)
-                        }, completion: { (status) in
-                            
-                            _ = self.navigationController?.popViewController(animated: true)
-                        })
-                    } else {
-                        
-                        self.view.showToast(message: "Patient Add is failed")
-                    }}} else {
-            
-            self.view.showToast(message: "Please enter the required fields")
+                    self.showViewWithSuccesValue(result.message, isForPatient: isForPatient)
+                } else {
+                    
+                    self.view.showToast(message: "Patient Add is failed")
+                }
         }
     }
+
+    fileprivate func showViewWithSuccesValue(_ msg: String, isForPatient: Bool) {
     
+        UIView.animate(withDuration: 0.5, animations: {
+            
+            self.view.showToast(message: msg)
+        }, completion: { (status) in
+            
+            if self.isForCreateAccount,
+                let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginDetailVC") as? LoginDetailVC {
+                
+                let nav = UINavigationController.init(rootViewController: vc)
+                
+                appDelegate.window?.rootViewController = nav
+                
+                vc.isDoctorLogIn = !isForPatient
+            } else if !self.isForCreateAccount {
+                
+                _ = self.navigationController?.popViewController(animated: true)
+            }})
+    }
+
     fileprivate func setup() {
         
         prepareCityList()

@@ -29,7 +29,6 @@
                 <outlet property="requestAuthorizationViewHeight" destination="xsS-eV-WSn" id="YKc-UU-gNK"/>
                 <outlet property="scrollView" destination="WAt-Pe-tRq" id="6wi-Wt-7fM"/>
                 <outlet property="scrollviewBottom" destination="k3s-7E-I4o" id="KAP-wU-HUJ"/>
-                <outlet property="tableViewHeight" destination="JPB-ew-ake" id="s7V-Da-i16"/>
                 <outlet property="tableview" destination="Wcp-gu-6Ue" id="a1L-vm-q97"/>
                 <outlet property="toolbarView" destination="oxm-pz-0QZ" id="hoQ-Zb-EX2"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -66,7 +65,7 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAt-Pe-tRq">
                     <rect key="frame" x="0.0" y="60" width="375" height="607"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xUv-Ng-3SV">
+                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xUv-Ng-3SV">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lTA-JT-YDU">
@@ -109,11 +108,8 @@ authorization to send messages</string>
                                     </constraints>
                                 </view>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wcp-gu-6Ue">
-                                    <rect key="frame" x="0.0" y="362" width="375" height="200"/>
+                                    <rect key="frame" x="0.0" y="144" width="375" height="418"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="200" id="JPB-ew-ake"/>
-                                    </constraints>
                                     <connections>
                                         <outlet property="dataSource" destination="-1" id="Ad3-E7-YIp"/>
                                         <outlet property="delegate" destination="-1" id="0Ku-Fa-RuI"/>
@@ -196,7 +192,7 @@ authorization to send messages</string>
                                 <constraint firstItem="Wcp-gu-6Ue" firstAttribute="trailing" secondItem="lTA-JT-YDU" secondAttribute="trailing" id="PzP-Cv-pGt"/>
                                 <constraint firstItem="lTA-JT-YDU" firstAttribute="leading" secondItem="xUv-Ng-3SV" secondAttribute="leading" id="SYf-Rh-Nd3"/>
                                 <constraint firstItem="lTA-JT-YDU" firstAttribute="top" secondItem="xUv-Ng-3SV" secondAttribute="top" id="V8J-DD-noT"/>
-                                <constraint firstItem="Wcp-gu-6Ue" firstAttribute="top" relation="greaterThanOrEqual" secondItem="lTA-JT-YDU" secondAttribute="bottom" constant="10" id="y1T-wW-efx"/>
+                                <constraint firstItem="Wcp-gu-6Ue" firstAttribute="top" secondItem="lTA-JT-YDU" secondAttribute="bottom" id="y1T-wW-efx"/>
                                 <constraint firstItem="oxm-pz-0QZ" firstAttribute="leading" secondItem="xUv-Ng-3SV" secondAttribute="leading" id="ydo-Uu-NzH"/>
                             </constraints>
                         </view>
@@ -216,12 +212,12 @@ authorization to send messages</string>
             <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="WAt-Pe-tRq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4VC-ZH-03x"/>
-                <constraint firstItem="WAt-Pe-tRq" firstAttribute="top" secondItem="tDf-nw-scH" secondAttribute="bottom" id="Fxv-8M-rVT"/>
                 <constraint firstAttribute="trailing" secondItem="WAt-Pe-tRq" secondAttribute="trailing" id="LQa-mJ-XHv"/>
                 <constraint firstItem="tDf-nw-scH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="d2K-vW-QM3"/>
                 <constraint firstAttribute="trailing" secondItem="tDf-nw-scH" secondAttribute="trailing" id="hXB-f7-w36"/>
                 <constraint firstAttribute="bottom" secondItem="WAt-Pe-tRq" secondAttribute="bottom" id="k3s-7E-I4o"/>
                 <constraint firstItem="tDf-nw-scH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kbq-O1-6eA"/>
+                <constraint firstItem="WAt-Pe-tRq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="s6I-Me-bXc"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
