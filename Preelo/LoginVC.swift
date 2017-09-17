@@ -62,7 +62,6 @@ extension LoginVC {
     
     fileprivate func setup() {
         
-        StaticContentFile.setUnderlineForButton(createAccount, text: "Create Account")
         navigationController?.navigationBar.isHidden = true
         if let image = UIImage(named: "Login-BG") {
             

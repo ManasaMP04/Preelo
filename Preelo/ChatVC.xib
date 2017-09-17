@@ -40,10 +40,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDf-nw-scH" customClass="CustomNavigationBar" customModule="Preelo" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                     <subviews>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3q0-dA-zLT">
-                            <rect key="frame" x="325" y="0.0" width="50" height="60"/>
+                            <rect key="frame" x="325" y="0.0" width="50" height="70"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="MgS-gp-bpo"/>
                             </constraints>
@@ -59,14 +60,14 @@
                         <constraint firstItem="3q0-dA-zLT" firstAttribute="top" secondItem="tDf-nw-scH" secondAttribute="top" id="F6Z-Ab-xTl"/>
                         <constraint firstAttribute="trailing" secondItem="3q0-dA-zLT" secondAttribute="trailing" id="Ycv-45-dDe"/>
                         <constraint firstAttribute="bottom" secondItem="3q0-dA-zLT" secondAttribute="bottom" id="joD-RX-kOX"/>
-                        <constraint firstAttribute="height" constant="60" id="xLW-3m-q8F"/>
+                        <constraint firstAttribute="height" constant="70" id="xLW-3m-q8F"/>
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAt-Pe-tRq">
-                    <rect key="frame" x="0.0" y="60" width="375" height="607"/>
+                    <rect key="frame" x="0.0" y="70" width="375" height="597"/>
                     <subviews>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xUv-Ng-3SV">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lTA-JT-YDU">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="144"/>
@@ -108,7 +109,7 @@ authorization to send messages</string>
                                     </constraints>
                                 </view>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wcp-gu-6Ue">
-                                    <rect key="frame" x="0.0" y="144" width="375" height="418"/>
+                                    <rect key="frame" x="0.0" y="144" width="375" height="398"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <connections>
                                         <outlet property="dataSource" destination="-1" id="Ad3-E7-YIp"/>
@@ -117,10 +118,10 @@ authorization to send messages</string>
                                     </connections>
                                 </tableView>
                                 <view contentMode="scaleToFill" verticalCompressionResistancePriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="oxm-pz-0QZ">
-                                    <rect key="frame" x="0.0" y="562" width="375" height="45"/>
+                                    <rect key="frame" x="0.0" y="542" width="375" height="55"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S23-Yt-seN">
-                                            <rect key="frame" x="8" y="0.0" width="45" height="45"/>
+                                            <rect key="frame" x="8" y="0.0" width="45" height="55"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="45" id="MHR-xW-7ac"/>
                                             </constraints>
@@ -130,7 +131,7 @@ authorization to send messages</string>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WLu-iP-TRf">
-                                            <rect key="frame" x="54" y="0.0" width="45" height="45"/>
+                                            <rect key="frame" x="54" y="0.0" width="45" height="55"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="45" id="gAY-RA-sST"/>
                                             </constraints>
@@ -139,14 +140,14 @@ authorization to send messages</string>
                                                 <action selector="galleryButtonTapped:" destination="-1" eventType="touchUpInside" id="KQt-Ch-ig3"/>
                                             </connections>
                                         </button>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type a message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PBg-pE-klS">
-                                            <rect key="frame" x="107" y="7.5" width="207" height="30"/>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type a message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PBg-pE-klS">
+                                            <rect key="frame" x="107" y="8" width="207" height="39"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                            <textInputTraits key="textInputTraits" autocorrectionType="yes"/>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xAF-hp-Svp">
-                                            <rect key="frame" x="322" y="0.0" width="45" height="45"/>
+                                            <rect key="frame" x="322" y="0.0" width="45" height="55"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="45" id="NTP-XC-uWF"/>
                                             </constraints>
@@ -158,9 +159,10 @@ authorization to send messages</string>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="45" id="5Y9-82-0PI"/>
-                                        <constraint firstItem="PBg-pE-klS" firstAttribute="centerY" secondItem="WLu-iP-TRf" secondAttribute="centerY" id="7qB-Qc-vu7"/>
+                                        <constraint firstAttribute="height" constant="55" id="5Y9-82-0PI"/>
                                         <constraint firstItem="xAF-hp-Svp" firstAttribute="leading" secondItem="PBg-pE-klS" secondAttribute="trailing" constant="8" id="Cri-jN-8NT"/>
+                                        <constraint firstAttribute="bottom" secondItem="PBg-pE-klS" secondAttribute="bottom" constant="8" id="Edr-gs-0t0"/>
+                                        <constraint firstItem="PBg-pE-klS" firstAttribute="top" secondItem="oxm-pz-0QZ" secondAttribute="top" constant="8" id="Iyy-od-0Vo"/>
                                         <constraint firstItem="WLu-iP-TRf" firstAttribute="bottom" secondItem="S23-Yt-seN" secondAttribute="bottom" id="L6w-YA-8Sx"/>
                                         <constraint firstItem="S23-Yt-seN" firstAttribute="leading" secondItem="oxm-pz-0QZ" secondAttribute="leading" constant="8" id="OIC-zO-4SY"/>
                                         <constraint firstAttribute="trailing" secondItem="xAF-hp-Svp" secondAttribute="trailing" constant="8" id="SQf-Vk-xcF"/>
@@ -212,12 +214,12 @@ authorization to send messages</string>
             <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="WAt-Pe-tRq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4VC-ZH-03x"/>
+                <constraint firstItem="WAt-Pe-tRq" firstAttribute="top" secondItem="tDf-nw-scH" secondAttribute="bottom" id="8I4-RU-oJX"/>
                 <constraint firstAttribute="trailing" secondItem="WAt-Pe-tRq" secondAttribute="trailing" id="LQa-mJ-XHv"/>
                 <constraint firstItem="tDf-nw-scH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="d2K-vW-QM3"/>
                 <constraint firstAttribute="trailing" secondItem="tDf-nw-scH" secondAttribute="trailing" id="hXB-f7-w36"/>
                 <constraint firstAttribute="bottom" secondItem="WAt-Pe-tRq" secondAttribute="bottom" id="k3s-7E-I4o"/>
                 <constraint firstItem="tDf-nw-scH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kbq-O1-6eA"/>
-                <constraint firstItem="WAt-Pe-tRq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="s6I-Me-bXc"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>

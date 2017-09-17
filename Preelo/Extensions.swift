@@ -168,6 +168,7 @@ extension Date {
         
         let f = DateFormatter()
         f.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SS"
+        f.timeZone = .current
         
         let endDateStr = f.string(from: Date())
         

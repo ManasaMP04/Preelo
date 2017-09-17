@@ -49,6 +49,7 @@ class TabBarVC: UITabBarController {
         }
         
         self.tabBar.isHidden = false
+        self.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
     }
 }
 
@@ -58,7 +59,7 @@ extension TabBarVC {
     
     fileprivate func setup() {
         
-        self.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
+        self.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
         self.navigationController?.navigationBar.isHidden = true
         callLogiApi()
     }

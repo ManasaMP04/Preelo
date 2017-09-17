@@ -33,6 +33,9 @@ class SocketIOManager: NSObject {
                     let skt = SocketIOClient( socketURL: UrlForSocket, config: [.connectParams(["token": StaticContentFile.getToken()])])
                     
                     webSocket.append(skt)
+                    
+                    self.connectToServer(completionHandler: { (userList, success, eventName: String) -> Void in
+                    })
                     skt.connect()
                 }
             }
@@ -47,13 +50,18 @@ class SocketIOManager: NSObject {
         }
     }
     
-    func connectToServer(completionHandler: @escaping (_ userList: [String: AnyObject]?, _ success: Bool, _ eventName: String) -> Void) {
+    func connectToServer(completionHandler: @escaping (_ userList: [String: Any]?, _ success: Bool, _ eventName: String) -> Void) {
         
         for skt in webSocket {
             
             skt.onAny { ( event) -> Void in
                 
-                completionHandler(event.items?[0] as? [String: AnyObject], true, event.event)
+                var dict = event.items?[0] as? [String: Any]
+                dict?["eventName"] = event.event
+                
+                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "receivedRaceResultNotification"), object: nil, userInfo: dict)
+                
+                //completionHandler(event.items?[0] as? [String: Any], true, event.event)
             }
         }
     }

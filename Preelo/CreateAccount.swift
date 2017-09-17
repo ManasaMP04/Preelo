@@ -93,8 +93,8 @@ class CreateAccount: UIViewController {
     
     @IBAction func CountryCodeTapped(_ sender: Any) {
         
-        selection = .countryCode
-        presentPIckerView(countryCodeButton, data: cityList.countryCode)
+//        selection = .countryCode
+//        presentPIckerView(countryCodeButton, data: cityList.countryCode)
     }
     
     @IBAction func gestureTapped(_ sender: Any) {
@@ -239,7 +239,7 @@ extension CreateAccount {
         prepareCityList()
         
         self.automaticallyAdjustsScrollViewInsets = false
-        accountTypeTitle.text = isForCreateAccount ? "Choose Recipient" : "Send Invite"
+        accountTypeTitle.text = isForCreateAccount ? "Choose Your Account Type" : "Choose Recipient"
         account.layer.cornerRadius  = 5
         account.layer.borderWidth   = 1
         account.layer.borderColor   =  UIColor(white: 201/255, alpha: 1).cgColor
@@ -278,7 +278,7 @@ extension CreateAccount {
         StaticContentFile.setFontForTF(lastName)
         StaticContentFile.setFontForTF(phoneNumber)
         StaticContentFile.setFontForTF(email, autoCaps: false)
-        StaticContentFile.setButtonFont(createAccount)
+        StaticContentFile.setButtonFont(createAccount, shadowNeeded: false)
         
         drFirstName.validateForInputType(.generic, andNotifyDelegate: self)
         drLastName.validateForInputType(.generic, andNotifyDelegate: self)

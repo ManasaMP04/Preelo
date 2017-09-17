@@ -47,6 +47,7 @@ class MessageVC: UIViewController {
         
         setup()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSocketConnectionFromNotification(_:)), name: NSNotification.Name(rawValue: "receivedRaceResultNotification"), object: nil)
         handleSocketConnection()
     }
     
@@ -67,7 +68,28 @@ class MessageVC: UIViewController {
         }
     }
     
-    fileprivate func handleSocketConnection() {
+    func handleSocketConnectionFromNotification(_ notification: NSNotification) {
+        
+        if let data = notification.userInfo as? [String: Any],
+            let eventName = data["eventName"] as? String {
+            
+            DispatchQueue.main.async(execute: { () -> Void in
+                
+                if (eventName == StaticContentFile.socketMsgEventName ||  eventName == StaticContentFile.socketImageEventName) {
+                    
+                    self.saveChannelDataFromSocket(data)
+                } else if (eventName == StaticContentFile.socketAuthorizeEventName ||  eventName == StaticContentFile.socketAuthRequestEventName) {
+                    
+                    self.handleNotificationForAuthRequest(data, isForAuthorize: eventName == StaticContentFile.socketAuthorizeEventName)
+                } else if eventName == "error" {
+                    
+                    self.showAlert()
+                }
+            })
+        }
+    }
+    
+    func handleSocketConnection() {
         
         SocketIOManager.sharedInstance.connectToServer(completionHandler: { (userList, success, eventName: String) -> Void in
             
@@ -559,7 +581,7 @@ extension MessageVC {
                 recentMsg.message_id = msgId
                 channel.recent_message = [recentMsg]
                 
-                insertintoChannel(channel, recentMsg: recentMsg)
+                self.insertintoChannel(channel, recentMsg: recentMsg)
                 
                 StaticContentFile.insertRowIntoDB(recentMsg, channelDetail: channel, dbManager: self.dbManager)
             } else if msgType == "image", let image = event["image_url"] as? String {
@@ -569,7 +591,7 @@ extension MessageVC {
                 recentMsg.message_id = msgId
                 channel.recent_message = [recentMsg]
                 
-                insertintoChannel(channel, recentMsg: recentMsg)
+                self.insertintoChannel(channel, recentMsg: recentMsg)
                 StaticContentFile.insertRowIntoDB(recentMsg, channelDetail: channel, dbManager: self.dbManager)
             }
         }
@@ -593,7 +615,9 @@ extension MessageVC {
                 
                 self.list = details
                 
-                if let vc = self.navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC {
+                self.tableview.reloadData()
+                
+                if let vc = navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC {
                     
                     if channel.channel_id == selectedChannelId {
                         
@@ -623,6 +647,11 @@ extension MessageVC {
             
             tableview?.reloadData()
         }
+    }
+    
+    @objc fileprivate func handleSocketMessageData() {
+        
+        
     }
     
     fileprivate func saveAuthStatusFromSocket(_ event: [String: Any], isForAuthorize: Bool) {

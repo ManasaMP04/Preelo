@@ -127,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         let defaults = UserDefaults.standard
         if let status = defaults.value(forKey: "isLoggedIn") as? Bool, status {
-        
+
             SocketIOManager.sharedInstance.establishConnection()
         }
     }

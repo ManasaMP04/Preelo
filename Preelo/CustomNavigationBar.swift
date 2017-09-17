@@ -70,17 +70,17 @@ class CustomNavigationBar: UIView {
         titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont(name: "Ubuntu-Medium", size: 15)
         
-        AutoLayoutHelper.addHorizontalAlignConstraintToView(titleLabel, withCenterOffset: 0)
-       AutoLayoutHelper.addTopSpaceConstraintToView(titleLabel, topSpace: 25)
-        
         backButton = UIButton()
         backButton.addTarget(self, action: #selector(backButtonTapped(_ :)), for: .touchUpInside)
         backButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backButton)
         
         AutoLayoutHelper.addLeadingSpaceConstraintToView(backButton, leadingSpace: 0)
-        AutoLayoutHelper.addVerticalAlignConstraintToView(backButton, withCenterOffset: 5)
-        AutoLayoutHelper.addHeightConstraintToView(backButton, value: 45)
-        AutoLayoutHelper.addWidthConstraintToView(backButton, value: 45)
+        AutoLayoutHelper.addWidthConstraintToView(backButton, value: 60)
+        AutoLayoutHelper.addTopSpaceConstraintToView(backButton, topSpace: 0)
+        AutoLayoutHelper.addBottomSpaceConstraintToView(backButton, bottomSpace: 0)
+        
+        AutoLayoutHelper.addHorizontalAlignConstraintToView(titleLabel, withCenterOffset: 0)
+        AutoLayoutHelper.addVerticalAlignConstraintToView(titleLabel, withCenterOffset: 0)
     }
 }

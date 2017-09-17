@@ -144,9 +144,6 @@ extension LoginDetailVC {
         StaticContentFile.setFontForTF(password, autoCaps: false)
         StaticContentFile.setFontForTF(userName, autoCaps: false)
         StaticContentFile.setButtonFont(login)
-         StaticContentFile.setUnderlineForButton(createAccount, text: "Create Account")
-        
-        
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         
         if isDoctorLogIn {

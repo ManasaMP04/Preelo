@@ -101,6 +101,6 @@ extension ImageListCell: UICollectionViewDelegate, UICollectionViewDataSource, U
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
     
-        cell.backgroundColor = UIColor.colorWithHex(0xFAFAFA)
+        cell.backgroundColor = UIColor.clear
     }
 }

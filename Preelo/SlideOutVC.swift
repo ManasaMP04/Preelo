@@ -13,20 +13,14 @@ import Alamofire
 class SlideOutVC: UIViewController {
     
     @IBOutlet fileprivate weak var slideButton      : UIButton!
-    @IBOutlet fileprivate weak var profileSetting   : UIButton!
-    @IBOutlet fileprivate weak var settings         : UIButton!
     @IBOutlet fileprivate weak var logOut           : UIButton!
     @IBOutlet fileprivate weak var titleLabel       : UILabel!
-    @IBOutlet fileprivate weak var sendInvite       : UIButton!
     
     fileprivate var activityIndicator: UIActivityIndicatorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        StaticContentFile.adjustImageAndTitleOffsetsForButton(profileSetting)
-        StaticContentFile.adjustImageAndTitleOffsetsForButton(settings)
-        StaticContentFile.adjustImageAndTitleOffsetsForButton(sendInvite)
         StaticContentFile.setButtonFont(logOut, shadowNeeded: false)
         activityIndicator = UIActivityIndicatorView.activityIndicatorToView(view)
         

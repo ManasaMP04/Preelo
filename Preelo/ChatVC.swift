@@ -48,6 +48,7 @@ class ChatVC: UIViewController {
     fileprivate let popAnimator   = DXPopover()
     var dbManager       = DBManager.init(fileName: "chat.db")!
     fileprivate var authViewHeight = CGFloat(160)
+    fileprivate var newMsgList = [RecentMessages]()
     
     var lastScrollOffsetY: CGFloat = 0
     fileprivate var cellToShowMenu: UITableViewCell?
@@ -302,7 +303,7 @@ extension ChatVC {
             tableview.insertRows(at: [IndexPath(row: array.count, section: 0)], with: .automatic)
             tableview.endUpdates()
             
-           self.tableview.scrollToRow(at: IndexPath(row: array.count, section: 0), at: .top, animated: true)
+            self.tableview.scrollToRow(at: IndexPath(row: array.count, section: 0), at: .top, animated: true)
         }
     }
     
@@ -397,7 +398,6 @@ extension ChatVC {
         if Reachability.forInternetConnection().isReachable() {
             
             messageTF.text = ""
-            self.view.endEditing(true)
             Alamofire.request(SendTextMessageRouter.post(text))
                 .responseObject { (response: DataResponse<SuccessStatus>) in
                     
@@ -450,6 +450,7 @@ extension ChatVC {
                             self.channelDetail.lastMsgId = msg.message_id
                             self.channelDetail.lastMsg = msg.message_text
                             StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: false, dbManager: self.dbManager, isLastMessage: true, isCount: true)
+                            self.callapiToMarkedRead()
                         }
                     }
                     
@@ -459,11 +460,7 @@ extension ChatVC {
                         StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: false, dbManager: self.dbManager, isLastMessage: false, isCount: true)
                     }
                     
-                    if result.count > 0 {
-                        
-                        self.callapiToMarkedRead()
-                        self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
-                    }
+                    self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: false)
                     
                     self.tableview.reloadData()
                     self.scrollToButtom()
@@ -584,9 +581,9 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelega
         if  currentOffsetY < lastScrollOffsetY,
             scrollView == tableview,
             let indexs = tableview.indexPathsForVisibleRows,
-            indexs.contains(IndexPath(row: 8, section: 0)) {
+            indexs.contains(IndexPath(row: 0, section: 0)) {
             
-           fetchMoreData()
+            fetchMoreData()
         }
         
         lastScrollOffsetY = scrollView.contentOffset.y
@@ -605,8 +602,22 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelega
         
         if count != messageList.count {
             
+            newMsgList.removeAll()
             getDataFromSqlite()
-            tableview.reloadData()
+            
+            var indexPaths = [IndexPath]()
+            
+            for (i, _) in newMsgList.enumerated() {
+                
+                indexPaths.append(IndexPath(row: i, section: 0))
+            }
+            
+            if indexPaths.count > 0 {
+                
+                tableview.beginUpdates()
+                tableview.insertRows(at: indexPaths, with: .none)
+                tableview.endUpdates()
+            }
         }
     }
     
@@ -813,6 +824,8 @@ extension ChatVC: DBManagerDelegate {
         message.senderId = String(cString: sqlite3_column_text(statement, 7))
         
         self.messageList.insert(message, at: 0)
+        
+        newMsgList.insert(message, at: 0)
     }
 }
 
