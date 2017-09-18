@@ -33,20 +33,20 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Zg-eI-Rzo" customClass="CustomNavigationBar" customModule="Preelo" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="70" id="TDa-ze-H8y"/>
+                        <constraint firstAttribute="height" constant="60" id="TDa-ze-H8y"/>
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8M3-qg-kn4">
-                    <rect key="frame" x="0.0" y="70" width="375" height="597"/>
+                    <rect key="frame" x="0.0" y="60" width="375" height="607"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q9W-cZ-41v">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4iA-ew-y5U">
-                                    <rect key="frame" x="30" y="419" width="315" height="45"/>
+                                    <rect key="frame" x="30" y="429" width="315" height="45"/>
                                     <color key="backgroundColor" red="0.81389047489999999" green="0.82780064170000001" blue="0.87997895079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="jpL-Vw-ly7"/>
@@ -78,7 +78,7 @@
                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="done"/>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZSk-dJ-NgX">
-                                    <rect key="frame" x="30" y="484" width="315" height="45"/>
+                                    <rect key="frame" x="30" y="494" width="315" height="45"/>
                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="lAx-t5-aup"/>

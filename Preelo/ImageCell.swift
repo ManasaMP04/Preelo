@@ -29,7 +29,19 @@ class ImageCell: UICollectionViewCell {
         scrollview.delegate = self
     }
     
-    func showImage(_ msg: RecentMessages, showFullImage: Bool) {
+    override func prepareForReuse() {
+        
+        super.prepareForReuse()
+        
+        contentView.transform = CGAffineTransform(scaleX: 1, y: 1)
+    }
+    
+    func showImage(_ msg: RecentMessages, showFullImage: Bool, mirror: Bool = false) {
+        
+        if mirror {
+        
+            contentView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        }
         
         if !showFullImage {
             

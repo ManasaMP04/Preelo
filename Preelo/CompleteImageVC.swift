@@ -34,7 +34,7 @@ class CompleteImageVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        StaticContentFile.setButtonFont(saveImage)
+        StaticContentFile.setButtonFont(saveImage, shadowNeeded: false)
         collectionView.register(UINib(nibName: "ImageCell", bundle: nil), forCellWithReuseIdentifier: ImageCell.cellId)
         customeNavigation.setTitle(name)
         customeNavigation.delegate = self
@@ -50,24 +50,17 @@ class CompleteImageVC: UIViewController {
         
         let msg = imageList[selectedIndex]
         
-        if let name = msg.image_url as? UIImage {
+        if let imageUrl = URL(string: msg.image_url) {
             
-            CustomPhotoAlbum.sharedInstance.save(image: name)
-            self.view.showToast(message: "Saved Successfully")
-        } else if let name = msg.image_url as? String {
-            
-            if let imageUrl = URL(string: name) {
+            let imageView = UIImageView()
+            imageView.sd_setImage(with:imageUrl) { (img, error, cacheType, url) in
                 
-                let imageView = UIImageView()
-                imageView.sd_setImage(with:imageUrl) { (img, error, cacheType, url) in
+                if let image = img {
                     
-                    if let image = img {
-                        
-                        CustomPhotoAlbum.sharedInstance.save(image: image)
-                        self.view.showToast(message: "Saved Successfully")
-                    }
-                }}
-        }
+                    CustomPhotoAlbum.sharedInstance.save(image: image)
+                    self.view.showToast(message: "Saved Successfully")
+                }
+            }}
     }
 }
 

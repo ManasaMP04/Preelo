@@ -31,14 +31,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AkE-ie-2wU" customClass="CustomNavigationBar" customModule="Preelo" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="70" id="Ts5-6K-4c8"/>
+                        <constraint firstAttribute="height" constant="60" id="Ts5-6K-4c8"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myo-bb-dhh">
-                    <rect key="frame" x="30" y="120" width="260" height="185"/>
+                    <rect key="frame" x="30" y="110" width="260" height="185"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P8n-no-oFP">
                             <rect key="frame" x="40" y="125" width="180" height="35"/>

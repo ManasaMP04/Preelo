@@ -93,11 +93,17 @@ class CreateAccount: UIViewController {
     
     @IBAction func CountryCodeTapped(_ sender: Any) {
         
-//        selection = .countryCode
-//        presentPIckerView(countryCodeButton, data: cityList.countryCode)
+        //        selection = .countryCode
+        //        presentPIckerView(countryCodeButton, data: cityList.countryCode)
     }
     
     @IBAction func gestureTapped(_ sender: Any) {
+        
+        if let gest = sender as? UITapGestureRecognizer,
+            let _ = gest.view as? DXPopover {
+            
+            
+        }
         
         self.view.endEditing(true)
     }
@@ -114,7 +120,7 @@ class CreateAccount: UIViewController {
     }
     
     fileprivate func create() {
-    
+        
         if Reachability.forInternetConnection().isReachable() {
             
             if let phone = phoneNumber.text, phone.characters.count == 10,
@@ -168,11 +174,9 @@ extension CreateAccount {
     
     fileprivate func presentPIckerView(_ sender: UIView, data: [String]) {
         
-        let rect = self.view.convert(sender.frame, from: sender.superview)
-        let v1 = UIView.init(frame: rect)
         let relationView    = RelationPickerView(data)
         relationView.delegate = self
-        popAnimator.show(at: v1, withContentView: relationView, in: self.view)
+        popAnimator.show(at: accountView, withContentView: relationView, in: self.view)
     }
     
     fileprivate func prepareCityList () {
@@ -209,9 +213,9 @@ extension CreateAccount {
                 }
         }
     }
-
-    fileprivate func showViewWithSuccesValue(_ msg: String, isForPatient: Bool) {
     
+    fileprivate func showViewWithSuccesValue(_ msg: String, isForPatient: Bool) {
+        
         let duration = isForCreateAccount ? 3 : 8
         
         UIView.animate(withDuration: TimeInterval(duration), animations: {
@@ -233,7 +237,7 @@ extension CreateAccount {
                 _ = self.navigationController?.popViewController(animated: true)
             }})
     }
-
+    
     fileprivate func setup() {
         
         prepareCityList()
@@ -244,6 +248,8 @@ extension CreateAccount {
         account.layer.borderWidth   = 1
         account.layer.borderColor   =  UIColor(white: 201/255, alpha: 1).cgColor
         isForCreateAccount ? customNavigationBar.setTitle("Create New Account") : customNavigationBar.setTitle("Send Invite")
+        
+        isForCreateAccount ? createAccount.setTitle("Create New Account", for: .normal) : createAccount.setTitle("Send Invite", for: .normal)
         customNavigationBar.delegate = self
         
         firstName.selectAll(self)
@@ -339,7 +345,7 @@ extension CreateAccount : PreeloTextFieldDelegate {
             
             email.becomeFirstResponder()
         } else {
-        
+            
             create()
             self.view.endEditing(true)
         }

@@ -19,7 +19,7 @@ protocol RelationPickerViewDelegate: class {
 class RelationPickerView: UIView {
 
     fileprivate var pickerData    = [String]()
-    fileprivate let pickerView    = UIPickerView()
+    fileprivate let pickerView    = UITableView()
     
     weak var delegate : RelationPickerViewDelegate?
     
@@ -48,7 +48,7 @@ class RelationPickerView: UIView {
         AutoLayoutHelper.addLeadingSpaceConstraintToView(pickerView, leadingSpace: 0)
         AutoLayoutHelper.addTopSpaceConstraintToView(pickerView, topSpace: 0)
         AutoLayoutHelper.addBottomSpaceConstraintToView(pickerView, bottomSpace: 0)
-
+        pickerView.tableFooterView = UIView()
         pickerView.dataSource = self
         pickerView.delegate   = self
     }
@@ -56,30 +56,29 @@ class RelationPickerView: UIView {
 
 //MARK:- UIPickerViewDelegate & UIPickerViewDataSource
 
-extension RelationPickerView: UIPickerViewDelegate, UIPickerViewDataSource {
+extension RelationPickerView: UITableViewDataSource, UITableViewDelegate {
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return pickerData.count
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        return pickerData[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        delegate?.relationPickerView(self, text: pickerData[row])
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         return CGFloat(height)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = UITableViewCell.init(style: .default, reuseIdentifier: "cell")
+        cell.textLabel?.text = pickerData[indexPath.row]
+        cell.textLabel?.textAlignment = .center
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+         delegate?.relationPickerView(self, text: pickerData[indexPath.row])
     }
 }

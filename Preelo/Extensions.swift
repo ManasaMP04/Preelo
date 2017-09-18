@@ -174,16 +174,8 @@ extension Date {
             
             if startDate.isToday() {
                 
-                let t = Date().timeIntervalSince(startDate)
-                let formt = DateComponentsFormatter()
-                formt.unitsStyle = .short
-                formt.allowedUnits = [.second, .hour,.minute]
-                let timeStr = formt.string(from: t)
-                
-                if let timeStrs = timeStr?.components(separatedBy: ", "), timeStrs.count > 0 {
-                    
-                    timeAgo = timeStrs[0] + " ago"
-                }
+                f.dateFormat = "hh:mm a"
+                timeAgo = "Today \(f.string(from: startDate))"
             } else if let startDate = f.date(from: dateStr) {
                 
                 f.dateFormat = "dd/MM/yyyy hh:mm a"

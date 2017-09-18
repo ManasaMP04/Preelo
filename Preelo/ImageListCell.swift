@@ -67,6 +67,7 @@ extension ImageListCell: UICollectionViewDelegate, UICollectionViewDataSource, U
         let msg = imageList[indexPath.row]
         let str = msg.senderId.lowercased()
         let time = Date.dateDiff(dateStr: msg.message_date)
+        var mirror = false
         
         if str == "you" {
             
@@ -74,6 +75,7 @@ extension ImageListCell: UICollectionViewDelegate, UICollectionViewDataSource, U
             toNameLabel.text = ""
             fromTime.text = time
             toTime.text = ""
+            mirror = true
             collectionView.transform = CGAffineTransform(scaleX: -1, y: 1)
         } else {
             
@@ -84,7 +86,7 @@ extension ImageListCell: UICollectionViewDelegate, UICollectionViewDataSource, U
             collectionView.transform = CGAffineTransform(scaleX: 1, y: 1)
         }
         
-        cell.showImage(msg, showFullImage: false)
+        cell.showImage(msg, showFullImage: false, mirror: mirror)
         
         return cell
     }

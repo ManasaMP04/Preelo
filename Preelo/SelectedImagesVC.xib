@@ -27,10 +27,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eXW-Gi-KEN" customClass="CustomNavigationBar" customModule="Preelo" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                     <subviews>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6dM-Yc-dJk">
-                            <rect key="frame" x="322" y="12.5" width="45" height="45"/>
+                            <rect key="frame" x="322" y="7.5" width="45" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="Kmv-Z9-5bh"/>
                                 <constraint firstAttribute="width" constant="45" id="TlN-07-qFB"/>
@@ -44,15 +44,15 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="6dM-Yc-dJk" secondAttribute="trailing" constant="8" id="67b-4k-BXB"/>
-                        <constraint firstAttribute="height" constant="70" id="8mn-PL-sdo"/>
+                        <constraint firstAttribute="height" constant="60" id="8mn-PL-sdo"/>
                         <constraint firstItem="6dM-Yc-dJk" firstAttribute="centerY" secondItem="eXW-Gi-KEN" secondAttribute="centerY" id="wqd-0v-CgK"/>
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vee-tU-dUD">
-                    <rect key="frame" x="0.0" y="70" width="375" height="502"/>
+                    <rect key="frame" x="0.0" y="60" width="375" height="512"/>
                     <subviews>
                         <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Add-Patient" translatesAutoresizingMaskIntoConstraints="NO" id="gI2-B5-zeJ">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="502"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="512"/>
                         </imageView>
                     </subviews>
                     <constraints>

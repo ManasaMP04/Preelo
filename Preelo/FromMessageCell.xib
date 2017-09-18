@@ -57,11 +57,11 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xcvjhgfdx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPy-nz-Ihz">
-                        <rect key="frame" x="198" y="8" width="65" height="17"/>
+                        <rect key="frame" x="198" y="8" width="56" height="17"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="vdN-fI-kXX"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="15"/>
+                        <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="13"/>
                         <color key="textColor" red="0.57647058823529407" green="0.58431372549019611" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>

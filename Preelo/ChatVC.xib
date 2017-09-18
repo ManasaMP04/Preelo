@@ -40,10 +40,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDf-nw-scH" customClass="CustomNavigationBar" customModule="Preelo" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                     <subviews>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3q0-dA-zLT">
-                            <rect key="frame" x="325" y="0.0" width="50" height="70"/>
+                            <rect key="frame" x="325" y="0.0" width="50" height="60"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="MgS-gp-bpo"/>
@@ -60,14 +60,14 @@
                         <constraint firstItem="3q0-dA-zLT" firstAttribute="top" secondItem="tDf-nw-scH" secondAttribute="top" id="F6Z-Ab-xTl"/>
                         <constraint firstAttribute="trailing" secondItem="3q0-dA-zLT" secondAttribute="trailing" id="Ycv-45-dDe"/>
                         <constraint firstAttribute="bottom" secondItem="3q0-dA-zLT" secondAttribute="bottom" id="joD-RX-kOX"/>
-                        <constraint firstAttribute="height" constant="70" id="xLW-3m-q8F"/>
+                        <constraint firstAttribute="height" constant="60" id="xLW-3m-q8F"/>
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAt-Pe-tRq">
-                    <rect key="frame" x="0.0" y="70" width="375" height="597"/>
+                    <rect key="frame" x="0.0" y="60" width="375" height="607"/>
                     <subviews>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xUv-Ng-3SV">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lTA-JT-YDU">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="144"/>
@@ -109,7 +109,7 @@ authorization to send messages</string>
                                     </constraints>
                                 </view>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wcp-gu-6Ue">
-                                    <rect key="frame" x="0.0" y="144" width="375" height="398"/>
+                                    <rect key="frame" x="0.0" y="144" width="375" height="408"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <connections>
                                         <outlet property="dataSource" destination="-1" id="Ad3-E7-YIp"/>
@@ -118,7 +118,7 @@ authorization to send messages</string>
                                     </connections>
                                 </tableView>
                                 <view contentMode="scaleToFill" verticalCompressionResistancePriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="oxm-pz-0QZ">
-                                    <rect key="frame" x="0.0" y="542" width="375" height="55"/>
+                                    <rect key="frame" x="0.0" y="552" width="375" height="55"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S23-Yt-seN">
                                             <rect key="frame" x="8" y="0.0" width="45" height="55"/>
