@@ -60,8 +60,6 @@ class SocketIOManager: NSObject {
                 dict?["eventName"] = event.event
                 
                  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "receivedRaceResultNotification"), object: nil, userInfo: dict)
-                
-                //completionHandler(event.items?[0] as? [String: Any], true, event.event)
             }
         }
     }

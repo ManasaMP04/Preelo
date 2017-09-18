@@ -35,13 +35,36 @@ class ImageCell: UICollectionViewCell {
             
             scrollview.isUserInteractionEnabled = false
             imageView.isUserInteractionEnabled = false
-            showImage(msg.thumb_Url, placeHolder: "Small-Image-Loader-With-Shadow")
+            
+            showImage(getImageURLString(msg.thumb_Url), placeHolder: "Small-Image-Loader-With-Shadow")
         } else {
             
             scrollview.isUserInteractionEnabled = true
             imageView.isUserInteractionEnabled = true
-            showImage(msg.image_url,placeHolder: "Big-Image-loading", showToast: true)
+            showImage(getImageURLString(msg.image_url),placeHolder: "Big-Image-loading", showToast: true)
         }
+    }
+    
+    fileprivate func getImageURLString(_ imageURLString: String) -> String {
+        
+        var imageURl = ""
+        for (i,s1) in imageURLString.components(separatedBy: "&key=").enumerated() {
+            
+            var str = s1
+            if i == 0,
+                let tokenRange = s1.range(of: "?") {
+                
+                str.removeSubrange(tokenRange.lowerBound..<str.endIndex)
+                
+                str.append("?token=\(StaticContentFile.getToken())")
+                imageURl.append(str)
+            }else {
+                
+                imageURl.append("&key=\(s1)")
+            }
+        }
+        
+        return imageURl
     }
     
     func showImageWithName(_ imageName: UIImage) {
@@ -50,18 +73,18 @@ class ImageCell: UICollectionViewCell {
     }
     
     fileprivate func showImage(_ image: String, placeHolder: String, showToast: Bool = false) {
-  
         
-//        imageCache.queryDiskCache(forKey: imageUrl.absoluteString, done: {(_ image: UIImage, _ cacheType: SDImageCacheType) -> Void in
-//            if image {
-//                self.imageView.image = image
-//            }
-//            else {
-//                self.imageView.sd_setImage(withURL: imageUrl, placeholderImage: UIImage(named: "placeholder")!, completed: {(_ image: UIImage, _ error: Error, _ cacheType: SDImageCacheType, _ imageURL: URL) -> Void in
-//                    SDImageCache.shared().store(image, forKey: urlForImageString().absoluteString)
-//                })
-//            }
-//        })
+        
+        //        imageCache.queryDiskCache(forKey: imageUrl.absoluteString, done: {(_ image: UIImage, _ cacheType: SDImageCacheType) -> Void in
+        //            if image {
+        //                self.imageView.image = image
+        //            }
+        //            else {
+        //                self.imageView.sd_setImage(withURL: imageUrl, placeholderImage: UIImage(named: "placeholder")!, completed: {(_ image: UIImage, _ error: Error, _ cacheType: SDImageCacheType, _ imageURL: URL) -> Void in
+        //                    SDImageCache.shared().store(image, forKey: urlForImageString().absoluteString)
+        //                })
+        //            }
+        //        })
         
         if let imageUrl     = URL(string: image) {
             

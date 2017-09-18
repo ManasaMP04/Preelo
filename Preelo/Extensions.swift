@@ -170,14 +170,11 @@ extension Date {
         f.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SS"
         f.timeZone = .current
         
-        let endDateStr = f.string(from: Date())
-        
-        if let endDate = f.date(from: endDateStr),
-            let startDate = f.date(from: dateStr) {
+        if let startDate = f.date(from: dateStr) {
             
             if startDate.isToday() {
                 
-                let t = endDate.timeIntervalSince(startDate)
+                let t = Date().timeIntervalSince(startDate)
                 let formt = DateComponentsFormatter()
                 formt.unitsStyle = .short
                 formt.allowedUnits = [.second, .hour,.minute]

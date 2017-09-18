@@ -48,7 +48,6 @@ class MessageVC: UIViewController {
         setup()
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleSocketConnectionFromNotification(_:)), name: NSNotification.Name(rawValue: "receivedRaceResultNotification"), object: nil)
-        handleSocketConnection()
     }
     
     override func didReceiveMemoryWarning() {
@@ -87,27 +86,6 @@ class MessageVC: UIViewController {
                 }
             })
         }
-    }
-    
-    func handleSocketConnection() {
-        
-        SocketIOManager.sharedInstance.connectToServer(completionHandler: { (userList, success, eventName: String) -> Void in
-            
-            DispatchQueue.main.async(execute: { () -> Void in
-                
-                if let data = userList,
-                    (eventName == StaticContentFile.socketMsgEventName ||  eventName == StaticContentFile.socketImageEventName) {
-                    
-                    self.saveChannelDataFromSocket(data)
-                } else if let data = userList, (eventName == StaticContentFile.socketAuthorizeEventName ||  eventName == StaticContentFile.socketAuthRequestEventName) {
-                    
-                    self.handleNotificationForAuthRequest(data, isForAuthorize: eventName == StaticContentFile.socketAuthorizeEventName)
-                } else if eventName == "error" {
-                    
-                    self.showAlert()
-                }
-            })
-        })
     }
     
     @IBAction func authorizationButtonTapped(_ sender: Any) {

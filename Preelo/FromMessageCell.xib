@@ -29,12 +29,12 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iI1-hp-D03">
-                        <rect key="frame" x="209" y="38" width="103" height="48.5"/>
+                        <rect key="frame" x="198" y="38" width="114" height="48.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labelcvbhjgfxd" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4KU-16-5cl">
-                                <rect key="frame" x="10" y="10" width="83" height="28.5"/>
+                                <rect key="frame" x="10" y="10" width="94" height="28.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="12"/>
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="13.600000381469727"/>
                                 <color key="textColor" red="0.25490196078431371" green="0.25098039215686274" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -57,7 +57,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xcvjhgfdx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPy-nz-Ihz">
-                        <rect key="frame" x="209" y="8" width="65" height="17"/>
+                        <rect key="frame" x="198" y="8" width="65" height="17"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="vdN-fI-kXX"/>
                         </constraints>

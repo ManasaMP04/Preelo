@@ -115,6 +115,27 @@ class ChatVC: UIViewController {
         showTheAuthRequestButton()
         self.delegate?.chatVCDelegateToRefresh(self, isAuthRequest: true)
     }
+    
+    func refresh(_ msg: RecentMessages) {
+        
+        if checkWhetherMsgIsValid(msg) {
+            
+            var array = [RecentMessages]()
+            array = self.messageList
+            
+            self.messageList.append(msg)
+            
+            if self.messageList.count > array.count {
+                
+                tableview.beginUpdates()
+                
+                tableview.insertRows(at: [IndexPath(row: array.count, section: 0)], with: .automatic)
+                tableview.endUpdates()
+                
+                self.tableview.scrollToRow(at: IndexPath(row: array.count, section: 0), at: .top, animated: true)
+            }
+        }
+    }
 }
 
 //MARK:- IBActions
@@ -289,22 +310,13 @@ extension ChatVC {
         dbManager.getDataForQuery(queryString)
     }
     
-    func refresh(_ msg: RecentMessages) {
+    fileprivate func checkWhetherMsgIsValid(_ msg: RecentMessages)  ->  Bool {
         
-        var array = [RecentMessages]()
-        array = self.messageList
+        let msgIndex = messageList.enumerated().filter {
+            $0.element.message_id == msg.message_id
+            }.map{$0.offset}
         
-        self.messageList.append(msg)
-        
-        if self.messageList.count > array.count {
-            
-            tableview.beginUpdates()
-            
-            tableview.insertRows(at: [IndexPath(row: array.count, section: 0)], with: .automatic)
-            tableview.endUpdates()
-            
-            self.tableview.scrollToRow(at: IndexPath(row: array.count, section: 0), at: .top, animated: true)
-        }
+        return msgIndex.count == 0
     }
     
     fileprivate func showAuthRequestTitle(_ title: String) {
@@ -441,7 +453,7 @@ extension ChatVC {
                     
                     for (i,msg) in result.enumerated() {
                         
-                        self.messageList.append(msg)
+                        if self.checkWhetherMsgIsValid(msg) { self.messageList.append(msg) }
                         StaticContentFile.insertRowIntoDB(msg, channelDetail: self.channelDetail, dbManager: self.dbManager)
                         
                         if i == result.count - 1 {
@@ -581,7 +593,7 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelega
         if  currentOffsetY < lastScrollOffsetY,
             scrollView == tableview,
             let indexs = tableview.indexPathsForVisibleRows,
-            indexs.contains(IndexPath(row: 0, section: 0)) {
+            indexs.contains(IndexPath(row: 17, section: 0)) {
             
             fetchMoreData()
         }
