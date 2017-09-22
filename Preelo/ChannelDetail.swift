@@ -66,6 +66,7 @@ class ChannelDetail: Mappable {
     var chatTitle           = ""
     var chatLabelTitle      = ""
     var lastMsg             = ""
+    var lastMsgDate         = ""
     
     required init?(map: Map) {
         
@@ -127,5 +128,4 @@ class ChannelDetail: Mappable {
         
         return dict
     }
-    
 }

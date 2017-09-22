@@ -126,6 +126,25 @@ class MessageVC: UIViewController {
             getChannel()
         }
         
+        reloadTableView()
+    }
+    
+    fileprivate func reloadTableView() {
+    
+        if let data = list as? [ChannelDetail] {
+            
+            list = data.sorted(by: {
+                
+                if let d1 =  Date.getDate(dateStr: $0.lastMsgDate),
+                    let d2 = Date.getDate(dateStr: $1.lastMsgDate) {
+                    
+                    return d1.compare(d2) == ComparisonResult.orderedDescending
+                }
+                
+                return false
+            })
+        }
+        
         tableview?.reloadData()
     }
 }
@@ -345,7 +364,7 @@ extension MessageVC{
                     if self.selection == .message {
                         
                         self.list = result.data
-                        self.tableview?.reloadData()
+                       self.reloadTableView()
                     }
                     
                     for detail in result.data {
@@ -383,7 +402,7 @@ extension MessageVC{
                     if self.selection == .authentication {
                         
                         self.list = result.authRequest
-                        self.tableview?.reloadData()
+                        self.reloadTableView()
                     }
                     
                     self.notificationCount.text = "\(result.authRequest.count)"
@@ -414,7 +433,7 @@ extension MessageVC{
                     if self.selection == .authentication {
                         
                         self.list = result.authRequest
-                        self.tableview?.reloadData()
+                        self.reloadTableView()
                     }
                     
                     StaticContentFile.saveAuthRequest(result)
@@ -452,6 +471,7 @@ extension MessageVC: DBManagerDelegate {
             detail.chatTitle = String(cString: sqlite3_column_text(statement, 13))
             detail.chatLabelTitle = String(cString: sqlite3_column_text(statement, 14))
             detail.lastMsgId = Int(sqlite3_column_int(statement, 15))
+            detail.lastMsgDate = String(cString: sqlite3_column_text(statement, 17))
             
             if selection == .message {
                 
@@ -555,7 +575,7 @@ extension MessageVC {
             
             if msgType == "simple" {
                 
-                let recentMsg = RecentMessages(msgType, text: message, image: nil, senderId: sender, timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
+                let recentMsg = RecentMessages(msgType, text: message, image: nil, senderId: sender, timeInterval: Date().stringWithDateFormat("yyyy-MM-dd'T'HH:mm:ss.SS"))
                 recentMsg.message_id = msgId
                 channel.recent_message = [recentMsg]
                 
@@ -565,7 +585,7 @@ extension MessageVC {
             } else if msgType == "image", let image = event["image_url"] as? String {
                 
                 channel.lastMsg = "Image"
-                let recentMsg = RecentMessages(msgType, text: "Image", image: image, senderId: sender, timeInterval: Date().stringWithDateFormat("yyyy-M-dd'T'HH:mm:ss.A"))
+                let recentMsg = RecentMessages(msgType, text: "Image", image: image, senderId: sender, timeInterval: Date().stringWithDateFormat("yyyy-MM-dd'T'HH:mm:ss.SS"))
                 recentMsg.message_id = msgId
                 channel.recent_message = [recentMsg]
                 
@@ -588,12 +608,13 @@ extension MessageVC {
                 let detail = details[index]
                 detail.lastMsg = recentMsg.message_text
                 detail.lastMsgId = recentMsg.message_id
+                detail.lastMsgDate = recentMsg.message_date
                 detail.recent_message = [recentMsg]
                 detail.unread_count =  detail.unread_count + 1
                 
                 self.list = details
                 
-                self.tableview.reloadData()
+                self.reloadTableView()
                 
                 if let vc = navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC {
                     
@@ -623,7 +644,7 @@ extension MessageVC {
                 }
             }
             
-            tableview?.reloadData()
+            reloadTableView()
         }
     }
     
@@ -665,7 +686,7 @@ extension MessageVC {
                         self.list.remove(at: index)
                     }
                     
-                    tableview?.reloadData()
+                    reloadTableView()
                 }
                 
                 if let vc = self.navigationController?.viewControllerWithClass(ChatVC.self) as? ChatVC,
@@ -700,7 +721,7 @@ extension MessageVC {
                     let _ = list as? [DocAuthorizationRequest] {
                     
                     self.list.append(auth)
-                    tableview?.reloadData()
+                    reloadTableView()
                 }
             }
             

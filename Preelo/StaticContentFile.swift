@@ -30,7 +30,7 @@ class StaticContentFile: NSObject {
         
         let dbManager       = DBManager.init(fileName: "chat.db")
         
-        let queryString = String(format: "CREATE TABLE IF NOT EXISTS \(channelTableName) (channel_id int,relationship TEXT, patientname TEXT, doctorname TEXT, parentname TEXT,doctor_initials TEXT, unread_count  int, doctorId  int,parentId  int,patientId  int, auth_status TEXT, doctor_user_id  int,lastMsg  Text, chatTitle TEXT,chatLabelTitle TEXT, lastMsgId int, userId int)")
+        let queryString = String(format: "CREATE TABLE IF NOT EXISTS \(channelTableName) (channel_id int,relationship TEXT, patientname TEXT, doctorname TEXT, parentname TEXT,doctor_initials TEXT, unread_count  int, doctorId  int,parentId  int,patientId  int, auth_status TEXT, doctor_user_id  int,lastMsg  Text, chatTitle TEXT,chatLabelTitle TEXT, lastMsgId int, userId int, lastMsgTime Text)")
         
         let queryString1 = String(format: "CREATE TABLE IF NOT EXISTS \(messageTableName) (channel_id int, message_type TEXT, message_text  TEXT, message_date TEXT,image_url TEXT, thumb_Url TEXT, message_id  int,senderId TEXT)")
         
@@ -71,7 +71,7 @@ class StaticContentFile: NSObject {
             
             let message = channelDetail.recent_message[channelDetail.recent_message.count - 1]
             
-            let queryString1 = String(format: "INSERT INTO '\(channelTableName)' VALUES( '\(channelDetail.channel_id)', '\(channelDetail.relationship.relaceCharacter())', '\(channelDetail.patientname.relaceCharacter())', '\(channelDetail.doctorname.relaceCharacter())', '\(channelDetail.parentname.relaceCharacter())', '\(channelDetail.doctor_initials.relaceCharacter())', '\(channelDetail.unread_count)', '\(channelDetail.doctorId)', '\(channelDetail.parentId)', '\(channelDetail.patientId)', '\(channelDetail.auth_status)', '\(channelDetail.doctor_user_id)', '\(message.message_text.relaceCharacter())', '\(channelDetail.chatTitle.relaceCharacter())', '\(channelDetail.chatLabelTitle.relaceCharacter())', '\(channelDetail.lastMsgId)', '\(StaticContentFile.getId())')")
+            let queryString1 = String(format: "INSERT INTO '\(channelTableName)' VALUES( '\(channelDetail.channel_id)', '\(channelDetail.relationship.relaceCharacter())', '\(channelDetail.patientname.relaceCharacter())', '\(channelDetail.doctorname.relaceCharacter())', '\(channelDetail.parentname.relaceCharacter())', '\(channelDetail.doctor_initials.relaceCharacter())', '\(channelDetail.unread_count)', '\(channelDetail.doctorId)', '\(channelDetail.parentId)', '\(channelDetail.patientId)', '\(channelDetail.auth_status)', '\(channelDetail.doctor_user_id)', '\(message.message_text.relaceCharacter())', '\(channelDetail.chatTitle.relaceCharacter())', '\(channelDetail.chatLabelTitle.relaceCharacter())', '\(channelDetail.lastMsgId)', '\(StaticContentFile.getId())', '\(message.message_date)')")
             
             dbManager.saveDataToDB(forQuery: queryString1)
         }
@@ -85,7 +85,7 @@ class StaticContentFile: NSObject {
             dbManager.update(queryString)
         } else if isLastMessage {
             
-            let queryString = isCount ? (String(format: "update '\(channelTableName)' set lastMsg ='\(channelDetail.lastMsg.relaceCharacter())', unread_count = '\(channelDetail.unread_count)', lastMsgId = '\(channelDetail.lastMsgId)'  where channel_id = '\(channelDetail.channel_id)'")) : (String(format: "update '\(channelTableName)' set lastMsg ='\(channelDetail.lastMsg.relaceCharacter())', lastMsgId = '\(channelDetail.lastMsgId)'  where channel_id = '\(channelDetail.channel_id)'"))
+            let queryString = isCount ? (String(format: "update '\(channelTableName)' set lastMsg ='\(channelDetail.lastMsg.relaceCharacter())', unread_count = '\(channelDetail.unread_count)', lastMsgId = '\(channelDetail.lastMsgId)', lastMsgTime = '\(channelDetail.lastMsgDate)'  where channel_id = '\(channelDetail.channel_id)'")) : (String(format: "update '\(channelTableName)' set lastMsg ='\(channelDetail.lastMsg.relaceCharacter())', lastMsgId = '\(channelDetail.lastMsgId)', lastMsgTime = '\(channelDetail.lastMsgDate)'  where channel_id = '\(channelDetail.channel_id)'"))
             
             dbManager.update(queryString)
         } else {

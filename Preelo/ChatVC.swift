@@ -461,6 +461,7 @@ extension ChatVC {
                             self.channelDetail.unread_count = 0
                             self.channelDetail.lastMsgId = msg.message_id
                             self.channelDetail.lastMsg = msg.message_text
+                             self.channelDetail.lastMsgDate = msg.message_date
                             StaticContentFile.updateChannelDetail(self.channelDetail, isAuthStatus: false, dbManager: self.dbManager, isLastMessage: true, isCount: true)
                             self.callapiToMarkedRead()
                         }

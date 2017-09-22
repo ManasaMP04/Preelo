@@ -146,11 +146,11 @@ extension Date {
     
     func stringWithDateFormat (_ format: String, locale : Locale = Locale(identifier: "en_US_POSIX")) -> String {
         
-        let df          = DateFormatter()
-        df.locale       = locale
-        df.dateFormat   = format
+        let f = DateFormatter()
+        f.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SS"
+        f.timeZone = .current
         
-        return df.string(from: self)
+        return f.string(from: self)
     }
     
     static func dateWithFormat(_ format : String, fromString string: String) -> Date? {
@@ -162,6 +162,15 @@ extension Date {
         return df.date(from: string)
     }
     
+    static func getDate(dateStr:String) -> Date? {
+        
+        let f = DateFormatter()
+        f.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SS"
+        f.timeZone = .current
+        
+        return f.date(from: dateStr)
+    }
+
     static func dateDiff(dateStr:String) -> String {
         
         var timeAgo = ""
